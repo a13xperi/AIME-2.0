@@ -40,7 +40,7 @@ const SESSIONS_DB_ID = process.env.NOTION_SESSIONS_DATABASE_ID!;
 // Configure CORS with restricted origins
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:3000', 'http://localhost:3001'];
+  : ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -447,7 +447,7 @@ app.post('/api/sessions', async (req: Request, res: Response) => {
   try {
     const sessionData = req.body;
 
-    // Build properties object for Notion
+    // Build properties object for Notion (matching actual database schema)
     const properties: any = {
       Name: {
         title: [
@@ -463,29 +463,14 @@ app.post('/api/sessions', async (req: Request, res: Response) => {
           start: new Date().toISOString().split('T')[0], // Today's date
         },
       },
-      Duration: {
-        number: sessionData.duration || 0,
-      },
-      Status: {
+      User: {
         select: {
-          name: 'Completed',
+          name: 'Alex', // Default user
         },
       },
     };
 
-    // Add optional fields
-    if (sessionData.summary) {
-      properties.Notes = {
-        rich_text: [{ text: { content: sessionData.summary } }],
-      };
-    }
-
-    if (sessionData.filesModified) {
-      properties['Files Modified'] = {
-        rich_text: [{ text: { content: sessionData.filesModified } }],
-      };
-    }
-
+    // Add optional fields that actually exist in the database
     if (sessionData.aiAgent) {
       properties['Agent Type'] = {
         select: { name: sessionData.aiAgent },
@@ -504,51 +489,40 @@ app.post('/api/sessions', async (req: Request, res: Response) => {
       };
     }
 
-    if (sessionData.nextSteps) {
-      properties['Next Steps'] = {
-        rich_text: [{ text: { content: sessionData.nextSteps } }],
-      };
+    // Combine all additional content into Notes field since other fields don't exist
+    let notesContent = sessionData.summary || '';
+    
+    if (sessionData.filesModified) { 
+      notesContent += `\n\nFiles Modified:\n${sessionData.filesModified}`; 
     }
-
-    if (sessionData.blockers) {
-      properties.Blockers = {
-        rich_text: [{ text: { content: sessionData.blockers } }],
-      };
+    if (sessionData.nextSteps) { 
+      notesContent += `\n\nNext Steps:\n${sessionData.nextSteps}`; 
     }
-
-    if (sessionData.keyDecisions) {
-      properties['Key Decisions'] = {
-        rich_text: [{ text: { content: sessionData.keyDecisions } }],
-      };
+    if (sessionData.blockers) { 
+      notesContent += `\n\nBlockers:\n${sessionData.blockers}`; 
     }
-
-    if (sessionData.challenges) {
-      properties.Challenges = {
-        rich_text: [{ text: { content: sessionData.challenges } }],
-      };
+    if (sessionData.keyDecisions) { 
+      notesContent += `\n\nKey Decisions:\n${sessionData.keyDecisions}`; 
     }
-
-    if (sessionData.solutions) {
-      properties.Solutions = {
-        rich_text: [{ text: { content: sessionData.solutions } }],
-      };
+    if (sessionData.challenges) { 
+      notesContent += `\n\nChallenges:\n${sessionData.challenges}`; 
     }
-
-    if (sessionData.codeChanges) {
-      properties['Code Changes'] = {
-        rich_text: [{ text: { content: sessionData.codeChanges } }],
-      };
+    if (sessionData.solutions) { 
+      notesContent += `\n\nSolutions:\n${sessionData.solutions}`; 
     }
-
-    if (sessionData.outcomes) {
-      properties.Outcomes = {
-        rich_text: [{ text: { content: sessionData.outcomes } }],
-      };
+    if (sessionData.codeChanges) { 
+      notesContent += `\n\nCode Changes:\n${sessionData.codeChanges}`; 
     }
-
-    if (sessionData.learnings) {
-      properties.Learnings = {
-        rich_text: [{ text: { content: sessionData.learnings } }],
+    if (sessionData.outcomes) { 
+      notesContent += `\n\nOutcomes:\n${sessionData.outcomes}`; 
+    }
+    if (sessionData.learnings) { 
+      notesContent += `\n\nLearnings:\n${sessionData.learnings}`; 
+    }
+    
+    if (notesContent) {
+      properties.Notes = {
+        rich_text: [{ text: { content: notesContent } }],
       };
     }
 
@@ -580,6 +554,83 @@ app.post('/api/sessions', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to create session',
+    });
+  }
+});
+
+// Helper function to map Notion session data to our interface
+const mapNotionSessionToInterface = (pageData: any) => {
+  const props = pageData.properties;
+  
+  // Extract project name from session title
+  let projectName = '';
+  const title = props.Name?.title?.[0]?.plain_text || 'Untitled Session';
+  const titleMatch = title.match(/^[A-Z]\d+\s*-\s*(.+?)(?:\s+Session|$)/i);
+  if (titleMatch) {
+    projectName = titleMatch[1].trim();
+  } else {
+    // Fallback: remove common session keywords
+    projectName = title
+      .replace(/\s*(session|log|work|meeting)\s*/gi, ' ')
+      .replace(/^[A-Z]\d+\s*-\s*/i, '')
+      .trim();
+  }
+
+  return {
+    id: pageData.id,
+    title: title,
+    date: props.Date?.date?.start || new Date().toISOString().split('T')[0],
+    duration: 0, // Default duration
+    projectId: props['Project/Initiative']?.relation?.[0]?.id || '',
+    projectName: projectName,
+    status: 'completed' as const,
+    summary: getFullRichText(props.Notes?.rich_text || []),
+    filesModified: getFullRichText(props['Files Modified']?.rich_text || []),
+    nextSteps: getFullRichText(props['Next Steps']?.rich_text || []),
+    blockers: getFullRichText(props.Blockers?.rich_text || []),
+    aiAgent: props['Agent Type']?.select?.name || '',
+    workspace: props['Workspace Used']?.select?.name || '',
+    type: props['Primary Focus']?.select?.name || 'Documentation',
+    tags: props.Tags?.multi_select?.map((t: any) => t.name) || [],
+    keyDecisions: getFullRichText(props['Key Decisions']?.rich_text || []),
+    challenges: getFullRichText(props.Challenges?.rich_text || []),
+    solutions: getFullRichText(props.Solutions?.rich_text || []),
+    codeChanges: getFullRichText(props['Code Changes']?.rich_text || []),
+    technologiesUsed: props['Technologies Used']?.multi_select?.map((t: any) => t.name) || [],
+    links: getFullRichText(props.Links?.rich_text || []),
+    notes: getFullRichText(props.Notes?.rich_text || []),
+    outcomes: getFullRichText(props.Outcomes?.rich_text || []),
+    learnings: getFullRichText(props.Learnings?.rich_text || []),
+    context: getFullRichText(props.Context?.rich_text || []),
+    toolsUsed: getFullRichText(props['Tools Used']?.rich_text || []),
+  };
+};
+
+// Get single session by ID
+app.get('/api/sessions/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    logger.info(`Fetching session: ${id}`);
+
+    // Get the page directly by ID
+    const pageData: any = await notion.pages.retrieve({
+      page_id: id
+    });
+
+    // Get the page properties
+    const session = mapNotionSessionToInterface(pageData);
+
+    logger.info(`Successfully fetched session: ${session.title}`);
+
+    res.json({
+      success: true,
+      session: session
+    });
+  } catch (error) {
+    logger.error('Error fetching session:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch session'
     });
   }
 });

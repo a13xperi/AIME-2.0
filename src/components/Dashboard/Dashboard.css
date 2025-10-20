@@ -450,6 +450,105 @@
   margin-top: 1rem;
 }
 
+/* Current Sessions Section */
+.current-sessions-section {
+  margin: 2rem 0;
+}
+
+.current-sessions-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.current-sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.current-session-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.current-session-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+}
+
+.session-header h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.session-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.session-meta span {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.session-type {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.session-summary {
+  margin-bottom: 1.5rem;
+}
+
+.session-summary p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.session-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.session-actions .btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.session-actions .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-small {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.85rem !important;
+}
+
+.sessions-overview-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .dashboard-header h1 {
@@ -496,6 +595,16 @@
 
   .dashboard-stats {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .current-sessions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .sessions-overview-actions {
+    flex-direction: column;
+    align-items: center;
   }
 
   .dashboard-actions {

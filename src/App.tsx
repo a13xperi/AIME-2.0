@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import ProjectDetail from './components/ProjectDetail/ProjectDetail';
 import ProjectsList from './components/ProjectsList/ProjectsList';
 import SessionsList from './components/SessionsList/SessionsList';
+import SessionDetail from './components/SessionDetail/SessionDetail';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/projects" element={<ProjectsList />} />
           <Route path="/sessions" element={<SessionsList />} />
           <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/session/:id" element={<SessionDetail />} />
         </Routes>
       </div>
     </Router>

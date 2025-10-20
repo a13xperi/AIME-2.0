@@ -23,6 +23,7 @@ const Dashboard: React.FC = () => {
   const [resumeSession, setResumeSession] = useState<Session | null>(null);
   const [showSessionLogger, setShowSessionLogger] = useState(false);
   const [showProjectCreator, setShowProjectCreator] = useState(false);
+  const [currentSessions, setCurrentSessions] = useState<Session[]>([]);
 
   useEffect(() => {
     loadDashboard();
@@ -44,9 +45,10 @@ const Dashboard: React.FC = () => {
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
     try {
-      const [projectsResponse, statsResponse] = await Promise.all([
+      const [projectsResponse, statsResponse, sessionsResponse] = await Promise.all([
         fetchProjects(),
         fetchDashboardStats(),
+        fetch(`${API_URL}/api/sessions`).then(res => res.json()),
       ]);
 
       if (projectsResponse.success && projectsResponse.data) {
@@ -68,6 +70,15 @@ const Dashboard: React.FC = () => {
         }
       } catch (err) {
         console.error('Failed to load categories:', err);
+      }
+
+      // Set current sessions (all sessions from today)
+      if (sessionsResponse.success && sessionsResponse.sessions && sessionsResponse.sessions.length > 0) {
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+        const todaysSessions = sessionsResponse.sessions.filter((session: Session) => 
+          session.date === today
+        );
+        setCurrentSessions(todaysSessions);
       }
     } catch (err) {
       setError('Failed to load dashboard');
@@ -164,6 +175,57 @@ const Dashboard: React.FC = () => {
             <div className="stat-label">Technologies Used</div>
             <div className="stat-sublabel">{stats.sessionsWithFiles || 0} sessions with files</div>
             <div className="stat-hint">Click to view details →</div>
+          </div>
+        </div>
+      )}
+
+      {/* Current Sessions Section */}
+      {currentSessions.length > 0 && (
+        <div className="current-sessions-section">
+          <h2>🎯 Working On Today ({currentSessions.length} thread{currentSessions.length !== 1 ? 's' : ''})</h2>
+          <div className="current-sessions-grid">
+            {currentSessions.map((session) => (
+              <div key={session.id} className="current-session-card">
+                <div className="session-header">
+                  <h3>{session.title}</h3>
+                  <div className="session-meta">
+                    {session.aiAgent && <span className="session-agent">🤖 {session.aiAgent}</span>}
+                    {session.workspace && <span className="session-workspace">📍 {session.workspace}</span>}
+                    {session.type && <span className="session-type">🎯 {session.type}</span>}
+                  </div>
+                </div>
+                {session.summary && (
+                  <div className="session-summary">
+                    <p>{session.summary.length > 150 ? 
+                      `${session.summary.substring(0, 150)}...` : 
+                      session.summary
+                    }</p>
+                  </div>
+                )}
+                <div className="session-actions">
+                  <button 
+                    className="btn btn-primary btn-small" 
+                    onClick={() => navigate(`/session/${session.id}`)}
+                  >
+                    View Details
+                  </button>
+                  <button 
+                    className="btn btn-secondary btn-small" 
+                    onClick={() => setShowSessionLogger(true)}
+                  >
+                    Add Update
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="sessions-overview-actions">
+            <button className="btn btn-primary" onClick={() => navigate('/sessions')}>
+              View All Sessions
+            </button>
+            <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>
+              Log New Session
+            </button>
           </div>
         </div>
       )}
