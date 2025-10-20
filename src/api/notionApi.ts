@@ -4,7 +4,9 @@
  */
 
 import { Project, Session, ProjectFilters, SessionFilters, ApiResponse } from '../types';
+import { logger } from '../utils/logger';
 
+// Use environment variable or default to localhost for development
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 /**
@@ -29,7 +31,7 @@ export const fetchProjects = async (filters?: ProjectFilters): Promise<ApiRespon
       data: data.projects,
     };
   } catch (error) {
-    console.error('Error fetching projects:', error);
+    logger.error('Error fetching projects:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -54,7 +56,7 @@ export const fetchProject = async (projectId: string): Promise<ApiResponse<Proje
       data: data.project,
     };
   } catch (error) {
-    console.error('Error fetching project:', error);
+    logger.error('Error fetching project:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -87,7 +89,7 @@ export const createProject = async (project: Partial<Project>): Promise<ApiRespo
       message: 'Project created successfully',
     };
   } catch (error) {
-    console.error('Error creating project:', error);
+    logger.error('Error creating project:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -123,7 +125,7 @@ export const updateProject = async (
       message: 'Project updated successfully',
     };
   } catch (error) {
-    console.error('Error updating project:', error);
+    logger.error('Error updating project:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -153,7 +155,7 @@ export const fetchSessions = async (filters?: SessionFilters): Promise<ApiRespon
       data: data.sessions,
     };
   } catch (error) {
-    console.error('Error fetching sessions:', error);
+    logger.error('Error fetching sessions:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -186,7 +188,7 @@ export const createSession = async (session: Partial<Session>): Promise<ApiRespo
       message: 'Session logged successfully',
     };
   } catch (error) {
-    console.error('Error creating session:', error);
+    logger.error('Error creating session:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -211,7 +213,7 @@ export const getProjectContext = async (projectId: string): Promise<ApiResponse<
       data: data.context,
     };
   } catch (error) {
-    console.error('Error fetching project context:', error);
+    logger.error('Error fetching project context:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -236,7 +238,7 @@ export const fetchDashboardStats = async (): Promise<ApiResponse<any>> => {
       data: data.stats,
     };
   } catch (error) {
-    console.error('Error fetching dashboard stats:', error);
+    logger.error('Error fetching dashboard stats:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',

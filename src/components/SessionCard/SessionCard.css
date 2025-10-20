@@ -1,0 +1,358 @@
+/**
+ * SessionCard Component Styles
+ * Rich, expandable session display
+ */
+
+.session-card-enhanced {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.session-card-enhanced:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.session-card-enhanced.expanded {
+  border-left-color: #764ba2;
+}
+
+/* Header */
+.session-card-header {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.session-header-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.session-project-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.35rem 0.85rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: fit-content;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+  margin-bottom: 0.25rem;
+}
+
+.session-header-main h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  flex: 1;
+  min-width: 200px;
+}
+
+.session-date-badge {
+  background: #f0f0f0;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #666;
+  white-space: nowrap;
+}
+
+.session-header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.session-badges {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.status-badge,
+.duration-badge,
+.agent-badge,
+.workspace-badge,
+.type-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge.completed {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge.inprogress {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.paused {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.duration-badge {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.agent-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.workspace-badge {
+  background: #e0e7ff;
+  color: #4c1d95;
+}
+
+.type-badge {
+  background: #fef3c7;
+  color: #78350f;
+}
+
+.expand-button {
+  background: #f0f0f0;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.expand-button:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Summary */
+.session-summary-section {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.session-summary {
+  margin: 0;
+  line-height: 1.7;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* Expanded Content */
+.session-expanded-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Session Sections */
+.session-section {
+  background: #f9f9f9;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+}
+
+.session-section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-content {
+  line-height: 1.7;
+  color: #555;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+}
+
+.section-content p {
+  margin: 0;
+}
+
+/* Specialized Sections */
+.context-section {
+  border-left-color: #3b82f6;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+
+.decisions-section {
+  border-left-color: #10b981;
+}
+
+.section-content.highlighted {
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.code-section {
+  border-left-color: #8b5cf6;
+}
+
+.section-content.code-content {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.section-content.code-content pre {
+  margin: 0;
+}
+
+.challenges-section {
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.solutions-section {
+  border-left-color: #10b981;
+  background: #ecfdf5;
+}
+
+.outcomes-section {
+  border-left-color: #06b6d4;
+  background: #ecfeff;
+}
+
+.learnings-section {
+  border-left-color: #8b5cf6;
+  background: #f5f3ff;
+}
+
+.files-section {
+  border-left-color: #64748b;
+}
+
+.section-content.files-content {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.section-content.files-content pre {
+  margin: 0;
+}
+
+.blockers-section.warning {
+  border-left-color: #ef4444;
+  background: #fef2f2;
+}
+
+.links-section {
+  border-left-color: #3b82f6;
+}
+
+.section-content.links-content {
+  word-break: break-all;
+}
+
+.notes-section {
+  border-left-color: #a855f7;
+  background: #faf5ff;
+}
+
+/* Two Column Layout */
+.two-column-sections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* Technologies & Tools */
+.tech-tags,
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag,
+.tag-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.tag-badge {
+  background: #f0f0f0;
+  color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .session-card-enhanced {
+    padding: 1rem;
+  }
+
+  .session-header-main h3 {
+    font-size: 1.1rem;
+  }
+
+  .two-column-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .session-date-badge {
+    width: 100%;
+    text-align: center;
+  }
+}
+

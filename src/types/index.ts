@@ -79,13 +79,26 @@ export interface Session {
   projectName?: string;
   status: SessionStatus;
   summary: string;
-  filesModified: string[];
+  filesModified: string;
   nextSteps: string;
   blockers: string;
   aiAgent: string;
   workspace: string;
   type: SessionType;
   tags: string[];
+  
+  // Extended fields from Notion
+  keyDecisions?: string;
+  challenges?: string;
+  solutions?: string;
+  codeChanges?: string;
+  technologiesUsed?: string[];
+  links?: string;
+  notes?: string;
+  outcomes?: string;
+  learnings?: string;
+  context?: string;
+  toolsUsed?: string;
 }
 
 /**
@@ -110,11 +123,25 @@ export interface ProjectContext {
 export interface DashboardStats {
   totalProjects: number;
   activeProjects: number;
-  completedProjects: number;
+  completedProjects?: number;
   totalSessions: number;
   totalHours: number;
-  thisWeekSessions: number;
-  thisWeekHours: number;
+  thisWeekSessions?: number;
+  thisWeekHours?: number;
+  completedSessions?: number;
+  technologiesCount?: number;
+  sessionsWithFiles?: number;
+}
+
+/**
+ * Project category statistics
+ */
+export interface CategoryStats {
+  name: string;
+  projectCount: number;
+  activeProjects: number;
+  sessionCount: number;
+  totalHours: number;
 }
 
 /**

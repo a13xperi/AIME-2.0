@@ -1,0 +1,177 @@
+.projects-list-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  margin: 20px 0 10px 0;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+.filters-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #667eea;
+  background: #f9f9ff;
+}
+
+.filter-btn.active {
+  border-color: #667eea;
+  background: #667eea;
+  color: white;
+}
+
+.projects-table {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.project-row {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.project-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.project-main-info {
+  flex: 1;
+}
+
+.project-main-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #1a1a1a;
+}
+
+.project-desc {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.project-meta-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.status-pill,
+.priority-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-pill {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-pill.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pill.complete {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-pill.paused {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.priority-pill {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.priority-pill.high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.priority-pill.critical {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.priority-pill.low {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.date-info {
+  color: #888;
+  font-size: 13px;
+}
+
+.loading,
+.error-message {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .project-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-meta-info {
+    flex-wrap: wrap;
+  }
+}
+
+
+

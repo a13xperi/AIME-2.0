@@ -1,0 +1,52 @@
+/**
+ * Centralized Logger Utility
+ * Replaces console.log/error with proper logging
+ * Can be extended with external logging services (Sentry, etc.)
+ */
+
+type LogLevel = 'info' | 'warn' | 'error' | 'debug';
+
+class Logger {
+  private isDevelopment = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test';
+
+  /**
+   * Log informational messages
+   */
+  info(message: string, meta?: any): void {
+    if (this.isDevelopment) {
+      console.log(`[INFO] ${message}`, meta || '');
+    }
+    // TODO: Send to logging service in production (e.g., Sentry, LogRocket)
+  }
+
+  /**
+   * Log warning messages
+   */
+  warn(message: string, meta?: any): void {
+    if (this.isDevelopment) {
+      console.warn(`[WARN] ${message}`, meta || '');
+    }
+    // TODO: Send to logging service in production
+  }
+
+  /**
+   * Log error messages
+   */
+  error(message: string, error?: any): void {
+    console.error(`[ERROR] ${message}`, error || '');
+    // TODO: Send to error tracking service (Sentry, etc.)
+  }
+
+  /**
+   * Log debug messages (only in development)
+   */
+  debug(message: string, meta?: any): void {
+    if (this.isDevelopment) {
+      console.debug(`[DEBUG] ${message}`, meta || '');
+    }
+  }
+}
+
+// Export singleton instance
+export const logger = new Logger();
+export default logger;
