@@ -37,6 +37,12 @@ const notion = new Client({
 const PROJECTS_DB_ID = process.env.NOTION_PROJECTS_DATABASE_ID!;
 const SESSIONS_DB_ID = process.env.NOTION_SESSIONS_DATABASE_ID!;
 
+// Helper function to get full rich text content from Notion rich text arrays
+const getFullRichText = (richTextArray: any[]) => {
+  if (!richTextArray || richTextArray.length === 0) return '';
+  return richTextArray.map((rt: any) => rt.plain_text || '').join('');
+};
+
 // Configure CORS with restricted origins
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',')
@@ -362,12 +368,6 @@ app.get('/api/sessions', async (req: Request, res: Response) => {
 
     let sessions = allResults.map((page: any) => {
       const props = page.properties;
-      
-      // Helper to get full rich text content (not just first item)
-      const getFullRichText = (richTextArray: any[]) => {
-        if (!richTextArray || richTextArray.length === 0) return '';
-        return richTextArray.map((rt: any) => rt.plain_text || '').join('');
-      };
       
       // Extract project name from title (common pattern: "A103 - Project Name" or "Project Name Session")
       const title = props.Name?.title?.[0]?.plain_text || 'Untitled Session';
