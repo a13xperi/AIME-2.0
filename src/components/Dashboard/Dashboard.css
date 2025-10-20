@@ -482,6 +482,23 @@
   box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
 }
 
+.session-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.session-title-row h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  flex: 1;
+  line-height: 1.3;
+}
+
 .session-header h3 {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
@@ -538,6 +555,17 @@
 .btn-small {
   padding: 0.5rem 1rem !important;
   font-size: 0.85rem !important;
+}
+
+.btn-outline {
+  background: transparent !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .sessions-overview-actions {

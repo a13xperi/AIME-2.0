@@ -1,0 +1,238 @@
+.session-templates-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.session-templates-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.session-templates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 0 24px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.session-templates-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.session-templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 0 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.session-template-card {
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.session-template-card:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.15);
+}
+
+.session-template-card:active {
+  transform: translateY(0);
+}
+
+.template-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.session-template-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.session-template-card p {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.template-type {
+  display: inline-block;
+  background: #3b82f6;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.session-templates-footer {
+  padding: 24px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .session-templates-modal {
+    background: #1f2937;
+    color: #f9fafb;
+  }
+  
+  .session-templates-header {
+    border-bottom-color: #374151;
+  }
+  
+  .session-templates-header h2 {
+    color: #f9fafb;
+  }
+  
+  .close-button {
+    color: #9ca3af;
+  }
+  
+  .close-button:hover {
+    background: #374151;
+    color: #d1d5db;
+  }
+  
+  .session-template-card {
+    background: #374151;
+    border-color: #4b5563;
+  }
+  
+  .session-template-card:hover {
+    background: #1e3a8a;
+    border-color: #3b82f6;
+  }
+  
+  .session-template-card h3 {
+    color: #f9fafb;
+  }
+  
+  .session-template-card p {
+    color: #d1d5db;
+  }
+  
+  .session-templates-footer {
+    border-top-color: #374151;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .session-templates-overlay {
+    padding: 10px;
+  }
+  
+  .session-templates-modal {
+    max-height: 95vh;
+  }
+  
+  .session-templates-header {
+    padding: 16px 16px 0 16px;
+  }
+  
+  .session-templates-header h2 {
+    font-size: 20px;
+  }
+  
+  .session-templates-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    padding: 0 16px;
+  }
+  
+  .session-template-card {
+    padding: 16px;
+  }
+  
+  .template-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .session-template-card h3 {
+    font-size: 14px;
+  }
+  
+  .session-template-card p {
+    font-size: 12px;
+  }
+  
+  .session-templates-footer {
+    padding: 16px;
+  }
+}

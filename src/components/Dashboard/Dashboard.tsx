@@ -10,6 +10,9 @@ import { fetchProjects, fetchDashboardStats } from '../../api/notionApi';
 import QuickResume from '../QuickResume/QuickResume';
 import SessionLogger from '../SessionLogger/SessionLogger';
 import ProjectCreator from '../ProjectCreator/ProjectCreator';
+import SessionDuplicator from '../SessionDuplicator/SessionDuplicator';
+import SessionStatusManager from '../SessionStatusManager/SessionStatusManager';
+import SessionStatusBadge from '../SessionStatusBadge/SessionStatusBadge';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -24,6 +27,8 @@ const Dashboard: React.FC = () => {
   const [showSessionLogger, setShowSessionLogger] = useState(false);
   const [showProjectCreator, setShowProjectCreator] = useState(false);
   const [currentSessions, setCurrentSessions] = useState<Session[]>([]);
+  const [sessionToDuplicate, setSessionToDuplicate] = useState<Session | null>(null);
+  const [sessionToUpdateStatus, setSessionToUpdateStatus] = useState<Session | null>(null);
 
   useEffect(() => {
     loadDashboard();
@@ -110,6 +115,52 @@ const Dashboard: React.FC = () => {
     setResumeProject(project);
   };
 
+  const handleDuplicateSession = async (duplicatedSession: Partial<Session>) => {
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+    try {
+      const response = await fetch(`${API_URL}/api/sessions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(duplicatedSession),
+      });
+
+      if (response.ok) {
+        console.log('✅ Session duplicated successfully');
+        // Refresh dashboard to show the new session
+        loadDashboard();
+      } else {
+        console.error('Failed to duplicate session');
+      }
+    } catch (err) {
+      console.error('Error duplicating session:', err);
+    }
+  };
+
+  const handleSessionStatusChange = async (sessionId: string, newStatus: string) => {
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+    try {
+      const response = await fetch(`${API_URL}/api/sessions/${sessionId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (response.ok) {
+        console.log('✅ Session status updated successfully');
+        // Refresh dashboard to show the updated status
+        loadDashboard();
+      } else {
+        console.error('Failed to update session status');
+      }
+    } catch (err) {
+      console.error('Error updating session status:', err);
+    }
+  };
+
   if (loading) {
     return (
       <div className="dashboard">
@@ -187,7 +238,14 @@ const Dashboard: React.FC = () => {
             {currentSessions.map((session) => (
               <div key={session.id} className="current-session-card">
                 <div className="session-header">
-                  <h3>{session.title}</h3>
+                  <div className="session-title-row">
+                    <h3>{session.title}</h3>
+                    <SessionStatusBadge 
+                      status={session.status} 
+                      size="small" 
+                      onClick={() => setSessionToUpdateStatus(session)}
+                    />
+                  </div>
                   <div className="session-meta">
                     {session.aiAgent && <span className="session-agent">🤖 {session.aiAgent}</span>}
                     {session.workspace && <span className="session-workspace">📍 {session.workspace}</span>}
@@ -214,6 +272,12 @@ const Dashboard: React.FC = () => {
                     onClick={() => setShowSessionLogger(true)}
                   >
                     Add Update
+                  </button>
+                  <button 
+                    className="btn btn-outline btn-small" 
+                    onClick={() => setSessionToDuplicate(session)}
+                  >
+                    📋 Duplicate
                   </button>
                 </div>
               </div>
@@ -365,6 +429,24 @@ const Dashboard: React.FC = () => {
           loadDashboard(); // Refresh data after creating project
         }}
       />
+
+      {/* Session Duplicator Modal */}
+      {sessionToDuplicate && (
+        <SessionDuplicator
+          session={sessionToDuplicate}
+          onDuplicate={handleDuplicateSession}
+          onClose={() => setSessionToDuplicate(null)}
+        />
+      )}
+
+      {/* Session Status Manager Modal */}
+      {sessionToUpdateStatus && (
+        <SessionStatusManager
+          session={sessionToUpdateStatus}
+          onStatusChange={handleSessionStatusChange}
+          onClose={() => setSessionToUpdateStatus(null)}
+        />
+      )}
     </div>
   );
 };

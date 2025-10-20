@@ -16,7 +16,7 @@ export type ProjectPriority = 'Critical' | 'High' | 'Medium' | 'Low';
 /**
  * Session status options
  */
-export type SessionStatus = 'In Progress' | 'Completed' | 'Paused';
+export type SessionStatus = 'Active' | 'In Progress' | 'Paused' | 'Completed' | 'Archived' | 'Blocked';
 
 /**
  * Session type categories

@@ -1,0 +1,87 @@
+.session-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: 1px solid;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.session-status-badge.clickable {
+  cursor: pointer;
+}
+
+.session-status-badge.clickable:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.status-icon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.status-label {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Size variants */
+.badge-small {
+  padding: 2px 6px;
+  font-size: 10px;
+  border-radius: 8px;
+}
+
+.badge-small .status-icon {
+  font-size: 8px;
+}
+
+.badge-small .status-label {
+  font-size: 9px;
+}
+
+.badge-medium {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+.badge-medium .status-icon {
+  font-size: 10px;
+}
+
+.badge-medium .status-label {
+  font-size: 11px;
+}
+
+.badge-large {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 16px;
+}
+
+.badge-large .status-icon {
+  font-size: 12px;
+}
+
+.badge-large .status-label {
+  font-size: 13px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .session-status-badge {
+    opacity: 0.9;
+  }
+  
+  .session-status-badge.clickable:hover {
+    opacity: 1;
+  }
+}

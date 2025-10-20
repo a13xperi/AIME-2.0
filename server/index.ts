@@ -583,7 +583,7 @@ const mapNotionSessionToInterface = (pageData: any) => {
     duration: 0, // Default duration
     projectId: props['Project/Initiative']?.relation?.[0]?.id || '',
     projectName: projectName,
-    status: 'completed' as const,
+    status: 'Completed' as const,
     summary: getFullRichText(props.Notes?.rich_text || []),
     filesModified: getFullRichText(props['Files Modified']?.rich_text || []),
     nextSteps: getFullRichText(props['Next Steps']?.rich_text || []),
@@ -631,6 +631,45 @@ app.get('/api/sessions/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch session'
+    });
+  }
+});
+
+// Update session status
+app.patch('/api/sessions/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    logger.info(`Updating session ${id} status to: ${status}`);
+
+    // Update the session status in Notion
+    const response = await notion.pages.update({
+      page_id: id,
+      properties: {
+        Status: {
+          select: {
+            name: status
+          }
+        }
+      }
+    });
+
+    logger.info(`Successfully updated session status: ${id}`);
+
+    res.json({
+      success: true,
+      message: 'Session status updated successfully',
+      session: {
+        id: id,
+        status: status
+      }
+    });
+  } catch (error) {
+    logger.error('Error updating session status:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update session status'
     });
   }
 });

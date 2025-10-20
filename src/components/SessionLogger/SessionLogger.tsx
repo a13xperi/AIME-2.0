@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Project } from '../../types';
+import SessionTemplates, { SessionTemplate } from '../SessionTemplates/SessionTemplates';
 import './SessionLogger.css';
 
 interface SessionLoggerProps {
@@ -43,6 +44,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showTemplates, setShowTemplates] = useState(false);
 
   useEffect(() => {
     if (preselectedProjectId) {
@@ -55,6 +57,18 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleTemplateSelect = (template: SessionTemplate) => {
+    setFormData(prev => ({
+      ...prev,
+      sessionType: template.type,
+      aiAgent: template.defaultFields.aiAgent || prev.aiAgent,
+      workspace: template.defaultFields.workspace || prev.workspace,
+      summary: template.defaultFields.summary || prev.summary,
+      nextSteps: template.defaultFields.nextSteps || prev.nextSteps,
+    }));
+    setShowTemplates(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -127,6 +141,17 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Core Information */}
           <div className="form-section">
             <h3>📋 Core Information</h3>
+            
+            <div className="form-group">
+              <label>Session Template</label>
+              <button
+                type="button"
+                className="template-select-button"
+                onClick={() => setShowTemplates(true)}
+              >
+                🎯 Choose Template
+              </button>
+            </div>
             
             <div className="form-group">
               <label htmlFor="projectId">Project *</label>
@@ -378,6 +403,13 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           </div>
         </form>
       </div>
+      
+      {showTemplates && (
+        <SessionTemplates
+          onSelectTemplate={handleTemplateSelect}
+          onClose={() => setShowTemplates(false)}
+        />
+      )}
     </div>
   );
 };
