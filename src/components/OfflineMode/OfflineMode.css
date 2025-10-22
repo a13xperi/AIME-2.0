@@ -1,0 +1,157 @@
+/* Offline Mode Styles */
+.offline-mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+  background: var(--surface-color);
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.offline-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.offline-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.offline-content h2 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.offline-content p {
+  color: var(--muted-color);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.offline-content ul {
+  text-align: left;
+  color: var(--muted-color);
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.offline-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.offline-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #3b82f6;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+  background: var(--hover-bg);
+  transform: translateY(-1px);
+}
+
+.offline-tips {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.offline-tips h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.offline-tips ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.offline-tips li {
+  margin-bottom: 0.5rem;
+  color: var(--muted-color);
+}
+
+.offline-tips a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.offline-tips a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .offline-mode {
+    padding: 1rem;
+    min-height: 50vh;
+  }
+  
+  .offline-content {
+    padding: 1.5rem;
+  }
+  
+  .offline-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .offline-content {
+    background: #374151;
+    color: #f9fafb;
+  }
+  
+  .offline-tips {
+    background: #4b5563;
+  }
+}

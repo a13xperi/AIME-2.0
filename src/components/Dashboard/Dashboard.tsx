@@ -18,6 +18,7 @@ import ProjectTemplates from '../ProjectTemplates/ProjectTemplates';
 import TemplateBuilder from '../TemplateBuilder/TemplateBuilder';
 // import CustomerCRM from '../CustomerCRM/CustomerCRM';
 // import MarketingAutomation from '../MarketingAutomation/MarketingAutomation';
+import OfflineMode from '../OfflineMode/OfflineMode';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -27,6 +28,7 @@ const Dashboard: React.FC = () => {
   const [categories, setCategories] = useState<CategoryStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isOffline, setIsOffline] = useState(false);
   const [resumeProject, setResumeProject] = useState<Project | null>(null);
   const [resumeSession, setResumeSession] = useState<Session | null>(null);
   const [showSessionLogger, setShowSessionLogger] = useState(false);
@@ -61,20 +63,38 @@ const Dashboard: React.FC = () => {
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
     try {
-      const [projectsResponse, statsResponse, sessionsResponse] = await Promise.all([
-        fetchProjects(),
-        fetchDashboardStats(),
-        fetch(`${API_URL}/api/sessions`).then(res => res.json()),
+      // Add timeout and error handling for Notion API calls
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Request timeout')), 10000)
+      );
+
+      const [projectsResponse, statsResponse, sessionsResponse] = await Promise.allSettled([
+        Promise.race([fetchProjects(), timeoutPromise]),
+        Promise.race([fetchDashboardStats(), timeoutPromise]),
+        Promise.race([fetch(`${API_URL}/api/sessions`).then(res => res.json()), timeoutPromise]),
       ]);
 
-      if (projectsResponse.success && projectsResponse.data) {
-        setProjects(projectsResponse.data);
+      // Handle projects response
+      if (projectsResponse.status === 'fulfilled' && (projectsResponse.value as any)?.success && (projectsResponse.value as any)?.data) {
+        setProjects((projectsResponse.value as any).data);
       } else {
-        setError(projectsResponse.error || 'Failed to load projects');
+        console.warn('Failed to load projects, using fallback data');
+        setProjects([]); // Use empty array as fallback
+        setError('Notion API temporarily unavailable - using offline mode');
+        setIsOffline(true);
       }
 
-      if (statsResponse.success && statsResponse.data) {
-        setStats(statsResponse.data);
+      // Handle stats response
+      if (statsResponse.status === 'fulfilled' && (statsResponse.value as any)?.success && (statsResponse.value as any)?.data) {
+        setStats((statsResponse.value as any).data);
+      } else {
+        console.warn('Failed to load stats, using fallback data');
+        setStats({
+          totalProjects: 0,
+          totalSessions: 0,
+          totalHours: 0,
+          activeProjects: 0
+        });
       }
 
       // Fetch categories
@@ -88,21 +108,34 @@ const Dashboard: React.FC = () => {
         console.error('Failed to load categories:', err);
       }
 
-      // Set current sessions (all sessions from today)
-      if (sessionsResponse.success && sessionsResponse.sessions && sessionsResponse.sessions.length > 0) {
-        setAllSessions(sessionsResponse.sessions);
-        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-        const todaysSessions = sessionsResponse.sessions.filter((session: Session) => 
+      // Handle sessions response
+      if (sessionsResponse.status === 'fulfilled' && (sessionsResponse.value as any)?.success && (sessionsResponse.value as any)?.sessions) {
+        setAllSessions((sessionsResponse.value as any).sessions);
+        
+        // Filter for today's sessions
+        const today = new Date().toISOString().split('T')[0];
+        const todaySessions = (sessionsResponse.value as any).sessions.filter((session: Session) =>
           session.date === today
         );
-        setCurrentSessions(todaysSessions);
+        setCurrentSessions(todaySessions);
+      } else {
+        console.warn('Failed to load sessions, using fallback data');
+        setAllSessions([]);
+        setCurrentSessions([]);
       }
     } catch (err) {
       setError('Failed to load dashboard');
+      setIsOffline(true);
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleRetry = () => {
+    setIsOffline(false);
+    setError(null);
+    loadDashboard();
   };
 
   const handleResumeProject = async (project: Project, e: React.MouseEvent) => {
@@ -176,6 +209,14 @@ const Dashboard: React.FC = () => {
     console.log('Saving template:', template);
     setShowTemplateBuilder(false);
   };
+
+  if (isOffline) {
+    return (
+      <div className="dashboard-container">
+        <OfflineMode onRetry={handleRetry} error={error || undefined} />
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard">
