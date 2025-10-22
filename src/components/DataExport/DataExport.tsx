@@ -65,8 +65,8 @@ const DataExport: React.FC<DataExportProps> = ({
     setTimeout(() => {
       const exportData = {
         projects: selectedData.projects ? projects.filter(p => 
-          new Date(p.updatedAt) >= new Date(exportOptions.dateRange.start) &&
-          new Date(p.updatedAt) <= new Date(exportOptions.dateRange.end)
+          new Date(p.lastUpdated) >= new Date(exportOptions.dateRange.start) &&
+          new Date(p.lastUpdated) <= new Date(exportOptions.dateRange.end)
         ) : [],
         sessions: selectedData.sessions ? sessions.filter(s => 
           new Date(s.date) >= new Date(exportOptions.dateRange.start) &&
@@ -134,7 +134,7 @@ const DataExport: React.FC<DataExportProps> = ({
       csv += 'PROJECTS\n';
       csv += 'ID,Name,Description,Category,Status,Priority,Created At,Updated At\n';
       data.projects.forEach((project: Project) => {
-        csv += `"${project.id}","${project.name}","${project.description || ''}","${project.category || ''}","${project.status || ''}","${project.priority || ''}","${project.updatedAt}","${project.updatedAt}"\n`;
+        csv += `"${project.id}","${project.name}","${project.description || ''}","${project.type || ''}","${project.status || ''}","${project.priority || ''}","${project.lastUpdated}","${project.lastUpdated}"\n`;
       });
       csv += '\n';
     }
@@ -168,10 +168,10 @@ const DataExport: React.FC<DataExportProps> = ({
       text += 'PROJECTS\n';
       text += '-'.repeat(20) + '\n';
       data.projects.forEach((project: Project) => {
-        text += `• ${project.name} (${project.category || 'No category'})\n`;
+        text += `• ${project.name} (${project.type || 'No type'})\n`;
         text += `  Status: ${project.status || 'Unknown'}\n`;
         text += `  Priority: ${project.priority || 'Unknown'}\n`;
-        text += `  Created: ${new Date(project.updatedAt).toLocaleDateString()}\n\n`;
+        text += `  Created: ${new Date(project.lastUpdated).toLocaleDateString()}\n\n`;
       });
     }
     

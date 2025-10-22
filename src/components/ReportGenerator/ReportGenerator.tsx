@@ -240,8 +240,8 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
         generatedBy: 'current-user',
         data: {
           projects: projects.filter(p => 
-            new Date(p.updatedAt) >= new Date(exportOptions.dateRange.start) &&
-            new Date(p.updatedAt) <= new Date(exportOptions.dateRange.end)
+            new Date(p.lastUpdated) >= new Date(exportOptions.dateRange.start) &&
+            new Date(p.lastUpdated) <= new Date(exportOptions.dateRange.end)
           ),
           sessions: sessions.filter(s => 
             new Date(s.date) >= new Date(exportOptions.dateRange.start) &&

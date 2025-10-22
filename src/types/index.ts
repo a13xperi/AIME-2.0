@@ -914,3 +914,293 @@ export interface WorkflowTemplate {
   reviews: number;
 }
 
+/**
+ * Advanced Integration & API Management System interfaces
+ */
+export interface ApiEndpoint {
+  id: string;
+  name: string;
+  description: string;
+  path: string;
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
+  category: 'projects' | 'sessions' | 'analytics' | 'workflows' | 'integrations' | 'custom';
+  version: string;
+  status: 'active' | 'deprecated' | 'beta' | 'maintenance';
+  authentication: {
+    required: boolean;
+    type: 'none' | 'api_key' | 'bearer' | 'basic' | 'oauth2' | 'jwt';
+    scopes?: string[];
+  };
+  rateLimit: {
+    requests: number;
+    period: 'minute' | 'hour' | 'day';
+    burst?: number;
+  };
+  parameters: ApiParameter[];
+  responses: ApiResponseSpec[];
+  examples: ApiExample[];
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+  lastUsed?: string;
+  usageCount: number;
+  errorRate: number;
+  averageResponseTime: number;
+}
+
+export interface ApiParameter {
+  name: string;
+  type: 'string' | 'number' | 'boolean' | 'array' | 'object' | 'file';
+  required: boolean;
+  description: string;
+  defaultValue?: any;
+  validation?: {
+    min?: number;
+    max?: number;
+    pattern?: string;
+    enum?: any[];
+  };
+  location: 'query' | 'path' | 'header' | 'body';
+}
+
+export interface ApiResponseSpec {
+  statusCode: number;
+  description: string;
+  contentType: string;
+  schema: any;
+  examples?: any[];
+}
+
+export interface ApiExample {
+  name: string;
+  description: string;
+  request: {
+    headers?: Record<string, string>;
+    body?: any;
+    query?: Record<string, string>;
+  };
+  response: {
+    statusCode: number;
+    headers?: Record<string, string>;
+    body?: any;
+  };
+}
+
+export interface Webhook {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  events: string[];
+  status: 'active' | 'inactive' | 'error' | 'testing';
+  authentication: {
+    type: 'none' | 'api_key' | 'bearer' | 'hmac' | 'oauth2';
+    credentials: Record<string, string>;
+  };
+  retryPolicy: {
+    maxRetries: number;
+    backoffStrategy: 'linear' | 'exponential';
+    initialDelay: number;
+  };
+  filters: WebhookFilter[];
+  transformations: WebhookTransformation[];
+  headers: Record<string, string>;
+  timeout: number;
+  createdAt: string;
+  updatedAt: string;
+  lastTriggered?: string;
+  triggerCount: number;
+  successRate: number;
+  averageResponseTime: number;
+  lastError?: {
+    message: string;
+    timestamp: string;
+    statusCode?: number;
+  };
+}
+
+export interface WebhookFilter {
+  field: string;
+  operator: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'greater_than' | 'less_than' | 'exists' | 'not_exists';
+  value: any;
+  logicalOperator?: 'AND' | 'OR';
+}
+
+export interface WebhookTransformation {
+  type: 'map' | 'filter' | 'transform' | 'enrich';
+  configuration: Record<string, any>;
+  order: number;
+}
+
+export interface ThirdPartyIntegration {
+  id: string;
+  name: string;
+  description: string;
+  service: string;
+  category: 'productivity' | 'communication' | 'development' | 'analytics' | 'storage' | 'payment' | 'custom';
+  status: 'connected' | 'disconnected' | 'error' | 'pending';
+  configuration: {
+    apiKey?: string;
+    secret?: string;
+    baseUrl?: string;
+    version?: string;
+    customHeaders?: Record<string, string>;
+    timeout?: number;
+    retryPolicy?: {
+      maxRetries: number;
+      backoffStrategy: 'linear' | 'exponential';
+      initialDelay: number;
+    };
+  };
+  capabilities: IntegrationCapability[];
+  webhooks: string[];
+  syncSettings: {
+    enabled: boolean;
+    frequency: 'realtime' | 'hourly' | 'daily' | 'weekly' | 'manual';
+    lastSync?: string;
+    nextSync?: string;
+    direction: 'import' | 'export' | 'bidirectional';
+  };
+  permissions: {
+    read: boolean;
+    write: boolean;
+    delete: boolean;
+    admin: boolean;
+  };
+  createdAt: string;
+  updatedAt: string;
+  lastUsed?: string;
+  usageCount: number;
+  errorCount: number;
+  healthScore: number;
+}
+
+export interface IntegrationCapability {
+  name: string;
+  description: string;
+  type: 'data_sync' | 'webhook' | 'api_call' | 'file_transfer' | 'notification';
+  endpoints: string[];
+  parameters: Record<string, any>;
+  rateLimit?: {
+    requests: number;
+    period: string;
+  };
+}
+
+export interface ApiDocumentation {
+  id: string;
+  title: string;
+  description: string;
+  version: string;
+  baseUrl: string;
+  contact: {
+    name: string;
+    email: string;
+    url?: string;
+  };
+  license: {
+    name: string;
+    url?: string;
+  };
+  servers: ApiServer[];
+  endpoints: string[];
+  schemas: ApiSchema[];
+  examples: ApiExample[];
+  changelog: ApiChangelogEntry[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+  status: 'draft' | 'published' | 'archived';
+}
+
+export interface ApiServer {
+  url: string;
+  description: string;
+  environment: 'development' | 'staging' | 'production';
+}
+
+export interface ApiSchema {
+  name: string;
+  type: 'object' | 'array' | 'string' | 'number' | 'boolean';
+  description: string;
+  properties?: Record<string, any>;
+  required?: string[];
+  examples?: any[];
+}
+
+export interface ApiChangelogEntry {
+  version: string;
+  date: string;
+  changes: {
+    type: 'added' | 'changed' | 'deprecated' | 'removed' | 'fixed' | 'security';
+    description: string;
+    endpoint?: string;
+  }[];
+}
+
+export interface ApiUsage {
+  id: string;
+  endpointId: string;
+  userId?: string;
+  ipAddress: string;
+  userAgent: string;
+  timestamp: string;
+  method: string;
+  path: string;
+  statusCode: number;
+  responseTime: number;
+  requestSize: number;
+  responseSize: number;
+  errorMessage?: string;
+  metadata: Record<string, any>;
+}
+
+export interface ApiKey {
+  id: string;
+  name: string;
+  description: string;
+  key: string;
+  prefix: string;
+  permissions: {
+    endpoints: string[];
+    methods: string[];
+    rateLimit: {
+      requests: number;
+      period: string;
+    };
+  };
+  status: 'active' | 'inactive' | 'revoked';
+  expiresAt?: string;
+  lastUsed?: string;
+  usageCount: number;
+  createdAt: string;
+  createdBy: string;
+  metadata: Record<string, any>;
+}
+
+export interface IntegrationTest {
+  id: string;
+  name: string;
+  description: string;
+  integrationId: string;
+  type: 'connection' | 'data_sync' | 'webhook' | 'api_call' | 'end_to_end';
+  configuration: Record<string, any>;
+  expectedResult: any;
+  actualResult?: any;
+  status: 'pending' | 'running' | 'passed' | 'failed' | 'skipped';
+  startedAt?: string;
+  completedAt?: string;
+  duration?: number;
+  errorMessage?: string;
+  logs: IntegrationTestLog[];
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface IntegrationTestLog {
+  timestamp: string;
+  level: 'debug' | 'info' | 'warning' | 'error';
+  message: string;
+  data?: any;
+}
+
