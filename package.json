@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
@@ -34,7 +34,8 @@
     "server": "ts-node server/index.ts",
     "server:dev": "nodemon --watch server --exec ts-node server/index.ts",
     "dev": "concurrently \"npm start\" \"npm run server:dev\"",
-    "vercel-build": "npm run build"
+    "vercel-build": "npm run build",
+    "test-notion": "node test-notion-api.js"
   },
   "eslintConfig": {
     "extends": [
