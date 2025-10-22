@@ -48,7 +48,7 @@ const SessionDetail: React.FC = () => {
     
     // Split by common delimiters and clean up
     const items = text
-      .split(/[\n\r•\-\*]/)
+      .split(/[\n\r•\-*]/)
       .map(item => item.trim())
       .filter(item => item.length > 0 && !item.match(/^(next steps|action items|todo|tasks?):?$/i))
       .map(item => ({
@@ -65,7 +65,7 @@ const SessionDetail: React.FC = () => {
     if (!text) return [];
     
     const items = text
-      .split(/[\n\r•\-\*]/)
+      .split(/[\n\r•\-*]/)
       .map(item => item.trim())
       .filter(item => item.length > 0)
       .map(item => ({

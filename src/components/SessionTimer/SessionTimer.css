@@ -1,0 +1,462 @@
+.session-timer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.session-timer-modal {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+.session-timer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 0 24px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.session-timer-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.session-timer-content {
+  padding: 0 24px 24px 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.session-info {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.session-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.session-project {
+  margin: 0 0 12px 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.session-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.inprogress {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-badge.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.paused {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.timer-display {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.current-session,
+.total-time {
+  text-align: center;
+}
+
+.time-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.time-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  font-family: 'Courier New', monospace;
+}
+
+.total-time .time-value {
+  color: #3b82f6;
+}
+
+.timer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.running-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.session-stats {
+  margin-bottom: 24px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.stat-value.tracking {
+  color: #10b981;
+}
+
+.stat-value.paused {
+  color: #6b7280;
+}
+
+.advanced-timer-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Button styles */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
+}
+
+.btn-success {
+  background: #10b981;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #059669;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #6b7280;
+  border: 2px solid #e5e7eb;
+}
+
+.btn-outline:hover {
+  background: #f8fafc;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .session-timer-modal {
+    background: #1f2937;
+  }
+  
+  .session-timer-header {
+    border-bottom-color: #374151;
+  }
+  
+  .session-timer-header h2 {
+    color: #f9fafb;
+  }
+  
+  .close-button {
+    color: #9ca3af;
+  }
+  
+  .close-button:hover {
+    background: #374151;
+    color: #d1d5db;
+  }
+  
+  .session-info {
+    background: #374151;
+    border-color: #4b5563;
+  }
+  
+  .session-info h3 {
+    color: #f9fafb;
+  }
+  
+  .session-project {
+    color: #9ca3af;
+  }
+  
+  .status-badge.inprogress {
+    background: #1e3a8a;
+    color: #dbeafe;
+  }
+  
+  .status-badge.completed {
+    background: #166534;
+    color: #dcfce7;
+  }
+  
+  .status-badge.paused {
+    background: #92400e;
+    color: #fef3c7;
+  }
+  
+  .status-badge.active {
+    background: #166534;
+    color: #dcfce7;
+  }
+  
+  .timer-display {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    border-color: #4b5563;
+  }
+  
+  .time-label {
+    color: #9ca3af;
+  }
+  
+  .time-value {
+    color: #f9fafb;
+  }
+  
+  .total-time .time-value {
+    color: #60a5fa;
+  }
+  
+  .stat-grid {
+    background: #374151;
+    border-color: #4b5563;
+  }
+  
+  .stat-item {
+    background: #4b5563;
+    border-color: #6b7280;
+  }
+  
+  .stat-label {
+    color: #9ca3af;
+  }
+  
+  .stat-value {
+    color: #f9fafb;
+  }
+  
+  .stat-value.tracking {
+    color: #34d399;
+  }
+  
+  .stat-value.paused {
+    color: #9ca3af;
+  }
+  
+  .advanced-timer-section {
+    border-top-color: #374151;
+  }
+  
+  .btn-outline {
+    color: #9ca3af;
+    border-color: #4b5563;
+  }
+  
+  .btn-outline:hover {
+    background: #374151;
+    border-color: #6b7280;
+    color: #d1d5db;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .session-timer-overlay {
+    padding: 10px;
+  }
+  
+  .session-timer-modal {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+  
+  .session-timer-header {
+    padding: 16px 16px 0 16px;
+  }
+  
+  .session-timer-header h2 {
+    font-size: 20px;
+  }
+  
+  .session-timer-content {
+    padding: 0 16px 16px 16px;
+  }
+  
+  .timer-display {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .time-value {
+    font-size: 28px;
+  }
+  
+  .running-controls {
+    flex-direction: column;
+  }
+  
+  .btn-large {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+  
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -10,6 +10,12 @@ import { fetchProjects, fetchDashboardStats } from '../../api/notionApi';
 import QuickResume from '../QuickResume/QuickResume';
 import SessionLogger from '../SessionLogger/SessionLogger';
 import ProjectCreator from '../ProjectCreator/ProjectCreator';
+import NotificationSystem from '../NotificationSystem/NotificationSystem';
+import BreakReminder from '../BreakReminder/BreakReminder';
+import DailySummary from '../DailySummary/DailySummary';
+import SessionTimer from '../SessionTimer/SessionTimer';
+import ProjectTemplates from '../ProjectTemplates/ProjectTemplates';
+import TemplateBuilder from '../TemplateBuilder/TemplateBuilder';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -24,6 +30,12 @@ const Dashboard: React.FC = () => {
   const [showSessionLogger, setShowSessionLogger] = useState(false);
   const [showProjectCreator, setShowProjectCreator] = useState(false);
   const [currentSessions, setCurrentSessions] = useState<Session[]>([]);
+  const [showBreakReminder, setShowBreakReminder] = useState(false);
+  const [showDailySummary, setShowDailySummary] = useState(false);
+  const [allSessions, setAllSessions] = useState<Session[]>([]);
+  const [sessionToTrack, setSessionToTrack] = useState<Session | null>(null);
+  const [showProjectTemplates, setShowProjectTemplates] = useState(false);
+  const [showTemplateBuilder, setShowTemplateBuilder] = useState(false);
 
   useEffect(() => {
     loadDashboard();
@@ -74,6 +86,7 @@ const Dashboard: React.FC = () => {
 
       // Set current sessions (all sessions from today)
       if (sessionsResponse.success && sessionsResponse.sessions && sessionsResponse.sessions.length > 0) {
+        setAllSessions(sessionsResponse.sessions);
         const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
         const todaysSessions = sessionsResponse.sessions.filter((session: Session) => 
           session.date === today
@@ -131,6 +144,34 @@ const Dashboard: React.FC = () => {
       </div>
     );
   }
+
+  const handleSessionTimeUpdate = (sessionId: string, updates: Partial<Session>) => {
+    // Update session with time tracking data
+    setCurrentSessions(prev => prev.map(s => 
+      s.id === sessionId ? { ...s, ...updates } : s
+    ));
+    setAllSessions(prev => prev.map(s => 
+      s.id === sessionId ? { ...s, ...updates } : s
+    ));
+  };
+
+  const handleTemplateSelect = (template: any) => {
+    // Handle template selection
+    console.log('Template selected:', template);
+  };
+
+  const handleApplyTemplate = (template: any, projectData: any) => {
+    // Apply template to create new project
+    console.log('Applying template:', template, projectData);
+    // This would integrate with the existing project creation flow
+    setShowProjectTemplates(false);
+  };
+
+  const handleSaveTemplate = (template: any) => {
+    // Save new template
+    console.log('Saving template:', template);
+    setShowTemplateBuilder(false);
+  };
 
   return (
     <div className="dashboard">
@@ -215,6 +256,12 @@ const Dashboard: React.FC = () => {
                   >
                     Add Update
                   </button>
+                  <button 
+                    className="btn btn-success btn-small" 
+                    onClick={() => setSessionToTrack(session)}
+                  >
+                    ⏱️ Timer
+                  </button>
                 </div>
               </div>
             ))}
@@ -230,10 +277,15 @@ const Dashboard: React.FC = () => {
         </div>
       )}
 
-      <div className="dashboard-actions">
-        <button className="btn btn-primary" onClick={() => setShowProjectCreator(true)}>+ New Project</button>
-        <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>📝 Log Session</button>
-      </div>
+        <div className="dashboard-actions">
+          <button className="btn btn-primary" onClick={() => setShowProjectCreator(true)}>+ New Project</button>
+          <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>📝 Log Session</button>
+          <button className="btn btn-outline" onClick={() => setShowProjectTemplates(true)}>📋 Templates</button>
+          <button className="btn btn-outline" onClick={() => setShowTemplateBuilder(true)}>🔧 Build Template</button>
+          <button className="btn btn-outline" onClick={() => navigate('/analytics')}>📊 Analytics</button>
+          <button className="btn btn-outline" onClick={() => navigate('/team')}>👥 Team</button>
+          <button className="btn btn-outline" onClick={() => setShowDailySummary(true)}>📋 Daily Summary</button>
+        </div>
 
       {/* Categories Section */}
       {categories.length > 0 && (
@@ -365,9 +417,69 @@ const Dashboard: React.FC = () => {
           loadDashboard(); // Refresh data after creating project
         }}
       />
+
+      {/* Notification System */}
+      <NotificationSystem 
+        sessions={allSessions}
+        onSessionUpdate={(sessionId, updates) => {
+          // Update session in local state
+          setAllSessions(prev => prev.map(s => 
+            s.id === sessionId ? { ...s, ...updates } : s
+          ));
+          setCurrentSessions(prev => prev.map(s => 
+            s.id === sessionId ? { ...s, ...updates } : s
+          ));
+        }}
+      />
+
+      {/* Break Reminder Modal */}
+      {showBreakReminder && (
+        <BreakReminder
+          isVisible={showBreakReminder}
+          onClose={() => setShowBreakReminder(false)}
+          onTakeBreak={() => {
+            setShowBreakReminder(false);
+            // Logic to pause current session
+          }}
+          workDuration={30} // This would be calculated from current session
+        />
+      )}
+
+        {/* Daily Summary Modal */}
+        {showDailySummary && (
+          <DailySummary
+            sessions={allSessions}
+            isVisible={showDailySummary}
+            onClose={() => setShowDailySummary(false)}
+          />
+        )}
+
+      {/* Session Timer Modal */}
+      {sessionToTrack && (
+        <SessionTimer
+          session={sessionToTrack}
+          onSessionUpdate={handleSessionTimeUpdate}
+          onClose={() => setSessionToTrack(null)}
+        />
+      )}
+
+      {/* Project Templates Modal */}
+      <ProjectTemplates
+        isOpen={showProjectTemplates}
+        onClose={() => setShowProjectTemplates(false)}
+        onTemplateSelect={handleTemplateSelect}
+        onApplyTemplate={handleApplyTemplate}
+      />
+
+      {/* Template Builder Modal */}
+      <TemplateBuilder
+        isOpen={showTemplateBuilder}
+        onClose={() => setShowTemplateBuilder(false)}
+        onSave={handleSaveTemplate}
+      />
     </div>
   );
 };
 
-export default Dashboard;
+  export default Dashboard;
 

@@ -4,8 +4,6 @@
  * Can be extended with external logging services (Sentry, etc.)
  */
 
-type LogLevel = 'info' | 'warn' | 'error' | 'debug';
-
 class Logger {
   private isDevelopment = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test';
 
