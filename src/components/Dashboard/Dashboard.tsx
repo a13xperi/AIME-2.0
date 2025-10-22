@@ -16,6 +16,7 @@ import DailySummary from '../DailySummary/DailySummary';
 import SessionTimer from '../SessionTimer/SessionTimer';
 import ProjectTemplates from '../ProjectTemplates/ProjectTemplates';
 import TemplateBuilder from '../TemplateBuilder/TemplateBuilder';
+import SecurityCompliance from '../SecurityCompliance/SecurityCompliance';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -36,6 +37,7 @@ const Dashboard: React.FC = () => {
   const [sessionToTrack, setSessionToTrack] = useState<Session | null>(null);
   const [showProjectTemplates, setShowProjectTemplates] = useState(false);
   const [showTemplateBuilder, setShowTemplateBuilder] = useState(false);
+  const [showSecurityCompliance, setShowSecurityCompliance] = useState(false);
 
   useEffect(() => {
     loadDashboard();
@@ -285,6 +287,7 @@ const Dashboard: React.FC = () => {
           <button className="btn btn-outline" onClick={() => navigate('/analytics')}>📊 Analytics</button>
           <button className="btn btn-outline" onClick={() => navigate('/team')}>👥 Team</button>
           <button className="btn btn-outline" onClick={() => setShowDailySummary(true)}>📋 Daily Summary</button>
+          <button className="btn btn-outline" onClick={() => setShowSecurityCompliance(true)}>🔒 Security & Compliance</button>
         </div>
 
       {/* Categories Section */}
@@ -476,6 +479,13 @@ const Dashboard: React.FC = () => {
         isOpen={showTemplateBuilder}
         onClose={() => setShowTemplateBuilder(false)}
         onSave={handleSaveTemplate}
+      />
+
+      {/* Security & Compliance Modal */}
+      <SecurityCompliance
+        projects={projects}
+        sessions={allSessions}
+        onClose={() => setShowSecurityCompliance(false)}
       />
     </div>
   );

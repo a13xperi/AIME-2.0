@@ -1524,3 +1524,550 @@ export interface TrainingCompletion {
   certificate?: string;
 }
 
+/**
+ * Advanced Mobile Optimization & PWA Features interfaces
+ */
+export interface PWAManifest {
+  name: string;
+  short_name: string;
+  description: string;
+  start_url: string;
+  display: 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
+  orientation: 'portrait' | 'landscape' | 'any';
+  theme_color: string;
+  background_color: string;
+  icons: PWAIcon[];
+  categories: string[];
+  lang: string;
+  dir: 'ltr' | 'rtl';
+  scope: string;
+  id?: string;
+  related_applications?: PWAApplication[];
+  prefer_related_applications?: boolean;
+  edge_side_panel?: {
+    preferred_width: number;
+  };
+  shortcuts?: PWAShortcut[];
+  screenshots?: PWAScreenshot[];
+  share_target?: PWAShareTarget;
+  protocol_handlers?: PWAProtocolHandler[];
+  file_handlers?: PWAFileHandler[];
+}
+
+export interface PWAIcon {
+  src: string;
+  sizes: string;
+  type: string;
+  purpose?: 'any' | 'maskable' | 'monochrome';
+  label?: string;
+}
+
+export interface PWAApplication {
+  platform: string;
+  url: string;
+  id?: string;
+  min_version?: string;
+  fingerprints?: PWAFingerprint[];
+}
+
+export interface PWAFingerprint {
+  type: string;
+  value: string;
+}
+
+export interface PWAShortcut {
+  name: string;
+  short_name?: string;
+  description?: string;
+  url: string;
+  icons?: PWAIcon[];
+}
+
+export interface PWAScreenshot {
+  src: string;
+  sizes: string;
+  type: string;
+  form_factor: 'narrow' | 'wide';
+  label?: string;
+}
+
+export interface PWAShareTarget {
+  action: string;
+  method?: 'GET' | 'POST';
+  enctype?: string;
+  params: PWAShareParam[];
+}
+
+export interface PWAShareParam {
+  name: string;
+  value: string;
+}
+
+export interface PWAProtocolHandler {
+  protocol: string;
+  url: string;
+}
+
+export interface PWAFileHandler {
+  action: string;
+  accept: Record<string, string[]>;
+}
+
+export interface ServiceWorkerConfig {
+  version: string;
+  cacheName: string;
+  strategies: CacheStrategy[];
+  offlinePages: string[];
+  backgroundSync: BackgroundSyncConfig;
+  pushNotifications: PushNotificationConfig;
+  updateStrategy: 'immediate' | 'skipWaiting' | 'prompt';
+}
+
+export interface CacheStrategy {
+  pattern: string;
+  strategy: 'cacheFirst' | 'networkFirst' | 'staleWhileRevalidate' | 'networkOnly' | 'cacheOnly';
+  cacheName?: string;
+  plugins?: CachePlugin[];
+}
+
+export interface CachePlugin {
+  name: string;
+  config: Record<string, any>;
+}
+
+export interface BackgroundSyncConfig {
+  enabled: boolean;
+  queueName: string;
+  maxRetries: number;
+  retryDelay: number;
+  events: string[];
+}
+
+export interface PushNotificationConfig {
+  enabled: boolean;
+  vapidPublicKey: string;
+  supportedActions: NotificationAction[];
+  defaultOptions: NotificationOptions;
+}
+
+export interface NotificationAction {
+  action: string;
+  title: string;
+  icon?: string;
+}
+
+export interface NotificationOptions {
+  body?: string;
+  icon?: string;
+  badge?: string;
+  tag?: string;
+  data?: any;
+  requireInteraction?: boolean;
+  silent?: boolean;
+  timestamp?: number;
+  vibrate?: number[];
+  actions?: NotificationAction[];
+}
+
+export interface MobileOptimization {
+  touchTargets: TouchTargetConfig;
+  gestures: GestureConfig;
+  orientation: OrientationConfig;
+  performance: PerformanceConfig;
+  accessibility: AccessibilityConfig;
+  responsive: ResponsiveConfig;
+}
+
+export interface TouchTargetConfig {
+  minSize: number;
+  spacing: number;
+  feedback: 'haptic' | 'visual' | 'both';
+  longPressDelay: number;
+  swipeThreshold: number;
+}
+
+export interface GestureConfig {
+  swipe: SwipeConfig;
+  pinch: PinchConfig;
+  rotate: RotateConfig;
+  pan: PanConfig;
+}
+
+export interface SwipeConfig {
+  enabled: boolean;
+  directions: ('left' | 'right' | 'up' | 'down')[];
+  threshold: number;
+  velocity: number;
+  preventDefault: boolean;
+}
+
+export interface PinchConfig {
+  enabled: boolean;
+  minScale: number;
+  maxScale: number;
+  threshold: number;
+}
+
+export interface RotateConfig {
+  enabled: boolean;
+  threshold: number;
+  preventDefault: boolean;
+}
+
+export interface PanConfig {
+  enabled: boolean;
+  threshold: number;
+  preventDefault: boolean;
+  direction: 'horizontal' | 'vertical' | 'both';
+}
+
+export interface OrientationConfig {
+  supported: ('portrait' | 'landscape')[];
+  lock: boolean;
+  autoRotate: boolean;
+  transition: 'smooth' | 'instant';
+}
+
+export interface PerformanceConfig {
+  lazyLoading: boolean;
+  imageOptimization: boolean;
+  codeSplitting: boolean;
+  preloading: boolean;
+  compression: boolean;
+  caching: boolean;
+}
+
+export interface AccessibilityConfig {
+  screenReader: boolean;
+  highContrast: boolean;
+  largeText: boolean;
+  reducedMotion: boolean;
+  keyboardNavigation: boolean;
+  focusManagement: boolean;
+}
+
+export interface ResponsiveConfig {
+  breakpoints: ResponsiveBreakpoint[];
+  fluid: boolean;
+  container: ContainerConfig;
+  grid: GridConfig;
+}
+
+export interface ResponsiveBreakpoint {
+  name: string;
+  minWidth: number;
+  maxWidth?: number;
+  columns: number;
+  gutter: number;
+}
+
+export interface ContainerConfig {
+  maxWidth: number;
+  padding: number;
+  center: boolean;
+}
+
+export interface GridConfig {
+  columns: number;
+  gutter: number;
+  margin: number;
+}
+
+export interface OfflineCapability {
+  enabled: boolean;
+  storage: OfflineStorage;
+  sync: OfflineSync;
+  conflict: ConflictResolution;
+  indicators: OfflineIndicators;
+}
+
+export interface OfflineStorage {
+  type: 'indexeddb' | 'websql' | 'localstorage';
+  maxSize: number;
+  compression: boolean;
+  encryption: boolean;
+  versioning: boolean;
+}
+
+export interface OfflineSync {
+  enabled: boolean;
+  strategy: 'immediate' | 'periodic' | 'manual';
+  interval: number;
+  retryPolicy: RetryPolicy;
+  conflictResolution: 'server' | 'client' | 'manual' | 'timestamp';
+}
+
+export interface RetryPolicy {
+  maxRetries: number;
+  backoffStrategy: 'linear' | 'exponential';
+  initialDelay: number;
+  maxDelay: number;
+}
+
+export interface ConflictResolution {
+  strategy: 'lastWriteWins' | 'merge' | 'manual';
+  autoResolve: boolean;
+  notifyUser: boolean;
+  preserveHistory: boolean;
+}
+
+export interface OfflineIndicators {
+  showStatus: boolean;
+  showSyncProgress: boolean;
+  showConflicts: boolean;
+  position: 'top' | 'bottom' | 'floating';
+  style: 'banner' | 'toast' | 'badge';
+}
+
+export interface MobileFeature {
+  id: string;
+  name: string;
+  description: string;
+  category: 'navigation' | 'input' | 'display' | 'performance' | 'accessibility';
+  enabled: boolean;
+  config: Record<string, any>;
+  dependencies: string[];
+  compatibility: CompatibilityInfo;
+  performance: PerformanceMetrics;
+}
+
+export interface CompatibilityInfo {
+  browsers: string[];
+  devices: string[];
+  os: string[];
+  versions: string[];
+  features: string[];
+}
+
+export interface PerformanceMetrics {
+  loadTime: number;
+  memoryUsage: number;
+  batteryImpact: 'low' | 'medium' | 'high';
+  networkUsage: number;
+  cpuUsage: number;
+}
+
+export interface MobileAnalytics {
+  deviceInfo: DeviceInfo;
+  performance: PerformanceData;
+  usage: UsageData;
+  errors: ErrorData[];
+  features: FeatureUsage[];
+}
+
+export interface DeviceInfo {
+  userAgent: string;
+  platform: string;
+  vendor: string;
+  model: string;
+  screen: ScreenInfo;
+  connection: ConnectionInfo;
+  battery: BatteryInfo;
+  memory: MemoryInfo;
+  storage: StorageInfo;
+}
+
+export interface ScreenInfo {
+  width: number;
+  height: number;
+  pixelRatio: number;
+  orientation: 'portrait' | 'landscape';
+  colorDepth: number;
+  touchSupport: boolean;
+}
+
+export interface ConnectionInfo {
+  type: string;
+  effectiveType: string;
+  downlink: number;
+  rtt: number;
+  saveData: boolean;
+}
+
+export interface BatteryInfo {
+  level: number;
+  charging: boolean;
+  chargingTime: number;
+  dischargingTime: number;
+}
+
+export interface MemoryInfo {
+  used: number;
+  total: number;
+  limit: number;
+}
+
+export interface StorageInfo {
+  used: number;
+  quota: number;
+  available: number;
+}
+
+export interface PerformanceData {
+  navigation: NavigationTiming;
+  paint: PaintTiming;
+  resources: ResourceTiming[];
+  longTasks: LongTask[];
+  layoutShifts: LayoutShift[];
+  firstInput: FirstInput;
+}
+
+export interface NavigationTiming {
+  loadEventEnd: number;
+  loadEventStart: number;
+  domContentLoadedEventEnd: number;
+  domContentLoadedEventStart: number;
+  responseEnd: number;
+  responseStart: number;
+  requestStart: number;
+  navigationStart: number;
+  redirectEnd: number;
+  redirectStart: number;
+  unloadEventEnd: number;
+  unloadEventStart: number;
+}
+
+export interface PaintTiming {
+  firstPaint: number;
+  firstContentfulPaint: number;
+  largestContentfulPaint: number;
+  firstInputDelay: number;
+  cumulativeLayoutShift: number;
+}
+
+export interface ResourceTiming {
+  name: string;
+  startTime: number;
+  duration: number;
+  transferSize: number;
+  encodedBodySize: number;
+  decodedBodySize: number;
+}
+
+export interface LongTask {
+  startTime: number;
+  duration: number;
+  name: string;
+  attribution: TaskAttribution[];
+}
+
+export interface TaskAttribution {
+  name: string;
+  entryType: string;
+  startTime: number;
+  duration: number;
+  containerType: string;
+  containerSrc: string;
+  containerId: string;
+  containerName: string;
+}
+
+export interface LayoutShift {
+  value: number;
+  hadRecentInput: boolean;
+  lastInputTime: number;
+  sources: LayoutShiftSource[];
+}
+
+export interface LayoutShiftSource {
+  node: string;
+  previousRect: DOMRect;
+  currentRect: DOMRect;
+}
+
+export interface FirstInput {
+  processingStart: number;
+  processingEnd: number;
+  cancelable: boolean;
+  target: string;
+  type: string;
+}
+
+export interface UsageData {
+  sessions: SessionData[];
+  pageViews: PageViewData[];
+  interactions: InteractionData[];
+  errors: ErrorData[];
+  customEvents: CustomEventData[];
+}
+
+export interface SessionData {
+  id: string;
+  startTime: number;
+  endTime: number;
+  duration: number;
+  pageViews: number;
+  interactions: number;
+  device: DeviceInfo;
+  location: LocationInfo;
+}
+
+export interface LocationInfo {
+  country: string;
+  region: string;
+  city: string;
+  timezone: string;
+  language: string;
+}
+
+export interface PageViewData {
+  url: string;
+  title: string;
+  timestamp: number;
+  duration: number;
+  referrer: string;
+  loadTime: number;
+}
+
+export interface InteractionData {
+  type: 'click' | 'scroll' | 'swipe' | 'pinch' | 'keyboard' | 'touch';
+  target: string;
+  timestamp: number;
+  duration: number;
+  coordinates: Coordinates;
+  metadata: Record<string, any>;
+}
+
+export interface Coordinates {
+  x: number;
+  y: number;
+  clientX: number;
+  clientY: number;
+  screenX: number;
+  screenY: number;
+}
+
+export interface ErrorData {
+  message: string;
+  stack: string;
+  filename: string;
+  lineno: number;
+  colno: number;
+  timestamp: number;
+  userAgent: string;
+  url: string;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  category: 'javascript' | 'network' | 'resource' | 'promise' | 'custom';
+}
+
+export interface CustomEventData {
+  name: string;
+  category: string;
+  action: string;
+  label?: string;
+  value?: number;
+  timestamp: number;
+  metadata: Record<string, any>;
+}
+
+export interface FeatureUsage {
+  featureId: string;
+  featureName: string;
+  usageCount: number;
+  lastUsed: number;
+  averageDuration: number;
+  successRate: number;
+  errorRate: number;
+  userSatisfaction: number;
+}
+
