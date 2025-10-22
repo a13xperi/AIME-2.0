@@ -17,6 +17,7 @@ import SessionTimer from '../SessionTimer/SessionTimer';
 import ProjectTemplates from '../ProjectTemplates/ProjectTemplates';
 import TemplateBuilder from '../TemplateBuilder/TemplateBuilder';
 import SecurityCompliance from '../SecurityCompliance/SecurityCompliance';
+import MobileOptimizationComponent from '../MobileOptimization/MobileOptimization';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -38,6 +39,7 @@ const Dashboard: React.FC = () => {
   const [showProjectTemplates, setShowProjectTemplates] = useState(false);
   const [showTemplateBuilder, setShowTemplateBuilder] = useState(false);
   const [showSecurityCompliance, setShowSecurityCompliance] = useState(false);
+  const [showMobileOptimization, setShowMobileOptimization] = useState(false);
 
   useEffect(() => {
     loadDashboard();
@@ -288,6 +290,7 @@ const Dashboard: React.FC = () => {
           <button className="btn btn-outline" onClick={() => navigate('/team')}>👥 Team</button>
           <button className="btn btn-outline" onClick={() => setShowDailySummary(true)}>📋 Daily Summary</button>
           <button className="btn btn-outline" onClick={() => setShowSecurityCompliance(true)}>🔒 Security & Compliance</button>
+          <button className="btn btn-outline" onClick={() => setShowMobileOptimization(true)}>📱 Mobile & PWA</button>
         </div>
 
       {/* Categories Section */}
@@ -487,6 +490,26 @@ const Dashboard: React.FC = () => {
         sessions={allSessions}
         onClose={() => setShowSecurityCompliance(false)}
       />
+
+      {/* Mobile Optimization Modal */}
+      {showMobileOptimization && (
+        <div className="modal-overlay">
+          <div className="modal-content mobile-optimization-modal">
+            <div className="modal-header">
+              <h2>📱 Mobile Optimization & PWA</h2>
+              <button 
+                className="close-button"
+                onClick={() => setShowMobileOptimization(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <MobileOptimizationComponent />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -583,6 +583,20 @@
   }
 }
 
+/* Mobile Optimization Modal */
+.mobile-optimization-modal {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mobile-optimization-modal .modal-body {
+  padding: 0;
+  overflow-y: auto;
+  max-height: calc(95vh - 80px);
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .dashboard {

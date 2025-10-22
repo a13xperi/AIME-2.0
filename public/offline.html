@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Agent Alex</title>
+    <meta name="description" content="Agent Alex is currently offline. Check your connection and try again.">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #374151;
+        }
+
+        .offline-container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .offline-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #9ca3af;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 12px 20px;
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f59e0b;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0.3;
+            }
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .features {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .features h3 {
+            font-size: 18px;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            text-align: left;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .feature-icon {
+            font-size: 16px;
+        }
+
+        .cached-content {
+            margin-top: 24px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .cached-content h4 {
+            font-size: 16px;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .cached-content p {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .cached-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .cached-link {
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #374151;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .cached-link:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        @media (max-width: 480px) {
+            .offline-container {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .actions {
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            }
+
+            .offline-container {
+                background: #1f2937;
+                color: #f9fafb;
+            }
+
+            h1 {
+                color: #f9fafb;
+            }
+
+            .subtitle {
+                color: #d1d5db;
+            }
+
+            .description {
+                color: #9ca3af;
+            }
+
+            .connection-status {
+                background: #451a03;
+                border-color: #d97706;
+                color: #fbbf24;
+            }
+
+            .status-indicator {
+                background: #fbbf24;
+            }
+
+            .btn-secondary {
+                background: #374151;
+                color: #d1d5db;
+                border-color: #4b5563;
+            }
+
+            .btn-secondary:hover {
+                background: #4b5563;
+            }
+
+            .features {
+                border-top-color: #4b5563;
+            }
+
+            .features h3 {
+                color: #f9fafb;
+            }
+
+            .feature-item {
+                color: #9ca3af;
+            }
+
+            .cached-content {
+                background: #374151;
+                border-color: #4b5563;
+            }
+
+            .cached-content h4 {
+                color: #f9fafb;
+            }
+
+            .cached-content p {
+                color: #9ca3af;
+            }
+
+            .cached-link {
+                background: #4b5563;
+                border-color: #6b7280;
+                color: #d1d5db;
+            }
+
+            .cached-link:hover {
+                background: #6b7280;
+                border-color: #9ca3af;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📱</div>
+        <h1>You're Offline</h1>
+        <p class="subtitle">Agent Alex is not available right now</p>
+        <p class="description">
+            Don't worry! Some features are still available offline. 
+            Check your internet connection and try again.
+        </p>
+
+        <div class="connection-status">
+            <div class="status-indicator"></div>
+            <span>Checking connection...</span>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="retryConnection()">
+                🔄 Try Again
+            </button>
+            <button class="btn btn-secondary" onclick="goHome()">
+                🏠 Go to Home
+            </button>
+        </div>
+
+        <div class="features">
+            <h3>Available Offline</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <span>Cached Analytics</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📝</span>
+                    <span>Recent Sessions</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📋</span>
+                    <span>Project Templates</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚙️</span>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cached-content">
+            <h4>Quick Access</h4>
+            <p>These pages are available offline:</p>
+            <div class="cached-links">
+                <a href="/" class="cached-link">Dashboard</a>
+                <a href="/projects" class="cached-link">Projects</a>
+                <a href="/sessions" class="cached-link">Sessions</a>
+                <a href="/analytics" class="cached-link">Analytics</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Connection status monitoring
+        function updateConnectionStatus() {
+            const statusElement = document.querySelector('.connection-status span');
+            const indicator = document.querySelector('.status-indicator');
+            
+            if (navigator.onLine) {
+                statusElement.textContent = 'Connected!';
+                indicator.style.background = '#10b981';
+                indicator.style.animation = 'none';
+                
+                // Auto-redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            } else {
+                statusElement.textContent = 'No internet connection';
+                indicator.style.background = '#ef4444';
+                indicator.style.animation = 'blink 1.5s infinite';
+            }
+        }
+
+        // Retry connection
+        function retryConnection() {
+            const btn = document.querySelector('.btn-primary');
+            btn.textContent = '🔄 Checking...';
+            btn.disabled = true;
+            
+            // Simulate connection check
+            setTimeout(() => {
+                if (navigator.onLine) {
+                    window.location.href = '/';
+                } else {
+                    btn.textContent = '🔄 Try Again';
+                    btn.disabled = false;
+                    updateConnectionStatus();
+                }
+            }, 1500);
+        }
+
+        // Go to home (cached version)
+        function goHome() {
+            window.location.href = '/';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateConnectionStatus();
+            
+            // Listen for connection changes
+            window.addEventListener('online', updateConnectionStatus);
+            window.addEventListener('offline', updateConnectionStatus);
+            
+            // Periodic connection check
+            setInterval(updateConnectionStatus, 5000);
+        });
+
+        // Service Worker registration check
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then((registration) => {
+                console.log('Service Worker ready:', registration);
+            });
+        }
+    </script>
+</body>
+</html>
