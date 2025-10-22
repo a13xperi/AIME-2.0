@@ -1524,3 +1524,1111 @@ export interface TrainingCompletion {
   certificate?: string;
 }
 
+/**
+ * Advanced Customer Relationship Management (CRM) System interfaces
+ */
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  status: 'active' | 'prospect' | 'inactive';
+  source: string;
+  value: number;
+  lastContact: string;
+  createdAt: string;
+  tags: string[];
+  notes: string;
+}
+
+export interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  status: 'new' | 'qualified' | 'converted' | 'lost';
+  source: string;
+  score: number;
+  createdAt: string;
+  lastActivity: string;
+  notes: string;
+}
+
+export interface Opportunity {
+  id: string;
+  name: string;
+  customer: string;
+  value: number;
+  stage: 'lead' | 'qualified' | 'proposal' | 'negotiation' | 'closed';
+  probability: number;
+  expectedClose: string;
+  owner: string;
+  createdAt: string;
+  lastActivity: string;
+  notes: string;
+}
+
+export interface Contact {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  title: string;
+  department: string;
+  status: 'active' | 'inactive';
+  createdAt: string;
+  lastContact: string;
+  notes: string;
+}
+
+export interface Company {
+  id: string;
+  name: string;
+  industry: string;
+  size: 'startup' | 'small' | 'medium' | 'enterprise';
+  revenue: number;
+  employees: number;
+  location: string;
+  website: string;
+  status: 'active' | 'inactive';
+  createdAt: string;
+  lastActivity: string;
+  notes: string;
+}
+
+export interface Deal {
+  id: string;
+  name: string;
+  customer: string;
+  value: number;
+  stage: 'lead' | 'qualified' | 'proposal' | 'negotiation' | 'closed';
+  probability: number;
+  expectedClose: string;
+  owner: string;
+  createdAt: string;
+  lastActivity: string;
+  products: string[];
+  notes: string;
+}
+
+export interface Pipeline {
+  id: string;
+  name: string;
+  stages: string[];
+  totalValue: number;
+  activeDeals: number;
+  conversionRate: number;
+  averageDealSize: number;
+  createdAt: string;
+  lastUpdated: string;
+}
+
+export interface SalesActivity {
+  id: string;
+  type: 'call' | 'email' | 'meeting' | 'demo' | 'proposal';
+  subject: string;
+  customer: string;
+  owner: string;
+  scheduledAt: string;
+  completedAt: string | null;
+  status: 'scheduled' | 'completed' | 'cancelled';
+  notes: string;
+  outcome: 'positive' | 'negative' | 'neutral' | null;
+}
+
+export interface CustomerSegment {
+  id: string;
+  name: string;
+  criteria: string;
+  customerCount: number;
+  averageValue: number;
+  growthRate: number;
+  churnRate: number;
+  lastUpdated: string;
+}
+
+export interface CustomerJourney {
+  id: string;
+  name: string;
+  stages: string[];
+  averageDuration: number;
+  conversionRate: number;
+  customerCount: number;
+  lastUpdated: string;
+}
+
+export interface CustomerFeedback {
+  id: string;
+  customer: string;
+  type: 'satisfaction' | 'complaint' | 'suggestion' | 'feature_request';
+  rating: number;
+  comment: string;
+  category: string;
+  status: 'open' | 'under_review' | 'resolved';
+  createdAt: string;
+  assignedTo: string;
+}
+
+export interface CustomerSupport {
+  id: string;
+  ticket: string;
+  customer: string;
+  subject: string;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  status: 'open' | 'in_progress' | 'resolved' | 'closed';
+  assignedTo: string;
+  createdAt: string;
+  lastUpdated: string;
+  resolutionTime: number | null;
+}
+
+export interface CustomerOnboarding {
+  id: string;
+  customer: string;
+  stage: string;
+  progress: number;
+  startDate: string;
+  expectedCompletion: string;
+  tasks: Array<{
+    name: string;
+    completed: boolean;
+  }>;
+  assignedTo: string;
+}
+
+export interface CustomerRetention {
+  id: string;
+  customer: string;
+  riskLevel: 'low' | 'medium' | 'high';
+  lastActivity: string;
+  engagementScore: number;
+  actions: string[];
+  nextAction: string;
+  assignedTo: string;
+}
+
+export interface CustomerChurn {
+  id: string;
+  customer: string;
+  reason: string;
+  churnDate: string;
+  value: number;
+  attempts: number;
+  lastAttempt: string;
+  status: 'final' | 'recoverable';
+}
+
+export interface SalesForecast {
+  id: string;
+  period: string;
+  totalValue: number;
+  probability: number;
+  deals: number;
+  confidence: 'low' | 'medium' | 'high';
+  lastUpdated: string;
+}
+
+export interface SalesTarget {
+  id: string;
+  period: string;
+  target: number;
+  current: number;
+  progress: number;
+  team: string;
+  lastUpdated: string;
+}
+
+export interface SalesTeam {
+  id: string;
+  name: string;
+  members: number;
+  target: number;
+  current: number;
+  progress: number;
+  manager: string;
+  lastUpdated: string;
+}
+
+export interface SalesTerritory {
+  id: string;
+  name: string;
+  region: string;
+  accounts: number;
+  opportunities: number;
+  value: number;
+  assignedTo: string;
+  lastUpdated: string;
+}
+
+export interface SalesProduct {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  margin: number;
+  unitsSold: number;
+  revenue: number;
+  lastUpdated: string;
+}
+
+export interface SalesCampaign {
+  id: string;
+  name: string;
+  type: 'email' | 'social' | 'content' | 'event';
+  status: 'active' | 'paused' | 'completed';
+  startDate: string;
+  endDate: string;
+  budget: number;
+  spent: number;
+  leads: number;
+  conversions: number;
+  roi: number;
+  lastUpdated: string;
+}
+
+export interface SalesEvent {
+  id: string;
+  name: string;
+  type: 'webinar' | 'conference' | 'demo' | 'meeting';
+  date: string;
+  attendees: number;
+  leads: number;
+  cost: number;
+  status: 'scheduled' | 'completed' | 'cancelled';
+  lastUpdated: string;
+}
+
+export interface SalesMeeting {
+  id: string;
+  subject: string;
+  customer: string;
+  date: string;
+  duration: number;
+  attendees: string[];
+  status: 'scheduled' | 'completed' | 'cancelled';
+  notes: string;
+}
+
+export interface SalesCall {
+  id: string;
+  customer: string;
+  date: string;
+  duration: number;
+  outcome: 'positive' | 'negative' | 'neutral';
+  nextSteps: string;
+  notes: string;
+}
+
+export interface SalesEmail {
+  id: string;
+  subject: string;
+  customer: string;
+  sentDate: string;
+  status: 'sent' | 'delivered' | 'opened' | 'clicked';
+  opened: boolean;
+  clicked: boolean;
+  response: 'positive' | 'negative' | 'neutral' | null;
+}
+
+export interface SalesTask {
+  id: string;
+  title: string;
+  customer: string;
+  dueDate: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'pending' | 'in_progress' | 'completed';
+  assignedTo: string;
+  notes: string;
+}
+
+export interface SalesNote {
+  id: string;
+  customer: string;
+  content: string;
+  type: 'call' | 'email' | 'meeting' | 'general';
+  author: string;
+  createdAt: string;
+  tags: string[];
+}
+
+export interface SalesAttachment {
+  id: string;
+  name: string;
+  type: 'document' | 'image' | 'video' | 'audio';
+  size: number;
+  customer: string;
+  uploadedBy: string;
+  uploadedAt: string;
+  url: string;
+}
+
+export interface SalesDocument {
+  id: string;
+  name: string;
+  type: 'proposal' | 'contract' | 'quote' | 'invoice';
+  template: boolean;
+  lastUsed: string;
+  usage: number;
+  createdBy: string;
+  createdAt: string;
+}
+
+export interface SalesContract {
+  id: string;
+  name: string;
+  customer: string;
+  value: number;
+  startDate: string;
+  endDate: string;
+  status: 'draft' | 'sent' | 'signed' | 'expired';
+  terms: string;
+  lastUpdated: string;
+}
+
+export interface SalesQuote {
+  id: string;
+  number: string;
+  customer: string;
+  value: number;
+  validUntil: string;
+  status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
+  items: Array<{
+    name: string;
+    quantity: number;
+    price: number;
+  }>;
+  createdAt: string;
+}
+
+export interface SalesInvoice {
+  id: string;
+  number: string;
+  customer: string;
+  amount: number;
+  dueDate: string;
+  status: 'draft' | 'sent' | 'paid' | 'overdue';
+  paidDate: string | null;
+  items: Array<{
+    name: string;
+    quantity: number;
+    price: number;
+  }>;
+  createdAt: string;
+}
+
+export interface SalesPayment {
+  id: string;
+  invoice: string;
+  amount: number;
+  method: 'cash' | 'check' | 'wire_transfer' | 'credit_card' | 'paypal';
+  date: string;
+  status: 'pending' | 'completed' | 'failed';
+  reference: string;
+}
+
+export interface SalesCommission {
+  id: string;
+  salesperson: string;
+  deal: string;
+  amount: number;
+  rate: number;
+  status: 'pending' | 'approved' | 'paid';
+  dueDate: string;
+  createdAt: string;
+}
+
+export interface SalesReport {
+  id: string;
+  name: string;
+  type: 'performance' | 'forecast' | 'pipeline' | 'activity';
+  period: string;
+  generatedAt: string;
+  metrics: {
+    totalRevenue: number;
+    dealsClosed: number;
+    averageDealSize: number;
+    conversionRate: number;
+  };
+  insights: string[];
+}
+
+export interface CustomerLifecycle {
+  id: string;
+  customer: string;
+  stage: 'awareness' | 'interest' | 'evaluation' | 'purchase' | 'onboarding' | 'adoption' | 'expansion' | 'renewal';
+  value: number;
+  duration: number;
+  nextStage: string;
+  actions: string[];
+  lastUpdated: string;
+}
+
+export interface CustomerValue {
+  id: string;
+  customer: string;
+  totalValue: number;
+  currentValue: number;
+  potentialValue: number;
+  lastCalculated: string;
+  trends: 'increasing' | 'decreasing' | 'stable';
+}
+
+export interface CustomerSatisfaction {
+  id: string;
+  customer: string;
+  score: number;
+  survey: string;
+  responses: number;
+  lastSurvey: string;
+  trends: 'improving' | 'declining' | 'stable';
+}
+
+export interface CustomerLoyalty {
+  id: string;
+  customer: string;
+  score: number;
+  factors: string[];
+  lastCalculated: string;
+  trends: 'improving' | 'declining' | 'stable';
+}
+
+export interface CustomerReferral {
+  id: string;
+  customer: string;
+  referredCustomer: string;
+  status: 'pending' | 'converted' | 'lost';
+  value: number;
+  commission: number;
+  createdAt: string;
+}
+
+export interface CustomerUpsell {
+  id: string;
+  customer: string;
+  product: string;
+  value: number;
+  status: 'opportunity' | 'closed' | 'lost';
+  closedAt: string | null;
+  owner: string;
+}
+
+export interface CustomerCrossSell {
+  id: string;
+  customer: string;
+  product: string;
+  value: number;
+  status: 'opportunity' | 'closed' | 'lost';
+  probability: number;
+  owner: string;
+}
+
+export interface CustomerRenewal {
+  id: string;
+  customer: string;
+  contract: string;
+  renewalDate: string;
+  status: 'upcoming' | 'renewed' | 'cancelled';
+  value: number;
+  probability: number;
+  owner: string;
+}
+
+export interface CustomerCancellation {
+  id: string;
+  customer: string;
+  reason: string;
+  date: string;
+  value: number;
+  attempts: number;
+  status: 'final' | 'recoverable';
+}
+
+export interface CustomerComplaint {
+  id: string;
+  customer: string;
+  subject: string;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  status: 'open' | 'in_progress' | 'resolved' | 'closed';
+  resolution: string | null;
+  createdAt: string;
+  resolvedAt: string | null;
+}
+
+export interface CustomerResolution {
+  id: string;
+  complaint: string;
+  solution: string;
+  timeToResolve: number;
+  customerSatisfaction: number;
+  cost: number;
+  implementedAt: string;
+}
+
+export interface CustomerEscalation {
+  id: string;
+  customer: string;
+  issue: string;
+  level: 'support' | 'management' | 'executive';
+  status: 'open' | 'in_progress' | 'resolved';
+  escalatedAt: string;
+  resolvedAt: string | null;
+  assignedTo: string;
+}
+
+/**
+ * Advanced Marketing Automation System interfaces
+ */
+export interface MarketingCampaign {
+  id: string;
+  name: string;
+  type: 'product_launch' | 'seasonal' | 'promotional' | 'brand_awareness' | 'lead_generation';
+  status: 'active' | 'paused' | 'completed' | 'planned';
+  startDate: string;
+  endDate: string;
+  budget: number;
+  spent: number;
+  targetAudience: string;
+  channels: string[];
+  metrics: {
+    impressions: number;
+    clicks: number;
+    conversions: number;
+    revenue: number;
+  };
+  createdAt: string;
+  lastUpdated: string;
+}
+
+export interface EmailCampaign {
+  id: string;
+  name: string;
+  type: 'automated' | 'newsletter' | 'promotional' | 'transactional';
+  status: 'active' | 'paused' | 'completed' | 'scheduled';
+  subject: string;
+  audience: string;
+  sendTime: string;
+  openRate: number;
+  clickRate: number;
+  conversionRate: number;
+  unsubscribes: number;
+  createdAt: string;
+  lastSent: string | null;
+}
+
+export interface SocialMediaCampaign {
+  id: string;
+  name: string;
+  platform: 'facebook' | 'twitter' | 'linkedin' | 'instagram' | 'youtube';
+  status: 'active' | 'paused' | 'completed';
+  objective: 'brand_awareness' | 'engagement' | 'traffic' | 'conversions';
+  budget: number;
+  spent: number;
+  reach: number;
+  engagement: number;
+  clicks: number;
+  conversions: number;
+  createdAt: string;
+  lastUpdated: string;
+}
+
+export interface ContentCampaign {
+  id: string;
+  name: string;
+  type: 'blog_series' | 'video_series' | 'webinar_series' | 'ebook' | 'whitepaper';
+  status: 'active' | 'paused' | 'completed';
+  topics: string[];
+  channels: string[];
+  performance: {
+    views: number;
+    shares: number;
+    leads: number;
+    conversions: number;
+  };
+  createdAt: string;
+  lastUpdated: string;
+}
+
+export interface MarketingAutomation {
+  id: string;
+  name: string;
+  type: 'lead_scoring' | 'cart_recovery' | 'welcome_series' | 're_engagement' | 'upsell';
+  status: 'active' | 'paused' | 'completed';
+  triggers: string[];
+  actions: string[];
+  conditions: string[];
+  lastRun: string;
+  nextRun: string;
+  successRate: number;
+  createdAt: string;
+}
+
+export interface LeadNurturing {
+  id: string;
+  name: string;
+  status: 'active' | 'paused' | 'completed';
+  leads: number;
+  stages: string[];
+  duration: number;
+  conversionRate: number;
+  lastActivity: string;
+  nextActivity: string;
+}
+
+export interface MarketingSegment {
+  id: string;
+  name: string;
+  criteria: string;
+  size: number;
+  lastUpdated: string;
+  performance: {
+    openRate: number;
+    clickRate: number;
+    conversionRate: number;
+  };
+}
+
+export interface MarketingAudience {
+  id: string;
+  name: string;
+  type: 'custom' | 'lookalike' | 'retargeting';
+  size: number;
+  source: string;
+  lastUpdated: string;
+  engagement: number;
+}
+
+export interface MarketingTemplate {
+  id: string;
+  name: string;
+  type: 'email' | 'landing_page' | 'social_post' | 'ad';
+  category: string;
+  usage: number;
+  performance: {
+    openRate: number;
+    clickRate: number;
+    conversionRate: number;
+  };
+  createdAt: string;
+  lastUsed: string;
+}
+
+export interface MarketingAsset {
+  id: string;
+  name: string;
+  type: 'image' | 'video' | 'document' | 'audio';
+  category: string;
+  size: number;
+  url: string;
+  usage: number;
+  performance: {
+    views: number;
+    engagement: number;
+    conversions: number;
+  };
+  createdAt: string;
+  lastUsed: string;
+}
+
+export interface MarketingEvent {
+  id: string;
+  name: string;
+  type: 'webinar' | 'conference' | 'workshop' | 'demo';
+  date: string;
+  attendees: number;
+  registrations: number;
+  conversionRate: number;
+  revenue: number;
+  status: 'scheduled' | 'completed' | 'cancelled';
+}
+
+export interface MarketingWebinar {
+  id: string;
+  name: string;
+  date: string;
+  duration: number;
+  attendees: number;
+  registrations: number;
+  conversionRate: number;
+  revenue: number;
+  status: 'scheduled' | 'completed' | 'cancelled';
+  topic: string;
+  presenter: string;
+}
+
+export interface MarketingLandingPage {
+  id: string;
+  name: string;
+  url: string;
+  status: 'active' | 'inactive';
+  traffic: number;
+  conversions: number;
+  conversionRate: number;
+  bounceRate: number;
+  lastUpdated: string;
+}
+
+export interface MarketingForm {
+  id: string;
+  name: string;
+  type: 'contact' | 'newsletter' | 'download' | 'demo';
+  fields: string[];
+  submissions: number;
+  conversionRate: number;
+  lastSubmission: string;
+  createdAt: string;
+}
+
+export interface MarketingLead {
+  id: string;
+  name: string;
+  email: string;
+  company: string;
+  score: number;
+  source: string;
+  status: 'new' | 'qualified' | 'converted' | 'lost';
+  lastActivity: string;
+  createdAt: string;
+}
+
+export interface MarketingScore {
+  id: string;
+  lead: string;
+  score: number;
+  factors: string[];
+  lastUpdated: string;
+  trend: 'increasing' | 'decreasing' | 'stable';
+}
+
+export interface MarketingWorkflow {
+  id: string;
+  name: string;
+  status: 'active' | 'paused' | 'completed';
+  steps: number;
+  duration: number;
+  leads: number;
+  conversionRate: number;
+  lastRun: string;
+  nextRun: string;
+}
+
+export interface MarketingTrigger {
+  id: string;
+  name: string;
+  type: string;
+  conditions: string[];
+  actions: string[];
+  active: boolean;
+  lastTriggered: string;
+}
+
+export interface MarketingAction {
+  id: string;
+  name: string;
+  type: string;
+  template: string;
+  delay: number;
+  conditions: string[];
+  active: boolean;
+  lastExecuted: string;
+}
+
+export interface MarketingCondition {
+  id: string;
+  name: string;
+  type: string;
+  value: number;
+  operator: string;
+  active: boolean;
+  lastEvaluated: string;
+}
+
+export interface MarketingAnalytics {
+  id: string;
+  name: string;
+  type: string;
+  metrics: {
+    impressions: number;
+    clicks: number;
+    conversions: number;
+    revenue: number;
+  };
+  period: string;
+  lastUpdated: string;
+}
+
+export interface MarketingMetrics {
+  id: string;
+  name: string;
+  value: number;
+  target: number;
+  trend: 'increasing' | 'decreasing' | 'stable';
+  lastUpdated: string;
+}
+
+export interface MarketingReport {
+  id: string;
+  name: string;
+  type: string;
+  period: string;
+  metrics: {
+    totalCampaigns: number;
+    totalSpend: number;
+    totalRevenue: number;
+    roi: number;
+  };
+  insights: string[];
+  generatedAt: string;
+}
+
+export interface MarketingInsight {
+  id: string;
+  title: string;
+  description: string;
+  confidence: number;
+  impact: 'high' | 'medium' | 'low';
+  recommendation: string;
+  createdAt: string;
+}
+
+export interface MarketingABTest {
+  id: string;
+  name: string;
+  status: 'running' | 'completed' | 'cancelled';
+  variants: string[];
+  traffic: number;
+  startDate: string;
+  endDate: string;
+  results: {
+    variantA: { opens: number; clicks: number };
+    variantB: { opens: number; clicks: number };
+  };
+  winner: string | null;
+}
+
+export interface MarketingPersonalization {
+  id: string;
+  name: string;
+  type: string;
+  criteria: string[];
+  performance: {
+    clickRate: number;
+    conversionRate: number;
+    revenue: number;
+  };
+  lastUpdated: string;
+}
+
+export interface MarketingRetargeting {
+  id: string;
+  name: string;
+  audience: string;
+  budget: number;
+  spent: number;
+  impressions: number;
+  clicks: number;
+  conversions: number;
+  roas: number;
+  lastUpdated: string;
+}
+
+export interface MarketingAttribution {
+  id: string;
+  model: string;
+  touchpoints: string[];
+  conversions: number;
+  revenue: number;
+  lastCalculated: string;
+}
+
+export interface MarketingROI {
+  id: string;
+  campaign: string;
+  spend: number;
+  revenue: number;
+  roi: number;
+  period: string;
+  lastCalculated: string;
+}
+
+export interface MarketingBudget {
+  id: string;
+  name: string;
+  total: number;
+  allocated: number;
+  spent: number;
+  remaining: number;
+  period: string;
+  lastUpdated: string;
+}
+
+export interface MarketingCost {
+  id: string;
+  category: string;
+  amount: number;
+  period: string;
+  breakdown: Record<string, number>;
+  lastUpdated: string;
+}
+
+export interface MarketingChannel {
+  id: string;
+  name: string;
+  type: 'owned' | 'earned' | 'paid';
+  performance: {
+    reach: number;
+    engagement: number;
+    conversions: number;
+    cost: number;
+  };
+  lastUpdated: string;
+}
+
+export interface MarketingTouchpoint {
+  id: string;
+  name: string;
+  type: string;
+  position: string;
+  performance: {
+    opens: number;
+    clicks: number;
+    conversions: number;
+  };
+  lastUpdated: string;
+}
+
+export interface MarketingJourney {
+  id: string;
+  name: string;
+  stages: string[];
+  duration: number;
+  conversionRate: number;
+  customers: number;
+  lastUpdated: string;
+}
+
+export interface MarketingFunnel {
+  id: string;
+  name: string;
+  stages: string[];
+  conversionRates: number[];
+  customers: number;
+  lastUpdated: string;
+}
+
+export interface MarketingGoal {
+  id: string;
+  name: string;
+  target: number;
+  current: number;
+  progress: number;
+  deadline: string;
+  lastUpdated: string;
+}
+
+export interface MarketingKPI {
+  id: string;
+  name: string;
+  value: number;
+  target: number;
+  trend: 'increasing' | 'decreasing' | 'stable';
+  lastUpdated: string;
+}
+
+export interface MarketingTarget {
+  id: string;
+  name: string;
+  value: number;
+  current: number;
+  progress: number;
+  deadline: string;
+  lastUpdated: string;
+}
+
+export interface MarketingForecast {
+  id: string;
+  name: string;
+  period: string;
+  predicted: {
+    leads: number;
+    conversions: number;
+    revenue: number;
+  };
+  confidence: number;
+  lastUpdated: string;
+}
+
+export interface MarketingOptimization {
+  id: string;
+  name: string;
+  type: string;
+  improvement: number;
+  impact: 'high' | 'medium' | 'low';
+  effort: 'high' | 'medium' | 'low';
+  status: 'implemented' | 'pending' | 'rejected';
+  implementedAt: string | null;
+}
+
+export interface MarketingRecommendation {
+  id: string;
+  title: string;
+  description: string;
+  priority: 'high' | 'medium' | 'low';
+  impact: 'high' | 'medium' | 'low';
+  effort: 'high' | 'medium' | 'low';
+  status: 'pending' | 'implemented' | 'rejected';
+  createdAt: string;
+}
+
+export interface MarketingAlert {
+  id: string;
+  name: string;
+  type: string;
+  severity: 'high' | 'medium' | 'low';
+  message: string;
+  status: 'active' | 'resolved' | 'acknowledged';
+  createdAt: string;
+}
+
+export interface MarketingIntegration {
+  id: string;
+  name: string;
+  type: string;
+  status: 'active' | 'inactive' | 'error';
+  lastSync: string;
+  syncFrequency: string;
+  records: number;
+}
+
+export interface MarketingAPI {
+  id: string;
+  name: string;
+  endpoint: string;
+  version: string;
+  status: 'active' | 'inactive';
+  requests: number;
+  lastUsed: string;
+}
+
+export interface MarketingWebhook {
+  id: string;
+  name: string;
+  url: string;
+  events: string[];
+  status: 'active' | 'inactive';
+  lastTriggered: string;
+}
+
+export interface MarketingSync {
+  id: string;
+  name: string;
+  source: string;
+  destination: string;
+  status: 'active' | 'inactive' | 'error';
+  lastSync: string;
+  records: number;
+  errors: number;
+}
+

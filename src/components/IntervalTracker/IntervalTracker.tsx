@@ -360,3 +360,5 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
 };
 
 export default IntervalTracker;
+
+

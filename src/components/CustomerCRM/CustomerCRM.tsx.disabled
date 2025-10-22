@@ -1,0 +1,1161 @@
+import React, { useState, useEffect } from 'react';
+import {
+  Customer, Lead, Opportunity, Contact, Company, Deal, Pipeline,
+  SalesActivity, CustomerSegment, CustomerJourney, CustomerFeedback,
+  CustomerSupport, CustomerOnboarding, CustomerRetention, CustomerChurn,
+  SalesForecast, SalesTarget, SalesTeam, SalesTerritory, SalesProduct,
+  SalesCampaign, SalesEvent, SalesMeeting, SalesCall, SalesEmail,
+  SalesTask, SalesNote, SalesAttachment, SalesDocument, SalesContract,
+  SalesQuote, SalesInvoice, SalesPayment, SalesCommission, SalesReport,
+  CustomerLifecycle, CustomerValue, CustomerSatisfaction, CustomerLoyalty,
+  CustomerReferral, CustomerUpsell, CustomerCrossSell, CustomerRenewal,
+  CustomerCancellation, CustomerComplaint, CustomerResolution, CustomerEscalation
+} from '../../types';
+import './CustomerCRM.css';
+
+const CustomerCRM: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<string>('overview');
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [deals, setDeals] = useState<Deal[]>([]);
+  const [pipelines, setPipelines] = useState<Pipeline[]>([]);
+  const [salesActivities, setSalesActivities] = useState<SalesActivity[]>([]);
+  const [customerSegments, setCustomerSegments] = useState<CustomerSegment[]>([]);
+  const [customerJourneys, setCustomerJourneys] = useState<CustomerJourney[]>([]);
+  const [customerFeedback, setCustomerFeedback] = useState<CustomerFeedback[]>([]);
+  const [customerSupport, setCustomerSupport] = useState<CustomerSupport[]>([]);
+  const [customerOnboarding, setCustomerOnboarding] = useState<CustomerOnboarding[]>([]);
+  const [customerRetention, setCustomerRetention] = useState<CustomerRetention[]>([]);
+  const [customerChurn, setCustomerChurn] = useState<CustomerChurn[]>([]);
+  const [salesForecasts, setSalesForecasts] = useState<SalesForecast[]>([]);
+  const [salesTargets, setSalesTargets] = useState<SalesTarget[]>([]);
+  const [salesTeams, setSalesTeams] = useState<SalesTeam[]>([]);
+  const [salesTerritories, setSalesTerritories] = useState<SalesTerritory[]>([]);
+  const [salesProducts, setSalesProducts] = useState<SalesProduct[]>([]);
+  const [salesCampaigns, setSalesCampaigns] = useState<SalesCampaign[]>([]);
+  const [salesEvents, setSalesEvents] = useState<SalesEvent[]>([]);
+  const [salesMeetings, setSalesMeetings] = useState<SalesMeeting[]>([]);
+  const [salesCalls, setSalesCalls] = useState<SalesCall[]>([]);
+  const [salesEmails, setSalesEmails] = useState<SalesEmail[]>([]);
+  const [salesTasks, setSalesTasks] = useState<SalesTask[]>([]);
+  const [salesNotes, setSalesNotes] = useState<SalesNote[]>([]);
+  const [salesAttachments, setSalesAttachments] = useState<SalesAttachment[]>([]);
+  const [salesDocuments, setSalesDocuments] = useState<SalesDocument[]>([]);
+  const [salesContracts, setSalesContracts] = useState<SalesContract[]>([]);
+  const [salesQuotes, setSalesQuotes] = useState<SalesQuote[]>([]);
+  const [salesInvoices, setSalesInvoices] = useState<SalesInvoice[]>([]);
+  const [salesPayments, setSalesPayments] = useState<SalesPayment[]>([]);
+  const [salesCommissions, setSalesCommissions] = useState<SalesCommission[]>([]);
+  const [salesReports, setSalesReports] = useState<SalesReport[]>([]);
+  const [customerLifecycles, setCustomerLifecycles] = useState<CustomerLifecycle[]>([]);
+  const [customerValues, setCustomerValues] = useState<CustomerValue[]>([]);
+  const [customerSatisfaction, setCustomerSatisfaction] = useState<CustomerSatisfaction[]>([]);
+  const [customerLoyalty, setCustomerLoyalty] = useState<CustomerLoyalty[]>([]);
+  const [customerReferrals, setCustomerReferrals] = useState<CustomerReferral[]>([]);
+  const [customerUpsells, setCustomerUpsells] = useState<CustomerUpsell[]>([]);
+  const [customerCrossSells, setCustomerCrossSells] = useState<CustomerCrossSell[]>([]);
+  const [customerRenewals, setCustomerRenewals] = useState<CustomerRenewal[]>([]);
+  const [customerCancellations, setCustomerCancellations] = useState<CustomerCancellation[]>([]);
+  const [customerComplaints, setCustomerComplaints] = useState<CustomerComplaint[]>([]);
+  const [customerResolutions, setCustomerResolutions] = useState<CustomerResolution[]>([]);
+  const [customerEscalations, setCustomerEscalations] = useState<CustomerEscalation[]>([]);
+
+  useEffect(() => {
+    // Simulate fetching CRM data
+    setCustomers([
+      {
+        id: 'customer-1',
+        name: 'Acme Corporation',
+        email: 'contact@acme.com',
+        phone: '+1-555-0123',
+        company: 'Acme Corporation',
+        status: 'active',
+        source: 'website',
+        value: 50000,
+        lastContact: '2023-10-28',
+        createdAt: '2023-01-15',
+        tags: ['enterprise', 'high-value'],
+        notes: 'Major enterprise client with high growth potential'
+      },
+      {
+        id: 'customer-2',
+        name: 'TechStart Inc',
+        email: 'info@techstart.com',
+        phone: '+1-555-0456',
+        company: 'TechStart Inc',
+        status: 'prospect',
+        source: 'referral',
+        value: 15000,
+        lastContact: '2023-10-25',
+        createdAt: '2023-03-20',
+        tags: ['startup', 'tech'],
+        notes: 'Fast-growing tech startup, potential for expansion'
+      }
+    ]);
+
+    setLeads([
+      {
+        id: 'lead-1',
+        name: 'John Smith',
+        email: 'john@example.com',
+        phone: '+1-555-0789',
+        company: 'Smith Industries',
+        status: 'new',
+        source: 'cold_call',
+        score: 85,
+        createdAt: '2023-10-28',
+        lastActivity: '2023-10-28',
+        notes: 'Interested in enterprise solution'
+      },
+      {
+        id: 'lead-2',
+        name: 'Sarah Johnson',
+        email: 'sarah@techcorp.com',
+        phone: '+1-555-0321',
+        company: 'TechCorp',
+        status: 'qualified',
+        source: 'website',
+        score: 92,
+        createdAt: '2023-10-26',
+        lastActivity: '2023-10-27',
+        notes: 'High-quality lead, ready for demo'
+      }
+    ]);
+
+    setOpportunities([
+      {
+        id: 'opp-1',
+        name: 'Enterprise Software License',
+        customer: 'Acme Corporation',
+        value: 100000,
+        stage: 'proposal',
+        probability: 75,
+        expectedClose: '2023-12-15',
+        owner: 'Sales Team',
+        createdAt: '2023-09-01',
+        lastActivity: '2023-10-28',
+        notes: 'Large enterprise deal in final stages'
+      },
+      {
+        id: 'opp-2',
+        name: 'SaaS Subscription',
+        customer: 'TechStart Inc',
+        value: 25000,
+        stage: 'negotiation',
+        probability: 60,
+        expectedClose: '2023-11-30',
+        owner: 'Sales Team',
+        createdAt: '2023-10-01',
+        lastActivity: '2023-10-27',
+        notes: 'Mid-size SaaS opportunity'
+      }
+    ]);
+
+    setContacts([
+      {
+        id: 'contact-1',
+        name: 'Michael Chen',
+        email: 'michael@acme.com',
+        phone: '+1-555-0111',
+        company: 'Acme Corporation',
+        title: 'CTO',
+        department: 'Technology',
+        status: 'active',
+        createdAt: '2023-01-15',
+        lastContact: '2023-10-28',
+        notes: 'Key decision maker for technology purchases'
+      },
+      {
+        id: 'contact-2',
+        name: 'Lisa Wang',
+        email: 'lisa@techstart.com',
+        phone: '+1-555-0222',
+        company: 'TechStart Inc',
+        title: 'CEO',
+        department: 'Executive',
+        status: 'active',
+        createdAt: '2023-03-20',
+        lastContact: '2023-10-25',
+        notes: 'Founder and primary decision maker'
+      }
+    ]);
+
+    setCompanies([
+      {
+        id: 'company-1',
+        name: 'Acme Corporation',
+        industry: 'Manufacturing',
+        size: 'enterprise',
+        revenue: 100000000,
+        employees: 5000,
+        location: 'New York, NY',
+        website: 'https://acme.com',
+        status: 'active',
+        createdAt: '2023-01-15',
+        lastActivity: '2023-10-28',
+        notes: 'Fortune 500 manufacturing company'
+      },
+      {
+        id: 'company-2',
+        name: 'TechStart Inc',
+        industry: 'Technology',
+        size: 'startup',
+        revenue: 5000000,
+        employees: 50,
+        location: 'San Francisco, CA',
+        website: 'https://techstart.com',
+        status: 'active',
+        createdAt: '2023-03-20',
+        lastActivity: '2023-10-25',
+        notes: 'Fast-growing tech startup'
+      }
+    ]);
+
+    setDeals([
+      {
+        id: 'deal-1',
+        name: 'Q4 Enterprise License',
+        customer: 'Acme Corporation',
+        value: 100000,
+        stage: 'proposal',
+        probability: 75,
+        expectedClose: '2023-12-15',
+        owner: 'Sales Team',
+        createdAt: '2023-09-01',
+        lastActivity: '2023-10-28',
+        products: ['Enterprise License', 'Support Package'],
+        notes: 'Large enterprise deal in final stages'
+      },
+      {
+        id: 'deal-2',
+        name: 'SaaS Annual Subscription',
+        customer: 'TechStart Inc',
+        value: 25000,
+        stage: 'negotiation',
+        probability: 60,
+        expectedClose: '2023-11-30',
+        owner: 'Sales Team',
+        createdAt: '2023-10-01',
+        lastActivity: '2023-10-27',
+        products: ['SaaS Subscription', 'Training'],
+        notes: 'Mid-size SaaS opportunity'
+      }
+    ]);
+
+    setPipelines([
+      {
+        id: 'pipeline-1',
+        name: 'Enterprise Sales',
+        stages: ['lead', 'qualified', 'proposal', 'negotiation', 'closed'],
+        totalValue: 500000,
+        activeDeals: 15,
+        conversionRate: 0.25,
+        averageDealSize: 33333,
+        createdAt: '2023-01-01',
+        lastUpdated: '2023-10-28'
+      },
+      {
+        id: 'pipeline-2',
+        name: 'SMB Sales',
+        stages: ['lead', 'qualified', 'demo', 'proposal', 'closed'],
+        totalValue: 150000,
+        activeDeals: 25,
+        conversionRate: 0.40,
+        averageDealSize: 6000,
+        createdAt: '2023-01-01',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesActivities([
+      {
+        id: 'activity-1',
+        type: 'call',
+        subject: 'Follow-up call with Acme Corporation',
+        customer: 'Acme Corporation',
+        owner: 'Sales Team',
+        scheduledAt: '2023-10-29T10:00:00Z',
+        completedAt: null,
+        status: 'scheduled',
+        notes: 'Discuss proposal details and next steps',
+        outcome: null
+      },
+      {
+        id: 'activity-2',
+        type: 'email',
+        subject: 'Proposal sent to TechStart Inc',
+        customer: 'TechStart Inc',
+        owner: 'Sales Team',
+        scheduledAt: '2023-10-27T14:00:00Z',
+        completedAt: '2023-10-27T14:30:00Z',
+        status: 'completed',
+        notes: 'Sent detailed proposal with pricing',
+        outcome: 'positive'
+      }
+    ]);
+
+    setCustomerSegments([
+      {
+        id: 'segment-1',
+        name: 'Enterprise',
+        criteria: 'revenue > 1000000',
+        customerCount: 25,
+        averageValue: 75000,
+        growthRate: 0.15,
+        churnRate: 0.05,
+        lastUpdated: '2023-10-28'
+      },
+      {
+        id: 'segment-2',
+        name: 'SMB',
+        criteria: 'revenue < 1000000',
+        customerCount: 150,
+        averageValue: 5000,
+        growthRate: 0.25,
+        churnRate: 0.10,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setCustomerJourneys([
+      {
+        id: 'journey-1',
+        name: 'Enterprise Onboarding',
+        stages: ['awareness', 'interest', 'evaluation', 'purchase', 'onboarding', 'adoption', 'expansion'],
+        averageDuration: 90,
+        conversionRate: 0.20,
+        customerCount: 50,
+        lastUpdated: '2023-10-28'
+      },
+      {
+        id: 'journey-2',
+        name: 'SMB Quick Start',
+        stages: ['awareness', 'interest', 'trial', 'purchase', 'onboarding'],
+        averageDuration: 30,
+        conversionRate: 0.35,
+        customerCount: 200,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setCustomerFeedback([
+      {
+        id: 'feedback-1',
+        customer: 'Acme Corporation',
+        type: 'satisfaction',
+        rating: 4.5,
+        comment: 'Excellent product and support',
+        category: 'product',
+        status: 'resolved',
+        createdAt: '2023-10-25',
+        assignedTo: 'Support Team'
+      },
+      {
+        id: 'feedback-2',
+        customer: 'TechStart Inc',
+        type: 'feature_request',
+        rating: 4.0,
+        comment: 'Would like to see mobile app integration',
+        category: 'feature',
+        status: 'under_review',
+        createdAt: '2023-10-26',
+        assignedTo: 'Product Team'
+      }
+    ]);
+
+    setCustomerSupport([
+      {
+        id: 'support-1',
+        ticket: 'SUP-001',
+        customer: 'Acme Corporation',
+        subject: 'Integration issue with legacy system',
+        priority: 'high',
+        status: 'open',
+        assignedTo: 'Support Team',
+        createdAt: '2023-10-28',
+        lastUpdated: '2023-10-28',
+        resolutionTime: null
+      },
+      {
+        id: 'support-2',
+        ticket: 'SUP-002',
+        customer: 'TechStart Inc',
+        subject: 'Training request for new features',
+        priority: 'medium',
+        status: 'in_progress',
+        assignedTo: 'Support Team',
+        createdAt: '2023-10-27',
+        lastUpdated: '2023-10-28',
+        resolutionTime: 24
+      }
+    ]);
+
+    setCustomerOnboarding([
+      {
+        id: 'onboarding-1',
+        customer: 'Acme Corporation',
+        stage: 'setup',
+        progress: 0.75,
+        startDate: '2023-10-15',
+        expectedCompletion: '2023-11-15',
+        tasks: [
+          { name: 'Account Setup', completed: true },
+          { name: 'Data Migration', completed: true },
+          { name: 'User Training', completed: false },
+          { name: 'Go Live', completed: false }
+        ],
+        assignedTo: 'Customer Success Team'
+      }
+    ]);
+
+    setCustomerRetention([
+      {
+        id: 'retention-1',
+        customer: 'Acme Corporation',
+        riskLevel: 'low',
+        lastActivity: '2023-10-28',
+        engagementScore: 85,
+        actions: ['regular_check_ins', 'feature_updates'],
+        nextAction: 'Q4 business review',
+        assignedTo: 'Customer Success Team'
+      }
+    ]);
+
+    setCustomerChurn([
+      {
+        id: 'churn-1',
+        customer: 'OldCorp Inc',
+        reason: 'budget_cuts',
+        churnDate: '2023-10-15',
+        value: 15000,
+        attempts: 3,
+        lastAttempt: '2023-10-10',
+        status: 'final'
+      }
+    ]);
+
+    setSalesForecasts([
+      {
+        id: 'forecast-1',
+        period: 'Q4 2023',
+        totalValue: 500000,
+        probability: 0.75,
+        deals: 25,
+        confidence: 'high',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesTargets([
+      {
+        id: 'target-1',
+        period: 'Q4 2023',
+        target: 600000,
+        current: 450000,
+        progress: 0.75,
+        team: 'Sales Team',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesTeams([
+      {
+        id: 'team-1',
+        name: 'Enterprise Sales',
+        members: 5,
+        target: 1000000,
+        current: 750000,
+        progress: 0.75,
+        manager: 'John Smith',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesTerritories([
+      {
+        id: 'territory-1',
+        name: 'North America',
+        region: 'North America',
+        accounts: 100,
+        opportunities: 25,
+        value: 500000,
+        assignedTo: 'Sales Team A',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesProducts([
+      {
+        id: 'product-1',
+        name: 'Enterprise License',
+        category: 'Software',
+        price: 50000,
+        margin: 0.70,
+        unitsSold: 10,
+        revenue: 500000,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesCampaigns([
+      {
+        id: 'campaign-1',
+        name: 'Q4 Enterprise Push',
+        type: 'email',
+        status: 'active',
+        startDate: '2023-10-01',
+        endDate: '2023-12-31',
+        budget: 50000,
+        spent: 25000,
+        leads: 100,
+        conversions: 15,
+        roi: 2.5,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesEvents([
+      {
+        id: 'event-1',
+        name: 'Product Demo Webinar',
+        type: 'webinar',
+        date: '2023-11-15',
+        attendees: 50,
+        leads: 10,
+        cost: 5000,
+        status: 'scheduled',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesMeetings([
+      {
+        id: 'meeting-1',
+        subject: 'Quarterly Business Review',
+        customer: 'Acme Corporation',
+        date: '2023-11-01',
+        duration: 60,
+        attendees: ['John Smith', 'Michael Chen'],
+        status: 'scheduled',
+        notes: 'Discuss renewal and expansion opportunities'
+      }
+    ]);
+
+    setSalesCalls([
+      {
+        id: 'call-1',
+        customer: 'TechStart Inc',
+        date: '2023-10-27',
+        duration: 30,
+        outcome: 'positive',
+        nextSteps: 'Send proposal',
+        notes: 'Customer interested in enterprise features'
+      }
+    ]);
+
+    setSalesEmails([
+      {
+        id: 'email-1',
+        subject: 'Follow-up on our conversation',
+        customer: 'Acme Corporation',
+        sentDate: '2023-10-28',
+        status: 'sent',
+        opened: true,
+        clicked: true,
+        response: 'positive'
+      }
+    ]);
+
+    setSalesTasks([
+      {
+        id: 'task-1',
+        title: 'Prepare proposal for TechStart Inc',
+        customer: 'TechStart Inc',
+        dueDate: '2023-10-30',
+        priority: 'high',
+        status: 'in_progress',
+        assignedTo: 'Sales Team',
+        notes: 'Include enterprise features and pricing'
+      }
+    ]);
+
+    setSalesNotes([
+      {
+        id: 'note-1',
+        customer: 'Acme Corporation',
+        content: 'Customer expressed interest in advanced analytics features',
+        type: 'call',
+        author: 'Sales Team',
+        createdAt: '2023-10-28',
+        tags: ['analytics', 'interest']
+      }
+    ]);
+
+    setSalesAttachments([
+      {
+        id: 'attachment-1',
+        name: 'Product Brochure.pdf',
+        type: 'document',
+        size: 2048000,
+        customer: 'Acme Corporation',
+        uploadedBy: 'Sales Team',
+        uploadedAt: '2023-10-28',
+        url: '/attachments/product-brochure.pdf'
+      }
+    ]);
+
+    setSalesDocuments([
+      {
+        id: 'document-1',
+        name: 'Enterprise Proposal Template',
+        type: 'proposal',
+        template: true,
+        lastUsed: '2023-10-28',
+        usage: 15,
+        createdBy: 'Sales Team',
+        createdAt: '2023-01-01'
+      }
+    ]);
+
+    setSalesContracts([
+      {
+        id: 'contract-1',
+        name: 'Acme Corporation - Enterprise License',
+        customer: 'Acme Corporation',
+        value: 100000,
+        startDate: '2023-12-01',
+        endDate: '2024-11-30',
+        status: 'draft',
+        terms: 'Annual license with support',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setSalesQuotes([
+      {
+        id: 'quote-1',
+        number: 'Q-2023-001',
+        customer: 'TechStart Inc',
+        value: 25000,
+        validUntil: '2023-11-30',
+        status: 'sent',
+        items: [
+          { name: 'SaaS Subscription', quantity: 1, price: 20000 },
+          { name: 'Training Package', quantity: 1, price: 5000 }
+        ],
+        createdAt: '2023-10-27'
+      }
+    ]);
+
+    setSalesInvoices([
+      {
+        id: 'invoice-1',
+        number: 'INV-2023-001',
+        customer: 'Acme Corporation',
+        amount: 50000,
+        dueDate: '2023-11-30',
+        status: 'sent',
+        paidDate: null,
+        items: [
+          { name: 'Enterprise License', quantity: 1, price: 50000 }
+        ],
+        createdAt: '2023-10-28'
+      }
+    ]);
+
+    setSalesPayments([
+      {
+        id: 'payment-1',
+        invoice: 'INV-2023-001',
+        amount: 50000,
+        method: 'wire_transfer',
+        date: '2023-10-28',
+        status: 'completed',
+        reference: 'WT-123456'
+      }
+    ]);
+
+    setSalesCommissions([
+      {
+        id: 'commission-1',
+        salesperson: 'John Smith',
+        deal: 'Enterprise License - Acme Corporation',
+        amount: 5000,
+        rate: 0.10,
+        status: 'pending',
+        dueDate: '2023-11-30',
+        createdAt: '2023-10-28'
+      }
+    ]);
+
+    setSalesReports([
+      {
+        id: 'report-1',
+        name: 'Q4 Sales Performance',
+        type: 'performance',
+        period: 'Q4 2023',
+        generatedAt: '2023-10-28',
+        metrics: {
+          totalRevenue: 450000,
+          dealsClosed: 15,
+          averageDealSize: 30000,
+          conversionRate: 0.25
+        },
+        insights: ['Strong performance in enterprise segment', 'SMB segment showing growth']
+      }
+    ]);
+
+    setCustomerLifecycles([
+      {
+        id: 'lifecycle-1',
+        customer: 'Acme Corporation',
+        stage: 'growth',
+        value: 100000,
+        duration: 365,
+        nextStage: 'maturity',
+        actions: ['upsell_opportunities', 'feature_adoption'],
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setCustomerValues([
+      {
+        id: 'value-1',
+        customer: 'Acme Corporation',
+        totalValue: 150000,
+        currentValue: 100000,
+        potentialValue: 200000,
+        lastCalculated: '2023-10-28',
+        trends: 'increasing'
+      }
+    ]);
+
+    setCustomerSatisfaction([
+      {
+        id: 'satisfaction-1',
+        customer: 'Acme Corporation',
+        score: 4.5,
+        survey: 'NPS',
+        responses: 5,
+        lastSurvey: '2023-10-15',
+        trends: 'stable'
+      }
+    ]);
+
+    setCustomerLoyalty([
+      {
+        id: 'loyalty-1',
+        customer: 'Acme Corporation',
+        score: 85,
+        factors: ['product_quality', 'support', 'value'],
+        lastCalculated: '2023-10-28',
+        trends: 'improving'
+      }
+    ]);
+
+    setCustomerReferrals([
+      {
+        id: 'referral-1',
+        customer: 'Acme Corporation',
+        referredCustomer: 'NewCorp Inc',
+        status: 'converted',
+        value: 25000,
+        commission: 2500,
+        createdAt: '2023-09-15'
+      }
+    ]);
+
+    setCustomerUpsells([
+      {
+        id: 'upsell-1',
+        customer: 'Acme Corporation',
+        product: 'Advanced Analytics',
+        value: 25000,
+        status: 'closed',
+        closedAt: '2023-10-15',
+        owner: 'Sales Team'
+      }
+    ]);
+
+    setCustomerCrossSells([
+      {
+        id: 'crosssell-1',
+        customer: 'Acme Corporation',
+        product: 'Support Package',
+        value: 10000,
+        status: 'opportunity',
+        probability: 0.60,
+        owner: 'Sales Team'
+      }
+    ]);
+
+    setCustomerRenewals([
+      {
+        id: 'renewal-1',
+        customer: 'Acme Corporation',
+        contract: 'Enterprise License',
+        renewalDate: '2024-11-30',
+        status: 'upcoming',
+        value: 100000,
+        probability: 0.90,
+        owner: 'Customer Success Team'
+      }
+    ]);
+
+    setCustomerCancellations([
+      {
+        id: 'cancellation-1',
+        customer: 'OldCorp Inc',
+        reason: 'budget_cuts',
+        date: '2023-10-15',
+        value: 15000,
+        attempts: 3,
+        status: 'final'
+      }
+    ]);
+
+    setCustomerComplaints([
+      {
+        id: 'complaint-1',
+        customer: 'TechStart Inc',
+        subject: 'Integration issues',
+        priority: 'high',
+        status: 'resolved',
+        resolution: 'Provided custom integration solution',
+        createdAt: '2023-10-20',
+        resolvedAt: '2023-10-25'
+      }
+    ]);
+
+    setCustomerResolutions([
+      {
+        id: 'resolution-1',
+        complaint: 'Integration issues',
+        solution: 'Custom integration development',
+        timeToResolve: 5,
+        customerSatisfaction: 4.5,
+        cost: 5000,
+        implementedAt: '2023-10-25'
+      }
+    ]);
+
+    setCustomerEscalations([
+      {
+        id: 'escalation-1',
+        customer: 'TechStart Inc',
+        issue: 'Integration issues',
+        level: 'management',
+        status: 'resolved',
+        escalatedAt: '2023-10-22',
+        resolvedAt: '2023-10-25',
+        assignedTo: 'Technical Team'
+      }
+    ]);
+  }, []);
+
+  const renderOverview = () => (
+    <div className="overview-section">
+      <h3>CRM Overview</h3>
+      <div className="crm-metrics">
+        <div className="metrics-grid">
+          <div className="metric-card">
+            <h4>Total Customers</h4>
+            <div className="metric-value">{customers.length}</div>
+            <div className="metric-change">+12% this month</div>
+          </div>
+          <div className="metric-card">
+            <h4>Active Opportunities</h4>
+            <div className="metric-value">{opportunities.length}</div>
+            <div className="metric-value">${opportunities.reduce((sum, opp) => sum + opp.value, 0).toLocaleString()}</div>
+          </div>
+          <div className="metric-card">
+            <h4>Pipeline Value</h4>
+            <div className="metric-value">${deals.reduce((sum, deal) => sum + deal.value, 0).toLocaleString()}</div>
+            <div className="metric-change">+8% this quarter</div>
+          </div>
+          <div className="metric-card">
+            <h4>Conversion Rate</h4>
+            <div className="metric-value">25%</div>
+            <div className="metric-change">+3% this month</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCustomers = () => (
+    <div className="customers-section">
+      <h3>Customers ({customers.length})</h3>
+      <div className="customers-list">
+        {customers.map(customer => (
+          <div key={customer.id} className="customer-card">
+            <div className="customer-header">
+              <h4>{customer.name}</h4>
+              <span className={`status-badge ${customer.status}`}>{customer.status}</span>
+            </div>
+            <div className="customer-details">
+              <div className="detail-item">
+                <span className="label">Company:</span>
+                <span className="value">{customer.company}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Value:</span>
+                <span className="value">${customer.value.toLocaleString()}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Last Contact:</span>
+                <span className="value">{customer.lastContact}</span>
+              </div>
+            </div>
+            <div className="customer-tags">
+              {customer.tags.map((tag, index) => (
+                <span key={index} className="tag">{tag}</span>
+              ))}
+            </div>
+            <div className="customer-actions">
+              <button className="btn btn-primary">View Details</button>
+              <button className="btn btn-outline">Edit</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderLeads = () => (
+    <div className="leads-section">
+      <h3>Leads ({leads.length})</h3>
+      <div className="leads-list">
+        {leads.map(lead => (
+          <div key={lead.id} className="lead-card">
+            <div className="lead-header">
+              <h4>{lead.name}</h4>
+              <span className={`status-badge ${lead.status}`}>{lead.status}</span>
+            </div>
+            <div className="lead-details">
+              <div className="detail-item">
+                <span className="label">Company:</span>
+                <span className="value">{lead.company}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Score:</span>
+                <span className="value">{lead.score}/100</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Source:</span>
+                <span className="value">{lead.source}</span>
+              </div>
+            </div>
+            <div className="lead-actions">
+              <button className="btn btn-primary">Qualify</button>
+              <button className="btn btn-outline">Convert</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderOpportunities = () => (
+    <div className="opportunities-section">
+      <h3>Opportunities ({opportunities.length})</h3>
+      <div className="opportunities-list">
+        {opportunities.map(opp => (
+          <div key={opp.id} className="opportunity-card">
+            <div className="opportunity-header">
+              <h4>{opp.name}</h4>
+              <span className={`stage-badge ${opp.stage}`}>{opp.stage}</span>
+            </div>
+            <div className="opportunity-details">
+              <div className="detail-item">
+                <span className="label">Customer:</span>
+                <span className="value">{opp.customer}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Value:</span>
+                <span className="value">${opp.value.toLocaleString()}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Probability:</span>
+                <span className="value">{opp.probability}%</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Expected Close:</span>
+                <span className="value">{opp.expectedClose}</span>
+              </div>
+            </div>
+            <div className="opportunity-progress">
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${opp.probability}%` }}></div>
+              </div>
+            </div>
+            <div className="opportunity-actions">
+              <button className="btn btn-primary">Update Stage</button>
+              <button className="btn btn-outline">View Details</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderPipeline = () => (
+    <div className="pipeline-section">
+      <h3>Sales Pipeline</h3>
+      <div className="pipeline-overview">
+        {pipelines.map(pipeline => (
+          <div key={pipeline.id} className="pipeline-card">
+            <div className="pipeline-header">
+              <h4>{pipeline.name}</h4>
+              <span className="pipeline-value">${pipeline.totalValue.toLocaleString()}</span>
+            </div>
+            <div className="pipeline-stats">
+              <div className="stat-item">
+                <span className="stat-label">Active Deals:</span>
+                <span className="stat-value">{pipeline.activeDeals}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Conversion Rate:</span>
+                <span className="stat-value">{(pipeline.conversionRate * 100).toFixed(1)}%</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Avg Deal Size:</span>
+                <span className="stat-value">${pipeline.averageDealSize.toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="pipeline-stages">
+              {pipeline.stages.map((stage, index) => (
+                <div key={index} className="stage-item">
+                  <span className="stage-name">{stage}</span>
+                  <span className="stage-count">0</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderActivities = () => (
+    <div className="activities-section">
+      <h3>Sales Activities ({salesActivities.length})</h3>
+      <div className="activities-list">
+        {salesActivities.map(activity => (
+          <div key={activity.id} className="activity-card">
+            <div className="activity-header">
+              <h4>{activity.subject}</h4>
+              <span className={`status-badge ${activity.status}`}>{activity.status}</span>
+            </div>
+            <div className="activity-details">
+              <div className="detail-item">
+                <span className="label">Customer:</span>
+                <span className="value">{activity.customer}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Type:</span>
+                <span className="value">{activity.type}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Scheduled:</span>
+                <span className="value">{new Date(activity.scheduledAt).toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="activity-notes">
+              <p>{activity.notes}</p>
+            </div>
+            <div className="activity-actions">
+              <button className="btn btn-primary">Complete</button>
+              <button className="btn btn-outline">Reschedule</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderReports = () => (
+    <div className="reports-section">
+      <h3>Sales Reports ({salesReports.length})</h3>
+      <div className="reports-list">
+        {salesReports.map(report => (
+          <div key={report.id} className="report-card">
+            <div className="report-header">
+              <h4>{report.name}</h4>
+              <span className="report-type">{report.type}</span>
+            </div>
+            <div className="report-metrics">
+              <div className="metric-item">
+                <span className="metric-label">Total Revenue:</span>
+                <span className="metric-value">${report.metrics.totalRevenue.toLocaleString()}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">Deals Closed:</span>
+                <span className="metric-value">{report.metrics.dealsClosed}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">Conversion Rate:</span>
+                <span className="metric-value">{(report.metrics.conversionRate * 100).toFixed(1)}%</span>
+              </div>
+            </div>
+            <div className="report-insights">
+              <h5>Key Insights:</h5>
+              <ul>
+                {report.insights.map((insight, index) => (
+                  <li key={index}>{insight}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="report-actions">
+              <button className="btn btn-primary">View Report</button>
+              <button className="btn btn-outline">Export</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="customer-crm-container">
+      <div className="tabs">
+        <button className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+          Overview
+        </button>
+        <button className={`tab-btn ${activeTab === 'customers' ? 'active' : ''}`} onClick={() => setActiveTab('customers')}>
+          Customers
+        </button>
+        <button className={`tab-btn ${activeTab === 'leads' ? 'active' : ''}`} onClick={() => setActiveTab('leads')}>
+          Leads
+        </button>
+        <button className={`tab-btn ${activeTab === 'opportunities' ? 'active' : ''}`} onClick={() => setActiveTab('opportunities')}>
+          Opportunities
+        </button>
+        <button className={`tab-btn ${activeTab === 'pipeline' ? 'active' : ''}`} onClick={() => setActiveTab('pipeline')}>
+          Pipeline
+        </button>
+        <button className={`tab-btn ${activeTab === 'activities' ? 'active' : ''}`} onClick={() => setActiveTab('activities')}>
+          Activities
+        </button>
+        <button className={`tab-btn ${activeTab === 'reports' ? 'active' : ''}`} onClick={() => setActiveTab('reports')}>
+          Reports
+        </button>
+      </div>
+
+      <div className="tab-content">
+        {activeTab === 'overview' && renderOverview()}
+        {activeTab === 'customers' && renderCustomers()}
+        {activeTab === 'leads' && renderLeads()}
+        {activeTab === 'opportunities' && renderOpportunities()}
+        {activeTab === 'pipeline' && renderPipeline()}
+        {activeTab === 'activities' && renderActivities()}
+        {activeTab === 'reports' && renderReports()}
+      </div>
+    </div>
+  );
+};
+
+export default CustomerCRM;

@@ -1,0 +1,840 @@
+import React, { useState, useEffect } from 'react';
+import {
+  BusinessMetric, KPIDashboard, DataVisualization, PredictiveAnalytics,
+  BusinessReport, DataWarehouse, ETLProcess, DataSource, DataModel,
+  BusinessInsight, TrendAnalysis, PerformanceIndicator, Benchmark,
+  DataStory, BusinessQuestion, AnalyticsQuery, DataDrillDown,
+  BusinessAlert, MetricThreshold, DataCorrelation, BusinessForecast,
+  ROI, CostBenefit, BusinessValue, MarketAnalysis, CompetitiveIntelligence,
+  CustomerAnalytics, ProductAnalytics, SalesAnalytics, RevenueAnalytics,
+  OperationalAnalytics, FinancialAnalytics, StrategicAnalytics, TacticalAnalytics
+} from '../../types';
+import './BusinessIntelligence.css';
+
+const BusinessIntelligence: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<string>('overview');
+  const [businessMetrics, setBusinessMetrics] = useState<BusinessMetric[]>([]);
+  const [kpiDashboards, setKpiDashboards] = useState<KPIDashboard[]>([]);
+  const [dataVisualizations, setDataVisualizations] = useState<DataVisualization[]>([]);
+  const [predictiveAnalytics, setPredictiveAnalytics] = useState<PredictiveAnalytics[]>([]);
+  const [businessReports, setBusinessReports] = useState<BusinessReport[]>([]);
+  const [dataWarehouses, setDataWarehouses] = useState<DataWarehouse[]>([]);
+  const [etlProcesses, setEtlProcesses] = useState<ETLProcess[]>([]);
+  const [dataSources, setDataSources] = useState<DataSource[]>([]);
+  const [dataModels, setDataModels] = useState<DataModel[]>([]);
+  const [businessInsights, setBusinessInsights] = useState<BusinessInsight[]>([]);
+  const [trendAnalyses, setTrendAnalyses] = useState<TrendAnalysis[]>([]);
+  const [performanceIndicators, setPerformanceIndicators] = useState<PerformanceIndicator[]>([]);
+  const [benchmarks, setBenchmarks] = useState<Benchmark[]>([]);
+  const [dataStories, setDataStories] = useState<DataStory[]>([]);
+  const [businessQuestions, setBusinessQuestions] = useState<BusinessQuestion[]>([]);
+  const [analyticsQueries, setAnalyticsQueries] = useState<AnalyticsQuery[]>([]);
+  const [dataDrillDowns, setDataDrillDowns] = useState<DataDrillDown[]>([]);
+  const [businessAlerts, setBusinessAlerts] = useState<BusinessAlert[]>([]);
+  const [metricThresholds, setMetricThresholds] = useState<MetricThreshold[]>([]);
+  const [dataCorrelations, setDataCorrelations] = useState<DataCorrelation[]>([]);
+  const [businessForecasts, setBusinessForecasts] = useState<BusinessForecast[]>([]);
+  const [rois, setRois] = useState<ROI[]>([]);
+  const [costBenefits, setCostBenefits] = useState<CostBenefit[]>([]);
+  const [businessValues, setBusinessValues] = useState<BusinessValue[]>([]);
+  const [marketAnalyses, setMarketAnalyses] = useState<MarketAnalysis[]>([]);
+  const [competitiveIntelligence, setCompetitiveIntelligence] = useState<CompetitiveIntelligence[]>([]);
+  const [customerAnalytics, setCustomerAnalytics] = useState<CustomerAnalytics[]>([]);
+  const [productAnalytics, setProductAnalytics] = useState<ProductAnalytics[]>([]);
+  const [salesAnalytics, setSalesAnalytics] = useState<SalesAnalytics[]>([]);
+  const [revenueAnalytics, setRevenueAnalytics] = useState<RevenueAnalytics[]>([]);
+  const [operationalAnalytics, setOperationalAnalytics] = useState<OperationalAnalytics[]>([]);
+  const [financialAnalytics, setFinancialAnalytics] = useState<FinancialAnalytics[]>([]);
+  const [strategicAnalytics, setStrategicAnalytics] = useState<StrategicAnalytics[]>([]);
+  const [tacticalAnalytics, setTacticalAnalytics] = useState<TacticalAnalytics[]>([]);
+
+  useEffect(() => {
+    // Simulate fetching business intelligence data
+    setBusinessMetrics([
+      {
+        id: 'metric-1',
+        name: 'Monthly Recurring Revenue',
+        value: 125000,
+        unit: 'USD',
+        trend: 'increasing',
+        change: 15.5,
+        target: 150000,
+        category: 'revenue',
+        lastUpdated: new Date().toISOString()
+      },
+      {
+        id: 'metric-2',
+        name: 'Customer Acquisition Cost',
+        value: 250,
+        unit: 'USD',
+        trend: 'decreasing',
+        change: -8.2,
+        target: 200,
+        category: 'cost',
+        lastUpdated: new Date().toISOString()
+      },
+      {
+        id: 'metric-3',
+        name: 'Customer Lifetime Value',
+        value: 2500,
+        unit: 'USD',
+        trend: 'increasing',
+        change: 12.3,
+        target: 3000,
+        category: 'value',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setKpiDashboards([
+      {
+        id: 'dashboard-1',
+        name: 'Executive Dashboard',
+        description: 'High-level KPIs for executive decision making',
+        metrics: ['mrr', 'cac', 'ltv', 'churn'],
+        lastUpdated: new Date().toISOString(),
+        stakeholders: ['CEO', 'CFO', 'CTO']
+      },
+      {
+        id: 'dashboard-2',
+        name: 'Sales Performance',
+        description: 'Sales team performance and pipeline metrics',
+        metrics: ['leads', 'conversions', 'revenue', 'pipeline'],
+        lastUpdated: new Date().toISOString(),
+        stakeholders: ['Sales Director', 'Sales Team']
+      }
+    ]);
+
+    setDataVisualizations([
+      {
+        id: 'viz-1',
+        name: 'Revenue Trend Chart',
+        type: 'line',
+        dataSource: 'sales_database',
+        description: 'Monthly revenue trends over the past 12 months',
+        filters: ['date_range', 'product_category'],
+        lastUpdated: new Date().toISOString()
+      },
+      {
+        id: 'viz-2',
+        name: 'Customer Segmentation',
+        type: 'pie',
+        dataSource: 'customer_database',
+        description: 'Customer distribution by segment',
+        filters: ['region', 'customer_type'],
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setPredictiveAnalytics([
+      {
+        id: 'pred-1',
+        name: 'Revenue Forecast',
+        model: 'linear_regression',
+        accuracy: 0.89,
+        prediction: 145000,
+        confidence: 0.85,
+        timeframe: 'next_month',
+        lastUpdated: new Date().toISOString()
+      },
+      {
+        id: 'pred-2',
+        name: 'Customer Churn Prediction',
+        model: 'random_forest',
+        accuracy: 0.92,
+        prediction: 0.15,
+        confidence: 0.88,
+        timeframe: 'next_quarter',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setBusinessReports([
+      {
+        id: 'report-1',
+        name: 'Monthly Business Review',
+        type: 'executive',
+        frequency: 'monthly',
+        sections: ['revenue', 'costs', 'growth', 'risks'],
+        lastGenerated: new Date().toISOString(),
+        nextGeneration: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+      },
+      {
+        id: 'report-2',
+        name: 'Customer Analytics Report',
+        type: 'analytical',
+        frequency: 'weekly',
+        sections: ['acquisition', 'retention', 'satisfaction', 'behavior'],
+        lastGenerated: new Date().toISOString(),
+        nextGeneration: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+      }
+    ]);
+
+    setDataWarehouses([
+      {
+        id: 'warehouse-1',
+        name: 'Main Data Warehouse',
+        type: 'cloud',
+        size: 5000000000, // 5GB
+        tables: 150,
+        lastUpdated: new Date().toISOString(),
+        status: 'active'
+      }
+    ]);
+
+    setEtlProcesses([
+      {
+        id: 'etl-1',
+        name: 'Daily Sales ETL',
+        source: 'sales_system',
+        destination: 'data_warehouse',
+        frequency: 'daily',
+        status: 'active',
+        lastRun: new Date().toISOString(),
+        nextRun: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      }
+    ]);
+
+    setDataSources([
+      {
+        id: 'source-1',
+        name: 'Sales CRM',
+        type: 'database',
+        connection: 'mysql',
+        status: 'active',
+        lastSync: new Date().toISOString(),
+        recordCount: 50000
+      },
+      {
+        id: 'source-2',
+        name: 'Marketing Platform',
+        type: 'api',
+        connection: 'rest',
+        status: 'active',
+        lastSync: new Date().toISOString(),
+        recordCount: 25000
+      }
+    ]);
+
+    setDataModels([
+      {
+        id: 'model-1',
+        name: 'Customer Data Model',
+        description: 'Comprehensive customer data model',
+        entities: ['customer', 'order', 'product', 'payment'],
+        relationships: 8,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setBusinessInsights([
+      {
+        id: 'insight-1',
+        title: 'Revenue Growth Opportunity',
+        description: 'Premium customers show 40% higher LTV',
+        impact: 'high',
+        confidence: 0.85,
+        category: 'revenue',
+        generatedAt: new Date().toISOString()
+      }
+    ]);
+
+    setTrendAnalyses([
+      {
+        id: 'trend-1',
+        metric: 'monthly_revenue',
+        period: '12_months',
+        trend: 'increasing',
+        growthRate: 15.5,
+        seasonality: 'moderate',
+        lastAnalyzed: new Date().toISOString()
+      }
+    ]);
+
+    setPerformanceIndicators([
+      {
+        id: 'kpi-1',
+        name: 'Revenue Growth Rate',
+        current: 15.5,
+        target: 20.0,
+        unit: 'percentage',
+        status: 'below_target',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setBenchmarks([
+      {
+        id: 'benchmark-1',
+        metric: 'customer_acquisition_cost',
+        industry: 'saas',
+        percentile: 75,
+        value: 200,
+        ourValue: 250,
+        gap: 50,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setDataStories([
+      {
+        id: 'story-1',
+        title: 'Customer Journey Analysis',
+        description: 'How customers move through our funnel',
+        dataPoints: 15,
+        insights: 3,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setBusinessQuestions([
+      {
+        id: 'question-1',
+        question: 'What drives customer churn?',
+        category: 'retention',
+        priority: 'high',
+        status: 'answered',
+        answer: 'Price sensitivity and feature gaps',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setAnalyticsQueries([
+      {
+        id: 'query-1',
+        name: 'Top Customers by Revenue',
+        sql: 'SELECT customer_id, SUM(revenue) FROM orders GROUP BY customer_id ORDER BY SUM(revenue) DESC',
+        frequency: 'weekly',
+        lastRun: new Date().toISOString(),
+        executionTime: 2.5
+      }
+    ]);
+
+    setDataDrillDowns([
+      {
+        id: 'drill-1',
+        level: 'country',
+        metric: 'revenue',
+        value: 50000,
+        breakdown: [
+          { name: 'USA', value: 30000 },
+          { name: 'Canada', value: 15000 },
+          { name: 'UK', value: 5000 }
+        ],
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setBusinessAlerts([
+      {
+        id: 'alert-1',
+        name: 'Revenue Drop Alert',
+        condition: 'revenue < 100000',
+        severity: 'high',
+        status: 'active',
+        triggeredAt: new Date().toISOString(),
+        threshold: 100000,
+        currentValue: 95000
+      }
+    ]);
+
+    setMetricThresholds([
+      {
+        id: 'threshold-1',
+        metric: 'customer_churn_rate',
+        warning: 0.05,
+        critical: 0.10,
+        current: 0.03,
+        status: 'normal',
+        lastChecked: new Date().toISOString()
+      }
+    ]);
+
+    setDataCorrelations([
+      {
+        id: 'correlation-1',
+        metric1: 'customer_satisfaction',
+        metric2: 'retention_rate',
+        correlation: 0.78,
+        significance: 0.95,
+        lastAnalyzed: new Date().toISOString()
+      }
+    ]);
+
+    setBusinessForecasts([
+      {
+        id: 'forecast-1',
+        metric: 'monthly_revenue',
+        period: 'next_6_months',
+        forecast: [120000, 135000, 150000, 165000, 180000, 195000],
+        confidence: 0.85,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setRois([
+      {
+        id: 'roi-1',
+        investment: 'marketing_campaign',
+        cost: 50000,
+        return: 150000,
+        roi: 200,
+        period: '6_months',
+        lastCalculated: new Date().toISOString()
+      }
+    ]);
+
+    setCostBenefits([
+      {
+        id: 'cb-1',
+        initiative: 'automation_tool',
+        cost: 25000,
+        benefit: 75000,
+        netBenefit: 50000,
+        paybackPeriod: 4,
+        lastCalculated: new Date().toISOString()
+      }
+    ]);
+
+    setBusinessValues([
+      {
+        id: 'value-1',
+        metric: 'customer_lifetime_value',
+        current: 2500,
+        target: 3000,
+        gap: 500,
+        initiatives: ['upselling', 'retention_program'],
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setMarketAnalyses([
+      {
+        id: 'market-1',
+        segment: 'enterprise_saas',
+        size: 5000000000,
+        growth: 12.5,
+        competition: 'high',
+        opportunity: 'medium',
+        lastAnalyzed: new Date().toISOString()
+      }
+    ]);
+
+    setCompetitiveIntelligence([
+      {
+        id: 'comp-1',
+        competitor: 'Competitor A',
+        strength: 'market_share',
+        weakness: 'pricing',
+        threat: 'medium',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setCustomerAnalytics([
+      {
+        id: 'customer-1',
+        segment: 'enterprise',
+        count: 150,
+        revenue: 750000,
+        growth: 20.5,
+        satisfaction: 4.2,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setProductAnalytics([
+      {
+        id: 'product-1',
+        product: 'Premium Plan',
+        users: 500,
+        revenue: 250000,
+        growth: 15.3,
+        churn: 0.05,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setSalesAnalytics([
+      {
+        id: 'sales-1',
+        period: 'current_quarter',
+        leads: 1000,
+        opportunities: 250,
+        closed: 75,
+        revenue: 375000,
+        conversion: 0.30,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setRevenueAnalytics([
+      {
+        id: 'revenue-1',
+        period: 'current_month',
+        recurring: 125000,
+        oneTime: 25000,
+        total: 150000,
+        growth: 15.5,
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setOperationalAnalytics([
+      {
+        id: 'ops-1',
+        metric: 'system_uptime',
+        value: 99.9,
+        target: 99.5,
+        status: 'exceeding',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setFinancialAnalytics([
+      {
+        id: 'financial-1',
+        metric: 'gross_margin',
+        value: 0.75,
+        target: 0.70,
+        trend: 'improving',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setStrategicAnalytics([
+      {
+        id: 'strategic-1',
+        objective: 'market_expansion',
+        progress: 0.65,
+        target: 0.80,
+        timeline: '12_months',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+
+    setTacticalAnalytics([
+      {
+        id: 'tactical-1',
+        initiative: 'customer_onboarding',
+        efficiency: 0.85,
+        target: 0.90,
+        impact: 'medium',
+        lastUpdated: new Date().toISOString()
+      }
+    ]);
+  }, []);
+
+  const renderOverview = () => (
+    <div className="overview-section">
+      <h3>Business Intelligence Overview</h3>
+      <div className="metrics-overview">
+        <div className="metrics-grid">
+          {businessMetrics.map(metric => (
+            <div key={metric.id} className={`metric-card ${metric.trend}`}>
+              <h4>{metric.name}</h4>
+              <div className="metric-value">
+                <span className="value">{metric.value.toLocaleString()}</span>
+                <span className="unit">{metric.unit}</span>
+              </div>
+              <div className="metric-trend">
+                <span className={`trend ${metric.trend}`}>
+                  {metric.change > 0 ? '+' : ''}{metric.change}%
+                </span>
+                <span className="target">Target: {metric.target.toLocaleString()}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderKPIs = () => (
+    <div className="kpis-section">
+      <h3>KPI Dashboards ({kpiDashboards.length})</h3>
+      <div className="kpi-dashboards">
+        {kpiDashboards.map(dashboard => (
+          <div key={dashboard.id} className="kpi-dashboard">
+            <div className="dashboard-header">
+              <h4>{dashboard.name}</h4>
+              <span className="stakeholders">
+                {dashboard.stakeholders.join(', ')}
+              </span>
+            </div>
+            <p className="dashboard-description">{dashboard.description}</p>
+            <div className="dashboard-metrics">
+              <h5>Key Metrics:</h5>
+              <div className="metrics-list">
+                {dashboard.metrics.map((metric, index) => (
+                  <span key={index} className="metric-tag">{metric}</span>
+                ))}
+              </div>
+            </div>
+            <div className="dashboard-actions">
+              <button className="btn btn-primary">View Dashboard</button>
+              <button className="btn btn-outline">Edit</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderVisualizations = () => (
+    <div className="visualizations-section">
+      <h3>Data Visualizations ({dataVisualizations.length})</h3>
+      <div className="visualizations-grid">
+        {dataVisualizations.map(viz => (
+          <div key={viz.id} className="visualization-card">
+            <div className="viz-header">
+              <h4>{viz.name}</h4>
+              <span className={`viz-type ${viz.type}`}>{viz.type}</span>
+            </div>
+            <p className="viz-description">{viz.description}</p>
+            <div className="viz-meta">
+              <div className="meta-item">
+                <span className="meta-label">Data Source:</span>
+                <span className="meta-value">{viz.dataSource}</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Filters:</span>
+                <span className="meta-value">{viz.filters.join(', ')}</span>
+              </div>
+            </div>
+            <div className="viz-actions">
+              <button className="btn btn-primary">View Chart</button>
+              <button className="btn btn-outline">Configure</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderPredictiveAnalytics = () => (
+    <div className="predictive-section">
+      <h3>Predictive Analytics ({predictiveAnalytics.length})</h3>
+      <div className="predictive-grid">
+        {predictiveAnalytics.map(pred => (
+          <div key={pred.id} className="prediction-card">
+            <div className="pred-header">
+              <h4>{pred.name}</h4>
+              <span className="model-type">{pred.model}</span>
+            </div>
+            <div className="pred-metrics">
+              <div className="metric-row">
+                <span className="metric-label">Accuracy:</span>
+                <span className="metric-value">{(pred.accuracy * 100).toFixed(1)}%</span>
+              </div>
+              <div className="metric-row">
+                <span className="metric-label">Confidence:</span>
+                <span className="metric-value">{(pred.confidence * 100).toFixed(1)}%</span>
+              </div>
+              <div className="metric-row">
+                <span className="metric-label">Prediction:</span>
+                <span className="metric-value">{pred.prediction}</span>
+              </div>
+              <div className="metric-row">
+                <span className="metric-label">Timeframe:</span>
+                <span className="metric-value">{pred.timeframe}</span>
+              </div>
+            </div>
+            <div className="pred-actions">
+              <button className="btn btn-primary">View Details</button>
+              <button className="btn btn-outline">Retrain Model</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderReports = () => (
+    <div className="reports-section">
+      <h3>Business Reports ({businessReports.length})</h3>
+      <div className="reports-list">
+        {businessReports.map(report => (
+          <div key={report.id} className="report-card">
+            <div className="report-header">
+              <h4>{report.name}</h4>
+              <span className={`report-type ${report.type}`}>{report.type}</span>
+            </div>
+            <div className="report-meta">
+              <div className="meta-item">
+                <span className="meta-label">Frequency:</span>
+                <span className="meta-value">{report.frequency}</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Last Generated:</span>
+                <span className="meta-value">{new Date(report.lastGenerated).toLocaleDateString()}</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Next Generation:</span>
+                <span className="meta-value">{new Date(report.nextGeneration).toLocaleDateString()}</span>
+              </div>
+            </div>
+            <div className="report-sections">
+              <h5>Sections:</h5>
+              <div className="sections-list">
+                {report.sections.map((section, index) => (
+                  <span key={index} className="section-tag">{section}</span>
+                ))}
+              </div>
+            </div>
+            <div className="report-actions">
+              <button className="btn btn-primary">View Report</button>
+              <button className="btn btn-outline">Schedule</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderDataWarehouse = () => (
+    <div className="warehouse-section">
+      <h3>Data Warehouse & ETL</h3>
+      <div className="warehouse-grid">
+        <div className="warehouse-item">
+          <h4>Data Warehouses</h4>
+          <div className="warehouse-list">
+            {dataWarehouses.map(warehouse => (
+              <div key={warehouse.id} className="warehouse-card">
+                <div className="warehouse-header">
+                  <h5>{warehouse.name}</h5>
+                  <span className={`status ${warehouse.status}`}>{warehouse.status}</span>
+                </div>
+                <div className="warehouse-meta">
+                  <div className="meta-item">
+                    <span className="meta-label">Type:</span>
+                    <span className="meta-value">{warehouse.type}</span>
+                  </div>
+                  <div className="meta-item">
+                    <span className="meta-label">Size:</span>
+                    <span className="meta-value">{(warehouse.size / 1000000000).toFixed(1)} GB</span>
+                  </div>
+                  <div className="meta-item">
+                    <span className="meta-label">Tables:</span>
+                    <span className="meta-value">{warehouse.tables}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="warehouse-item">
+          <h4>ETL Processes</h4>
+          <div className="etl-list">
+            {etlProcesses.map(etl => (
+              <div key={etl.id} className="etl-card">
+                <div className="etl-header">
+                  <h5>{etl.name}</h5>
+                  <span className={`status ${etl.status}`}>{etl.status}</span>
+                </div>
+                <div className="etl-meta">
+                  <div className="meta-item">
+                    <span className="meta-label">Source:</span>
+                    <span className="meta-value">{etl.source}</span>
+                  </div>
+                  <div className="meta-item">
+                    <span className="meta-label">Destination:</span>
+                    <span className="meta-value">{etl.destination}</span>
+                  </div>
+                  <div className="meta-item">
+                    <span className="meta-label">Frequency:</span>
+                    <span className="meta-value">{etl.frequency}</span>
+                  </div>
+                </div>
+                <div className="etl-schedule">
+                  <div className="schedule-item">
+                    <span className="schedule-label">Last Run:</span>
+                    <span className="schedule-value">{new Date(etl.lastRun).toLocaleString()}</span>
+                  </div>
+                  <div className="schedule-item">
+                    <span className="schedule-label">Next Run:</span>
+                    <span className="schedule-value">{new Date(etl.nextRun).toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderInsights = () => (
+    <div className="insights-section">
+      <h3>Business Insights ({businessInsights.length})</h3>
+      <div className="insights-list">
+        {businessInsights.map(insight => (
+          <div key={insight.id} className={`insight-card ${insight.impact}`}>
+            <div className="insight-header">
+              <h4>{insight.title}</h4>
+              <span className={`impact-badge ${insight.impact}`}>{insight.impact}</span>
+            </div>
+            <p className="insight-description">{insight.description}</p>
+            <div className="insight-meta">
+              <div className="meta-item">
+                <span className="meta-label">Confidence:</span>
+                <span className="meta-value">{(insight.confidence * 100).toFixed(1)}%</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Category:</span>
+                <span className="meta-value">{insight.category}</span>
+              </div>
+            </div>
+            <div className="insight-actions">
+              <button className="btn btn-primary">View Details</button>
+              <button className="btn btn-outline">Share</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="business-intelligence-container">
+      <div className="tabs">
+        <button className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+          Overview
+        </button>
+        <button className={`tab-btn ${activeTab === 'kpis' ? 'active' : ''}`} onClick={() => setActiveTab('kpis')}>
+          KPIs
+        </button>
+        <button className={`tab-btn ${activeTab === 'visualizations' ? 'active' : ''}`} onClick={() => setActiveTab('visualizations')}>
+          Visualizations
+        </button>
+        <button className={`tab-btn ${activeTab === 'predictive' ? 'active' : ''}`} onClick={() => setActiveTab('predictive')}>
+          Predictive
+        </button>
+        <button className={`tab-btn ${activeTab === 'reports' ? 'active' : ''}`} onClick={() => setActiveTab('reports')}>
+          Reports
+        </button>
+        <button className={`tab-btn ${activeTab === 'warehouse' ? 'active' : ''}`} onClick={() => setActiveTab('warehouse')}>
+          Data Warehouse
+        </button>
+        <button className={`tab-btn ${activeTab === 'insights' ? 'active' : ''}`} onClick={() => setActiveTab('insights')}>
+          Insights
+        </button>
+      </div>
+
+      <div className="tab-content">
+        {activeTab === 'overview' && renderOverview()}
+        {activeTab === 'kpis' && renderKPIs()}
+        {activeTab === 'visualizations' && renderVisualizations()}
+        {activeTab === 'predictive' && renderPredictiveAnalytics()}
+        {activeTab === 'reports' && renderReports()}
+        {activeTab === 'warehouse' && renderDataWarehouse()}
+        {activeTab === 'insights' && renderInsights()}
+      </div>
+    </div>
+  );
+};
+
+export default BusinessIntelligence;
+
+

@@ -35,3 +35,5 @@ echo "4. Update REACT_APP_API_URL with your actual Vercel URL"
 echo "5. Redeploy: vercel --prod"
 echo ""
 echo "🎉 Your Agent Alex app will be live!"
+
+

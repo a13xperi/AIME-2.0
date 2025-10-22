@@ -607,3 +607,5 @@ const AIInsights: React.FC<AIInsightsProps> = ({
 };
 
 export default AIInsights;
+
+

@@ -105,3 +105,5 @@ echo "🔗 Production URL: https://agent-alex-xyz.vercel.app"
 echo "💻 Local URL: http://localhost:3001"
 echo ""
 echo "✨ Enjoy tracking your AI work sessions!"
+
+

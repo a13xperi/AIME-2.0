@@ -510,3 +510,5 @@ const SmartRecommendations: React.FC<SmartRecommendationsProps> = ({
 };
 
 export default SmartRecommendations;
+
+

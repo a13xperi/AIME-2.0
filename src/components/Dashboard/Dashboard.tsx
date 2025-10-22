@@ -16,6 +16,8 @@ import DailySummary from '../DailySummary/DailySummary';
 import SessionTimer from '../SessionTimer/SessionTimer';
 import ProjectTemplates from '../ProjectTemplates/ProjectTemplates';
 import TemplateBuilder from '../TemplateBuilder/TemplateBuilder';
+// import CustomerCRM from '../CustomerCRM/CustomerCRM';
+// import MarketingAutomation from '../MarketingAutomation/MarketingAutomation';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -36,6 +38,8 @@ const Dashboard: React.FC = () => {
   const [sessionToTrack, setSessionToTrack] = useState<Session | null>(null);
   const [showProjectTemplates, setShowProjectTemplates] = useState(false);
   const [showTemplateBuilder, setShowTemplateBuilder] = useState(false);
+  // const [showCustomerCRM, setShowCustomerCRM] = useState(false);
+  // const [showMarketingAutomation, setShowMarketingAutomation] = useState(false);
 
   useEffect(() => {
     loadDashboard();
@@ -280,11 +284,13 @@ const Dashboard: React.FC = () => {
         <div className="dashboard-actions">
           <button className="btn btn-primary" onClick={() => setShowProjectCreator(true)}>+ New Project</button>
           <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>📝 Log Session</button>
-          <button className="btn btn-outline" onClick={() => setShowProjectTemplates(true)}>📋 Templates</button>
-          <button className="btn btn-outline" onClick={() => setShowTemplateBuilder(true)}>🔧 Build Template</button>
-          <button className="btn btn-outline" onClick={() => navigate('/analytics')}>📊 Analytics</button>
-          <button className="btn btn-outline" onClick={() => navigate('/team')}>👥 Team</button>
-          <button className="btn btn-outline" onClick={() => setShowDailySummary(true)}>📋 Daily Summary</button>
+            <button className="btn btn-outline" onClick={() => setShowProjectTemplates(true)}>📋 Templates</button>
+            <button className="btn btn-outline" onClick={() => setShowTemplateBuilder(true)}>🔧 Build Template</button>
+            {/* <button className="btn btn-outline" onClick={() => setShowCustomerCRM(true)}>👥 Customer CRM</button>
+            <button className="btn btn-outline" onClick={() => setShowMarketingAutomation(true)}>📢 Marketing</button> */}
+            <button className="btn btn-outline" onClick={() => navigate('/analytics')}>📊 Analytics</button>
+            <button className="btn btn-outline" onClick={() => navigate('/team')}>👥 Team</button>
+            <button className="btn btn-outline" onClick={() => setShowDailySummary(true)}>📋 Daily Summary</button>
         </div>
 
       {/* Categories Section */}
@@ -477,6 +483,46 @@ const Dashboard: React.FC = () => {
         onClose={() => setShowTemplateBuilder(false)}
         onSave={handleSaveTemplate}
       />
+
+      {/* Customer CRM Modal */}
+      {/* {showCustomerCRM && (
+        <div className="modal-overlay">
+          <div className="modal-content customer-crm-modal">
+            <div className="modal-header">
+              <h2>👥 Customer CRM</h2>
+              <button
+                className="close-button"
+                onClick={() => setShowCustomerCRM(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <CustomerCRM />
+            </div>
+          </div>
+        </div>
+      )} */}
+
+      {/* Marketing Automation Modal */}
+      {/* {showMarketingAutomation && (
+        <div className="modal-overlay">
+          <div className="modal-content marketing-automation-modal">
+            <div className="modal-header">
+              <h2>📢 Marketing Automation</h2>
+              <button
+                className="close-button"
+                onClick={() => setShowMarketingAutomation(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <MarketingAutomation />
+            </div>
+          </div>
+        </div>
+      )} */}
     </div>
   );
 };

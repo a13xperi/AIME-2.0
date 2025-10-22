@@ -265,3 +265,5 @@ const SessionDetail: React.FC = () => {
 };
 
 export default SessionDetail;
+
+
