@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Session, Project } from '../../types';
 import './ProductivityInsights.css';
 
@@ -34,11 +34,7 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
   const [insights, setInsights] = useState<ProductivityData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    calculateInsights();
-  }, [sessions, projects, timeRange]);
-
-  const calculateInsights = () => {
+  const calculateInsights = useCallback(() => {
     setLoading(true);
     
     try {
@@ -131,7 +127,11 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [sessions, timeRange]);
+
+  useEffect(() => {
+    calculateInsights();
+  }, [calculateInsights]);
 
   const formatHour = (hour: number): string => {
     if (hour < 6) return 'Early Morning (12am-6am)';

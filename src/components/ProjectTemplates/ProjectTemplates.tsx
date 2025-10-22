@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ProjectTemplate, Project, Session } from '../../types';
+import { ProjectTemplate, Project } from '../../types';
 import './ProjectTemplates.css';
 
 interface ProjectTemplatesProps {
@@ -20,7 +20,6 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [showTemplateDetails, setShowTemplateDetails] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const categories = [
     'All',
@@ -364,6 +363,7 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
     if (isOpen) {
       setTemplates(defaultTemplates);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const filteredTemplates = templates.filter(template => {

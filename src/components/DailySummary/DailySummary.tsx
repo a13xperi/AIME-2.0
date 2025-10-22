@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Session } from '../../types';
 import './DailySummary.css';
 
@@ -28,13 +28,7 @@ const DailySummary: React.FC<DailySummaryProps> = ({
   const [summaryData, setSummaryData] = useState<SummaryData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isVisible) {
-      calculateSummary();
-    }
-  }, [isVisible, sessions]);
-
-  const calculateSummary = () => {
+  const calculateSummary = useCallback(() => {
     setLoading(true);
     
     try {
@@ -125,7 +119,13 @@ const DailySummary: React.FC<DailySummaryProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [sessions]);
+
+  useEffect(() => {
+    if (isVisible) {
+      calculateSummary();
+    }
+  }, [isVisible, calculateSummary]);
 
   if (!isVisible) return null;
 

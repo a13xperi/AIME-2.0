@@ -75,7 +75,7 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
         duration: newDuration
       });
     }
-  }, [startTime, sessionDuration, session.id, onSessionUpdate]);
+  }, [startTime, session.id, onSessionUpdate]);
 
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);

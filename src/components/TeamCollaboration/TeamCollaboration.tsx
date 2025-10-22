@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Project, Session } from '../../types';
 import './TeamCollaboration.css';
 
@@ -57,11 +57,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
   const [showTeamMembers, setShowTeamMembers] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadTeamData();
-  }, []);
-
-  const loadTeamData = async () => {
+  const loadTeamData = useCallback(async () => {
     setLoading(true);
     try {
       // Mock team data - in real implementation, this would come from API
@@ -101,7 +97,12 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projects, sessions]);
+
+  useEffect(() => {
+    loadTeamData();
+  }, [loadTeamData]);
 
   const loadComments = async () => {
     try {
@@ -186,26 +187,6 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
     console.log('Added session comment:', comment);
   };
 
-  const handleProjectHandoff = (projectId: string, toUserId: string) => {
-    const handoffComment: ProjectComment = {
-      id: Date.now().toString(),
-      projectId,
-      authorId: currentUserId,
-      authorName: 'You',
-      content: `Handing off project to ${teamMembers.find(m => m.id === toUserId)?.name}`,
-      timestamp: new Date(),
-      type: 'handoff'
-    };
-
-    setProjectComments(prev => [handoffComment, ...prev]);
-    
-    // Update project ownership
-    if (onProjectUpdate) {
-      onProjectUpdate(projectId, { 
-        // In real implementation, this would update the project owner
-      });
-    }
-  };
 
   if (loading) {
     return (

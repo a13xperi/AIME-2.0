@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Session, Project, DashboardStats } from '../../types';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Session, Project } from '../../types';
 import ProductivityInsights from '../ProductivityInsights/ProductivityInsights';
 import './AnalyticsDashboard.css';
 
@@ -24,11 +24,7 @@ const AnalyticsDashboard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
 
-  useEffect(() => {
-    loadAnalyticsData();
-  }, [timeRange]);
-
-  const loadAnalyticsData = async () => {
+  const loadAnalyticsData = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -58,7 +54,12 @@ const AnalyticsDashboard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeRange]);
+
+  useEffect(() => {
+    loadAnalyticsData();
+  }, [loadAnalyticsData]);
 
   const calculateAnalytics = (sessions: Session[], projects: Project[]): AnalyticsData => {
     const now = new Date();

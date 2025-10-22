@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProjectTemplate, ProjectPhase, SessionTemplate, ChecklistItem, Resource } from '../../types';
+import { ProjectTemplate, ProjectPhase, SessionTemplate, Resource } from '../../types';
 import './TemplateBuilder.css';
 
 interface TemplateBuilderProps {

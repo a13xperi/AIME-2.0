@@ -1204,3 +1204,323 @@ export interface IntegrationTestLog {
   data?: any;
 }
 
+/**
+ * Advanced Security & Compliance System interfaces
+ */
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  role: UserRole;
+  permissions: Permission[];
+  status: 'active' | 'inactive' | 'suspended' | 'pending';
+  lastLogin?: string;
+  loginCount: number;
+  createdAt: string;
+  updatedAt: string;
+  metadata: {
+    department?: string;
+    title?: string;
+    location?: string;
+    timezone?: string;
+  };
+  security: {
+    twoFactorEnabled: boolean;
+    passwordLastChanged: string;
+    failedLoginAttempts: number;
+    lastFailedLogin?: string;
+    accountLockedUntil?: string;
+  };
+}
+
+export interface UserRole {
+  id: string;
+  name: string;
+  description: string;
+  permissions: string[];
+  level: number; // 1-10, higher = more privileges
+  isSystem: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Permission {
+  id: string;
+  name: string;
+  description: string;
+  resource: string;
+  action: 'create' | 'read' | 'update' | 'delete' | 'execute' | 'admin';
+  conditions?: PermissionCondition[];
+  createdAt: string;
+}
+
+export interface PermissionCondition {
+  field: string;
+  operator: 'equals' | 'not_equals' | 'contains' | 'in' | 'not_in';
+  value: any;
+}
+
+export interface AuditLog {
+  id: string;
+  userId: string;
+  userName: string;
+  action: string;
+  resource: string;
+  resourceId?: string;
+  details: {
+    method?: string;
+    endpoint?: string;
+    ipAddress: string;
+    userAgent: string;
+    requestBody?: any;
+    responseStatus?: number;
+    errorMessage?: string;
+  };
+  timestamp: string;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  category: 'authentication' | 'authorization' | 'data_access' | 'data_modification' | 'system' | 'security';
+  tags: string[];
+  metadata: Record<string, any>;
+}
+
+export interface SecurityEvent {
+  id: string;
+  type: 'login_attempt' | 'permission_denied' | 'data_breach' | 'suspicious_activity' | 'system_compromise' | 'policy_violation';
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  title: string;
+  description: string;
+  userId?: string;
+  ipAddress: string;
+  userAgent: string;
+  timestamp: string;
+  status: 'open' | 'investigating' | 'resolved' | 'false_positive';
+  assignedTo?: string;
+  resolution?: string;
+  evidence: SecurityEvidence[];
+  impact: {
+    affectedUsers: number;
+    affectedData: string[];
+    businessImpact: 'low' | 'medium' | 'high' | 'critical';
+  };
+  remediation: {
+    steps: string[];
+    completed: boolean;
+    completedAt?: string;
+  };
+}
+
+export interface SecurityEvidence {
+  type: 'log' | 'screenshot' | 'file' | 'network' | 'database';
+  content: string;
+  timestamp: string;
+  source: string;
+  hash?: string;
+}
+
+export interface ComplianceFramework {
+  id: string;
+  name: string;
+  description: string;
+  version: string;
+  type: 'gdpr' | 'ccpa' | 'sox' | 'hipaa' | 'pci_dss' | 'iso27001' | 'custom';
+  requirements: ComplianceRequirement[];
+  assessments: ComplianceAssessment[];
+  status: 'compliant' | 'non_compliant' | 'partial' | 'not_assessed';
+  lastAssessment: string;
+  nextAssessment: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ComplianceRequirement {
+  id: string;
+  code: string;
+  title: string;
+  description: string;
+  category: string;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  controls: ComplianceControl[];
+  evidence: ComplianceEvidence[];
+  status: 'compliant' | 'non_compliant' | 'partial' | 'not_assessed';
+  lastReviewed: string;
+  nextReview: string;
+}
+
+export interface ComplianceControl {
+  id: string;
+  name: string;
+  description: string;
+  type: 'preventive' | 'detective' | 'corrective';
+  implementation: 'automated' | 'manual' | 'hybrid';
+  frequency: 'continuous' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'annually';
+  owner: string;
+  status: 'implemented' | 'partial' | 'not_implemented';
+  effectiveness: number; // 0-100
+  lastTested: string;
+  nextTest: string;
+}
+
+export interface ComplianceEvidence {
+  id: string;
+  type: 'document' | 'screenshot' | 'log' | 'test_result' | 'policy' | 'training';
+  title: string;
+  description: string;
+  filePath?: string;
+  content?: string;
+  collectedBy: string;
+  collectedAt: string;
+  validUntil: string;
+  approvedBy?: string;
+  approvedAt?: string;
+}
+
+export interface ComplianceAssessment {
+  id: string;
+  frameworkId: string;
+  name: string;
+  description: string;
+  assessor: string;
+  startDate: string;
+  endDate: string;
+  status: 'planned' | 'in_progress' | 'completed' | 'cancelled';
+  findings: ComplianceFinding[];
+  overallScore: number; // 0-100
+  recommendations: string[];
+  reportPath?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ComplianceFinding {
+  id: string;
+  requirementId: string;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  title: string;
+  description: string;
+  evidence: string[];
+  recommendations: string[];
+  status: 'open' | 'in_progress' | 'resolved' | 'accepted_risk';
+  assignedTo?: string;
+  dueDate?: string;
+  resolvedAt?: string;
+}
+
+export interface DataClassification {
+  id: string;
+  name: string;
+  level: number; // 1-5, higher = more sensitive
+  description: string;
+  examples: string[];
+  handlingRequirements: {
+    encryption: boolean;
+    accessControl: string[];
+    retention: number; // days
+    backup: boolean;
+    sharing: 'internal' | 'restricted' | 'prohibited';
+  };
+  applicableFrameworks: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DataInventory {
+  id: string;
+  name: string;
+  description: string;
+  type: 'database' | 'file' | 'api' | 'third_party' | 'backup';
+  location: string;
+  classification: string;
+  owner: string;
+  custodian: string;
+  dataSubjects: string[]; // for GDPR
+  purposes: string[];
+  retentionPeriod: number; // days
+  lastAccessed: string;
+  accessCount: number;
+  securityMeasures: string[];
+  risks: DataRisk[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DataRisk {
+  id: string;
+  type: 'confidentiality' | 'integrity' | 'availability';
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  description: string;
+  likelihood: number; // 0-100
+  impact: number; // 0-100
+  riskScore: number; // calculated
+  mitigation: string[];
+  status: 'identified' | 'assessed' | 'mitigated' | 'accepted';
+  owner: string;
+  dueDate?: string;
+  lastReviewed: string;
+}
+
+export interface SecurityPolicy {
+  id: string;
+  name: string;
+  description: string;
+  category: 'access_control' | 'data_protection' | 'incident_response' | 'business_continuity' | 'vendor_management';
+  version: string;
+  status: 'draft' | 'active' | 'archived';
+  content: string;
+  applicableRoles: string[];
+  effectiveDate: string;
+  reviewDate: string;
+  approvedBy: string;
+  approvedAt: string;
+  acknowledgments: PolicyAcknowledgment[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PolicyAcknowledgment {
+  userId: string;
+  userName: string;
+  acknowledgedAt: string;
+  version: string;
+}
+
+export interface SecurityTraining {
+  id: string;
+  title: string;
+  description: string;
+  type: 'mandatory' | 'optional' | 'role_specific';
+  category: 'general' | 'phishing' | 'data_protection' | 'incident_response' | 'compliance';
+  duration: number; // minutes
+  content: string;
+  quiz?: SecurityQuiz;
+  requiredRoles: string[];
+  completions: TrainingCompletion[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SecurityQuiz {
+  questions: QuizQuestion[];
+  passingScore: number; // percentage
+  attempts: number;
+  timeLimit?: number; // minutes
+}
+
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  type: 'multiple_choice' | 'true_false' | 'text';
+  options?: string[];
+  correctAnswer: string | number;
+  explanation: string;
+}
+
+export interface TrainingCompletion {
+  userId: string;
+  userName: string;
+  completedAt: string;
+  score?: number;
+  attempts: number;
+  certificate?: string;
+}
+

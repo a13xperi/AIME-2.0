@@ -32,11 +32,27 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
   const [showTimeEntries, setShowTimeEntries] = useState(false);
 
   // Auto-start timer if enabled
+  const startTimer = useCallback(() => {
+    const now = new Date();
+    setIsRunning(true);
+    setStartTime(now);
+    
+    const newEntry: TimeEntry = {
+      id: `entry-${Date.now()}`,
+      startTime: now,
+      duration: 0,
+      description: `Work session - ${session.title}`
+    };
+    
+    setCurrentEntry(newEntry);
+    setTimeEntries(prev => [...prev, newEntry]);
+  }, [session.title]);
+
   useEffect(() => {
     if (autoStart && !isRunning) {
       startTimer();
     }
-  }, [autoStart, isRunning]);
+  }, [autoStart, isRunning, startTimer]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -53,22 +69,6 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
       if (interval) clearInterval(interval);
     };
   }, [isRunning, startTime]);
-
-  const startTimer = useCallback(() => {
-    const now = new Date();
-    setIsRunning(true);
-    setStartTime(now);
-    
-    const newEntry: TimeEntry = {
-      id: `entry-${Date.now()}`,
-      startTime: now,
-      duration: 0,
-      description: `Work session - ${session.title}`
-    };
-    
-    setCurrentEntry(newEntry);
-    setTimeEntries(prev => [...prev, newEntry]);
-  }, [session.title]);
 
   const pauseTimer = useCallback(() => {
     if (currentEntry && startTime) {

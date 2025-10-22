@@ -37,6 +37,31 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
     quietHours: { start: 22, end: 8 } // 10 PM to 8 AM
   });
 
+  // Add notification
+  const addNotification = useCallback((notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
+    const newNotification: Notification = {
+      ...notification,
+      id: Date.now().toString(),
+      timestamp: new Date(),
+      read: false
+    };
+
+    setNotifications(prev => [newNotification, ...prev.slice(0, 9)]); // Keep last 10
+
+    // Auto-remove after duration
+    if (notification.duration) {
+      setTimeout(() => {
+        removeNotification(newNotification.id);
+      }, notification.duration);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Remove notification
+  const removeNotification = useCallback((id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  }, []);
+
   // Check for break reminders
   const checkBreakReminders = useCallback(() => {
     if (!settings.breakReminders) return;
@@ -79,7 +104,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
         });
       }
     }
-  }, [sessions, settings, onSessionUpdate]);
+  }, [sessions, settings, onSessionUpdate, addNotification]);
 
   // Check for session timeouts
   const checkSessionTimeouts = useCallback(() => {
@@ -111,7 +136,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
         });
       }
     });
-  }, [sessions, settings, onSessionUpdate]);
+  }, [sessions, settings, onSessionUpdate, addNotification]);
 
   // Generate daily summary
   const generateDailySummary = useCallback(() => {
@@ -142,7 +167,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
       message,
       duration: 8000
     });
-  }, [sessions, settings]);
+  }, [sessions, settings, addNotification]);
 
   // Check productivity trends
   const checkProductivityTrends = useCallback(() => {
@@ -175,38 +200,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
         duration: 10000
       });
     }
-  }, [sessions, settings]);
-
-  // Add notification
-  const addNotification = (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
-    const newNotification: Notification = {
-      ...notification,
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      read: false
-    };
-
-    setNotifications(prev => [newNotification, ...prev.slice(0, 9)]); // Keep last 10
-
-    // Auto-remove after duration
-    if (notification.duration) {
-      setTimeout(() => {
-        removeNotification(newNotification.id);
-      }, notification.duration);
-    }
-  };
-
-  // Remove notification
-  const removeNotification = (id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
-  };
-
-  // Mark as read
-  const markAsRead = (id: string) => {
-    setNotifications(prev => 
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
-    );
-  };
+  }, [sessions, settings, addNotification]);
 
   // Clear all notifications
   const clearAll = () => {
