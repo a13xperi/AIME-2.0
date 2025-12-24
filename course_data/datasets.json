@@ -1,0 +1,24 @@
+{
+  "datasets": [
+    {
+      "dtm_id": "riverside_2023_20cm",
+      "course_id": "riverside_country_club",
+      "hole_id": 1,
+      "green_origin_projected_m": {
+        "x": 600123.45,
+        "y": 4000567.89
+      },
+      "green_rotation_deg": 0,
+      "green_size_m": {
+        "width": 25.0,
+        "depth": 20.0
+      },
+      "stimp_range": {
+        "min": 8.0,
+        "max": 14.0
+      },
+      "description": "Riverside Country Club - Hole 1 - 20cm resolution DTM from 2023 survey"
+    }
+  ]
+}
+

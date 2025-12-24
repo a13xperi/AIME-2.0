@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Solve Putt Response",
+  "description": "Response from PuttSolver service with putt solution",
+  "type": "object",
+  "required": ["success", "request_id"],
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether the solve was successful"
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Echo of request_id for tracing",
+      "format": "uuid"
+    },
+    "instruction_text": {
+      "type": "string",
+      "description": "Human-readable putting instructions",
+      "example": "Aim 2.5° left, hit with 8.3 mph initial speed"
+    },
+    "aim_line_deg": {
+      "type": "number",
+      "description": "Aim direction in degrees (relative to ball-cup line)",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "initial_speed_mph": {
+      "type": "number",
+      "description": "Initial ball speed in miles per hour",
+      "minimum": 0
+    },
+    "plot_points_local": {
+      "type": "array",
+      "description": "Ball path points in green_local_m coordinates",
+      "items": {
+        "type": "object",
+        "required": ["x", "y"],
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message if success is false"
+    }
+  }
+}
+

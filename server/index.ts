@@ -888,6 +888,186 @@ app.get('/api/dashboard/stats', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================================================
+// AIME Golf AI Integration - OpenAI API Proxy Routes
+// ============================================================================
+
+// OpenAI Ephemeral Token endpoint (for WebRTC)
+app.get('/api/token', async (req: Request, res: Response) => {
+  try {
+    const apiKey = process.env.OPENAI_API_KEY;
+    
+    if (!apiKey) {
+      return res.status(500).json({ error: 'OpenAI API key not configured' });
+    }
+    
+    // Return the token in the format expected by the client
+    // Note: In production, this should be a secure ephemeral token endpoint
+    res.json({
+      client_secret: apiKey
+    });
+  } catch (error) {
+    logger.error('Error generating token:', error);
+    res.status(500).json({ error: 'Failed to generate token' });
+  }
+});
+
+// OpenAI Realtime API proxy (for WebRTC)
+app.post('/api/realtime', async (req: Request, res: Response) => {
+  try {
+    const apiKey = process.env.OPENAI_API_KEY;
+    
+    if (!apiKey) {
+      return res.status(500).json({ error: 'OpenAI API key not configured' });
+    }
+    
+    const model = (req.query.model as string) || 'gpt-4o-realtime-preview-2024-12-17';
+    const sdpOffer = req.body;
+    
+    // Forward the request to OpenAI
+    const response = await fetch(`https://api.openai.com/v1/realtime?model=${model}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/sdp'
+      },
+      body: typeof sdpOffer === 'string' ? sdpOffer : JSON.stringify(sdpOffer)
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      logger.error(`OpenAI SDP exchange failed: ${response.status}`, { error: errorText });
+      return res.status(response.status).json({ error: `OpenAI SDP exchange failed: ${response.status}` });
+    }
+    
+    const sdpAnswer = await response.text();
+    res.setHeader('Content-Type', 'application/sdp');
+    res.send(sdpAnswer);
+  } catch (error) {
+    logger.error('Error in SDP exchange:', error);
+    res.status(500).json({ error: 'Failed to exchange SDP with OpenAI' });
+  }
+});
+
+// OpenAI Chat API proxy
+app.post('/api/chat', async (req: Request, res: Response) => {
+  try {
+    const apiKey = process.env.OPENAI_API_KEY;
+    
+    if (!apiKey) {
+      return res.status(500).json({ error: 'OpenAI API key not configured' });
+    }
+    
+    const { messages } = req.body;
+    
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return res.status(400).json({ error: 'Messages are required and must be a non-empty array' });
+    }
+    
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: process.env.OPENAI_MODEL || 'gpt-4o',
+        messages: messages.map((msg: any) => ({
+          role: msg.role,
+          content: msg.content,
+        })),
+        temperature: 0.7,
+        max_tokens: 800,
+      })
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      logger.error(`OpenAI chat API error: ${response.status}`, { error: errorText });
+      return res.status(response.status).json({ error: 'Failed to generate response' });
+    }
+    
+    const data = await response.json();
+    const responseMessage = data.choices[0].message;
+    
+    res.json({
+      message: responseMessage.content,
+      model: data.model,
+      usage: data.usage,
+    });
+  } catch (error) {
+    logger.error('Error calling OpenAI:', error);
+    res.status(500).json({ 
+      error: 'Failed to generate response',
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+});
+
+// Weather API proxy (for golf weather tool)
+app.get('/api/weather', async (req: Request, res: Response) => {
+  try {
+    const city = req.query.city as string;
+    
+    if (!city) {
+      return res.status(400).json({ error: 'City parameter is required' });
+    }
+    
+    const OPEN_WEATHER_API_KEY = process.env.OPEN_WEATHER_API_KEY;
+    
+    if (!OPEN_WEATHER_API_KEY) {
+      return res.status(500).json({ error: 'OpenWeatherMap API key is missing' });
+    }
+    
+    // Get coordinates first
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${OPEN_WEATHER_API_KEY}`;
+    const geoResponse = await fetch(geoUrl);
+    
+    if (!geoResponse.ok) {
+      return res.status(geoResponse.status).json({ error: 'Failed to geocode location' });
+    }
+    
+    const geoData = await geoResponse.json();
+    
+    if (!geoData || geoData.length === 0) {
+      return res.status(404).json({ error: `Could not find coordinates for: ${city}` });
+    }
+    
+    const { lat, lon } = geoData[0];
+    
+    // Get weather data
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${OPEN_WEATHER_API_KEY}`;
+    const weatherResponse = await fetch(weatherUrl);
+    
+    if (!weatherResponse.ok) {
+      return res.status(weatherResponse.status).json({ error: 'Failed to fetch weather' });
+    }
+    
+    const weatherData = await weatherResponse.json();
+    
+    // Format response
+    res.json({
+      location: weatherData.name,
+      temperature: Math.round(weatherData.main.temp),
+      unit: "fahrenheit",
+      description: weatherData.weather[0].description,
+      windSpeed: weatherData.wind.speed,
+      windDirection: weatherData.wind.deg,
+      humidity: weatherData.main.humidity,
+      pressure: weatherData.main.pressure,
+      visibility: weatherData.visibility,
+      cloudCover: weatherData.clouds?.all || 0,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    logger.error('Error in weather API:', error);
+    res.status(500).json({ 
+      error: 'Failed to fetch weather',
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+});
+
 // Start server (only in local development, not in Vercel serverless)
 if (process.env.VERCEL !== '1') {
   app.listen(PORT, () => {
@@ -896,6 +1076,7 @@ if (process.env.VERCEL !== '1') {
     logger.info(`Notion integration: Configured ✅`);
     logger.info(`Projects DB: Set ✅`);
     logger.info(`Sessions DB: Set ✅`);
+    logger.info(`Golf AI routes: /api/realtime, /api/chat, /api/weather ✅`);
   });
 }
 
