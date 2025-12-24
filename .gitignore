@@ -34,3 +34,7 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 .vercel
+
+# Ovation Golf large build files (exceed GitHub 100MB limit)
+ovation_golf/builds/*.zip
+ovation_golf/labview/*.zip
