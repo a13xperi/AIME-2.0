@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aime.ai/contracts/schemas/solve_putt.response.schema.json",
+  "title": "SolvePuttResponse",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "request_id": { "type": "string" },
+    "dtm_id": { "type": "string" },
+    "success": { "type": "boolean" },
+    "instruction_text": { "type": ["string", "null"] },
+    "aim_line_deg": {
+      "type": ["number", "null"],
+      "description": "Aim angle relative to cup (+ = right, - = left)"
+    },
+    "initial_speed_mph": { "type": ["number", "null"] },
+    "plot_points": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/plot_point" },
+      "description": "Ball path in green_local_m frame"
+    },
+    "solve_time_ms": { "type": "number" },
+    "error": { "type": ["string", "null"] }
+  },
+  "required": ["request_id", "dtm_id", "success", "plot_points", "solve_time_ms", "error"],
+  "$defs": {
+    "plot_point": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "t": { "type": "number" }
+      },
+      "required": ["x", "y", "t"]
+    }
+  }
+}

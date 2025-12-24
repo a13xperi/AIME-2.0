@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aime.ai/contracts/schemas/tool.solve_putt.output.schema.json",
+  "title": "ToolSolvePuttOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "success": { "type": "boolean" },
+    "instruction_text": { "type": ["string", "null"] },
+    "aim_line_deg": { "type": ["number", "null"] },
+    "initial_speed_mph": { "type": ["number", "null"] },
+    "plot_points_local": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "x": { "type": "number" },
+          "y": { "type": "number" },
+          "t": { "type": "number" }
+        },
+        "required": ["x", "y", "t"]
+      }
+    },
+    "error": { "type": ["string", "null"] }
+  },
+  "required": ["success", "plot_points_local", "error"]
+}

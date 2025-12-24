@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aime.ai/contracts/schemas/green_manifest.schema.json",
+  "title": "GreenManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "course_id": { "type": "string" },
+    "hole_id": { "type": "integer", "minimum": 1, "maximum": 18 },
+    "green_id": { "type": "string", "description": "Optional per-hole green identifier" },
+    "dtm_id": { "type": "string" },
+    "grid_spacing_m": { "type": "number", "description": "Example: 0.20" },
+    "grid_rows": { "type": "integer" },
+    "grid_cols": { "type": "integer" },
+    "no_data_value": { "type": "number", "description": "Example: -1.0" },
+    "crs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "epsg": { "type": ["integer", "null"], "description": "Course-specific projected CRS (e.g., state plane). May be null until confirmed." }
+      },
+      "required": ["epsg"]
+    },
+    "transform": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "origin_corner": {
+          "type": ["string", "null"],
+          "enum": ["SW", "SE", "NW", "NE", null],
+          "description": "[BLOCKED] Which corner is (0,0)?"
+        },
+        "rotation_deg": {
+          "type": ["number", "null"],
+          "description": "[BLOCKED] Rotation sign convention not yet confirmed"
+        },
+        "local_origin_wgs84": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "lat": { "type": "number" },
+            "lon": { "type": "number" }
+          },
+          "required": ["lat", "lon"],
+          "description": "Reference origin for transforms"
+        }
+      },
+      "required": ["origin_corner", "rotation_deg", "local_origin_wgs84"]
+    }
+  },
+  "required": ["course_id", "hole_id", "dtm_id", "grid_spacing_m", "grid_rows", "grid_cols", "no_data_value", "crs", "transform"]
+}

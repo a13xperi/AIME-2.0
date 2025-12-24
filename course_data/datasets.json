@@ -1,0 +1,12 @@
+{
+  "datasets": [
+    {
+      "dtm_id": "riverside_2023_20cm",
+      "course_id": "riverside_country_club",
+      "hole_id": 1,
+      "grid_spacing_m": 0.20,
+      "grid_rows": 150,
+      "grid_cols": 200
+    }
+  ]
+}

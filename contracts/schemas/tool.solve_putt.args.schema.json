@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aime.ai/contracts/schemas/tool.solve_putt.args.schema.json",
+  "title": "ToolSolvePuttArgs",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "course_id": { "type": "string", "description": "Course identifier (snake_case)" },
+    "hole_id": { "type": "integer", "minimum": 1, "maximum": 18 },
+    "ball_lat": { "type": "number" },
+    "ball_lon": { "type": "number" },
+    "cup_lat": { "type": "number" },
+    "cup_lon": { "type": "number" },
+    "stimp": { "type": "number", "minimum": 6.0, "maximum": 15.0 }
+  },
+  "required": ["course_id", "hole_id", "ball_lat", "ball_lon", "cup_lat", "cup_lon", "stimp"]
+}

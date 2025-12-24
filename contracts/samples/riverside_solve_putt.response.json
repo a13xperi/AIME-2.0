@@ -1,0 +1,15 @@
+{
+  "request_id": "550e8400-e29b-41d4-a716-446655440000",
+  "dtm_id": "riverside_2023_20cm",
+  "success": true,
+  "instruction_text": "Aim 3.5° left of cup, firm pace",
+  "aim_line_deg": -3.5,
+  "initial_speed_mph": 5.2,
+  "plot_points": [
+    { "x": 10.0, "y": 8.0,  "t": 0.0 },
+    { "x": 10.1, "y": 8.5,  "t": 0.2 },
+    { "x": 10.0, "y": 11.0, "t": 2.1 }
+  ],
+  "solve_time_ms": 45.2,
+  "error": null
+}
