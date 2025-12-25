@@ -203,6 +203,25 @@
 .club-reason {
   font-size: 0.9rem;
   color: #d1fae5;
+  margin-bottom: 12px;
+}
+
+.view-recommendations-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 8px;
+  color: #4ade80;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-recommendations-btn:hover {
+  background: rgba(74, 222, 128, 0.2);
+  border-color: #4ade80;
 }
 
 .instruction-text {

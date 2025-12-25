@@ -103,6 +103,13 @@ const Settings: React.FC = () => {
             </div>
 
             <div className="settings-section">
+              <h2>Account</h2>
+              <button className="action-btn" onClick={() => navigate('/profile')}>
+                View Profile
+              </button>
+            </div>
+
+            <div className="settings-section">
               <h2>About</h2>
               <div className="about-info">
                 <div className="info-row">

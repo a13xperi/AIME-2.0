@@ -32,6 +32,10 @@ import RoundHistory from './components/RoundHistory/RoundHistory';
 import Scorecard from './components/Scorecard/Scorecard';
 import DetailedStats from './components/DetailedStats/DetailedStats';
 import Help from './components/Help/Help';
+import ClubRecommendations from './components/ClubRecommendations/ClubRecommendations';
+import Weather from './components/Weather/Weather';
+import RoundDetail from './components/RoundDetail/RoundDetail';
+import Profile from './components/Profile/Profile';
 import './App.css';
 
 function App() {
@@ -70,6 +74,10 @@ function App() {
             <Route path="/scorecard" element={<Scorecard />} />
             <Route path="/detailed-stats" element={<DetailedStats />} />
             <Route path="/help" element={<Help />} />
+            <Route path="/club-recommendations" element={<ClubRecommendations />} />
+            <Route path="/weather" element={<Weather />} />
+            <Route path="/round-detail/:id" element={<RoundDetail />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
       </Router>

@@ -46,6 +46,12 @@ const HoleStart: React.FC = () => {
               <li>Water hazard on the left</li>
               <li>Large green with subtle slope</li>
             </ul>
+            <button 
+              className="weather-btn"
+              onClick={() => navigate(`/weather?course=${holeNumber}`)}
+            >
+              🌤️ View Weather & Conditions
+            </button>
           </div>
 
           <div className="screen-footer">

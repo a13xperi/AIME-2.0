@@ -92,6 +92,12 @@ const ShotGuidance: React.FC = () => {
                 <div className="club-name-large">7 Iron</div>
                 <div className="club-distance">~{distance} yds</div>
                 <div className="club-reason">Best for this distance and condition</div>
+                <button 
+                  className="view-recommendations-btn"
+                  onClick={() => navigate(`/club-recommendations?distance=${distance}&condition=${condition}`)}
+                >
+                  View All Recommendations →
+                </button>
               </div>
             </div>
           )}
