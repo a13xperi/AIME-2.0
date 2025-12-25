@@ -53,6 +53,7 @@ import HoleAnalysis from './components/HoleAnalysis/HoleAnalysis';
 import LoadingStates from './components/Loading/LoadingStates';
 import ShotComplete from './components/ShotComplete/ShotComplete';
 import ShotAnalysis from './components/ShotAnalysis/ShotAnalysis';
+import RoundSummary from './components/RoundSummary/RoundSummary';
 import './App.css';
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
             <Route path="/loading-states" element={<LoadingStates />} />
             <Route path="/shot-complete" element={<ShotComplete />} />
             <Route path="/shot-analysis" element={<ShotAnalysis />} />
+            <Route path="/round-summary" element={<RoundSummary />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>

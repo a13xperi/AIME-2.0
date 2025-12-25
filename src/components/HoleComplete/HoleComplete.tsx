@@ -79,8 +79,8 @@ const HoleComplete: React.FC = () => {
           </div>
 
           <div className="screen-footer">
-            <button className="btn-primary" onClick={handleContinue}>
-              {isLastHole ? 'View Round Summary →' : 'Continue →'}
+            <button className="btn-primary" onClick={() => navigate(`/round-summary?hole=${holeNumber}`)}>
+              View Round Summary →
             </button>
           </div>
         </div>
