@@ -1,0 +1,13 @@
+Deliverable,Phase,Workstream,Status,Priority,Owner,Dependencies,Acceptance Criteria,Gate
+Add Redis-backed HoleSession store (opt-in) + safe fallback to memory,7,7A,Done,P0,,Step 11 sessions in-memory store,SESSION_STORE_BACKEND=redis attempts Redis; if redis unavailable backend falls back to memory and exposes warning in /health,Gate 7
+Add session store metadata + basic readiness to /health,7,7A,Done,P1,,Redis store selection,GET /health returns session_store.backend + ttl + warning (if fallback),Gate 7
+Add surface-state hysteresis (debounce) w/ candidate streak state,7,7B,Done,P0,,Step 11 mask-based surface classification,Switch ON↔OFF only after N consistent candidates; warnings indicate hold/switch decisions,Gate 7
+Expose hysteresis tuning via env vars (SURFACE_COMMIT_ON_STREAK / SURFACE_COMMIT_OFF_STREAK),7,7B,Done,P2,,Hysteresis implementation,Changing env vars changes commit behavior without code changes,Gate 7
+Add backend→PuttSolver service-to-service API key header support,7,7C,Done,P0,,Backend putt solver client,When PUTT_SOLVER_API_KEY is set backend includes X-API-Key header on /solve_putt calls,Gate 7
+Add backend→TeeToGreen service-to-service API key header support,7,7C,Done,P1,,Backend tee-to-green client,When TEE_TO_GREEN_API_KEY is set backend includes X-API-Key header on /plan_shot calls,Gate 7
+Add optional debug bundle writer for /api/get_hole_advice,7,7D,Done,P1,,Unified get_hole_advice,When DEBUG_BUNDLE_ENABLED=true backend writes request_id.json bundle to DEBUG_BUNDLE_DIR,Gate 7
+Add safe smoke test harness (no DLL) validating auth + hysteresis + debug bundles,7,7D,Done,P1,,Debug bundle writer + auth support + sessions,Running backend/scripts/smoke_step12.py produces a markdown report and debug bundles,Gate 7
+Provision Redis for staging (managed preferred) and lock down network/TLS,7,7E,Planned,P0,,Infra access,Redis reachable only from backend; auth enabled; TLS/VPC as applicable,Gate 7
+Wire secrets management for API keys + redis credentials (no plain-text in repo),7,7E,Planned,P0,,Provision Redis + downstream services,Secrets stored in vault/secret manager; rotated; not logged,Gate 7
+Add log rotation/retention for debug bundles (or disable in production),7,7E,Planned,P1,,Debug bundle writer,Debug bundles do not grow unbounded; retention policy documented,Gate 7
+Update deployment docs + environment templates for Step 12 vars,7,7E,Planned,P2,,All Step 12 changes,Runbook + env var list maintained; staging deployment uses correct config,Gate 7

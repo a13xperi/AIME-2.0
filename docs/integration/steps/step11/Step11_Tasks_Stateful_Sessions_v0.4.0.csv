@@ -1,0 +1,10 @@
+Deliverable,Phase,Workstream,Status,Priority,Owner,Dependencies,Acceptance Criteria,Gate
+Add in-memory hole session store (TTL) to backend,6,6A,Done,P0,,Step 10 unified get_hole_advice + course dataset registry,SessionStore exists; TTL env var supported; sessions can be created/updated/read,Gate 6
+Implement session endpoints: start / set_ball_location / set_cup_location / GET session,6,6A,Done,P0,,Add in-memory hole session store,Endpoints return 200; update HoleStateSnapshot; 404 on unknown session_id,Gate 6
+Update get_hole_advice to support session_id (resolve state from session),6,6A,Done,P0,,Implement session endpoints,get_hole_advice accepts session_id-only payload; returns correct plan_type,Gate 6
+Add mask-based ON_GREEN classification (grid no-data mask + cache),6,6B,Done,P0,,Riverside pilot green grid + manifest fields,surface_state uses grid when available; returns UNKNOWN near boundary; falls back to extents with warning,Gate 6
+Add grid.axis_mapping hint to manifest + update schema,6,6B,Done,P1,,Mask-based classification,green_manifest.schema.json supports axis_mapping; manifest includes axis_mapping,Gate 6
+Add frontend proxy routes for session endpoints,6,6C,Done,P1,,Backend session endpoints,Next.js /api/session/* routes proxy to backend and return status codes correctly,Gate 6
+Update Realtime tool schema to allow session_id for get_hole_advice (optional),6,6C,Done,P2,,Backend session_id support in get_hole_advice,AIRealtime tool schema includes session_id and doesn't hard-require ball_wgs84 fields,Gate 6
+Add playback script for session stream mode,6,6D,Done,P2,,Backend session endpoints + get_hole_advice session support,"playback_session_stream.py can start session, stream ball, call get_hole_advice",Gate 6
+Publish Step 11 runbook + Notion article,6,6D,Done,P1,,All Step 11 implementation items,Runbook includes curl + playback; Notion article explains architecture + flow,Gate 6

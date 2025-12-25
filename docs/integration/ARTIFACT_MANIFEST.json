@@ -1,0 +1,273 @@
+{
+  "generated_utc": "2025-12-24T21:59:26.218744Z",
+  "source": "ChatGPT thread artifacts (sandbox:/mnt/data) [LITE: excludes Ovation source file.zip]",
+  "excluded": [
+    "Ovation source file.zip"
+  ],
+  "files": [
+    {
+      "source_path": "/mnt/data/Step11_Stateful_Sessions_Runbook_v0.4.0.md",
+      "archive_path": "docs/integration/steps/step11/Step11_Stateful_Sessions_Runbook_v0.4.0.md",
+      "size_bytes": 4861,
+      "sha256": "c4a8ca910b24e9e3487ba7da43a413b95c2c574d4c2f41d6d69ec75d0cfc1eba"
+    },
+    {
+      "source_path": "/mnt/data/ZIP file analysis 2025-12-24 at 2.53.36 PM.jpg",
+      "archive_path": "artifacts/inputs/ZIP file analysis 2025-12-24 at 2.53.36 PM.jpg",
+      "size_bytes": 492998,
+      "sha256": "b2a83b2681a9fb72379cf261c9a76b0d4d9d863dcfde41273f62074ca62e2929"
+    },
+    {
+      "source_path": "/mnt/data/Step11_Tasks_Stateful_Sessions_v0.4.0.csv",
+      "archive_path": "docs/integration/steps/step11/Step11_Tasks_Stateful_Sessions_v0.4.0.csv",
+      "size_bytes": 1923,
+      "sha256": "3d273f40c9da4b87b432cdc8f58eb500ead6c36ea466cae3571eeaf7c4ec6f44"
+    },
+    {
+      "source_path": "/mnt/data/aime-main_step10_tee_to_green_wiring_v0.3.0.zip",
+      "archive_path": "artifacts/repo-snapshots/aime-main_step10_tee_to_green_wiring_v0.3.0.zip",
+      "size_bytes": 1771803,
+      "sha256": "1b423cd44ee4754dd1b83546d969b9e8da53b1861240009c0f1cea0defc94d97"
+    },
+    {
+      "source_path": "/mnt/data/AIME_contracts_pack_v0.3.0.zip",
+      "archive_path": "artifacts/contracts/AIME_contracts_pack_v0.3.0.zip",
+      "size_bytes": 21897,
+      "sha256": "ddd7b96c6ffacf80f186ee66c30c6c97a12aff322049e40217cbbe6b3568e078"
+    },
+    {
+      "source_path": "/mnt/data/Step11_Executed_Smoke_Test_Results.md",
+      "archive_path": "docs/integration/steps/step11/Step11_Executed_Smoke_Test_Results.md",
+      "size_bytes": 3803,
+      "sha256": "c13fd2d2b5f2bf498b3333bf07a3bea937dc686246b747f853564cdbb7632f65"
+    },
+    {
+      "source_path": "/mnt/data/Step11_Stateful_Sessions_Notion_Article_v0.4.0.md",
+      "archive_path": "docs/integration/steps/step11/Step11_Stateful_Sessions_Notion_Article_v0.4.0.md",
+      "size_bytes": 3349,
+      "sha256": "75bf6e1c614e987e79080eb1df72de04cd3d91301f396790899ebe9adcf1f78d"
+    },
+    {
+      "source_path": "/mnt/data/AIME_contracts_pack_v0.5.0.zip",
+      "archive_path": "artifacts/contracts/AIME_contracts_pack_v0.5.0.zip",
+      "size_bytes": 28492,
+      "sha256": "5d7e9813e01524b163539334bb34ccac4b413cadb4c79e785cb6a37e44f205a5"
+    },
+    {
+      "source_path": "/mnt/data/tee-to-green-service-mock_step10_v0.3.0.zip",
+      "archive_path": "artifacts/packages/tee-to-green-service-mock_step10_v0.3.0.zip",
+      "size_bytes": 2320,
+      "sha256": "155b6474bb551e98c0d2219daf7755af5c43ec7feb7a7b6c8e7cb7a6e268966b"
+    },
+    {
+      "source_path": "/mnt/data/aime-main_step12_productionize_sessions_v0.5.0.zip",
+      "archive_path": "artifacts/repo-snapshots/aime-main_step12_productionize_sessions_v0.5.0.zip",
+      "size_bytes": 1887819,
+      "sha256": "d5a781e50b5fff384bb6c65fbdc767b2b2e750e726a216a1e38845a31afbf5ad"
+    },
+    {
+      "source_path": "/mnt/data/aime-main_step11_stateful_sessions_mask_v0.4.0.zip",
+      "archive_path": "artifacts/repo-snapshots/aime-main_step11_stateful_sessions_mask_v0.4.0.zip",
+      "size_bytes": 1815049,
+      "sha256": "8fb9f3151b00792c7c014ca9d6c8511eb02b9363cbfb89f6b716038ffcb791af"
+    },
+    {
+      "source_path": "/mnt/data/Step12_Productionized_Sessions_Notion_Article_v0.5.0.md",
+      "archive_path": "docs/integration/steps/step12/Step12_Productionized_Sessions_Notion_Article_v0.5.0.md",
+      "size_bytes": 4633,
+      "sha256": "4472d9eb3c33783176def3a27304846d2676d8f80a663a60935f5d7416e7232a"
+    },
+    {
+      "source_path": "/mnt/data/Step10_TeeToGreen_Wiring_Runbook_v0.3.0.md",
+      "archive_path": "docs/integration/steps/step10/Step10_TeeToGreen_Wiring_Runbook_v0.3.0.md",
+      "size_bytes": 3693,
+      "sha256": "6480b54ef2c2b00f75feb395667184242377fc35518c03923b4cd76e318f43ba"
+    },
+    {
+      "source_path": "/mnt/data/AIME_contracts_pack_v0.4.0.zip",
+      "archive_path": "artifacts/contracts/AIME_contracts_pack_v0.4.0.zip",
+      "size_bytes": 25854,
+      "sha256": "ca8ad3273660158952aa9292d3aa2db0207a5b87f03b61de7b32ae92e1ce1765"
+    },
+    {
+      "source_path": "/mnt/data/Step12_Tasks_Productionized_Sessions_v0.5.0.csv",
+      "archive_path": "docs/integration/steps/step12/Step12_Tasks_Productionized_Sessions_v0.5.0.csv",
+      "size_bytes": 2512,
+      "sha256": "61db6547f5d077dd434a9f3e1ac210feac38c636b7435d7ab5f2a8003cdc077e"
+    },
+    {
+      "source_path": "/mnt/data/Step12_Productionized_Sessions_Runbook_v0.5.0.md",
+      "archive_path": "docs/integration/steps/step12/Step12_Productionized_Sessions_Runbook_v0.5.0.md",
+      "size_bytes": 7530,
+      "sha256": "7edb9af3ca60b411c6468ea77e95632af568e4e05dc25b167c0a5d32e1497625"
+    },
+    {
+      "source_path": "/mnt/data/Step10_Tasks_TeeToGreen_Wiring_v0.3.0.csv",
+      "archive_path": "docs/integration/steps/step10/Step10_Tasks_TeeToGreen_Wiring_v0.3.0.csv",
+      "size_bytes": 1518,
+      "sha256": "64ff069dcb5f3787c4b9521afd9ba69fb1f1b70006e20b7d44cf2f06c8de4c30"
+    },
+    {
+      "source_path": "/mnt/data/Step10_TeeToGreen_Wiring_Notion_Article_v0.3.0.md",
+      "archive_path": "docs/integration/steps/step10/Step10_TeeToGreen_Wiring_Notion_Article_v0.3.0.md",
+      "size_bytes": 2851,
+      "sha256": "4bab6e5bf7f1bb95f50e050852f51fdf91a51ab57e838ac91495d6523b40a35a"
+    },
+    {
+      "source_path": "/mnt/data/Step12_Executed_Smoke_Test_Results.md",
+      "archive_path": "docs/integration/steps/step12/Step12_Executed_Smoke_Test_Results.md",
+      "size_bytes": 5051,
+      "sha256": "8657844f6d06117faa739721b2ca4e47de303b98ab5dd1e2318ae4a0a81a8eb5"
+    },
+    {
+      "source_path": "/mnt/data/Step9_Unified_Hole_Advice_Notion_Article_v0.2.0.md",
+      "archive_path": "docs/integration/steps/step9/Step9_Unified_Hole_Advice_Notion_Article_v0.2.0.md",
+      "size_bytes": 3677,
+      "sha256": "65c9085039afd680a41b63a2603c23e865025e7e80bf621a8627eade7ac02925"
+    },
+    {
+      "source_path": "/mnt/data/aime-main_step9_unified_get_hole_advice_v0.2.0.zip",
+      "archive_path": "artifacts/repo-snapshots/aime-main_step9_unified_get_hole_advice_v0.2.0.zip",
+      "size_bytes": 1765460,
+      "sha256": "96ef9b8ac3b3e47f8e81a57b22a059b6a4b9b1b05afab7725aa40d578febac1b"
+    },
+    {
+      "source_path": "/mnt/data/Step9_Unified_Hole_Advice_Runbook_v0.2.0.md",
+      "archive_path": "docs/integration/steps/step9/Step9_Unified_Hole_Advice_Runbook_v0.2.0.md",
+      "size_bytes": 4606,
+      "sha256": "bac7748060074f9e9ea17ae424b3ef1e552c5d0f2c9cfbf79fed8a47bc1c20a3"
+    },
+    {
+      "source_path": "/mnt/data/AIME_contracts_pack_v0.2.0.zip",
+      "archive_path": "artifacts/contracts/AIME_contracts_pack_v0.2.0.zip",
+      "size_bytes": 17450,
+      "sha256": "4de2cb75ac267c625548aa0d1e03a5f76a7a1f26d9a6acc2eea428b1139ebc56"
+    },
+    {
+      "source_path": "/mnt/data/Step9_Tasks_Unified_Hole_Advice_v0.2.0.csv",
+      "archive_path": "docs/integration/steps/step9/Step9_Tasks_Unified_Hole_Advice_v0.2.0.csv",
+      "size_bytes": 1555,
+      "sha256": "69baee8d9a5c645b3814b2d189c5c0b6304fecb7d33636b35aebcd639eedf679"
+    },
+    {
+      "source_path": "/mnt/data/putt-solver-service-real_step7_v0.1.0.zip",
+      "archive_path": "artifacts/packages/putt-solver-service-real_step7_v0.1.0.zip",
+      "size_bytes": 10381,
+      "sha256": "2581cdb8dc16efeae64d6a77ba32d63498d62e0d7696109aaf5ec3fdd63fcebe"
+    },
+    {
+      "source_path": "/mnt/data/Step7_Real_PuttSolver_Service_Runbook_v0.1.0.md",
+      "archive_path": "docs/integration/steps/step7/Step7_Real_PuttSolver_Service_Runbook_v0.1.0.md",
+      "size_bytes": 2199,
+      "sha256": "1c351406f50c06c89c904b674f7ea7493b6b4c2cad76e6ae53137b9c300eb06b"
+    },
+    {
+      "source_path": "/mnt/data/Step8_Frontend_Tool_UI_Wiring_v0.1.0.zip",
+      "archive_path": "artifacts/packages/Step8_Frontend_Tool_UI_Wiring_v0.1.0.zip",
+      "size_bytes": 6850,
+      "sha256": "c2f90edcb4027d0b971a3baa5538019c2986362339535a766ab97c683e2b7f04"
+    },
+    {
+      "source_path": "/mnt/data/Step7_Real_PuttSolver_Service_Notion_Article_v0.1.0.md",
+      "archive_path": "docs/integration/steps/step7/Step7_Real_PuttSolver_Service_Notion_Article_v0.1.0.md",
+      "size_bytes": 1892,
+      "sha256": "29c055e1bdb13ec106573e5edabe152ae3e1dcd56f7cc96b533e8d44e03e1c25"
+    },
+    {
+      "source_path": "/mnt/data/aime-main_step6_scaffold_v0.1.0.zip",
+      "archive_path": "artifacts/repo-snapshots/aime-main_step6_scaffold_v0.1.0.zip",
+      "size_bytes": 1749093,
+      "sha256": "95ad1e3d9533b41e773467ab22cd605666de370ed2ff1c2fd4dc28a620d4da7d"
+    },
+    {
+      "source_path": "/mnt/data/putt-solver-service-mock_step6_v0.1.0.zip",
+      "archive_path": "artifacts/packages/putt-solver-service-mock_step6_v0.1.0.zip",
+      "size_bytes": 4673,
+      "sha256": "83d11603959611c98880ddf535a1bee52cfc3693d4cadc499feccbc87f65c96b"
+    },
+    {
+      "source_path": "/mnt/data/Step6_Scaffold_Runbook_v0.1.0.md",
+      "archive_path": "docs/integration/steps/step6/Step6_Scaffold_Runbook_v0.1.0.md",
+      "size_bytes": 2400,
+      "sha256": "8749f637d38f3eb3dc1dd0c3168193758f459346788c4fce7ee9ace8acbd1709"
+    },
+    {
+      "source_path": "/mnt/data/course_data_riverside_pilot_v0.1.0.zip",
+      "archive_path": "artifacts/packages/course_data_riverside_pilot_v0.1.0.zip",
+      "size_bytes": 15531,
+      "sha256": "3800ae6ecf6fc3d8c385bf977aba701a2f5c4fa4f40b53bd332e6b9f2002bbc1"
+    },
+    {
+      "source_path": "/mnt/data/Developer_Blockers_Interview_Agenda_v0.1.0.md",
+      "archive_path": "docs/integration/interviews/Developer_Blockers_Interview_Agenda_v0.1.0.md",
+      "size_bytes": 4842,
+      "sha256": "795284dd4e17c2a9c442c552083714cb478a8fcaee5d398f6db010abbc8d25c1"
+    },
+    {
+      "source_path": "/mnt/data/System_Boundaries_Decisions_v0.1.0.md",
+      "archive_path": "docs/integration/decisions/System_Boundaries_Decisions_v0.1.0.md",
+      "size_bytes": 7025,
+      "sha256": "08ffc3d66cf99630600cce84833d492363aeac7f126133eebd9505619257d45a"
+    },
+    {
+      "source_path": "/mnt/data/aime-main_with_contracts_and_course_data_v0.1.0.zip",
+      "archive_path": "artifacts/repo-snapshots/aime-main_with_contracts_and_course_data_v0.1.0.zip",
+      "size_bytes": 1741285,
+      "sha256": "77e4619bae0c5f2e6db7d67cb0aa4275e39078b9e439311fa9742eaf1887f11b"
+    },
+    {
+      "source_path": "/mnt/data/Developer_Blockers_Answer_Capture_Template_v0.1.0.md",
+      "archive_path": "docs/integration/interviews/Developer_Blockers_Answer_Capture_Template_v0.1.0.md",
+      "size_bytes": 3371,
+      "sha256": "e188839f28485ca00615f3c9ad75a45c9c40ad5db5279f0c3295dd3e200bf27c"
+    },
+    {
+      "source_path": "/mnt/data/AIME_contracts_pack_v0.1.0.zip",
+      "archive_path": "artifacts/contracts/AIME_contracts_pack_v0.1.0.zip",
+      "size_bytes": 12327,
+      "sha256": "25e6f314cafb97ba7c390bf3ca96e62c7d6fc477f80aa850a3c770c37fe80092"
+    },
+    {
+      "source_path": "/mnt/data/Step5_Riverside_Pilot_Dataset_v0.1.0.md",
+      "archive_path": "docs/integration/steps/step5/Step5_Riverside_Pilot_Dataset_v0.1.0.md",
+      "size_bytes": 1826,
+      "sha256": "713609ecef11e33ac415e77a0b0baee2ca529324b7ec450360dcb0705e508fe6"
+    },
+    {
+      "source_path": "/mnt/data/Acceptance_Test_Matrix_Seed.csv",
+      "archive_path": "docs/integration/interviews/Acceptance_Test_Matrix_Seed.csv",
+      "size_bytes": 1319,
+      "sha256": "5be7c11c7bff24e270bde82a4970bf2cae09b596ea3c8d8077ec9fb1259c7ea3"
+    },
+    {
+      "source_path": "/mnt/data/AIME_Decision_Log_Seed.csv",
+      "archive_path": "docs/integration/decisions/AIME_Decision_Log_Seed.csv",
+      "size_bytes": 1059,
+      "sha256": "d2db0b818137f862df7682fd8d8e35880400297cb91eddab26f85eff7f3f8676"
+    },
+    {
+      "source_path": "/mnt/data/aime-main (1).zip",
+      "archive_path": "artifacts/inputs/aime-main (1).zip",
+      "size_bytes": 1719317,
+      "sha256": "6abbd34cdd82322cafcfa4ec0cfe453b0d3990b320eb9916738dce7f248720af"
+    },
+    {
+      "source_path": "/mnt/data/aime-main_with_contracts_v0.1.0.zip",
+      "archive_path": "artifacts/repo-snapshots/aime-main_with_contracts_v0.1.0.zip",
+      "size_bytes": 1726286,
+      "sha256": "10c6e00ce4e1e90c96767aaadf570f45e46f09a12393e941d73d40dbb6425564"
+    },
+    {
+      "source_path": "/mnt/data/DLL.zip",
+      "archive_path": "artifacts/inputs/DLL.zip",
+      "size_bytes": 654139,
+      "sha256": "c6adaa444912de4e3d291e49e5704b22522e29ca26d2b7298d328f5beb89a1b1"
+    },
+    {
+      "source_path": "/mnt/data/AIME_Integration_Roadmap_Tasks_Phase0.csv",
+      "archive_path": "docs/integration/roadmap/AIME_Integration_Roadmap_Tasks_Phase0.csv",
+      "size_bytes": 3497,
+      "sha256": "4e341230d9996eacc0679a6e3ff68c11b292dafe29f142b2c02cc8596e539c59"
+    }
+  ]
+}

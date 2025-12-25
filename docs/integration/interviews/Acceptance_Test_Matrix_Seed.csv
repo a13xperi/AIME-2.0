@@ -1,0 +1,8 @@
+Blocker,Answer Needed,Where Used,Acceptance Test,Owner,Status
+"Origin corner (0,0)","Which physical corner is (0,0)",Transforms + UI overlay,Tie point maps to expected quadrant; ball/cup known points land inside extents,,Open
+Axis directions (+X/+Y),Does +X map to rows or cols; +Y direction,Transforms + Plot rendering,Sprinkler points monotonic relationships match expected axis; points render correctly,,Open
+Rotation sign convention,"CW vs CCW, pivot point",Transforms for rotated greens,Non-zero rotation dataset: tie points align within tolerance,,Open
+DTMPath format,File vs directory; supported formats,PuttSolver Service dataset resolution,Valid dtm_id resolves; invalid dtm_id returns clean error; no arbitrary path accepted,,Open
+Instruction format + max length,Parsing rules; max buffer; truncation behavior,Service wrapper + AIME display/parsing,Max-length instruction not truncated; decoding stable; error code mapping known,,Open
+Plot semantics + dims,Meaning of GetPlotLength and LengthX/LengthY,Service wrapper + UI overlay,GetPlotLength == number of points; plot points within extents; plot renders,,Open
+Thread safety/statefulness,Concurrency safe? shared state? recommended hosting,Service worker model,Parallel requests do not cross-talk OR service serializes; worker can be restarted safely,,Open

@@ -1,0 +1,7 @@
+Deliverable,Phase,Workstream,Status,Priority,Owner,Dependencies,Acceptance Criteria,Gate
+Add tee-to-green service contract (schemas + docs) under /contracts,5,5A,Backlog,P0,,Step 9 get_hole_advice router,tee_to_green.request/response schemas exist; get_hole_advice tee branch schema updated; samples added.,Gate 5
+Implement TeeToGreenClient (httpx) with timeout + clean error handling,5,5A,Backlog,P0,,Add tee-to-green service contract,Backend can call TEE_TO_GREEN_URL/plan_shot and surface 4xx/5xx as warnings or errors per policy.,Gate 5
+Wire tee-to-green call into /api/get_hole_advice for OFF_GREEN/TRANSITION,5,5A,Backlog,P0,,Implement TeeToGreenClient,"OFF_GREEN returns plan_type=TEE_TO_GREEN with plan.summary from service; if URL missing, placeholder with next_actions.",Gate 5
+Create tee-to-green mock service for integration testing (plan_shot endpoint),5,5B,Backlog,P1,,Add tee-to-green service contract,Mock service returns summary + optional club/dist/bearing; documented run command; works with get_hole_advice.,Gate 5
+"Update AdvicePanel UI to render tee-to-green structured fields (club, carry/total, bearing)",5,5C,Backlog,P0,,Wire tee-to-green call into get_hole_advice,"When plan_type=TEE_TO_GREEN, UI shows summary and any present structured fields; no crashes if missing.",Gate 5
+Update runbook + environment variable docs for TEE_TO_GREEN_URL,5,5C,Backlog,P1,,Wire tee-to-green call into get_hole_advice,Runbook covers running tee-to-green service + setting env vars + curl smoke tests.,Gate 5

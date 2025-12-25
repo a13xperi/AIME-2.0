@@ -1,0 +1,7 @@
+Task ID,Title,Owner,Status,Dependencies,Acceptance Criteria,Notes
+S9-01,Add backend endpoint POST /api/get_hole_advice,Backend,Done (scaffolded),Dataset registry + transforms + putt solver client,Endpoint returns plan_type PUTT when ball is on green and cup_wgs84 is provided; returns TEE_TO_GREEN placeholder when off green.,Surface classification uses manifest extents only; tee-to-green output is placeholder until planner contract is confirmed.
+S9-02,Add Next.js proxy route POST /api/get_hole_advice,Frontend,Done,BACKEND_URL env var,Proxy forwards request body to backend and returns status code + JSON payload.,
+S9-03,Expose Realtime tool get_hole_advice,Frontend,Done,AIRealtime.tsx tool registration + handler,"When model calls tool, client posts to /api/get_hole_advice and returns function_call_output.","Tool schema requires course_id, hole_id, ball_wgs84; cup_wgs84 optional but required for on-green putting."
+S9-04,Render AdvicePanel + optional PuttSolutionPanel,Frontend,Done,MainContent overlayPanels slot,"AdvicePanel shows plan_type, warnings, next_actions; PuttSolutionPanel appears when plan_type=PUTT.",
+S9-05,Create playback harness for OFF_GREEN → ON_GREEN transitions,Backend,Done,Backend running locally,Script replays sequence JSON and prints plan_type + surface_state per step.,Uses httpx; safe: no native code execution.
+S9-06,Extend contracts with get_hole_advice schemas + samples,Contracts,Done,contracts/ folder,Schemas + samples exist for tool args/output and backend request/response; version bumped to 0.2.0.,
