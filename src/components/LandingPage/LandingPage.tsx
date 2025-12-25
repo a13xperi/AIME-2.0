@@ -32,7 +32,7 @@ const LandingPage: React.FC = () => {
   }, [screens.length, isHovered]);
 
   const handleStartApp = () => {
-    navigate('/splash');
+    navigate('/splash'); // Auto-navigates to /my-bag after 2 seconds
   };
 
   const handleTryDemo = () => {

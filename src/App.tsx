@@ -15,6 +15,13 @@ import TeamCollaboration from './components/TeamCollaboration/TeamCollaboration'
 import AIRealtime from './components/airealtime/AIRealtime';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import LandingPage from './components/LandingPage/LandingPage';
+import MyBag from './components/MyBag/MyBag';
+import HoleStart from './components/HoleStart/HoleStart';
+import ShotGuidance from './components/ShotGuidance/ShotGuidance';
+import GreenTransition from './components/GreenTransition/GreenTransition';
+import PuttingGuidance from './components/PuttingGuidance/PuttingGuidance';
+import HoleComplete from './components/HoleComplete/HoleComplete';
+import RoundComplete from './components/RoundComplete/RoundComplete';
 import './App.css';
 
 function App() {
@@ -34,8 +41,15 @@ function App() {
             {/* AIME Golf AI Route */}
             <Route path="/golf" element={<AIRealtime />} />
             <Route path="/aime" element={<AIRealtime />} />
-            {/* AIME Splash Screen */}
+            {/* AIME App Flow */}
             <Route path="/splash" element={<SplashScreen />} />
+            <Route path="/my-bag" element={<MyBag />} />
+            <Route path="/hole-start" element={<HoleStart />} />
+            <Route path="/shot-guidance" element={<ShotGuidance />} />
+            <Route path="/green-transition" element={<GreenTransition />} />
+            <Route path="/putting" element={<PuttingGuidance />} />
+            <Route path="/hole-complete" element={<HoleComplete />} />
+            <Route path="/round-complete" element={<RoundComplete />} />
           </Routes>
         </div>
       </Router>

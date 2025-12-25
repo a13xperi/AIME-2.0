@@ -3,10 +3,22 @@
  * Mobile-first splash screen matching Figma design
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SplashScreen.css';
 
 const SplashScreen: React.FC = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Auto-navigate to My Bag after 2 seconds
+    const timer = setTimeout(() => {
+      navigate('/my-bag');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <div className="splash-screen">
       <div className="phone-frame">
