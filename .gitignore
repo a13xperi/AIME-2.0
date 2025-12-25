@@ -59,3 +59,6 @@ putt-solver-service/__pycache__/
 
 # Course data
 course_data/
+
+# Cursor IDE settings (may contain secrets)
+.cursor/
