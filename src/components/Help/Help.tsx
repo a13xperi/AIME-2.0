@@ -90,7 +90,20 @@ const Help: React.FC = () => {
                 {selectedSection === section.id && (
                   <div className="help-content">
                     <p>{section.content}</p>
-                    <button className="help-action-btn">View Tutorial →</button>
+                    <button 
+                      className="help-action-btn"
+                      onClick={() => {
+                        const tutorialMap: { [key: string]: string } = {
+                          'getting-started': 'gps',
+                          'gps-tracking': 'gps',
+                          'robo-puck': 'puck',
+                          'shot-tracking': 'shot',
+                        };
+                        navigate(`/tutorial?type=${tutorialMap[section.id] || 'gps'}`);
+                      }}
+                    >
+                      View Tutorial →
+                    </button>
                   </div>
                 )}
               </div>

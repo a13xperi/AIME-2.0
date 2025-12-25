@@ -43,6 +43,7 @@ import Achievements from './components/Achievements/Achievements';
 import RoundComparison from './components/RoundComparison/RoundComparison';
 import ClubAnalysis from './components/ClubAnalysis/ClubAnalysis';
 import Sharing from './components/Sharing/Sharing';
+import Tutorial from './components/Tutorial/Tutorial';
 import './App.css';
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
             <Route path="/round-comparison" element={<RoundComparison />} />
             <Route path="/club-analysis" element={<ClubAnalysis />} />
             <Route path="/sharing" element={<Sharing />} />
+            <Route path="/tutorial" element={<Tutorial />} />
           </Routes>
         </div>
       </Router>
