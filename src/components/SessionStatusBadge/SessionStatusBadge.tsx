@@ -11,12 +11,12 @@ interface SessionStatusBadgeProps {
 }
 
 const STATUS_CONFIG = {
-  'Active': { icon: '🟢', color: '#10b981', bgColor: '#d1fae5' },
+  Active: { icon: '🟢', color: '#10b981', bgColor: '#d1fae5' },
   'In Progress': { icon: '🔄', color: '#3b82f6', bgColor: '#dbeafe' },
-  'Paused': { icon: '⏸️', color: '#f59e0b', bgColor: '#fef3c7' },
-  'Blocked': { icon: '🚫', color: '#ef4444', bgColor: '#fee2e2' },
-  'Completed': { icon: '✅', color: '#059669', bgColor: '#d1fae5' },
-  'Archived': { icon: '📦', color: '#6b7280', bgColor: '#f3f4f6' }
+  Paused: { icon: '⏸️', color: '#f59e0b', bgColor: '#fef3c7' },
+  Blocked: { icon: '🚫', color: '#ef4444', bgColor: '#fee2e2' },
+  Completed: { icon: '✅', color: '#059669', bgColor: '#d1fae5' },
+  Archived: { icon: '📦', color: '#6b7280', bgColor: '#f3f4f6' },
 };
 
 const SessionStatusBadge: React.FC<SessionStatusBadgeProps> = ({
@@ -24,10 +24,10 @@ const SessionStatusBadge: React.FC<SessionStatusBadgeProps> = ({
   size = 'medium',
   showIcon = true,
   showLabel = true,
-  onClick
+  onClick,
 }) => {
   const config = STATUS_CONFIG[status];
-  
+
   if (!config) {
     return null;
   }
@@ -35,14 +35,12 @@ const SessionStatusBadge: React.FC<SessionStatusBadgeProps> = ({
   const sizeClasses = {
     small: 'badge-small',
     medium: 'badge-medium',
-    large: 'badge-large'
+    large: 'badge-large',
   };
 
-  const badgeClasses = [
-    'session-status-badge',
-    sizeClasses[size],
-    onClick ? 'clickable' : ''
-  ].filter(Boolean).join(' ');
+  const badgeClasses = ['session-status-badge', sizeClasses[size], onClick ? 'clickable' : '']
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <span
@@ -50,7 +48,7 @@ const SessionStatusBadge: React.FC<SessionStatusBadgeProps> = ({
       style={{
         backgroundColor: config.bgColor,
         color: config.color,
-        borderColor: config.color
+        borderColor: config.color,
       }}
       onClick={onClick}
     >

@@ -150,42 +150,42 @@
     background: #1f2937;
     color: #f9fafb;
   }
-  
+
   .session-templates-header {
     border-bottom-color: #374151;
   }
-  
+
   .session-templates-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .session-template-card {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .session-template-card:hover {
     background: #1e3a8a;
     border-color: #3b82f6;
   }
-  
+
   .session-template-card h3 {
     color: #f9fafb;
   }
-  
+
   .session-template-card p {
     color: #d1d5db;
   }
-  
+
   .session-templates-footer {
     border-top-color: #374151;
   }
@@ -196,42 +196,42 @@
   .session-templates-overlay {
     padding: 10px;
   }
-  
+
   .session-templates-modal {
     max-height: 95vh;
   }
-  
+
   .session-templates-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .session-templates-header h2 {
     font-size: 20px;
   }
-  
+
   .session-templates-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 12px;
     padding: 0 16px;
   }
-  
+
   .session-template-card {
     padding: 16px;
   }
-  
+
   .template-icon {
     font-size: 24px;
     margin-bottom: 8px;
   }
-  
+
   .session-template-card h3 {
     font-size: 14px;
   }
-  
+
   .session-template-card p {
     font-size: 12px;
   }
-  
+
   .session-templates-footer {
     padding: 16px;
   }

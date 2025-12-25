@@ -23,7 +23,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, detailed = false }) 
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -35,9 +35,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, detailed = false }) 
       <div className="session-card-header" onClick={() => setExpanded(!expanded)}>
         <div className="session-header-main">
           {session.projectName && (
-            <div className="session-project-tag">
-              📁 {session.projectName}
-            </div>
+            <div className="session-project-tag">📁 {session.projectName}</div>
           )}
           <h3>{session.title}</h3>
           <span className="session-date-badge">{formatDate(session.date)}</span>
@@ -50,19 +48,11 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, detailed = false }) 
             {session.duration > 0 && (
               <span className="duration-badge">⏱️ {session.duration} min</span>
             )}
-            {session.aiAgent && (
-              <span className="agent-badge">🤖 {session.aiAgent}</span>
-            )}
-            {session.workspace && (
-              <span className="workspace-badge">💻 {session.workspace}</span>
-            )}
-            {session.type && (
-              <span className="type-badge">🎯 {session.type}</span>
-            )}
+            {session.aiAgent && <span className="agent-badge">🤖 {session.aiAgent}</span>}
+            {session.workspace && <span className="workspace-badge">💻 {session.workspace}</span>}
+            {session.type && <span className="type-badge">🎯 {session.type}</span>}
           </div>
-          <button className="expand-button">
-            {expanded ? '▼' : '▶'}
-          </button>
+          <button className="expand-button">{expanded ? '▼' : '▶'}</button>
         </div>
       </div>
 
@@ -149,12 +139,14 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, detailed = false }) 
           </div>
 
           {/* Technologies & Tools */}
-          {(session.technologiesUsed && session.technologiesUsed.length > 0) && (
+          {session.technologiesUsed && session.technologiesUsed.length > 0 && (
             <section className="session-section tech-section">
               <h4>🛠️ Technologies Used</h4>
               <div className="tech-tags">
                 {session.technologiesUsed.map((tech, idx) => (
-                  <span key={idx} className="tech-tag">{tech}</span>
+                  <span key={idx} className="tech-tag">
+                    {tech}
+                  </span>
                 ))}
               </div>
             </section>
@@ -226,7 +218,9 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, detailed = false }) 
               <h4>🏷️ Tags</h4>
               <div className="tags-list">
                 {session.tags.map((tag, idx) => (
-                  <span key={idx} className="tag-badge">{tag}</span>
+                  <span key={idx} className="tag-badge">
+                    {tag}
+                  </span>
                 ))}
               </div>
             </section>
@@ -238,4 +232,3 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, detailed = false }) 
 };
 
 export default SessionCard;
-

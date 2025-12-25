@@ -129,10 +129,12 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
 
   return (
     <div className="session-logger-overlay" onClick={onClose}>
-      <div className="session-logger-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="session-logger-modal" onClick={e => e.stopPropagation()}>
         <div className="session-logger-header">
           <h2>📝 Log Work Session</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="session-logger-form">
@@ -141,7 +143,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Core Information */}
           <div className="form-section">
             <h3>📋 Core Information</h3>
-            
+
             <div className="form-group">
               <label>Session Template</label>
               <button
@@ -152,7 +154,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
                 🎯 Choose Template
               </button>
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="projectId">Project *</label>
               <select
@@ -259,7 +261,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Session Details */}
           <div className="form-section">
             <h3>📝 Session Details</h3>
-            
+
             <div className="form-group">
               <label htmlFor="summary">Summary *</label>
               <textarea
@@ -301,7 +303,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Next Steps & Blockers */}
           <div className="form-section">
             <h3>🚀 Next Steps & Issues</h3>
-            
+
             <div className="form-group">
               <label htmlFor="nextSteps">Next Steps</label>
               <textarea
@@ -330,7 +332,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Additional Context (Optional) */}
           <details className="form-section collapsible">
             <summary>💡 Additional Context (Optional)</summary>
-            
+
             <div className="form-group">
               <label htmlFor="keyDecisions">Key Decisions</label>
               <textarea
@@ -403,7 +405,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           </div>
         </form>
       </div>
-      
+
       {showTemplates && (
         <SessionTemplates
           onSelectTemplate={handleTemplateSelect}
@@ -415,6 +417,3 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
 };
 
 export default SessionLogger;
-
-
-

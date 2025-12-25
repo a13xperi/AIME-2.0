@@ -34,3 +34,28 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 .vercel
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+.env/
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Backend virtual environments
+backend/venv/
+backend/__pycache__/
+putt-solver-service/venv/
+putt-solver-service/__pycache__/
+
+# Course data
+course_data/

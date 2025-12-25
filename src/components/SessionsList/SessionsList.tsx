@@ -17,7 +17,7 @@ const SessionsList: React.FC = () => {
 
   useEffect(() => {
     loadSessions();
-    
+
     // Auto-refresh every 30 seconds to pick up changes from Notion
     const refreshInterval = setInterval(() => {
       console.log('🔄 Auto-refreshing sessions from Notion...');
@@ -78,8 +78,8 @@ const SessionsList: React.FC = () => {
           <button className="back-button" onClick={() => navigate('/')}>
             ← Back to Dashboard
           </button>
-          <button 
-            className="refresh-button-small" 
+          <button
+            className="refresh-button-small"
             onClick={() => loadSessions()}
             title="Refresh sessions from Notion"
           >
@@ -96,7 +96,8 @@ const SessionsList: React.FC = () => {
         {sessions.map((session, index) => {
           const prevSession = index > 0 ? sessions[index - 1] : null;
           const currentDate = session.date ? new Date(session.date).toDateString() : '';
-          const prevDate = prevSession && prevSession.date ? new Date(prevSession.date).toDateString() : '';
+          const prevDate =
+            prevSession && prevSession.date ? new Date(prevSession.date).toDateString() : '';
           const showDateHeader = !prevDate || currentDate !== prevDate;
 
           return (
@@ -104,16 +105,18 @@ const SessionsList: React.FC = () => {
               {showDateHeader && (
                 <div className="date-divider">
                   <span className="date-label">
-                    {session.date ? new Date(session.date).toLocaleDateString('en-US', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    }) : 'No date'}
+                    {session.date
+                      ? new Date(session.date).toLocaleDateString('en-US', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })
+                      : 'No date'}
                   </span>
                 </div>
               )}
-              
+
               <SessionCard session={session} detailed={false} />
             </React.Fragment>
           );
@@ -130,5 +133,3 @@ const SessionsList: React.FC = () => {
 };
 
 export default SessionsList;
-
-

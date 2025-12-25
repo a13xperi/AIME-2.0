@@ -16,23 +16,24 @@ const ALL_STATUSES: (SessionStatus | 'All')[] = [
   'Paused',
   'Blocked',
   'Completed',
-  'Archived'
+  'Archived',
 ];
 
 const SessionStatusFilter: React.FC<SessionStatusFilterProps> = ({
   selectedStatus,
   onStatusChange,
-  sessionCounts
+  sessionCounts,
 }) => {
   return (
     <div className="session-status-filter">
       <div className="filter-label">Filter by Status:</div>
       <div className="status-filter-buttons">
-        {ALL_STATUSES.map((status) => {
+        {ALL_STATUSES.map(status => {
           const isSelected = selectedStatus === status;
-          const count = status === 'All' 
-            ? Object.values(sessionCounts || {}).reduce((sum, count) => sum + count, 0)
-            : sessionCounts?.[status as SessionStatus] || 0;
+          const count =
+            status === 'All'
+              ? Object.values(sessionCounts || {}).reduce((sum, count) => sum + count, 0)
+              : sessionCounts?.[status as SessionStatus] || 0;
 
           return (
             <button
@@ -54,9 +55,7 @@ const SessionStatusFilter: React.FC<SessionStatusFilterProps> = ({
                   showLabel={true}
                 />
               )}
-              {count > 0 && status !== 'All' && (
-                <span className="count">({count})</span>
-              )}
+              {count > 0 && status !== 'All' && <span className="count">({count})</span>}
             </button>
           );
         })}

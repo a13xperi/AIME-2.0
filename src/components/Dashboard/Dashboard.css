@@ -63,7 +63,7 @@
     flex-direction: column;
     text-align: center;
   }
-  
+
   .refresh-button {
     width: 100%;
   }
@@ -474,7 +474,9 @@
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .current-session-card:hover {
@@ -643,4 +645,3 @@
     grid-template-columns: 1fr;
   }
 }
-

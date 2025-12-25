@@ -8,11 +8,7 @@ interface SessionDuplicatorProps {
   onClose: () => void;
 }
 
-const SessionDuplicator: React.FC<SessionDuplicatorProps> = ({
-  session,
-  onDuplicate,
-  onClose,
-}) => {
+const SessionDuplicator: React.FC<SessionDuplicatorProps> = ({ session, onDuplicate, onClose }) => {
   const [modifications, setModifications] = useState({
     title: session.title.replace(/session/gi, 'Session').replace(/work/gi, 'Work'),
     summary: session.summary,
@@ -60,7 +56,9 @@ const SessionDuplicator: React.FC<SessionDuplicatorProps> = ({
       <div className="session-duplicator-modal">
         <div className="session-duplicator-header">
           <h2>📋 Duplicate Session</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="session-duplicator-content">
@@ -77,7 +75,7 @@ const SessionDuplicator: React.FC<SessionDuplicatorProps> = ({
 
           <div className="modifications-section">
             <h3>Modify for New Session</h3>
-            
+
             <div className="form-group">
               <label htmlFor="title">Session Title *</label>
               <input

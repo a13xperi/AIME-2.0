@@ -80,7 +80,7 @@
   .session-status-badge {
     opacity: 0.9;
   }
-  
+
   .session-status-badge.clickable:hover {
     opacity: 1;
   }

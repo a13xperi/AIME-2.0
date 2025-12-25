@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     loadDashboard();
-    
+
     // Auto-refresh every 30 seconds to pick up changes from Notion
     const refreshInterval = setInterval(() => {
       console.log('🔄 Auto-refreshing dashboard data from Notion...');
@@ -78,10 +78,14 @@ const Dashboard: React.FC = () => {
       }
 
       // Set current sessions (all sessions from today)
-      if (sessionsResponse.success && sessionsResponse.sessions && sessionsResponse.sessions.length > 0) {
+      if (
+        sessionsResponse.success &&
+        sessionsResponse.sessions &&
+        sessionsResponse.sessions.length > 0
+      ) {
         const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-        const todaysSessions = sessionsResponse.sessions.filter((session: Session) => 
-          session.date === today
+        const todaysSessions = sessionsResponse.sessions.filter(
+          (session: Session) => session.date === today
         );
         setCurrentSessions(todaysSessions);
       }
@@ -95,13 +99,15 @@ const Dashboard: React.FC = () => {
 
   const handleResumeProject = async (project: Project, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click navigation
-    
+
     // Fetch last session for this project
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
     try {
-      const response = await fetch(`${API_URL}/api/sessions?projectId=${encodeURIComponent(project.name)}`);
+      const response = await fetch(
+        `${API_URL}/api/sessions?projectId=${encodeURIComponent(project.name)}`
+      );
       const data = await response.json();
-      
+
       if (data.success && data.sessions && data.sessions.length > 0) {
         setResumeSession(data.sessions[0]); // Most recent session
       } else {
@@ -111,7 +117,7 @@ const Dashboard: React.FC = () => {
       console.error('Error fetching last session:', err);
       setResumeSession(null);
     }
-    
+
     setResumeProject(project);
   };
 
@@ -191,8 +197,8 @@ const Dashboard: React.FC = () => {
             <h1>🤖 Agent Alex</h1>
             <p>Your AI Work Session & Project Tracker</p>
           </div>
-          <button 
-            className="refresh-button" 
+          <button
+            className="refresh-button"
             onClick={() => loadDashboard()}
             title="Refresh data from Notion"
           >
@@ -218,7 +224,9 @@ const Dashboard: React.FC = () => {
           <div className="stat-card clickable" onClick={() => navigate('/sessions')}>
             <div className="stat-value">{stats.totalHours}h</div>
             <div className="stat-label">Time Logged</div>
-            <div className="stat-sublabel">{Math.round((stats.totalHours / stats.totalSessions) * 10) / 10}h avg per session</div>
+            <div className="stat-sublabel">
+              {Math.round((stats.totalHours / stats.totalSessions) * 10) / 10}h avg per session
+            </div>
             <div className="stat-hint">Click to view timeline →</div>
           </div>
           <div className="stat-card clickable" onClick={() => navigate('/sessions')}>
@@ -233,48 +241,54 @@ const Dashboard: React.FC = () => {
       {/* Current Sessions Section */}
       {currentSessions.length > 0 && (
         <div className="current-sessions-section">
-          <h2>🎯 Working On Today ({currentSessions.length} thread{currentSessions.length !== 1 ? 's' : ''})</h2>
+          <h2>
+            🎯 Working On Today ({currentSessions.length} thread
+            {currentSessions.length !== 1 ? 's' : ''})
+          </h2>
           <div className="current-sessions-grid">
-            {currentSessions.map((session) => (
+            {currentSessions.map(session => (
               <div key={session.id} className="current-session-card">
                 <div className="session-header">
                   <div className="session-title-row">
                     <h3>{session.title}</h3>
-                    <SessionStatusBadge 
-                      status={session.status} 
-                      size="small" 
+                    <SessionStatusBadge
+                      status={session.status}
+                      size="small"
                       onClick={() => setSessionToUpdateStatus(session)}
                     />
                   </div>
                   <div className="session-meta">
                     {session.aiAgent && <span className="session-agent">🤖 {session.aiAgent}</span>}
-                    {session.workspace && <span className="session-workspace">📍 {session.workspace}</span>}
+                    {session.workspace && (
+                      <span className="session-workspace">📍 {session.workspace}</span>
+                    )}
                     {session.type && <span className="session-type">🎯 {session.type}</span>}
                   </div>
                 </div>
                 {session.summary && (
                   <div className="session-summary">
-                    <p>{session.summary.length > 150 ? 
-                      `${session.summary.substring(0, 150)}...` : 
-                      session.summary
-                    }</p>
+                    <p>
+                      {session.summary.length > 150
+                        ? `${session.summary.substring(0, 150)}...`
+                        : session.summary}
+                    </p>
                   </div>
                 )}
                 <div className="session-actions">
-                  <button 
-                    className="btn btn-primary btn-small" 
+                  <button
+                    className="btn btn-primary btn-small"
                     onClick={() => navigate(`/session/${session.id}`)}
                   >
                     View Details
                   </button>
-                  <button 
-                    className="btn btn-secondary btn-small" 
+                  <button
+                    className="btn btn-secondary btn-small"
                     onClick={() => setShowSessionLogger(true)}
                   >
                     Add Update
                   </button>
-                  <button 
-                    className="btn btn-outline btn-small" 
+                  <button
+                    className="btn btn-outline btn-small"
                     onClick={() => setSessionToDuplicate(session)}
                   >
                     📋 Duplicate
@@ -295,21 +309,29 @@ const Dashboard: React.FC = () => {
       )}
 
       <div className="dashboard-actions">
-        <button className="btn btn-primary" onClick={() => setShowProjectCreator(true)}>+ New Project</button>
-        <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>📝 Log Session</button>
+        <button className="btn btn-primary" onClick={() => setShowProjectCreator(true)}>
+          + New Project
+        </button>
+        <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>
+          📝 Log Session
+        </button>
       </div>
 
       {/* Categories Section */}
       {categories.length > 0 && (
         <div className="categories-section">
           <h2>📊 Project Categories & Work Distribution</h2>
-          <p className="section-subtitle">See how your work is distributed across different project types</p>
+          <p className="section-subtitle">
+            See how your work is distributed across different project types
+          </p>
           <div className="categories-grid">
-            {categories.map((category) => (
+            {categories.map(category => (
               <div key={category.name} className="category-card">
                 <div className="category-header">
                   <h3>{category.name}</h3>
-                  <span className="category-badge">{category.projectCount} project{category.projectCount !== 1 ? 's' : ''}</span>
+                  <span className="category-badge">
+                    {category.projectCount} project{category.projectCount !== 1 ? 's' : ''}
+                  </span>
                 </div>
                 <div className="category-stats">
                   <div className="category-stat">
@@ -335,10 +357,10 @@ const Dashboard: React.FC = () => {
                   </div>
                 </div>
                 <div className="category-progress">
-                  <div 
-                    className="progress-bar" 
-                    style={{ 
-                      width: `${Math.min(100, (category.sessionCount / (stats?.totalSessions || 1)) * 100)}%` 
+                  <div
+                    className="progress-bar"
+                    style={{
+                      width: `${Math.min(100, (category.sessionCount / (stats?.totalSessions || 1)) * 100)}%`,
                     }}
                   ></div>
                 </div>
@@ -363,11 +385,8 @@ const Dashboard: React.FC = () => {
           </div>
         ) : (
           <div className="projects-grid">
-            {projects.map((project) => (
-              <div 
-                key={project.id} 
-                className="project-card"
-              >
+            {projects.map(project => (
+              <div key={project.id} className="project-card">
                 <div className="project-header">
                   <h3>{project.name}</h3>
                   <span className={`status-badge status-${project.status.toLowerCase()}`}>
@@ -380,16 +399,10 @@ const Dashboard: React.FC = () => {
                   <span className="project-workspace">{project.workspace}</span>
                 </div>
                 <div className="project-actions">
-                  <button 
-                    className="btn-link" 
-                    onClick={() => navigate(`/project/${project.id}`)}
-                  >
+                  <button className="btn-link" onClick={() => navigate(`/project/${project.id}`)}>
                     View Details
                   </button>
-                  <button 
-                    className="btn-resume" 
-                    onClick={(e) => handleResumeProject(project, e)}
-                  >
+                  <button className="btn-resume" onClick={e => handleResumeProject(project, e)}>
                     🚀 Resume
                   </button>
                 </div>
@@ -452,4 +465,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-

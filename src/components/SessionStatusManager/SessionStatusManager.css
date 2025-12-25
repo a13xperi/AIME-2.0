@@ -238,66 +238,66 @@
     background: #1f2937;
     color: #f9fafb;
   }
-  
+
   .session-status-manager-header {
     border-bottom-color: #374151;
   }
-  
+
   .session-status-manager-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .current-session-info {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .current-session-info h3 {
     color: #f9fafb;
   }
-  
+
   .status-description {
     color: #d1d5db;
   }
-  
+
   .status-options h3 {
     color: #f9fafb;
   }
-  
+
   .status-option {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .status-option:hover {
     background: #4b5563;
   }
-  
+
   .status-option.selected {
     background: #1e3a8a;
   }
-  
+
   .status-option.current {
     background: #064e3b;
   }
-  
+
   .status-info h4 {
     color: #f9fafb;
   }
-  
+
   .status-info p {
     color: #d1d5db;
   }
-  
+
   .session-status-manager-footer {
     border-top-color: #374151;
   }
@@ -308,46 +308,46 @@
   .session-status-manager-overlay {
     padding: 10px;
   }
-  
+
   .session-status-manager-modal {
     max-height: 95vh;
   }
-  
+
   .session-status-manager-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .session-status-manager-header h2 {
     font-size: 20px;
   }
-  
+
   .session-status-manager-content {
     padding: 0 16px;
   }
-  
+
   .current-session-info {
     padding: 16px;
   }
-  
+
   .current-status-display {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .status-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .status-option {
     padding: 12px;
   }
-  
+
   .session-status-manager-footer {
     padding: 16px;
     flex-direction: column;
   }
-  
+
   .btn-secondary,
   .btn-primary {
     width: 100%;

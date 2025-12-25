@@ -18,7 +18,9 @@ const QuickResume: React.FC<QuickResumeProps> = ({ project, lastSession, onClose
     if (project.workspace) {
       // Copy workspace path to clipboard
       navigator.clipboard.writeText(project.workspace);
-      alert(`Workspace path copied to clipboard!\n\n${project.workspace}\n\nOpen your terminal and paste to navigate there.`);
+      alert(
+        `Workspace path copied to clipboard!\n\n${project.workspace}\n\nOpen your terminal and paste to navigate there.`
+      );
     }
   };
 
@@ -42,15 +44,17 @@ const QuickResume: React.FC<QuickResumeProps> = ({ project, lastSession, onClose
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
   return (
     <div className="quick-resume-overlay" onClick={onClose}>
-      <div className="quick-resume-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="close-button" onClick={onClose}>✕</button>
-        
+      <div className="quick-resume-modal" onClick={e => e.stopPropagation()}>
+        <button className="close-button" onClick={onClose}>
+          ✕
+        </button>
+
         <div className="resume-header">
           <h2>🚀 Resume: {project.name}</h2>
           <p className="resume-subtitle">Pick up exactly where you left off</p>
@@ -78,16 +82,10 @@ const QuickResume: React.FC<QuickResumeProps> = ({ project, lastSession, onClose
                   <strong>{lastSession.title}</strong>
                   <span className="session-date">{formatDate(lastSession.date)}</span>
                 </div>
-                {lastSession.summary && (
-                  <p className="session-summary">{lastSession.summary}</p>
-                )}
+                {lastSession.summary && <p className="session-summary">{lastSession.summary}</p>}
                 <div className="session-meta">
-                  {lastSession.duration > 0 && (
-                    <span>⏱️ {lastSession.duration} min</span>
-                  )}
-                  {lastSession.aiAgent && (
-                    <span>🤖 {lastSession.aiAgent}</span>
-                  )}
+                  {lastSession.duration > 0 && <span>⏱️ {lastSession.duration} min</span>}
+                  {lastSession.aiAgent && <span>🤖 {lastSession.aiAgent}</span>}
                 </div>
               </div>
             </section>
@@ -99,13 +97,17 @@ const QuickResume: React.FC<QuickResumeProps> = ({ project, lastSession, onClose
             <div className="info-grid">
               <div className="info-item">
                 <span className="info-label">Status</span>
-                <span className={`status-badge ${project.status.toLowerCase().replace(/[^a-z]/g, '')}`}>
+                <span
+                  className={`status-badge ${project.status.toLowerCase().replace(/[^a-z]/g, '')}`}
+                >
                   {project.status}
                 </span>
               </div>
               <div className="info-item">
                 <span className="info-label">Priority</span>
-                <span className={`priority-badge ${project.priority.toLowerCase().replace(/[^a-z]/g, '')}`}>
+                <span
+                  className={`priority-badge ${project.priority.toLowerCase().replace(/[^a-z]/g, '')}`}
+                >
                   {project.priority}
                 </span>
               </div>
@@ -143,9 +145,9 @@ const QuickResume: React.FC<QuickResumeProps> = ({ project, lastSession, onClose
                   🌐 View Deployment
                 </button>
               )}
-              <button 
-                className="resume-action-btn" 
-                onClick={() => window.location.href = `/project/${project.id}`}
+              <button
+                className="resume-action-btn"
+                onClick={() => (window.location.href = `/project/${project.id}`)}
               >
                 📝 View Full Details
               </button>
@@ -154,8 +156,13 @@ const QuickResume: React.FC<QuickResumeProps> = ({ project, lastSession, onClose
         </div>
 
         <div className="resume-footer">
-          <button className="btn-cancel" onClick={onClose}>Close</button>
-          <button className="btn-start-session" onClick={() => alert('Session tracking coming soon!')}>
+          <button className="btn-cancel" onClick={onClose}>
+            Close
+          </button>
+          <button
+            className="btn-start-session"
+            onClick={() => alert('Session tracking coming soon!')}
+          >
             ▶️ Start New Session
           </button>
         </div>
@@ -165,5 +172,3 @@ const QuickResume: React.FC<QuickResumeProps> = ({ project, lastSession, onClose
 };
 
 export default QuickResume;
-
-

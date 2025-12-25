@@ -118,7 +118,8 @@
   border-radius: 8px;
   line-height: 1.8;
   color: #555;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   font-size: 0.95rem;
   white-space: pre-wrap;
 }
@@ -241,7 +242,8 @@
   overflow-x: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 }
 
 .no-sessions {
@@ -463,5 +465,3 @@
     grid-template-columns: 1fr;
   }
 }
-
-

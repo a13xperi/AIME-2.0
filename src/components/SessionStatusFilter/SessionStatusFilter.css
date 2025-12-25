@@ -71,26 +71,26 @@
   .filter-label {
     color: #d1d5db;
   }
-  
+
   .status-filter-button {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .status-filter-button:hover {
     background: #4b5563;
     border-color: #3b82f6;
   }
-  
+
   .status-filter-button.selected {
     background: #1e3a8a;
     border-color: #3b82f6;
   }
-  
+
   .all-status {
     color: #d1d5db;
   }
-  
+
   .count {
     color: #9ca3af;
   }
@@ -101,24 +101,24 @@
   .session-status-filter {
     margin-bottom: 16px;
   }
-  
+
   .status-filter-buttons {
     gap: 6px;
   }
-  
+
   .status-filter-button {
     padding: 6px 10px;
     font-size: 13px;
   }
-  
+
   .all-icon {
     font-size: 14px;
   }
-  
+
   .all-label {
     font-size: 13px;
   }
-  
+
   .count {
     font-size: 11px;
   }

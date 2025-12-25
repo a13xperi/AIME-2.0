@@ -307,9 +307,8 @@
   .template-select-button {
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   }
-  
+
   .template-select-button:hover {
     background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
   }
 }
-

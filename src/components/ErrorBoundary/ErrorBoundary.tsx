@@ -66,15 +66,15 @@ class ErrorBoundary extends Component<Props, State> {
           <div className="error-boundary-content">
             <h1>⚠️ Something went wrong</h1>
             <p>We're sorry, but something unexpected happened.</p>
-            
+
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="error-details">
                 <summary>Error Details (Development Only)</summary>
                 <div className="error-stack">
-                  <p><strong>Error:</strong> {this.state.error.toString()}</p>
-                  {this.state.errorInfo && (
-                    <pre>{this.state.errorInfo.componentStack}</pre>
-                  )}
+                  <p>
+                    <strong>Error:</strong> {this.state.error.toString()}
+                  </p>
+                  {this.state.errorInfo && <pre>{this.state.errorInfo.componentStack}</pre>}
                 </div>
               </details>
             )}
@@ -83,7 +83,7 @@ class ErrorBoundary extends Component<Props, State> {
               <button onClick={this.handleReset} className="btn-primary">
                 Try Again
               </button>
-              <button onClick={() => window.location.href = '/'} className="btn-secondary">
+              <button onClick={() => (window.location.href = '/')} className="btn-secondary">
                 Go to Dashboard
               </button>
             </div>

@@ -3,7 +3,7 @@
  * Tracks work in 30-minute intervals with detailed progress
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './IntervalTracker.css';
 
 interface WorkInterval {
@@ -22,10 +22,7 @@ interface IntervalTrackerProps {
   onIntervalComplete?: (interval: WorkInterval) => void;
 }
 
-const IntervalTracker: React.FC<IntervalTrackerProps> = ({ 
-  sessionId, 
-  onIntervalComplete 
-}) => {
+const IntervalTracker: React.FC<IntervalTrackerProps> = ({ sessionId, onIntervalComplete }) => {
   const [currentInterval, setCurrentInterval] = useState<WorkInterval | null>(null);
   const [completedIntervals, setCompletedIntervals] = useState<WorkInterval[]>([]);
   const [isRunning, setIsRunning] = useState(false);
@@ -33,10 +30,40 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
   const [accomplishments, setAccomplishments] = useState<string[]>(['']);
   const [currentFocus, setCurrentFocus] = useState('');
 
+  const calculateProductivity = useCallback((accs: string[]): 'high' | 'medium' | 'low' => {
+    const validAccomplishments = accs.filter(acc => acc.trim() !== '').length;
+    if (validAccomplishments >= 3) return 'high';
+    if (validAccomplishments >= 1) return 'medium';
+    return 'low';
+  }, []);
+
+  const completeInterval = useCallback(() => {
+    if (!currentInterval) return;
+
+    const completedInterval: WorkInterval = {
+      ...currentInterval,
+      endTime: new Date(),
+      accomplishments: accomplishments.filter(acc => acc.trim() !== ''),
+      status: 'completed',
+      productivity: calculateProductivity(accomplishments),
+    };
+
+    setCompletedIntervals(prev => [completedInterval, ...prev]);
+    setCurrentInterval(null);
+    setIsRunning(false);
+    setAccomplishments(['']);
+    setCurrentFocus('');
+    setTimeRemaining(30 * 60);
+
+    if (onIntervalComplete) {
+      onIntervalComplete(completedInterval);
+    }
+  }, [currentInterval, accomplishments, onIntervalComplete, calculateProductivity]);
+
   // Timer effect
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    
+
     if (isRunning && timeRemaining > 0) {
       interval = setInterval(() => {
         setTimeRemaining(prev => {
@@ -53,7 +80,7 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isRunning, timeRemaining]);
+  }, [isRunning, timeRemaining, completeInterval]);
 
   const startInterval = () => {
     const newInterval: WorkInterval = {
@@ -63,7 +90,7 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
       accomplishments: [''],
       focus: currentFocus,
       status: 'active',
-      productivity: 'medium'
+      productivity: 'medium',
     };
 
     setCurrentInterval(newInterval);
@@ -76,7 +103,7 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
     if (currentInterval) {
       setCurrentInterval({
         ...currentInterval,
-        status: 'paused'
+        status: 'paused',
       });
     }
   };
@@ -86,39 +113,9 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
     if (currentInterval) {
       setCurrentInterval({
         ...currentInterval,
-        status: 'active'
+        status: 'active',
       });
     }
-  };
-
-  const completeInterval = () => {
-    if (!currentInterval) return;
-
-    const completedInterval: WorkInterval = {
-      ...currentInterval,
-      endTime: new Date(),
-      accomplishments: accomplishments.filter(acc => acc.trim() !== ''),
-      status: 'completed',
-      productivity: calculateProductivity(accomplishments)
-    };
-
-    setCompletedIntervals(prev => [completedInterval, ...prev]);
-    setCurrentInterval(null);
-    setIsRunning(false);
-    setAccomplishments(['']);
-    setCurrentFocus('');
-    setTimeRemaining(30 * 60);
-
-    if (onIntervalComplete) {
-      onIntervalComplete(completedInterval);
-    }
-  };
-
-  const calculateProductivity = (accs: string[]): 'high' | 'medium' | 'low' => {
-    const validAccomplishments = accs.filter(acc => acc.trim() !== '').length;
-    if (validAccomplishments >= 3) return 'high';
-    if (validAccomplishments >= 1) return 'medium';
-    return 'low';
   };
 
   const addAccomplishment = () => {
@@ -126,9 +123,7 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
   };
 
   const updateAccomplishment = (index: number, value: string) => {
-    setAccomplishments(prev => 
-      prev.map((acc, i) => i === index ? value : acc)
-    );
+    setAccomplishments(prev => prev.map((acc, i) => (i === index ? value : acc)));
   };
 
   const removeAccomplishment = (index: number) => {
@@ -147,19 +142,27 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
 
   const getProductivityColor = (productivity: string) => {
     switch (productivity) {
-      case 'high': return '#10b981';
-      case 'medium': return '#f59e0b';
-      case 'low': return '#ef4444';
-      default: return '#6b7280';
+      case 'high':
+        return '#10b981';
+      case 'medium':
+        return '#f59e0b';
+      case 'low':
+        return '#ef4444';
+      default:
+        return '#6b7280';
     }
   };
 
   const getProductivityEmoji = (productivity: string) => {
     switch (productivity) {
-      case 'high': return '🚀';
-      case 'medium': return '⚡';
-      case 'low': return '🐌';
-      default: return '📊';
+      case 'high':
+        return '🚀';
+      case 'medium':
+        return '⚡';
+      case 'low':
+        return '🐌';
+      default:
+        return '📊';
     }
   };
 
@@ -180,14 +183,7 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
             </div>
             <div className="progress-ring">
               <svg className="progress-circle" width="120" height="120">
-                <circle
-                  cx="60"
-                  cy="60"
-                  r="50"
-                  fill="none"
-                  stroke="#e5e7eb"
-                  strokeWidth="8"
-                />
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#e5e7eb" strokeWidth="8" />
                 <circle
                   cx="60"
                   cy="60"
@@ -224,7 +220,7 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
             <input
               type="text"
               value={currentFocus}
-              onChange={(e) => setCurrentFocus(e.target.value)}
+              onChange={e => setCurrentFocus(e.target.value)}
               placeholder="What are you working on?"
               className="focus-input"
             />
@@ -237,15 +233,12 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
                 <input
                   type="text"
                   value={acc}
-                  onChange={(e) => updateAccomplishment(index, e.target.value)}
+                  onChange={e => updateAccomplishment(index, e.target.value)}
                   placeholder={`Accomplishment ${index + 1}...`}
                   className="accomplishment-input"
                 />
                 {accomplishments.length > 1 && (
-                  <button
-                    className="remove-btn"
-                    onClick={() => removeAccomplishment(index)}
-                  >
+                  <button className="remove-btn" onClick={() => removeAccomplishment(index)}>
                     ❌
                   </button>
                 )}
@@ -266,13 +259,13 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
             <input
               type="text"
               value={currentFocus}
-              onChange={(e) => setCurrentFocus(e.target.value)}
+              onChange={e => setCurrentFocus(e.target.value)}
               placeholder="e.g., Implement user authentication, Fix bug in payment flow..."
               className="focus-input"
             />
           </div>
-          <button 
-            className="btn btn-primary btn-large" 
+          <button
+            className="btn btn-primary btn-large"
             onClick={startInterval}
             disabled={!currentFocus.trim()}
           >
@@ -286,26 +279,29 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
         <div className="completed-intervals">
           <h3>📊 Completed Intervals</h3>
           <div className="intervals-grid">
-            {completedIntervals.map((interval) => (
+            {completedIntervals.map(interval => (
               <div key={interval.id} className="interval-card">
                 <div className="interval-header">
                   <div className="interval-time">
-                    {interval.startTime.toLocaleTimeString([], { 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
+                    {interval.startTime.toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
                     })}
                   </div>
-                  <div className="productivity-badge" style={{ 
-                    backgroundColor: getProductivityColor(interval.productivity) 
-                  }}>
+                  <div
+                    className="productivity-badge"
+                    style={{
+                      backgroundColor: getProductivityColor(interval.productivity),
+                    }}
+                  >
                     {getProductivityEmoji(interval.productivity)} {interval.productivity}
                   </div>
                 </div>
-                
+
                 <div className="interval-focus-display">
                   <strong>Focus:</strong> {interval.focus}
                 </div>
-                
+
                 <div className="interval-accomplishments">
                   <strong>Accomplished:</strong>
                   <ul>
@@ -314,7 +310,7 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
                     ))}
                   </ul>
                 </div>
-                
+
                 <div className="interval-stats">
                   <span>Duration: {interval.duration}min</span>
                   <span>Tasks: {interval.accomplishments.length}</span>
@@ -336,7 +332,10 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
             </div>
             <div className="stat">
               <div className="stat-number">
-                {completedIntervals.reduce((sum, interval) => sum + interval.accomplishments.length, 0)}
+                {completedIntervals.reduce(
+                  (sum, interval) => sum + interval.accomplishments.length,
+                  0
+                )}
               </div>
               <div className="stat-label">Tasks Completed</div>
             </div>
@@ -348,7 +347,14 @@ const IntervalTracker: React.FC<IntervalTrackerProps> = ({
             </div>
             <div className="stat">
               <div className="stat-number">
-                {Math.round(completedIntervals.reduce((sum, interval) => sum + interval.accomplishments.length, 0) / completedIntervals.length * 10) / 10}
+                {Math.round(
+                  (completedIntervals.reduce(
+                    (sum, interval) => sum + interval.accomplishments.length,
+                    0
+                  ) /
+                    completedIntervals.length) *
+                    10
+                ) / 10}
               </div>
               <div className="stat-label">Avg Tasks/Interval</div>
             </div>

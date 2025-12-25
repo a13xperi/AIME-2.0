@@ -45,17 +45,20 @@ const SessionDetail: React.FC = () => {
 
   const parseActionItems = (text: string) => {
     if (!text) return [];
-    
+
     // Split by common delimiters and clean up
     const items = text
-      .split(/[\n\r•\-\*]/)
+      .split(/[\n\r•\-*]/)
       .map(item => item.trim())
       .filter(item => item.length > 0 && !item.match(/^(next steps|action items|todo|tasks?):?$/i))
       .map(item => ({
         id: Math.random().toString(36).substr(2, 9),
         text: item,
         completed: false,
-        priority: item.toLowerCase().includes('urgent') || item.toLowerCase().includes('critical') ? 'high' : 'medium'
+        priority:
+          item.toLowerCase().includes('urgent') || item.toLowerCase().includes('critical')
+            ? 'high'
+            : 'medium',
       }));
 
     return items;
@@ -63,17 +66,20 @@ const SessionDetail: React.FC = () => {
 
   const parseBacklogItems = (text: string) => {
     if (!text) return [];
-    
+
     const items = text
-      .split(/[\n\r•\-\*]/)
+      .split(/[\n\r•\-*]/)
       .map(item => item.trim())
       .filter(item => item.length > 0)
       .map(item => ({
         id: Math.random().toString(36).substr(2, 9),
         text: item,
         status: 'pending',
-        category: item.toLowerCase().includes('bug') ? 'bug' : 
-                 item.toLowerCase().includes('feature') ? 'feature' : 'task'
+        category: item.toLowerCase().includes('bug')
+          ? 'bug'
+          : item.toLowerCase().includes('feature')
+            ? 'feature'
+            : 'task',
       }));
 
     return items;
@@ -114,7 +120,9 @@ const SessionDetail: React.FC = () => {
         <div className="session-title">
           <h1>{session.title}</h1>
           <div className="session-meta">
-            <span className="session-date">{new Date(session.date + 'T00:00:00').toLocaleDateString()}</span>
+            <span className="session-date">
+              {new Date(session.date + 'T00:00:00').toLocaleDateString()}
+            </span>
             {session.aiAgent && <span className="session-agent">🤖 {session.aiAgent}</span>}
             {session.workspace && <span className="session-workspace">📍 {session.workspace}</span>}
           </div>
@@ -141,10 +149,7 @@ const SessionDetail: React.FC = () => {
               </div>
             </div>
             <div className="progress-bar">
-              <div 
-                className="progress-fill" 
-                style={{ width: `${progressPercentage}%` }}
-              ></div>
+              <div className="progress-fill" style={{ width: `${progressPercentage}%` }}></div>
             </div>
           </div>
         </div>
@@ -164,11 +169,11 @@ const SessionDetail: React.FC = () => {
           <div className="action-items-section">
             <h2>✅ Action Items & Next Steps</h2>
             <div className="action-items-grid">
-              {actionItems.map((item) => (
+              {actionItems.map(item => (
                 <div key={item.id} className={`action-item ${item.priority}`}>
                   <div className="action-checkbox">
-                    <input 
-                      type="checkbox" 
+                    <input
+                      type="checkbox"
                       checked={item.completed}
                       onChange={() => {
                         // TODO: Implement toggle functionality
@@ -188,7 +193,7 @@ const SessionDetail: React.FC = () => {
           <div className="backlog-section">
             <h2>🚧 Backlog & Blockers</h2>
             <div className="backlog-grid">
-              {backlogItems.map((item) => (
+              {backlogItems.map(item => (
                 <div key={item.id} className={`backlog-item ${item.category}`}>
                   <div className="backlog-text">{item.text}</div>
                   <div className="backlog-category">{item.category}</div>

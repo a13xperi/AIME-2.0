@@ -50,7 +50,7 @@ const ProjectBacklog: React.FC<ProjectBacklogProps> = ({ project }) => {
               <span className="count-badge">{nextStepsList.length}</span>
             )}
           </div>
-          
+
           {hasNextSteps ? (
             <ul className="steps-list">
               {nextStepsList.map((step, index) => (
@@ -68,14 +68,16 @@ const ProjectBacklog: React.FC<ProjectBacklogProps> = ({ project }) => {
         </section>
 
         {/* Blockers Section */}
-        <section className={`backlog-section blockers-section ${hasBlockers ? 'has-blockers' : ''}`}>
+        <section
+          className={`backlog-section blockers-section ${hasBlockers ? 'has-blockers' : ''}`}
+        >
           <div className="section-header">
             <h3>🚧 Blockers</h3>
             {blockersList.length > 0 && (
               <span className="count-badge warning">{blockersList.length}</span>
             )}
           </div>
-          
+
           {hasBlockers ? (
             <ul className="blockers-list">
               {blockersList.map((blocker, index) => (
@@ -97,7 +99,7 @@ const ProjectBacklog: React.FC<ProjectBacklogProps> = ({ project }) => {
           <div className="section-header">
             <h3>📝 Status Notes & Plans</h3>
           </div>
-          
+
           {hasStatusNotes ? (
             <div className="status-notes-content">
               <p>{project.statusNotes}</p>
@@ -115,7 +117,7 @@ const ProjectBacklog: React.FC<ProjectBacklogProps> = ({ project }) => {
             <h3>📦 Work Queue</h3>
             <span className="info-text">Future features and improvements</span>
           </div>
-          
+
           <div className="queue-placeholder">
             <div className="queue-card">
               <div className="queue-card-header">
@@ -136,10 +138,16 @@ const ProjectBacklog: React.FC<ProjectBacklogProps> = ({ project }) => {
 
       {/* Quick Actions */}
       <div className="backlog-actions">
-        <button className="action-btn primary" onClick={() => alert('Session logging coming soon!')}>
+        <button
+          className="action-btn primary"
+          onClick={() => alert('Session logging coming soon!')}
+        >
           📝 Log New Session
         </button>
-        <button className="action-btn" onClick={() => window.open(`https://notion.so/${project.id.replace(/-/g, '')}`, '_blank')}>
+        <button
+          className="action-btn"
+          onClick={() => window.open(`https://notion.so/${project.id.replace(/-/g, '')}`, '_blank')}
+        >
           ✏️ Edit in Notion
         </button>
       </div>
@@ -148,5 +156,3 @@ const ProjectBacklog: React.FC<ProjectBacklogProps> = ({ project }) => {
 };
 
 export default ProjectBacklog;
-
-

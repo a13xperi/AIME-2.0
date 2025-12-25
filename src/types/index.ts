@@ -16,12 +16,18 @@ export type ProjectPriority = 'Critical' | 'High' | 'Medium' | 'Low';
 /**
  * Session status options
  */
-export type SessionStatus = 'Active' | 'In Progress' | 'Paused' | 'Completed' | 'Archived' | 'Blocked';
+export type SessionStatus =
+  | 'Active'
+  | 'In Progress'
+  | 'Paused'
+  | 'Completed'
+  | 'Archived'
+  | 'Blocked';
 
 /**
  * Session type categories
  */
-export type SessionType = 
+export type SessionType =
   | 'Feature Development'
   | 'Bug Fix'
   | 'Refactoring'
@@ -86,7 +92,7 @@ export interface Session {
   workspace: string;
   type: SessionType;
   tags: string[];
-  
+
   // Extended fields from Notion
   keyDecisions?: string;
   challenges?: string;
@@ -187,4 +193,3 @@ export interface NotionDatabaseSchema {
   projectsDatabase: string;
   sessionsDatabase: string;
 }
-
