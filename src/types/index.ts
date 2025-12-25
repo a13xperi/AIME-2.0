@@ -16,7 +16,13 @@ export type ProjectPriority = 'Critical' | 'High' | 'Medium' | 'Low';
 /**
  * Session status options
  */
-export type SessionStatus = 'In Progress' | 'Completed' | 'Paused';
+export type SessionStatus =
+  | 'In Progress'
+  | 'Completed'
+  | 'Paused'
+  | 'Active'
+  | 'Blocked'
+  | 'Archived';
 
 /**
  * Session type categories
@@ -1616,6 +1622,7 @@ export interface Lead {
   score: number;
   createdAt: string;
   lastActivity: string;
+  assignedTo?: string;
   notes: string;
 }
 
@@ -1623,11 +1630,13 @@ export interface Opportunity {
   id: string;
   name: string;
   customer: string;
+  customerId?: string;
   value: number;
   stage: 'lead' | 'qualified' | 'proposal' | 'negotiation' | 'closed';
   probability: number;
   expectedClose: string;
   owner: string;
+  assignedTo?: string;
   createdAt: string;
   lastActivity: string;
   notes: string;
@@ -1644,6 +1653,7 @@ export interface Contact {
   status: 'active' | 'inactive';
   createdAt: string;
   lastContact: string;
+  tags?: string[];
   notes: string;
 }
 
@@ -1666,11 +1676,13 @@ export interface Deal {
   id: string;
   name: string;
   customer: string;
+  customerId?: string;
   value: number;
   stage: 'lead' | 'qualified' | 'proposal' | 'negotiation' | 'closed';
   probability: number;
   expectedClose: string;
   owner: string;
+  assignedTo?: string;
   createdAt: string;
   lastActivity: string;
   products: string[];
@@ -1685,6 +1697,7 @@ export interface Pipeline {
   activeDeals: number;
   conversionRate: number;
   averageDealSize: number;
+  status?: 'active' | 'inactive';
   createdAt: string;
   lastUpdated: string;
 }
@@ -1705,27 +1718,37 @@ export interface SalesActivity {
 export interface CustomerSegment {
   id: string;
   name: string;
-  criteria: string;
+  description?: string;
+  criteria: string | Record<string, string>;
   customerCount: number;
   averageValue: number;
   growthRate: number;
   churnRate: number;
+  createdAt?: string;
   lastUpdated: string;
 }
 
 export interface CustomerJourney {
   id: string;
   name: string;
+  customerId?: string;
+  stage?: string;
   stages: string[];
+  touchpoints?: number;
+  duration?: number;
+  satisfaction?: number;
+  nextAction?: string;
   averageDuration: number;
   conversionRate: number;
   customerCount: number;
+  createdAt?: string;
   lastUpdated: string;
 }
 
 export interface CustomerFeedback {
   id: string;
   customer: string;
+  customerId?: string;
   type: 'satisfaction' | 'complaint' | 'suggestion' | 'feature_request';
   rating: number;
   comment: string;
@@ -1751,8 +1774,10 @@ export interface CustomerSupport {
 export interface CustomerOnboarding {
   id: string;
   customer: string;
+  customerId?: string;
   stage: string;
   progress: number;
+  nextStep?: string;
   startDate: string;
   expectedCompletion: string;
   tasks: Array<{
@@ -1760,17 +1785,22 @@ export interface CustomerOnboarding {
     completed: boolean;
   }>;
   assignedTo: string;
+  createdAt?: string;
 }
 
 export interface CustomerRetention {
   id: string;
   customer: string;
+  customerId?: string;
+  strategy?: string;
   riskLevel: 'low' | 'medium' | 'high';
   lastActivity: string;
   engagementScore: number;
   actions: string[];
   nextAction: string;
   assignedTo: string;
+  success?: boolean;
+  createdAt?: string;
 }
 
 export interface CustomerChurn {
@@ -1787,10 +1817,14 @@ export interface CustomerChurn {
 export interface SalesForecast {
   id: string;
   period: string;
+  target?: number;
+  projected?: number;
   totalValue: number;
   probability: number;
   deals: number;
-  confidence: 'low' | 'medium' | 'high';
+  confidence: 'low' | 'medium' | 'high' | number;
+  factors?: string[];
+  createdAt?: string;
   lastUpdated: string;
 }
 
@@ -2701,4 +2735,160 @@ export interface MarketingSync {
   lastSync: string;
   records: number;
   errors: number;
+}
+
+/**
+ * Additional CRM Types for CustomerCRM component
+ */
+export interface Activity {
+  id: string;
+  type: 'call' | 'email' | 'meeting' | 'demo' | 'proposal';
+  subject: string;
+  customerId: string;
+  date: string;
+  duration: number;
+  outcome: 'positive' | 'negative' | 'neutral';
+  notes: string;
+  assignedTo: string;
+  createdAt: string;
+}
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'pending' | 'in_progress' | 'completed';
+  assignedTo: string;
+  customerId?: string;
+  createdAt: string;
+}
+
+export interface Campaign {
+  id: string;
+  name: string;
+  type: 'email' | 'social' | 'content' | 'event';
+  status: 'active' | 'paused' | 'completed';
+  startDate: string;
+  endDate: string;
+  budget: number;
+  targetAudience: string;
+  metrics: {
+    sent: number;
+    opened: number;
+    clicked: number;
+    converted: number;
+  };
+  createdAt: string;
+}
+
+export interface SalesStage {
+  id: string;
+  name: string;
+  order: number;
+  probability: number;
+  color: string;
+  description: string;
+  createdAt: string;
+}
+
+export interface Interaction {
+  id: string;
+  type: 'email' | 'call' | 'meeting' | 'chat';
+  subject: string;
+  customerId: string;
+  date: string;
+  direction: 'inbound' | 'outbound';
+  outcome: 'positive' | 'negative' | 'neutral';
+  notes: string;
+  assignedTo: string;
+  createdAt: string;
+}
+
+export interface CustomerHealth {
+  id: string;
+  customerId: string;
+  score: number;
+  status: 'healthy' | 'at_risk' | 'critical';
+  factors: string[];
+  lastUpdated: string;
+  trends: {
+    usage: string;
+    engagement: string;
+    support: string;
+  };
+}
+
+export interface ChurnRisk {
+  id: string;
+  customerId: string;
+  risk: 'low' | 'medium' | 'high';
+  score: number;
+  factors: string[];
+  probability: number;
+  mitigation: string;
+  lastUpdated: string;
+}
+
+export interface CustomerLifetimeValue {
+  id: string;
+  customerId: string;
+  value: number;
+  period: string;
+  calculation: string;
+  factors: string[];
+  lastUpdated: string;
+}
+
+export interface Referral {
+  id: string;
+  customerId: string;
+  referredCustomerId: string;
+  status: 'pending' | 'converted' | 'lost';
+  reward: number;
+  createdAt: string;
+  convertedAt?: string;
+}
+
+export interface Upsell {
+  id: string;
+  customerId: string;
+  product: string;
+  value: number;
+  status: 'opportunity' | 'completed' | 'lost';
+  date: string;
+  assignedTo: string;
+}
+
+export interface CrossSell {
+  id: string;
+  customerId: string;
+  product: string;
+  value: number;
+  status: 'opportunity' | 'completed' | 'lost';
+  probability?: number;
+  date: string;
+  assignedTo: string;
+}
+
+export interface SupportTicket {
+  id: string;
+  customerId: string;
+  subject: string;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  status: 'open' | 'in_progress' | 'resolved' | 'closed';
+  assignedTo: string;
+  createdAt: string;
+  lastUpdated: string;
+}
+
+export interface CustomerAcquisition {
+  id: string;
+  customerId: string;
+  source: string;
+  cost: number;
+  channel: string;
+  campaign: string;
+  createdAt: string;
 }

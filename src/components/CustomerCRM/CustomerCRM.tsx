@@ -555,7 +555,7 @@ const CustomerCRM: React.FC = () => {
               <span>Department: {contact.department}</span>
             </div>
             <div className="contact-tags">
-              {contact.tags.map(tag => (
+              {contact.tags?.map(tag => (
                 <span key={tag} className="tag">
                   {tag}
                 </span>
@@ -809,12 +809,18 @@ const CustomerCRM: React.FC = () => {
           <div key={forecast.id} className="sales-forecast-card">
             <h4>{forecast.period}</h4>
             <div className="forecast-meta">
-              <span>Target: ${forecast.target.toLocaleString()}</span>
-              <span>Projected: ${forecast.projected.toLocaleString()}</span>
-              <span>Confidence: {(forecast.confidence * 100).toFixed(0)}%</span>
+              <span>Target: ${forecast.target?.toLocaleString() ?? 'N/A'}</span>
+              <span>Projected: ${forecast.projected?.toLocaleString() ?? 'N/A'}</span>
+              <span>
+                Confidence:{' '}
+                {typeof forecast.confidence === 'number'
+                  ? (forecast.confidence * 100).toFixed(0)
+                  : forecast.confidence}
+                %
+              </span>
             </div>
             <div className="forecast-factors">
-              <span>Factors: {forecast.factors.join(', ')}</span>
+              <span>Factors: {forecast.factors?.join(', ') ?? 'None'}</span>
             </div>
             <button className="btn btn-small mt-2">Update Forecast</button>
           </div>
@@ -1039,7 +1045,10 @@ const CustomerCRM: React.FC = () => {
             </div>
             <div className="retention-meta">
               <span>Success: {retention.success ? 'Yes' : 'No'}</span>
-              <span>Created: {new Date(retention.createdAt).toLocaleDateString()}</span>
+              <span>
+                Created:{' '}
+                {retention.createdAt ? new Date(retention.createdAt).toLocaleDateString() : 'N/A'}
+              </span>
             </div>
             <button className="btn btn-small mt-2">View Retention Plan</button>
           </div>
