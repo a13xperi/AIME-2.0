@@ -17,7 +17,7 @@ const HoleComplete: React.FC = () => {
     if (isLastHole) {
       navigate('/round-complete');
     } else {
-      navigate(`/hole-start?hole=${holeNumber + 1}&par=4`);
+      navigate(`/next-hole?hole=${holeNumber}`);
     }
   };
 
@@ -67,7 +67,9 @@ const HoleComplete: React.FC = () => {
           </div>
 
           <div className="view-shots">
-            <button className="link-btn">View 4 shots</button>
+            <button className="link-btn" onClick={() => navigate(`/shot-history?hole=${holeNumber}`)}>
+              View 4 shots
+            </button>
           </div>
 
           <div className="average-comparison">

@@ -11,9 +11,9 @@ const SplashScreen: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Auto-navigate to My Bag after 2 seconds
+    // Auto-navigate to Course Selection after 2 seconds
     const timer = setTimeout(() => {
-      navigate('/my-bag');
+      navigate('/course-selection');
     }, 2000);
 
     return () => clearTimeout(timer);

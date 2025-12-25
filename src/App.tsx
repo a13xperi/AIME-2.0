@@ -22,6 +22,10 @@ import GreenTransition from './components/GreenTransition/GreenTransition';
 import PuttingGuidance from './components/PuttingGuidance/PuttingGuidance';
 import HoleComplete from './components/HoleComplete/HoleComplete';
 import RoundComplete from './components/RoundComplete/RoundComplete';
+import CourseSelection from './components/CourseSelection/CourseSelection';
+import RoundSettings from './components/RoundSettings/RoundSettings';
+import NextHole from './components/NextHole/NextHole';
+import ShotHistory from './components/ShotHistory/ShotHistory';
 import './App.css';
 
 function App() {
@@ -43,12 +47,16 @@ function App() {
             <Route path="/aime" element={<AIRealtime />} />
             {/* AIME App Flow */}
             <Route path="/splash" element={<SplashScreen />} />
+            <Route path="/course-selection" element={<CourseSelection />} />
+            <Route path="/round-settings" element={<RoundSettings />} />
             <Route path="/my-bag" element={<MyBag />} />
             <Route path="/hole-start" element={<HoleStart />} />
             <Route path="/shot-guidance" element={<ShotGuidance />} />
             <Route path="/green-transition" element={<GreenTransition />} />
             <Route path="/putting" element={<PuttingGuidance />} />
             <Route path="/hole-complete" element={<HoleComplete />} />
+            <Route path="/shot-history" element={<ShotHistory />} />
+            <Route path="/next-hole" element={<NextHole />} />
             <Route path="/round-complete" element={<RoundComplete />} />
           </Routes>
         </div>
