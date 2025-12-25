@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
     try {
       // Add timeout and error handling for Notion API calls
@@ -154,7 +154,7 @@ const Dashboard: React.FC = () => {
     e.stopPropagation(); // Prevent card click navigation
 
     // Fetch last session for this project
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
     try {
       const response = await fetch(
         `${API_URL}/api/sessions?projectId=${encodeURIComponent(project.name)}`

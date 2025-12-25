@@ -29,7 +29,7 @@ const AnalyticsDashboard: React.FC = () => {
     setError(null);
 
     try {
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
 
       // Fetch sessions and projects data
       const [sessionsResponse, projectsResponse] = await Promise.all([
