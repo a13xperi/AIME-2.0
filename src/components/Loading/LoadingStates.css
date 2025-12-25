@@ -1,0 +1,112 @@
+/**
+ * Loading States Demo Styles
+ */
+
+.loading-states-demo {
+  min-height: 100vh;
+  background: #0f2e1f;
+  padding: 40px 20px;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.demo-header h1 {
+  font-size: 2.5rem;
+  color: #4ade80;
+  margin-bottom: 8px;
+}
+
+.demo-header p {
+  font-size: 1.1rem;
+  color: #a7f3d0;
+}
+
+.variants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.variant-card {
+  background: rgba(15, 46, 31, 0.5);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.variant-header {
+  margin-bottom: 20px;
+}
+
+.variant-header h3 {
+  font-size: 1.25rem;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.variant-preview {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 46, 31, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.variant-code {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-x: auto;
+}
+
+.variant-code code {
+  color: #a7f3d0;
+  font-size: 0.85rem;
+  font-family: 'Courier New', monospace;
+}
+
+.fullscreen-demo {
+  max-width: 1200px;
+  margin: 60px auto 0;
+  text-align: center;
+}
+
+.fullscreen-demo h2 {
+  font-size: 2rem;
+  color: #4ade80;
+  margin-bottom: 24px;
+}
+
+.demo-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.demo-buttons button {
+  padding: 12px 24px;
+  background: #4ade80;
+  color: #0f2e1f;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.demo-buttons button:hover {
+  background: #22c55e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(74, 222, 128, 0.3);
+}
+
