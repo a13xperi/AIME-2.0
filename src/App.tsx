@@ -13,6 +13,7 @@ import SessionDetail from './components/SessionDetail/SessionDetail';
 import AnalyticsDashboard from './components/AnalyticsDashboard/AnalyticsDashboard';
 import TeamCollaboration from './components/TeamCollaboration/TeamCollaboration';
 import AIRealtime from './components/airealtime/AIRealtime';
+import SplashScreen from './components/SplashScreen/SplashScreen';
 import './App.css';
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
             {/* AIME Golf AI Route */}
             <Route path="/golf" element={<AIRealtime />} />
             <Route path="/aime" element={<AIRealtime />} />
+            {/* AIME Splash Screen */}
+            <Route path="/splash" element={<SplashScreen />} />
           </Routes>
         </div>
       </Router>

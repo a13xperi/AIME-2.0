@@ -1,0 +1,164 @@
+/**
+ * AIME Splash Screen Styles
+ * Matches Figma design: dark green background, white logo with golf icon
+ */
+
+.splash-screen {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  padding: 2rem;
+}
+
+.phone-frame {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  background: #1a4d3a; /* Dark green background matching Figma */
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Notch/Dynamic Island */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #000;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+/* Logo Container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+}
+
+.aime-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.logo-a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.05em;
+}
+
+.logo-a-left-stroke,
+.logo-a-right-stroke {
+  position: absolute;
+  width: 0.15em;
+  height: 1em;
+  background: #ffffff;
+  border-radius: 2px;
+}
+
+.logo-a-left-stroke {
+  left: 0;
+  transform: rotate(-20deg);
+  transform-origin: bottom center;
+}
+
+.logo-a-right-stroke {
+  right: 0;
+  transform: rotate(20deg);
+  transform-origin: bottom center;
+}
+
+.logo-golf-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -35%);
+  width: 1.5em;
+  height: 0.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.golf-club-ball {
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+}
+
+.logo-rest {
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .phone-frame {
+    width: 100%;
+    max-width: 375px;
+    height: 100vh;
+    max-height: 812px;
+    border-radius: 0;
+  }
+
+  .phone-notch {
+    display: none; /* Hide notch on smaller screens */
+  }
+
+  .logo-text {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .logo-text {
+    font-size: 2.5rem;
+  }
+}
+
+/* Animation for splash screen (optional) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.splash-screen {
+  animation: fadeIn 0.5s ease-in;
+}
+
