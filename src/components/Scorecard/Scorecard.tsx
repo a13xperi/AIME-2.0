@@ -60,7 +60,7 @@ const Scorecard: React.FC = () => {
   };
 
   const handleHoleClick = (hole: number) => {
-    navigate(`/hole-complete?hole=${hole}`);
+    navigate(`/hole-analysis?hole=${hole}&course=1`);
   };
 
   return (

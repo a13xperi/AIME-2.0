@@ -102,6 +102,11 @@ const Profile: React.FC = () => {
               <span className="action-text">Leaderboard</span>
               <span className="action-arrow">→</span>
             </button>
+            <button className="action-item" onClick={() => navigate('/trends')}>
+              <span className="action-icon">📈</span>
+              <span className="action-text">Performance Trends</span>
+              <span className="action-arrow">→</span>
+            </button>
           </div>
 
           <div className="profile-footer">
