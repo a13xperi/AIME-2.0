@@ -26,6 +26,7 @@ import CourseSelection from './components/CourseSelection/CourseSelection';
 import RoundSettings from './components/RoundSettings/RoundSettings';
 import NextHole from './components/NextHole/NextHole';
 import ShotHistory from './components/ShotHistory/ShotHistory';
+import Settings from './components/Settings/Settings';
 import './App.css';
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
             <Route path="/shot-history" element={<ShotHistory />} />
             <Route path="/next-hole" element={<NextHole />} />
             <Route path="/round-complete" element={<RoundComplete />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>
       </Router>
