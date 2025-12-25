@@ -36,6 +36,7 @@ import ClubRecommendations from './components/ClubRecommendations/ClubRecommenda
 import Weather from './components/Weather/Weather';
 import RoundDetail from './components/RoundDetail/RoundDetail';
 import Profile from './components/Profile/Profile';
+import CourseSearch from './components/CourseSearch/CourseSearch';
 import './App.css';
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
             <Route path="/weather" element={<Weather />} />
             <Route path="/round-detail/:id" element={<RoundDetail />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/course-search" element={<CourseSearch />} />
           </Routes>
         </div>
       </Router>

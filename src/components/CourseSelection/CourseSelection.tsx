@@ -38,7 +38,7 @@ const CourseSelection: React.FC = () => {
   };
 
   const handleSearch = () => {
-    // Future: Open course search modal
+    navigate('/course-search');
   };
 
   return (
