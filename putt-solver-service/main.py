@@ -11,7 +11,10 @@ from typing import List, Optional
 import os
 import json
 import uuid
+import logging
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 # Load environment variables
 PUTTSOLVER_MODE = os.getenv("PUTTSOLVER_MODE", "mock")
@@ -193,13 +196,78 @@ def solve_putt(request: SolvePuttRequest):
             detail=f"Invalid stimp value: {request.stimp}. Must be between 0 and 20."
         )
     
-    # Generate mock solution
+    # Generate solution (mock or real DLL)
     if PUTTSOLVER_MODE == "mock":
         return generate_mock_putt_solution(request)
     else:
-        # Phase 1+: Call real PuttSolver DLL here
-        # For now, return mock
-        return generate_mock_putt_solution(request)
+        # Phase 2+: Call real PuttSolver DLL
+        try:
+            from dll_wrapper import solve_putt_with_dll
+            import sys
+            import os
+            sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend'))
+            from utils.manifest_loader import resolve_dtm_path
+            
+            # Resolve DTM path
+            dtm_path = resolve_dtm_path(request.dtm_id)
+            if not dtm_path:
+                return SolvePuttResponse(
+                    success=False,
+                    request_id=request.request_id,
+                    error=f"Could not resolve DTM path for dtm_id: {request.dtm_id}"
+                )
+            
+            # Call DLL
+            result = solve_putt_with_dll(
+                ball_local_m={"x": request.ball_local_m.x, "y": request.ball_local_m.y},
+                cup_local_m={"x": request.cup_local_m.x, "y": request.cup_local_m.y},
+                stimp=request.stimp,
+                dtm_path=dtm_path
+            )
+            
+            if result["success"]:
+                return SolvePuttResponse(
+                    success=True,
+                    request_id=request.request_id,
+                    instruction_text=result.get("instruction_text"),
+                    plot_points_local=[
+                        PointLocalM(x=p["x"], y=p["y"])
+                        for p in result.get("plot_points_local", [])
+                    ]
+                )
+            else:
+                # Enhanced error handling with error categories
+                error_msg = result.get("error", "Unknown DLL error")
+                error_category = result.get("error_category", "unknown")
+                error_code = result.get("error_code")
+                
+                # Log error details
+                logger.warning(
+                    f"DLL solve failed: {error_msg} "
+                    f"(category: {error_category}, code: {error_code})"
+                )
+                
+                # Return user-friendly error
+                return SolvePuttResponse(
+                    success=False,
+                    request_id=request.request_id,
+                    error=error_msg
+                )
+        except ImportError:
+            # DLL wrapper not available (non-Windows or missing dependencies)
+            logger.warning("DLL wrapper not available, falling back to mock mode")
+            return SolvePuttResponse(
+                success=False,
+                request_id=request.request_id,
+                error="DLL wrapper not available. Use PUTTSOLVER_MODE=mock for testing."
+            )
+        except Exception as e:
+            logger.exception(f"Unexpected error in solve_putt endpoint: {e}")
+            return SolvePuttResponse(
+                success=False,
+                request_id=request.request_id,
+                error=f"DLL call failed: {str(e)}"
+            )
 
 if __name__ == "__main__":
     import uvicorn

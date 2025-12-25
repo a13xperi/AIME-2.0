@@ -18,9 +18,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["node"]
   },
   "include": [
-    "src"
-  ]
+    "src",
+    "server"
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "ES2020",
+      "lib": ["ES2020"],
+      "types": ["node"]
+    }
+  }
 }

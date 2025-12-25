@@ -11,13 +11,21 @@ import json
 import httpx
 from pathlib import Path
 import uuid
+import sys
+
+# Add backend to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.manifest_loader import load_manifest_from_registry
+from utils.coordinate_transforms import wgs84_to_green_local
 
 router = APIRouter(prefix="/api", tags=["putt-solver"])
 
 # Load environment variables
 PUTTSOLVER_SERVICE_URL = os.getenv("PUTTSOLVER_SERVICE_URL", "http://localhost:8081")
 AIME_TRANSFORM_MODE = os.getenv("AIME_TRANSFORM_MODE", "mock")
-REGISTRY_PATH = Path(__file__).parent.parent.parent / "course_data" / "datasets.json"
+# Resolve registry path relative to repo root
+_REPO_ROOT = Path(__file__).parent.parent.parent
+REGISTRY_PATH = _REPO_ROOT / "course_data" / "datasets.json"
 
 # Pydantic models
 class PointWGS84(BaseModel):
@@ -68,32 +76,51 @@ def load_dtm_registry():
 def resolve_dtm_id(course_id: str, hole_id: int) -> dict:
     """
     Resolve dtm_id and green metadata from course_id and hole_id.
-    Returns the dataset entry from the registry.
+    Returns the manifest dictionary with all green metadata.
     """
     datasets = load_dtm_registry()
     
-    for dataset in datasets:
-        if (dataset.get("course_id") == course_id and 
-            dataset.get("hole_id") == hole_id):
-            return dataset
+    # Find matching dataset
+    dataset = None
+    for ds in datasets:
+        if (ds.get("course_id") == course_id and 
+            ds.get("hole_id") == hole_id):
+            dataset = ds
+            break
     
-    raise HTTPException(
-        status_code=404,
-        detail=f"No DTM found for course_id={course_id}, hole_id={hole_id}"
-    )
+    if not dataset:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No DTM found for course_id={course_id}, hole_id={hole_id}"
+        )
+    
+    # Load full manifest
+    dtm_id = dataset["dtm_id"]
+    manifest = load_manifest_from_registry(dtm_id, str(REGISTRY_PATH))
+    
+    if not manifest:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to load manifest for dtm_id={dtm_id}"
+        )
+    
+    return manifest
 
-def transform_wgs84_to_projected_m(lat: float, lon: float) -> dict:
+def transform_wgs84_to_green_local_m(
+    lat: float,
+    lon: float,
+    manifest: dict
+) -> dict:
     """
-    Transform WGS84 coordinates to projected meters.
+    Transform WGS84 coordinates to green_local_m coordinates.
     
-    Phase 0: Mocked transformation
-    Phase 1+: Real geographic transformation (State Plane or UTM)
+    Uses real pyproj transforms when AIME_TRANSFORM_MODE != "mock",
+    otherwise uses mocked transformation for testing.
     
-    Returns: {x: float, y: float} in projected_m
+    Returns: {x: float, y: float} in green_local_m
     """
     if AIME_TRANSFORM_MODE == "mock":
         # Mock transformation: simple offset from a reference point
-        # In production, this would use pyproj or similar
         ref_lat = 37.7749  # San Francisco reference
         ref_lon = -122.4194
         
@@ -101,40 +128,29 @@ def transform_wgs84_to_projected_m(lat: float, lon: float) -> dict:
         meters_per_deg_lat = 111320.0
         meters_per_deg_lon = 111320.0 * abs(1.0 / (1.0 + lat * 0.00001))
         
-        x = (lon - ref_lon) * meters_per_deg_lon + 600000.0
-        y = (lat - ref_lat) * meters_per_deg_lat + 4000000.0
+        x_proj = (lon - ref_lon) * meters_per_deg_lon + 600000.0
+        y_proj = (lat - ref_lat) * meters_per_deg_lat + 4000000.0
         
-        return {"x": x, "y": y}
-    else:
-        # Phase 1+: Real transformation
-        # TODO: Implement with pyproj
-        raise NotImplementedError("Real WGS84->projected_m transformation not yet implemented")
-
-def transform_projected_m_to_green_local_m(
-    point_projected_m: dict,
-    green_origin_projected_m: dict,
-    green_rotation_deg: float
-) -> dict:
-    """
-    Transform projected_m coordinates to green_local_m coordinates.
-    
-    Phase 0: Mocked transformation
-    Phase 1+: Real transformation with rotation
-    
-    Returns: {x: float, y: float} in green_local_m
-    """
-    if AIME_TRANSFORM_MODE == "mock":
-        # Mock transformation: simple translation (no rotation in Phase 0)
-        dx = point_projected_m["x"] - green_origin_projected_m["x"]
-        dy = point_projected_m["y"] - green_origin_projected_m["y"]
+        # Simple translation to green-local (no rotation in mock mode)
+        green_origin = manifest.get("green_origin_projected_m", {"x": 600123.45, "y": 4000567.89})
+        dx = x_proj - green_origin["x"]
+        dy = y_proj - green_origin["y"]
         
-        # TODO: Apply rotation when rotation convention is known
-        # For now, just translate
         return {"x": dx, "y": dy}
     else:
-        # Phase 1+: Real transformation with rotation
-        # TODO: Implement rotation
-        raise NotImplementedError("Real projected_m->green_local_m transformation not yet implemented")
+        # Phase 1+: Real transformation using pyproj
+        green_origin_projected_m = manifest.get("green_origin_projected_m")
+        green_rotation_deg = manifest.get("green_rotation_deg", 0.0)
+        state_plane_epsg = manifest.get("state_plane_epsg", 3675)  # Default to Utah North
+        
+        if not green_origin_projected_m:
+            raise ValueError("Manifest missing green_origin_projected_m")
+        
+        x_local, y_local = wgs84_to_green_local(
+            lat, lon, green_origin_projected_m, green_rotation_deg, state_plane_epsg
+        )
+        
+        return {"x": x_local, "y": y_local}
 
 @router.post("/solve_putt", response_model=SolvePuttToolResponse)
 async def solve_putt(request: SolvePuttToolRequest):
@@ -151,32 +167,20 @@ async def solve_putt(request: SolvePuttToolRequest):
     PuttSolver service NEVER receives lat/lon.
     """
     try:
-        # Step 1: Resolve DTM ID
-        dataset = resolve_dtm_id(request.course_id, request.hole_id)
-        dtm_id = dataset["dtm_id"]
-        green_origin = dataset["green_origin_projected_m"]
-        green_rotation = dataset.get("green_rotation_deg", 0)
+        # Step 1: Resolve DTM ID and load manifest
+        manifest = resolve_dtm_id(request.course_id, request.hole_id)
+        dtm_id = manifest["dtm_id"]
         
-        # Step 2: Transform WGS84 -> projected_m
-        ball_projected_m = transform_wgs84_to_projected_m(
+        # Step 2: Transform WGS84 -> green_local_m (complete chain)
+        ball_local_m = transform_wgs84_to_green_local_m(
             request.ball_wgs84.lat,
-            request.ball_wgs84.lon
+            request.ball_wgs84.lon,
+            manifest
         )
-        cup_projected_m = transform_wgs84_to_projected_m(
+        cup_local_m = transform_wgs84_to_green_local_m(
             request.cup_wgs84.lat,
-            request.cup_wgs84.lon
-        )
-        
-        # Step 3: Transform projected_m -> green_local_m
-        ball_local_m = transform_projected_m_to_green_local_m(
-            ball_projected_m,
-            green_origin,
-            green_rotation
-        )
-        cup_local_m = transform_projected_m_to_green_local_m(
-            cup_projected_m,
-            green_origin,
-            green_rotation
+            request.cup_wgs84.lon,
+            manifest
         )
         
         # Step 4: Call PuttSolver service
@@ -188,6 +192,11 @@ async def solve_putt(request: SolvePuttToolRequest):
             "stimp": request.stimp,
             "request_id": request_id
         }
+        
+        # Debug: Log what we're sending
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"Sending to PuttSolver: ball_local_m={ball_local_m}, cup_local_m={cup_local_m}")
         
         async with httpx.AsyncClient(timeout=30.0) as client:
             try:

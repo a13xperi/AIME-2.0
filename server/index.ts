@@ -13,29 +13,35 @@ import { logger } from '../src/utils/logger';
 // Load environment variables
 dotenv.config();
 
-// Validate required environment variables at startup
+// Validate required environment variables at startup (only for Notion features)
+// Golf AI routes don't require Notion, so make these optional
 const requiredEnvVars = [
   'NOTION_TOKEN',
   'NOTION_PROJECTS_DATABASE_ID',
   'NOTION_SESSIONS_DATABASE_ID'
 ];
 
-for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
-    throw new Error(`Missing required environment variable: ${envVar}`);
-  }
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+if (missingEnvVars.length > 0) {
+  logger.warn(`Missing Notion environment variables: ${missingEnvVars.join(', ')}`);
+  logger.warn('Notion features will be disabled. Golf AI features will still work.');
 }
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Initialize Notion client
-const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
+// Initialize Notion client (only if token is available)
+let notion: Client | null = null;
+let PROJECTS_DB_ID: string | null = null;
+let SESSIONS_DB_ID: string | null = null;
 
-const PROJECTS_DB_ID = process.env.NOTION_PROJECTS_DATABASE_ID!;
-const SESSIONS_DB_ID = process.env.NOTION_SESSIONS_DATABASE_ID!;
+if (process.env.NOTION_TOKEN) {
+  notion = new Client({
+    auth: process.env.NOTION_TOKEN,
+  });
+  PROJECTS_DB_ID = process.env.NOTION_PROJECTS_DATABASE_ID || null;
+  SESSIONS_DB_ID = process.env.NOTION_SESSIONS_DATABASE_ID || null;
+}
 
 // Helper function to get full rich text content from Notion rich text arrays
 const getFullRichText = (richTextArray: any[]) => {
@@ -925,6 +931,7 @@ app.post('/api/realtime', async (req: Request, res: Response) => {
     const sdpOffer = req.body;
     
     // Forward the request to OpenAI
+    // @ts-ignore - fetch is available in Node.js 18+
     const response = await fetch(`https://api.openai.com/v1/realtime?model=${model}`, {
       method: 'POST',
       headers: {
@@ -964,6 +971,7 @@ app.post('/api/chat', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Messages are required and must be a non-empty array' });
     }
     
+    // @ts-ignore - fetch is available in Node.js 18+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -1021,6 +1029,7 @@ app.get('/api/weather', async (req: Request, res: Response) => {
     
     // Get coordinates first
     const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${OPEN_WEATHER_API_KEY}`;
+    // @ts-ignore - fetch is available in Node.js 18+
     const geoResponse = await fetch(geoUrl);
     
     if (!geoResponse.ok) {
@@ -1037,6 +1046,7 @@ app.get('/api/weather', async (req: Request, res: Response) => {
     
     // Get weather data
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${OPEN_WEATHER_API_KEY}`;
+    // @ts-ignore - fetch is available in Node.js 18+
     const weatherResponse = await fetch(weatherUrl);
     
     if (!weatherResponse.ok) {

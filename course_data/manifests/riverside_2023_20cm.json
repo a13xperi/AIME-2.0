@@ -1,0 +1,31 @@
+{
+  "dtm_id": "riverside_2023_20cm",
+  "course_id": "riverside_country_club",
+  "hole_id": 1,
+  "green_origin_projected_m": {
+    "x": 486432.42,
+    "y": 2214825.48
+  },
+  "green_rotation_deg": 0.0,
+  "green_size_m": {
+    "width": 25.6,
+    "depth": 43.0
+  },
+  "grid_spacing_m": 0.2,
+  "grid_dimensions": {
+    "rows": 215,
+    "cols": 128
+  },
+  "elevation_range": {
+    "min": 1.0,
+    "max": 4.22
+  },
+  "data_coverage_pct": 87.9,
+  "state_plane_epsg": 3675,
+  "stimp_range": {
+    "min": 8.0,
+    "max": 14.0
+  },
+  "description": "Riverside Country Club - Hole 1 - 20.0cm resolution DTM",
+  "grid_file_path": "Riverside_20cm_Grid.txt"
+}

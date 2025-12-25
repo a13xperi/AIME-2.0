@@ -51,3 +51,4 @@ After opening, check:
 - ✅ Ready for development
 - ⏳ **Next:** Open in Cursor to continue
 
+
