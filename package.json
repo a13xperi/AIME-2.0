@@ -36,6 +36,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css,md}\"",
+    "validate-env": "node scripts/validate-env.js",
     "prepare": "husky"
   },
   "eslintConfig": {
