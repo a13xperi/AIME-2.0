@@ -65,6 +65,7 @@ const CourseSelection: React.FC = () => {
                 key={course.id}
                 className={`course-card ${selectedCourse === course.id ? 'selected' : ''}`}
                 onClick={() => handleSelectCourse(course.id)}
+                onDoubleClick={() => navigate(`/course-detail/${course.id}`)}
               >
                 <div className="course-info">
                   <div className="course-name">{course.name}</div>

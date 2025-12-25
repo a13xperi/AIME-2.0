@@ -46,6 +46,8 @@ import Sharing from './components/Sharing/Sharing';
 import Tutorial from './components/Tutorial/Tutorial';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import Leaderboard from './components/Leaderboard/Leaderboard';
+import PuttingPractice from './components/PuttingPractice/PuttingPractice';
+import CourseDetail from './components/CourseDetail/CourseDetail';
 import './App.css';
 
 function App() {
@@ -98,6 +100,8 @@ function App() {
             <Route path="/sharing" element={<Sharing />} />
             <Route path="/tutorial" element={<Tutorial />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/putting-practice" element={<PuttingPractice />} />
+            <Route path="/course-detail/:id" element={<CourseDetail />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>

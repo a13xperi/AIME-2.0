@@ -48,9 +48,11 @@ const PracticeMode: React.FC = () => {
   const handleSelectPractice = (id: string) => {
     setSelectedPractice(id);
     // Navigate to specific practice mode
-    setTimeout(() => {
+    if (id === 'putting') {
+      navigate('/putting-practice');
+    } else {
       navigate(`/practice/${id}`);
-    }, 500);
+    }
   };
 
   return (
