@@ -23,13 +23,8 @@ const ShotGuidance: React.FC = () => {
     } else if (step === 3) {
       setStep(4);
     } else {
-      // Check if on green
-      if (distance < 50) {
-        navigate(`/green-transition?hole=${holeNumber}`);
-      } else {
-        // Continue with next shot
-        navigate(`/shot-guidance?hole=${holeNumber}&step=1`);
-      }
+      // Navigate to shot complete screen
+      navigate(`/shot-complete?hole=${holeNumber}&shot=1&club=7 Iron&distance=${distance}&condition=${condition}`);
     }
   };
 

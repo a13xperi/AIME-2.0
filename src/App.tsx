@@ -51,6 +51,8 @@ import CourseDetail from './components/CourseDetail/CourseDetail';
 import Trends from './components/Trends/Trends';
 import HoleAnalysis from './components/HoleAnalysis/HoleAnalysis';
 import LoadingStates from './components/Loading/LoadingStates';
+import ShotComplete from './components/ShotComplete/ShotComplete';
+import ShotAnalysis from './components/ShotAnalysis/ShotAnalysis';
 import './App.css';
 
 function App() {
@@ -108,6 +110,8 @@ function App() {
             <Route path="/trends" element={<Trends />} />
             <Route path="/hole-analysis" element={<HoleAnalysis />} />
             <Route path="/loading-states" element={<LoadingStates />} />
+            <Route path="/shot-complete" element={<ShotComplete />} />
+            <Route path="/shot-analysis" element={<ShotAnalysis />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
