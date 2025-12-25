@@ -14,6 +14,7 @@ import AnalyticsDashboard from './components/AnalyticsDashboard/AnalyticsDashboa
 import TeamCollaboration from './components/TeamCollaboration/TeamCollaboration';
 import AIRealtime from './components/airealtime/AIRealtime';
 import SplashScreen from './components/SplashScreen/SplashScreen';
+import LandingPage from './components/LandingPage/LandingPage';
 import './App.css';
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/projects" element={<ProjectsList />} />
             <Route path="/sessions" element={<SessionsList />} />
             <Route path="/analytics" element={<AnalyticsDashboard />} />
