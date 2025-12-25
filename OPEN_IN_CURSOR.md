@@ -52,3 +52,4 @@ After opening, check:
 - ⏳ **Next:** Open in Cursor to continue
 
 
+

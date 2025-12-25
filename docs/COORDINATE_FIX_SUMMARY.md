@@ -31,3 +31,4 @@ After the fix:
 ## Important Note
 The green_origin_projected_m should be the State Plane coordinates of the **actual green center** from survey data, not derived from a test point. This fix allows testing to proceed, but the manifest should be updated with real survey coordinates before production use.
 
+

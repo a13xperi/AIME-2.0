@@ -66,3 +66,4 @@ See `/tmp/browser_test_checklist.md` for detailed checklist.
 3. Test plot points visualization (if implemented)
 4. Document any UI/UX issues found during browser testing
 
+

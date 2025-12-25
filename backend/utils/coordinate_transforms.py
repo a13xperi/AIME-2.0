@@ -166,3 +166,4 @@ if __name__ == '__main__':
     print(f"Inverse (Green Local → Projected): ({x_proj_back:.2f}, {y_proj_back:.2f})")
     print(f"Round-trip error: {abs(x_proj - x_proj_back):.6f}, {abs(y_proj - y_proj_back):.6f}")
 
+

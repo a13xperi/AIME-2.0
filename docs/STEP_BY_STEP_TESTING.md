@@ -39,3 +39,4 @@ This guide walks through testing the complete AIME PuttSolver integration flow s
 - [ ] Verify response format
 - [ ] Check plot points display
 
+

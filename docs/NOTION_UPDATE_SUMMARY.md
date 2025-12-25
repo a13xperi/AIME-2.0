@@ -69,3 +69,4 @@ This document summarizes all progress to be pushed to Notion documentation.
 3. Developer blockers call
 4. Real coordinate data integration
 
+
