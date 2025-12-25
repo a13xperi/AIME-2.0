@@ -27,6 +27,11 @@ import RoundSettings from './components/RoundSettings/RoundSettings';
 import NextHole from './components/NextHole/NextHole';
 import ShotHistory from './components/ShotHistory/ShotHistory';
 import Settings from './components/Settings/Settings';
+import Welcome from './components/Welcome/Welcome';
+import RoundHistory from './components/RoundHistory/RoundHistory';
+import Scorecard from './components/Scorecard/Scorecard';
+import DetailedStats from './components/DetailedStats/DetailedStats';
+import Help from './components/Help/Help';
 import './App.css';
 
 function App() {
@@ -60,6 +65,11 @@ function App() {
             <Route path="/next-hole" element={<NextHole />} />
             <Route path="/round-complete" element={<RoundComplete />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/round-history" element={<RoundHistory />} />
+            <Route path="/scorecard" element={<Scorecard />} />
+            <Route path="/detailed-stats" element={<DetailedStats />} />
+            <Route path="/help" element={<Help />} />
           </Routes>
         </div>
       </Router>

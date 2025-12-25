@@ -18,6 +18,10 @@ const Settings: React.FC = () => {
     navigate(-1);
   };
 
+  const handleHelp = () => {
+    navigate('/help');
+  };
+
   return (
     <div className="settings-screen">
       <div className="phone-frame">
@@ -110,6 +114,9 @@ const Settings: React.FC = () => {
                   <span className="info-value">2025.12.25</span>
                 </div>
               </div>
+              <button className="action-btn" onClick={handleHelp}>
+                Help & Tutorials
+              </button>
             </div>
           </div>
         </div>

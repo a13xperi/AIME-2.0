@@ -11,9 +11,15 @@ const SplashScreen: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Auto-navigate to Course Selection after 2 seconds
+    // Check if user has seen welcome screen
+    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+    
     const timer = setTimeout(() => {
-      navigate('/course-selection');
+      if (!hasSeenWelcome) {
+        navigate('/welcome');
+      } else {
+        navigate('/course-selection');
+      }
     }, 2000);
 
     return () => clearTimeout(timer);

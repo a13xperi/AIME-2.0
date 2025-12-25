@@ -11,11 +11,11 @@ const RoundComplete: React.FC = () => {
   const navigate = useNavigate();
 
   const handleViewStats = () => {
-    navigate('/dashboard');
+    navigate('/detailed-stats');
   };
 
   const handleReturnHome = () => {
-    navigate('/');
+    navigate('/round-history');
   };
 
   return (
