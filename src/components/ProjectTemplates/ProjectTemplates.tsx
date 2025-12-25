@@ -13,7 +13,7 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
   isOpen,
   onClose,
   onTemplateSelect,
-  onApplyTemplate
+  onApplyTemplate,
 }) => {
   const [templates, setTemplates] = useState<ProjectTemplate[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<ProjectTemplate | null>(null);
@@ -29,7 +29,7 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
     'Marketing',
     'Business',
     'Personal',
-    'Learning'
+    'Learning',
   ];
 
   // Default templates
@@ -37,7 +37,8 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
     {
       id: 'web-app-template',
       name: 'Web Application',
-      description: 'Complete web application development template with frontend, backend, and deployment phases.',
+      description:
+        'Complete web application development template with frontend, backend, and deployment phases.',
       category: 'Development',
       tags: ['web', 'fullstack', 'react', 'node'],
       isDefault: true,
@@ -60,12 +61,34 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             order: 1,
             estimatedDuration: 20,
             dependencies: [],
-            deliverables: ['Project requirements', 'Architecture diagram', 'Development environment'],
+            deliverables: [
+              'Project requirements',
+              'Architecture diagram',
+              'Development environment',
+            ],
             checklist: [
-              { id: 'req-gathering', title: 'Gather requirements', isRequired: true, order: 1, category: 'Planning' },
-              { id: 'architecture', title: 'Design system architecture', isRequired: true, order: 2, category: 'Planning' },
-              { id: 'tech-stack', title: 'Choose technology stack', isRequired: true, order: 3, category: 'Planning' }
-            ]
+              {
+                id: 'req-gathering',
+                title: 'Gather requirements',
+                isRequired: true,
+                order: 1,
+                category: 'Planning',
+              },
+              {
+                id: 'architecture',
+                title: 'Design system architecture',
+                isRequired: true,
+                order: 2,
+                category: 'Planning',
+              },
+              {
+                id: 'tech-stack',
+                title: 'Choose technology stack',
+                isRequired: true,
+                order: 3,
+                category: 'Planning',
+              },
+            ],
           },
           {
             id: 'frontend',
@@ -76,10 +99,28 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['planning'],
             deliverables: ['UI components', 'User interactions', 'Responsive design'],
             checklist: [
-              { id: 'ui-design', title: 'Create UI mockups', isRequired: true, order: 1, category: 'Frontend' },
-              { id: 'components', title: 'Build React components', isRequired: true, order: 2, category: 'Frontend' },
-              { id: 'responsive', title: 'Implement responsive design', isRequired: true, order: 3, category: 'Frontend' }
-            ]
+              {
+                id: 'ui-design',
+                title: 'Create UI mockups',
+                isRequired: true,
+                order: 1,
+                category: 'Frontend',
+              },
+              {
+                id: 'components',
+                title: 'Build React components',
+                isRequired: true,
+                order: 2,
+                category: 'Frontend',
+              },
+              {
+                id: 'responsive',
+                title: 'Implement responsive design',
+                isRequired: true,
+                order: 3,
+                category: 'Frontend',
+              },
+            ],
           },
           {
             id: 'backend',
@@ -90,10 +131,28 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['planning'],
             deliverables: ['REST API', 'Database schema', 'Authentication'],
             checklist: [
-              { id: 'api-design', title: 'Design API endpoints', isRequired: true, order: 1, category: 'Backend' },
-              { id: 'database', title: 'Set up database', isRequired: true, order: 2, category: 'Backend' },
-              { id: 'auth', title: 'Implement authentication', isRequired: true, order: 3, category: 'Backend' }
-            ]
+              {
+                id: 'api-design',
+                title: 'Design API endpoints',
+                isRequired: true,
+                order: 1,
+                category: 'Backend',
+              },
+              {
+                id: 'database',
+                title: 'Set up database',
+                isRequired: true,
+                order: 2,
+                category: 'Backend',
+              },
+              {
+                id: 'auth',
+                title: 'Implement authentication',
+                isRequired: true,
+                order: 3,
+                category: 'Backend',
+              },
+            ],
           },
           {
             id: 'testing',
@@ -104,11 +163,29 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['frontend', 'backend'],
             deliverables: ['Test suite', 'Bug reports', 'Performance metrics'],
             checklist: [
-              { id: 'unit-tests', title: 'Write unit tests', isRequired: true, order: 1, category: 'Testing' },
-              { id: 'integration', title: 'Integration testing', isRequired: true, order: 2, category: 'Testing' },
-              { id: 'e2e', title: 'End-to-end testing', isRequired: true, order: 3, category: 'Testing' }
-            ]
-          }
+              {
+                id: 'unit-tests',
+                title: 'Write unit tests',
+                isRequired: true,
+                order: 1,
+                category: 'Testing',
+              },
+              {
+                id: 'integration',
+                title: 'Integration testing',
+                isRequired: true,
+                order: 2,
+                category: 'Testing',
+              },
+              {
+                id: 'e2e',
+                title: 'End-to-end testing',
+                isRequired: true,
+                order: 3,
+                category: 'Testing',
+              },
+            ],
+          },
         ],
         defaultSessions: [
           {
@@ -120,9 +197,21 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             objectives: ['Define project scope', 'Gather requirements', 'Create project timeline'],
             deliverables: ['Project requirements document', 'Timeline', 'Resource allocation'],
             checklist: [
-              { id: 'scope', title: 'Define project scope', isRequired: true, order: 1, category: 'Planning' },
-              { id: 'requirements', title: 'Document requirements', isRequired: true, order: 2, category: 'Planning' }
-            ]
+              {
+                id: 'scope',
+                title: 'Define project scope',
+                isRequired: true,
+                order: 1,
+                category: 'Planning',
+              },
+              {
+                id: 'requirements',
+                title: 'Document requirements',
+                isRequired: true,
+                order: 2,
+                category: 'Planning',
+              },
+            ],
           },
           {
             id: 'development-session',
@@ -133,15 +222,45 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             objectives: ['Implement features', 'Write clean code', 'Test functionality'],
             deliverables: ['Working features', 'Code commits', 'Test results'],
             checklist: [
-              { id: 'implement', title: 'Implement features', isRequired: true, order: 1, category: 'Development' },
-              { id: 'test', title: 'Test functionality', isRequired: true, order: 2, category: 'Development' }
-            ]
-          }
+              {
+                id: 'implement',
+                title: 'Implement features',
+                isRequired: true,
+                order: 1,
+                category: 'Development',
+              },
+              {
+                id: 'test',
+                title: 'Test functionality',
+                isRequired: true,
+                order: 2,
+                category: 'Development',
+              },
+            ],
+          },
         ],
         checklist: [
-          { id: 'setup', title: 'Set up development environment', isRequired: true, order: 1, category: 'Setup' },
-          { id: 'repo', title: 'Create Git repository', isRequired: true, order: 2, category: 'Setup' },
-          { id: 'deploy', title: 'Deploy to production', isRequired: true, order: 3, category: 'Deployment' }
+          {
+            id: 'setup',
+            title: 'Set up development environment',
+            isRequired: true,
+            order: 1,
+            category: 'Setup',
+          },
+          {
+            id: 'repo',
+            title: 'Create Git repository',
+            isRequired: true,
+            order: 2,
+            category: 'Setup',
+          },
+          {
+            id: 'deploy',
+            title: 'Deploy to production',
+            isRequired: true,
+            order: 3,
+            category: 'Deployment',
+          },
         ],
         resources: [
           {
@@ -150,7 +269,7 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             type: 'Link',
             url: 'https://reactjs.org/docs',
             description: 'Official React documentation',
-            category: 'Documentation'
+            category: 'Documentation',
           },
           {
             id: 'node-docs',
@@ -158,10 +277,10 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             type: 'Link',
             url: 'https://nodejs.org/docs',
             description: 'Official Node.js documentation',
-            category: 'Documentation'
-          }
-        ]
-      }
+            category: 'Documentation',
+          },
+        ],
+      },
     },
     {
       id: 'mobile-app-template',
@@ -191,9 +310,21 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: [],
             deliverables: ['Wireframes', 'UI mockups', 'User flow'],
             checklist: [
-              { id: 'wireframes', title: 'Create wireframes', isRequired: true, order: 1, category: 'Design' },
-              { id: 'mockups', title: 'Design UI mockups', isRequired: true, order: 2, category: 'Design' }
-            ]
+              {
+                id: 'wireframes',
+                title: 'Create wireframes',
+                isRequired: true,
+                order: 1,
+                category: 'Design',
+              },
+              {
+                id: 'mockups',
+                title: 'Design UI mockups',
+                isRequired: true,
+                order: 2,
+                category: 'Design',
+              },
+            ],
           },
           {
             id: 'development',
@@ -204,9 +335,21 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['design'],
             deliverables: ['Mobile app', 'Core features', 'Navigation'],
             checklist: [
-              { id: 'setup', title: 'Set up development environment', isRequired: true, order: 1, category: 'Development' },
-              { id: 'features', title: 'Implement core features', isRequired: true, order: 2, category: 'Development' }
-            ]
+              {
+                id: 'setup',
+                title: 'Set up development environment',
+                isRequired: true,
+                order: 1,
+                category: 'Development',
+              },
+              {
+                id: 'features',
+                title: 'Implement core features',
+                isRequired: true,
+                order: 2,
+                category: 'Development',
+              },
+            ],
           },
           {
             id: 'testing',
@@ -217,10 +360,22 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['development'],
             deliverables: ['Tested app', 'Store listings', 'Published app'],
             checklist: [
-              { id: 'test', title: 'Test on devices', isRequired: true, order: 1, category: 'Testing' },
-              { id: 'store', title: 'Submit to app stores', isRequired: true, order: 2, category: 'Deployment' }
-            ]
-          }
+              {
+                id: 'test',
+                title: 'Test on devices',
+                isRequired: true,
+                order: 1,
+                category: 'Testing',
+              },
+              {
+                id: 'store',
+                title: 'Submit to app stores',
+                isRequired: true,
+                order: 2,
+                category: 'Deployment',
+              },
+            ],
+          },
         ],
         defaultSessions: [
           {
@@ -232,15 +387,39 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             objectives: ['Design app screens', 'Create user flows', 'Plan navigation'],
             deliverables: ['UI mockups', 'User flow diagrams', 'Design system'],
             checklist: [
-              { id: 'screens', title: 'Design app screens', isRequired: true, order: 1, category: 'Design' },
-              { id: 'flow', title: 'Create user flow', isRequired: true, order: 2, category: 'Design' }
-            ]
-          }
+              {
+                id: 'screens',
+                title: 'Design app screens',
+                isRequired: true,
+                order: 1,
+                category: 'Design',
+              },
+              {
+                id: 'flow',
+                title: 'Create user flow',
+                isRequired: true,
+                order: 2,
+                category: 'Design',
+              },
+            ],
+          },
         ],
         checklist: [
-          { id: 'setup', title: 'Set up React Native environment', isRequired: true, order: 1, category: 'Setup' },
-          { id: 'features', title: 'Implement core features', isRequired: true, order: 2, category: 'Development' },
-          { id: 'test', title: 'Test on devices', isRequired: true, order: 3, category: 'Testing' }
+          {
+            id: 'setup',
+            title: 'Set up React Native environment',
+            isRequired: true,
+            order: 1,
+            category: 'Setup',
+          },
+          {
+            id: 'features',
+            title: 'Implement core features',
+            isRequired: true,
+            order: 2,
+            category: 'Development',
+          },
+          { id: 'test', title: 'Test on devices', isRequired: true, order: 3, category: 'Testing' },
         ],
         resources: [
           {
@@ -249,10 +428,10 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             type: 'Link',
             url: 'https://reactnative.dev/docs',
             description: 'Official React Native documentation',
-            category: 'Documentation'
-          }
-        ]
-      }
+            category: 'Documentation',
+          },
+        ],
+      },
     },
     {
       id: 'research-template',
@@ -282,9 +461,21 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: [],
             deliverables: ['Literature review', 'Source citations', 'Research gaps'],
             checklist: [
-              { id: 'sources', title: 'Find relevant sources', isRequired: true, order: 1, category: 'Research' },
-              { id: 'review', title: 'Write literature review', isRequired: true, order: 2, category: 'Research' }
-            ]
+              {
+                id: 'sources',
+                title: 'Find relevant sources',
+                isRequired: true,
+                order: 1,
+                category: 'Research',
+              },
+              {
+                id: 'review',
+                title: 'Write literature review',
+                isRequired: true,
+                order: 2,
+                category: 'Research',
+              },
+            ],
           },
           {
             id: 'methodology',
@@ -295,9 +486,21 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['literature'],
             deliverables: ['Research methodology', 'Data collection plan', 'Analysis framework'],
             checklist: [
-              { id: 'method', title: 'Define research method', isRequired: true, order: 1, category: 'Methodology' },
-              { id: 'data', title: 'Plan data collection', isRequired: true, order: 2, category: 'Methodology' }
-            ]
+              {
+                id: 'method',
+                title: 'Define research method',
+                isRequired: true,
+                order: 1,
+                category: 'Methodology',
+              },
+              {
+                id: 'data',
+                title: 'Plan data collection',
+                isRequired: true,
+                order: 2,
+                category: 'Methodology',
+              },
+            ],
           },
           {
             id: 'analysis',
@@ -308,9 +511,21 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['methodology'],
             deliverables: ['Collected data', 'Analysis results', 'Findings'],
             checklist: [
-              { id: 'collect', title: 'Collect data', isRequired: true, order: 1, category: 'Analysis' },
-              { id: 'analyze', title: 'Analyze data', isRequired: true, order: 2, category: 'Analysis' }
-            ]
+              {
+                id: 'collect',
+                title: 'Collect data',
+                isRequired: true,
+                order: 1,
+                category: 'Analysis',
+              },
+              {
+                id: 'analyze',
+                title: 'Analyze data',
+                isRequired: true,
+                order: 2,
+                category: 'Analysis',
+              },
+            ],
           },
           {
             id: 'reporting',
@@ -321,10 +536,22 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             dependencies: ['analysis'],
             deliverables: ['Research report', 'Presentation', 'Recommendations'],
             checklist: [
-              { id: 'report', title: 'Write research report', isRequired: true, order: 1, category: 'Writing' },
-              { id: 'present', title: 'Create presentation', isRequired: true, order: 2, category: 'Presentation' }
-            ]
-          }
+              {
+                id: 'report',
+                title: 'Write research report',
+                isRequired: true,
+                order: 1,
+                category: 'Writing',
+              },
+              {
+                id: 'present',
+                title: 'Create presentation',
+                isRequired: true,
+                order: 2,
+                category: 'Presentation',
+              },
+            ],
+          },
         ],
         defaultSessions: [
           {
@@ -336,15 +563,45 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             objectives: ['Gather information', 'Analyze sources', 'Take notes'],
             deliverables: ['Research notes', 'Source citations', 'Key findings'],
             checklist: [
-              { id: 'gather', title: 'Gather information', isRequired: true, order: 1, category: 'Research' },
-              { id: 'notes', title: 'Take detailed notes', isRequired: true, order: 2, category: 'Research' }
-            ]
-          }
+              {
+                id: 'gather',
+                title: 'Gather information',
+                isRequired: true,
+                order: 1,
+                category: 'Research',
+              },
+              {
+                id: 'notes',
+                title: 'Take detailed notes',
+                isRequired: true,
+                order: 2,
+                category: 'Research',
+              },
+            ],
+          },
         ],
         checklist: [
-          { id: 'topic', title: 'Define research topic', isRequired: true, order: 1, category: 'Planning' },
-          { id: 'sources', title: 'Find relevant sources', isRequired: true, order: 2, category: 'Research' },
-          { id: 'report', title: 'Write final report', isRequired: true, order: 3, category: 'Writing' }
+          {
+            id: 'topic',
+            title: 'Define research topic',
+            isRequired: true,
+            order: 1,
+            category: 'Planning',
+          },
+          {
+            id: 'sources',
+            title: 'Find relevant sources',
+            isRequired: true,
+            order: 2,
+            category: 'Research',
+          },
+          {
+            id: 'report',
+            title: 'Write final report',
+            isRequired: true,
+            order: 3,
+            category: 'Writing',
+          },
         ],
         resources: [
           {
@@ -352,11 +609,11 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             name: 'Research Methods Guide',
             type: 'Document',
             description: 'Guide to research methodologies',
-            category: 'Reference'
-          }
-        ]
-      }
-    }
+            category: 'Reference',
+          },
+        ],
+      },
+    },
   ];
 
   useEffect(() => {
@@ -367,9 +624,10 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
   }, [isOpen]);
 
   const filteredTemplates = templates.filter(template => {
-    const matchesSearch = template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         template.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         template.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesSearch =
+      template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      template.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      template.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesCategory = selectedCategory === 'All' || template.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -385,9 +643,12 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
         name: selectedTemplate.templateData.projectName,
         description: selectedTemplate.templateData.description,
         category: selectedTemplate.templateData.category,
-        priority: selectedTemplate.templateData.priority === 'Urgent' ? 'Critical' : selectedTemplate.templateData.priority as any,
+        priority:
+          selectedTemplate.templateData.priority === 'Urgent'
+            ? 'Critical'
+            : (selectedTemplate.templateData.priority as any),
         status: 'Active' as const,
-        estimatedDuration: selectedTemplate.templateData.estimatedDuration
+        estimatedDuration: selectedTemplate.templateData.estimatedDuration,
       };
       onApplyTemplate(selectedTemplate, projectData);
       onClose();
@@ -401,7 +662,9 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
       <div className="project-templates-modal">
         <div className="templates-header">
           <h2>📋 Project Templates</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="templates-content">
@@ -411,7 +674,7 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
                 type="text"
                 placeholder="Search templates..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
                 className="search-input"
               />
             </div>
@@ -436,10 +699,7 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
             {showTemplateDetails && selectedTemplate ? (
               <div className="template-details">
                 <div className="template-details-header">
-                  <button 
-                    className="back-button"
-                    onClick={() => setShowTemplateDetails(false)}
-                  >
+                  <button className="back-button" onClick={() => setShowTemplateDetails(false)}>
                     ← Back to Templates
                   </button>
                   <h3>{selectedTemplate.name}</h3>
@@ -449,7 +709,9 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
                   <p className="template-description">{selectedTemplate.description}</p>
                   <div className="template-meta">
                     <span className="template-category">{selectedTemplate.category}</span>
-                    <span className="template-duration">{selectedTemplate.templateData.estimatedDuration}h estimated</span>
+                    <span className="template-duration">
+                      {selectedTemplate.templateData.estimatedDuration}h estimated
+                    </span>
                   </div>
                 </div>
 
@@ -494,7 +756,12 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
                       </div>
                       <p className="resource-description">{resource.description}</p>
                       {resource.url && (
-                        <a href={resource.url} target="_blank" rel="noopener noreferrer" className="resource-link">
+                        <a
+                          href={resource.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="resource-link"
+                        >
                           View Resource
                         </a>
                       )}
@@ -521,15 +788,21 @@ const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
                     </div>
                     <p className="template-description">{template.description}</p>
                     <div className="template-meta">
-                      <span className="template-duration">{template.templateData.estimatedDuration}h</span>
-                      <span className="template-phases">{template.templateData.phases.length} phases</span>
+                      <span className="template-duration">
+                        {template.templateData.estimatedDuration}h
+                      </span>
+                      <span className="template-phases">
+                        {template.templateData.phases.length} phases
+                      </span>
                     </div>
                     <div className="template-tags">
                       {template.tags.map(tag => (
-                        <span key={tag} className="template-tag">{tag}</span>
+                        <span key={tag} className="template-tag">
+                          {tag}
+                        </span>
                       ))}
                     </div>
-                    <button 
+                    <button
                       className="btn btn-primary"
                       onClick={() => handleTemplateSelect(template)}
                     >

@@ -12,7 +12,7 @@ const BreakReminder: React.FC<BreakReminderProps> = ({
   isVisible,
   onClose,
   onTakeBreak,
-  workDuration
+  workDuration,
 }) => {
   const [timeLeft, setTimeLeft] = useState(30); // 30 second countdown
   const [isDismissed, setIsDismissed] = useState(false);
@@ -51,7 +51,9 @@ const BreakReminder: React.FC<BreakReminderProps> = ({
       <div className="break-reminder-modal">
         <div className="break-reminder-header">
           <h2>⏰ Break Time!</h2>
-          <button className="close-button" onClick={handleDismiss}>×</button>
+          <button className="close-button" onClick={handleDismiss}>
+            ×
+          </button>
         </div>
 
         <div className="break-reminder-content">
@@ -99,5 +101,3 @@ const BreakReminder: React.FC<BreakReminderProps> = ({
 };
 
 export default BreakReminder;
-
-

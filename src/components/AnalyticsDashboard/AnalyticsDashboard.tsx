@@ -27,14 +27,14 @@ const AnalyticsDashboard: React.FC = () => {
   const loadAnalyticsData = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
-      
+
       // Fetch sessions and projects data
       const [sessionsResponse, projectsResponse] = await Promise.all([
         fetch(`${API_URL}/api/sessions`),
-        fetch(`${API_URL}/api/projects`)
+        fetch(`${API_URL}/api/projects`),
       ]);
 
       const sessionsData = await sessionsResponse.json();
@@ -67,13 +67,11 @@ const AnalyticsDashboard: React.FC = () => {
       '7d': 7 * 24 * 60 * 60 * 1000,
       '30d': 30 * 24 * 60 * 60 * 1000,
       '90d': 90 * 24 * 60 * 60 * 1000,
-      '1y': 365 * 24 * 60 * 60 * 1000
+      '1y': 365 * 24 * 60 * 60 * 1000,
     };
 
     const cutoffDate = new Date(now.getTime() - timeRangeMs[timeRange]);
-    const filteredSessions = sessions.filter(session => 
-      new Date(session.date) >= cutoffDate
-    );
+    const filteredSessions = sessions.filter(session => new Date(session.date) >= cutoffDate);
 
     // Basic metrics
     const totalSessions = filteredSessions.length;
@@ -82,7 +80,8 @@ const AnalyticsDashboard: React.FC = () => {
 
     // Productivity score (based on completed sessions and session quality)
     const completedSessions = filteredSessions.filter(s => s.status === 'Completed').length;
-    const productivityScore = totalSessions > 0 ? Math.round((completedSessions / totalSessions) * 100) : 0;
+    const productivityScore =
+      totalSessions > 0 ? Math.round((completedSessions / totalSessions) * 100) : 0;
 
     // Top projects
     const projectStats = new Map<string, { sessions: number; hours: number }>();
@@ -91,7 +90,7 @@ const AnalyticsDashboard: React.FC = () => {
       const current = projectStats.get(projectName) || { sessions: 0, hours: 0 };
       projectStats.set(projectName, {
         sessions: current.sessions + 1,
-        hours: current.hours + (session.duration || 0)
+        hours: current.hours + (session.duration || 0),
       });
     });
 
@@ -111,16 +110,16 @@ const AnalyticsDashboard: React.FC = () => {
       .map(([type, count]) => ({
         type,
         count,
-        percentage: Math.round((count / totalSessions) * 100)
+        percentage: Math.round((count / totalSessions) * 100),
       }))
       .sort((a, b) => b.count - a.count);
 
     // Weekly trends (last 4 weeks)
     const weeklyTrends = [];
     for (let i = 3; i >= 0; i--) {
-      const weekStart = new Date(now.getTime() - (i * 7 * 24 * 60 * 60 * 1000));
-      const weekEnd = new Date(weekStart.getTime() + (7 * 24 * 60 * 60 * 1000));
-      
+      const weekStart = new Date(now.getTime() - i * 7 * 24 * 60 * 60 * 1000);
+      const weekEnd = new Date(weekStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+
       const weekSessions = filteredSessions.filter(session => {
         const sessionDate = new Date(session.date);
         return sessionDate >= weekStart && sessionDate < weekEnd;
@@ -129,7 +128,7 @@ const AnalyticsDashboard: React.FC = () => {
       weeklyTrends.push({
         date: weekStart.toISOString().split('T')[0],
         sessions: weekSessions.length,
-        hours: weekSessions.reduce((sum, s) => sum + (s.duration || 0), 0)
+        hours: weekSessions.reduce((sum, s) => sum + (s.duration || 0), 0),
       });
     }
 
@@ -138,7 +137,7 @@ const AnalyticsDashboard: React.FC = () => {
     for (let i = 5; i >= 0; i--) {
       const monthStart = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
-      
+
       const monthSessions = filteredSessions.filter(session => {
         const sessionDate = new Date(session.date);
         return sessionDate >= monthStart && sessionDate < monthEnd;
@@ -147,7 +146,7 @@ const AnalyticsDashboard: React.FC = () => {
       monthlyBreakdown.push({
         month: monthStart.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
         sessions: monthSessions.length,
-        hours: monthSessions.reduce((sum, s) => sum + (s.duration || 0), 0)
+        hours: monthSessions.reduce((sum, s) => sum + (s.duration || 0), 0),
       });
     }
 
@@ -162,7 +161,7 @@ const AnalyticsDashboard: React.FC = () => {
       .map(([status, count]) => ({
         status,
         count,
-        percentage: Math.round((count / totalSessions) * 100)
+        percentage: Math.round((count / totalSessions) * 100),
       }))
       .sort((a, b) => b.count - a.count);
 
@@ -175,7 +174,7 @@ const AnalyticsDashboard: React.FC = () => {
       topProjects,
       sessionTypes,
       weeklyTrends,
-      statusDistribution
+      statusDistribution,
     });
 
     return {
@@ -188,7 +187,7 @@ const AnalyticsDashboard: React.FC = () => {
       weeklyTrends,
       monthlyBreakdown,
       statusDistribution,
-      productivityInsights: insights
+      productivityInsights: insights,
     };
   };
 
@@ -196,33 +195,47 @@ const AnalyticsDashboard: React.FC = () => {
     const insights = [];
 
     if (data.productivityScore >= 80) {
-      insights.push("🎯 Excellent productivity! You're completing most of your sessions successfully.");
+      insights.push(
+        "🎯 Excellent productivity! You're completing most of your sessions successfully."
+      );
     } else if (data.productivityScore >= 60) {
-      insights.push("📈 Good productivity! Consider focusing on completing more sessions.");
+      insights.push('📈 Good productivity! Consider focusing on completing more sessions.');
     } else {
-      insights.push("💡 Room for improvement. Try breaking down larger tasks into smaller sessions.");
+      insights.push(
+        '💡 Room for improvement. Try breaking down larger tasks into smaller sessions.'
+      );
     }
 
     if (data.averageSessionDuration > 2) {
-      insights.push("⏱️ Long session durations detected. Consider taking more breaks for better focus.");
+      insights.push(
+        '⏱️ Long session durations detected. Consider taking more breaks for better focus.'
+      );
     } else if (data.averageSessionDuration < 0.5) {
-      insights.push("⚡ Short sessions detected. You might benefit from longer focused work periods.");
+      insights.push(
+        '⚡ Short sessions detected. You might benefit from longer focused work periods.'
+      );
     }
 
     if (data.topProjects.length > 0) {
       const topProject = data.topProjects[0];
-      insights.push(`🏆 Your most active project is "${topProject.name}" with ${topProject.sessions} sessions.`);
+      insights.push(
+        `🏆 Your most active project is "${topProject.name}" with ${topProject.sessions} sessions.`
+      );
     }
 
     if (data.weeklyTrends.length >= 2) {
       const recent = data.weeklyTrends[data.weeklyTrends.length - 1];
       const previous = data.weeklyTrends[data.weeklyTrends.length - 2];
       const change = recent.sessions - previous.sessions;
-      
+
       if (change > 0) {
-        insights.push(`📊 Great momentum! ${change} more sessions this week compared to last week.`);
+        insights.push(
+          `📊 Great momentum! ${change} more sessions this week compared to last week.`
+        );
       } else if (change < 0) {
-        insights.push(`📉 Session count decreased by ${Math.abs(change)} this week. Consider adjusting your schedule.`);
+        insights.push(
+          `📉 Session count decreased by ${Math.abs(change)} this week. Consider adjusting your schedule.`
+        );
       }
     }
 
@@ -268,7 +281,7 @@ const AnalyticsDashboard: React.FC = () => {
         <h1>📊 Analytics Dashboard</h1>
         <div className="time-range-selector">
           <label>Time Range:</label>
-          <select value={timeRange} onChange={(e) => setTimeRange(e.target.value as any)}>
+          <select value={timeRange} onChange={e => setTimeRange(e.target.value as any)}>
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
             <option value="90d">Last 90 days</option>
@@ -302,11 +315,7 @@ const AnalyticsDashboard: React.FC = () => {
       </div>
 
       {/* Productivity Insights */}
-      <ProductivityInsights 
-        sessions={sessions} 
-        projects={projects} 
-        timeRange={timeRange} 
-      />
+      <ProductivityInsights sessions={sessions} projects={projects} timeRange={timeRange} />
 
       {/* Basic Insights */}
       <div className="insights-section">
@@ -334,10 +343,10 @@ const AnalyticsDashboard: React.FC = () => {
                   <span>{project.hours.toFixed(1)}h</span>
                 </div>
                 <div className="project-bar">
-                  <div 
-                    className="project-progress" 
-                    style={{ 
-                      width: `${(project.sessions / analyticsData.topProjects[0].sessions) * 100}%` 
+                  <div
+                    className="project-progress"
+                    style={{
+                      width: `${(project.sessions / analyticsData.topProjects[0].sessions) * 100}%`,
                     }}
                   ></div>
                 </div>
@@ -354,13 +363,12 @@ const AnalyticsDashboard: React.FC = () => {
               <div key={index} className="type-stat">
                 <div className="type-info">
                   <span className="type-name">{type.type}</span>
-                  <span className="type-count">{type.count} ({type.percentage}%)</span>
+                  <span className="type-count">
+                    {type.count} ({type.percentage}%)
+                  </span>
                 </div>
                 <div className="type-bar">
-                  <div 
-                    className="type-progress" 
-                    style={{ width: `${type.percentage}%` }}
-                  ></div>
+                  <div className="type-progress" style={{ width: `${type.percentage}%` }}></div>
                 </div>
               </div>
             ))}
@@ -375,13 +383,12 @@ const AnalyticsDashboard: React.FC = () => {
               <div key={index} className="status-stat">
                 <div className="status-info">
                   <span className="status-name">{status.status}</span>
-                  <span className="status-count">{status.count} ({status.percentage}%)</span>
+                  <span className="status-count">
+                    {status.count} ({status.percentage}%)
+                  </span>
                 </div>
                 <div className="status-bar">
-                  <div 
-                    className="status-progress" 
-                    style={{ width: `${status.percentage}%` }}
-                  ></div>
+                  <div className="status-progress" style={{ width: `${status.percentage}%` }}></div>
                 </div>
               </div>
             ))}
@@ -394,12 +401,27 @@ const AnalyticsDashboard: React.FC = () => {
           <div className="trends-chart">
             {analyticsData.weeklyTrends.map((week, index) => (
               <div key={index} className="trend-bar">
-                <div className="trend-label">{new Date(week.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
+                <div className="trend-label">
+                  {new Date(week.date).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </div>
                 <div className="trend-bars">
-                  <div className="trend-sessions" style={{ height: `${(week.sessions / Math.max(...analyticsData.weeklyTrends.map(w => w.sessions))) * 100}%` }}>
+                  <div
+                    className="trend-sessions"
+                    style={{
+                      height: `${(week.sessions / Math.max(...analyticsData.weeklyTrends.map(w => w.sessions))) * 100}%`,
+                    }}
+                  >
                     <span>{week.sessions}</span>
                   </div>
-                  <div className="trend-hours" style={{ height: `${(week.hours / Math.max(...analyticsData.weeklyTrends.map(w => w.hours))) * 100}%` }}>
+                  <div
+                    className="trend-hours"
+                    style={{
+                      height: `${(week.hours / Math.max(...analyticsData.weeklyTrends.map(w => w.hours))) * 100}%`,
+                    }}
+                  >
                     <span>{week.hours.toFixed(1)}h</span>
                   </div>
                 </div>

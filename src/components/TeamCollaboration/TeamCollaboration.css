@@ -320,7 +320,7 @@
   cursor: pointer;
 }
 
-.comment-type-selector input[type="radio"] {
+.comment-type-selector input[type='radio'] {
   margin: 0;
 }
 
@@ -391,120 +391,120 @@
   .team-collaboration {
     background: #374151;
   }
-  
+
   .team-header {
     border-bottom-color: #4b5563;
   }
-  
+
   .team-header h2 {
     color: #f9fafb;
   }
-  
+
   .team-loading {
     color: #9ca3af;
   }
-  
+
   .team-members-section {
     background: #4b5563;
   }
-  
+
   .team-members-section h3 {
     color: #f9fafb;
   }
-  
+
   .team-member-card {
     background: #1f2937;
     border-color: #4b5563;
   }
-  
+
   .member-name {
     color: #f9fafb;
   }
-  
+
   .member-role {
     color: #9ca3af;
   }
-  
+
   .member-status {
     color: #6b7280;
   }
-  
+
   .collaboration-section {
     background: #4b5563;
   }
-  
+
   .collaboration-section h3 {
     color: #f9fafb;
   }
-  
+
   .project-selector select,
   .session-selector select {
     background: #1f2937;
     border-color: #4b5563;
     color: #f9fafb;
   }
-  
+
   .project-selector select:hover,
   .session-selector select:hover {
     border-color: #60a5fa;
   }
-  
+
   .project-info,
   .session-info {
     background: #1f2937;
     border-color: #4b5563;
   }
-  
+
   .project-info h4,
   .session-info h4 {
     color: #f9fafb;
   }
-  
+
   .project-info p,
   .session-info p {
     color: #9ca3af;
   }
-  
+
   .comments-section h5 {
     color: #d1d5db;
   }
-  
+
   .comment-item {
     background: #1f2937;
   }
-  
+
   .comment-author {
     color: #f9fafb;
   }
-  
+
   .comment-type {
     color: #9ca3af;
     background: #4b5563;
   }
-  
+
   .comment-time {
     color: #6b7280;
   }
-  
+
   .comment-content {
     color: #d1d5db;
   }
-  
+
   .add-comment {
     background: #1f2937;
     border-color: #4b5563;
   }
-  
+
   .comment-type-selector label {
     color: #d1d5db;
   }
-  
+
   .add-comment textarea {
     background: #374151;
     border-color: #4b5563;
     color: #f9fafb;
   }
-  
+
   .add-comment textarea:hover {
     border-color: #60a5fa;
   }
@@ -515,30 +515,28 @@
   .team-collaboration {
     padding: 16px;
   }
-  
+
   .team-header {
     flex-direction: column;
     gap: 12px;
     align-items: stretch;
   }
-  
+
   .team-members-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .collaboration-content {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .collaboration-section {
     padding: 16px;
   }
-  
+
   .comment-type-selector {
     flex-direction: column;
     gap: 8px;
   }
 }
-
-

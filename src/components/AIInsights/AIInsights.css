@@ -515,41 +515,41 @@
   .ai-insights-modal {
     background: #1f2937;
   }
-  
+
   .insights-header {
     border-bottom-color: #374151;
   }
-  
+
   .insights-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .insights-tabs {
     border-bottom-color: #374151;
   }
-  
+
   .tab-button {
     color: #9ca3af;
   }
-  
+
   .tab-button:hover {
     color: #d1d5db;
   }
-  
+
   .tab-button.active {
     color: #60a5fa;
     border-bottom-color: #60a5fa;
   }
-  
+
   .insight-card,
   .recommendation-card,
   .pattern-card,
@@ -558,7 +558,7 @@
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .insight-card:hover,
   .recommendation-card:hover,
   .pattern-card:hover,
@@ -567,7 +567,7 @@
     border-color: #60a5fa;
     box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
   }
-  
+
   .insight-title h3,
   .rec-title h3,
   .pattern-header h3,
@@ -575,91 +575,91 @@
   .suggestion-header h3 {
     color: #f9fafb;
   }
-  
+
   .pattern-type {
     background: #6b7280;
     color: #d1d5db;
   }
-  
+
   .confidence-score {
     color: #60a5fa;
   }
-  
+
   .confidence-label {
     color: #9ca3af;
   }
-  
+
   .impact-label {
     color: #9ca3af;
   }
-  
+
   .impact-value {
     color: #34d399;
   }
-  
+
   .insight-description,
   .rec-description,
   .pattern-description,
   .suggestion-description {
     color: #9ca3af;
   }
-  
+
   .suggestion-reasoning {
     color: #6b7280;
   }
-  
+
   .metric-label {
     color: #9ca3af;
   }
-  
+
   .metric-value {
     color: #f9fafb;
   }
-  
+
   .metric-row .metric-label {
     color: #d1d5db;
   }
-  
+
   .metric-bar {
     background: #4b5563;
   }
-  
+
   .rec-steps h4,
   .pattern-insights h4,
   .factor-group h4 {
     color: #d1d5db;
   }
-  
+
   .rec-steps li,
   .pattern-insights li,
   .factor-group li {
     color: #9ca3af;
   }
-  
+
   .rec-steps li.completed {
     color: #6b7280;
   }
-  
+
   .step-title {
     color: #d1d5db;
   }
-  
+
   .step-time {
     background: #6b7280;
     color: #d1d5db;
   }
-  
+
   .pred-probability,
   .pred-timeframe {
     background: #6b7280;
     color: #d1d5db;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -672,35 +672,35 @@
   .ai-insights-overlay {
     padding: 10px;
   }
-  
+
   .ai-insights-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .insights-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .insights-header h2 {
     font-size: 20px;
   }
-  
+
   .insights-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .insights-tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 4px;
   }
-  
+
   .tab-button {
     padding: 8px 12px;
     font-size: 12px;
   }
-  
+
   .insight-header,
   .rec-header,
   .pred-header,
@@ -709,42 +709,40 @@
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .insight-confidence,
   .rec-impact,
   .pred-confidence {
     align-items: flex-start;
   }
-  
+
   .insight-metrics {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .metric-item {
     min-width: auto;
   }
-  
+
   .pred-factors {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .insight-actions,
   .rec-actions,
   .suggestion-actions {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .suggestion-actions {
     align-items: stretch;
   }
-  
+
   .btn {
     width: 100%;
     justify-content: center;
   }
 }
-
-

@@ -21,7 +21,7 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
   session,
   onTimeUpdate,
   onClose,
-  autoStart = false
+  autoStart = false,
 }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [startTime, setStartTime] = useState<Date | null>(null);
@@ -36,14 +36,14 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
     const now = new Date();
     setIsRunning(true);
     setStartTime(now);
-    
+
     const newEntry: TimeEntry = {
       id: `entry-${Date.now()}`,
       startTime: now,
       duration: 0,
-      description: `Work session - ${session.title}`
+      description: `Work session - ${session.title}`,
     };
-    
+
     setCurrentEntry(newEntry);
     setTimeEntries(prev => [...prev, newEntry]);
   }, [session.title]);
@@ -56,7 +56,7 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    
+
     if (isRunning && startTime) {
       interval = setInterval(() => {
         const now = new Date();
@@ -74,14 +74,16 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
     if (currentEntry && startTime) {
       const now = new Date();
       const sessionDuration = Math.floor((now.getTime() - startTime.getTime()) / 1000);
-      
-      setTimeEntries(prev => prev.map(entry => 
-        entry.id === currentEntry.id 
-          ? { ...entry, endTime: now, duration: sessionDuration }
-          : entry
-      ));
+
+      setTimeEntries(prev =>
+        prev.map(entry =>
+          entry.id === currentEntry.id
+            ? { ...entry, endTime: now, duration: sessionDuration }
+            : entry
+        )
+      );
     }
-    
+
     setIsRunning(false);
     setStartTime(null);
     const newDuration = sessionDuration + elapsedTime;
@@ -94,14 +96,14 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
     if (currentEntry && startTime) {
       const now = new Date();
       const totalDuration = Math.floor((now.getTime() - startTime.getTime()) / 1000);
-      
-      setTimeEntries(prev => prev.map(entry => 
-        entry.id === currentEntry.id 
-          ? { ...entry, endTime: now, duration: totalDuration }
-          : entry
-      ));
+
+      setTimeEntries(prev =>
+        prev.map(entry =>
+          entry.id === currentEntry.id ? { ...entry, endTime: now, duration: totalDuration } : entry
+        )
+      );
     }
-    
+
     setIsRunning(false);
     setStartTime(null);
     const finalDuration = sessionDuration + elapsedTime;
@@ -125,7 +127,7 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    
+
     if (hours > 0) {
       return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
@@ -150,7 +152,9 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
       <div className="time-tracker-modal">
         <div className="time-tracker-header">
           <h2>⏱️ Time Tracker</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="time-tracker-content">
@@ -164,7 +168,7 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
               <div className="time-label">Current Session</div>
               <div className="time-value">{formatTime(elapsedTime)}</div>
             </div>
-            
+
             <div className="total-time">
               <div className="time-label">Total Time</div>
               <div className="time-value">{formatTime(totalTime)}</div>
@@ -186,7 +190,7 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
                 </button>
               </div>
             )}
-            
+
             <button className="btn btn-outline" onClick={resetTimer}>
               🔄 Reset
             </button>
@@ -214,13 +218,13 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
           </div>
 
           <div className="time-entries-section">
-            <button 
-              className="btn btn-outline btn-small" 
+            <button
+              className="btn btn-outline btn-small"
               onClick={() => setShowTimeEntries(!showTimeEntries)}
             >
               📊 {showTimeEntries ? 'Hide' : 'Show'} Time Entries
             </button>
-            
+
             {showTimeEntries && (
               <div className="time-entries">
                 <h4>📋 Time Entries</h4>
@@ -236,7 +240,8 @@ const TimeTracker: React.FC<TimeTrackerProps> = ({
                         </div>
                         <div className="entry-details">
                           <span className="entry-time">
-                            {entry.startTime.toLocaleTimeString()} - {entry.endTime?.toLocaleTimeString() || 'Running'}
+                            {entry.startTime.toLocaleTimeString()} -{' '}
+                            {entry.endTime?.toLocaleTimeString() || 'Running'}
                           </span>
                           {entry.description && (
                             <span className="entry-description">{entry.description}</span>

@@ -22,7 +22,10 @@ function App() {
           <Route path="/projects" element={<ProjectsList />} />
           <Route path="/sessions" element={<SessionsList />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />
-          <Route path="/team" element={<TeamCollaboration projects={[]} sessions={[]} currentUserId="current-user" />} />
+          <Route
+            path="/team"
+            element={<TeamCollaboration projects={[]} sessions={[]} currentUserId="current-user" />}
+          />
           <Route path="/project/:id" element={<ProjectDetail />} />
           <Route path="/session/:id" element={<SessionDetail />} />
         </Routes>

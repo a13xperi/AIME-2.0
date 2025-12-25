@@ -12,9 +12,7 @@ const OfflineMode: React.FC<OfflineModeProps> = ({ onRetry, error }) => {
       <div className="offline-content">
         <div className="offline-icon">📡</div>
         <h2>Offline Mode</h2>
-        <p>
-          {error || 'Unable to connect to Notion API. This could be due to:'}
-        </p>
+        <p>{error || 'Unable to connect to Notion API. This could be due to:'}</p>
         <ul>
           <li>Notion API service temporarily unavailable</li>
           <li>Network connectivity issues</li>
@@ -35,7 +33,12 @@ const OfflineMode: React.FC<OfflineModeProps> = ({ onRetry, error }) => {
             <li>Check your internet connection</li>
             <li>Verify your Notion API key is correct</li>
             <li>Wait a few minutes and try again</li>
-            <li>Check <a href="https://status.notion.so" target="_blank" rel="noopener noreferrer">Notion's status page</a></li>
+            <li>
+              Check{' '}
+              <a href="https://status.notion.so" target="_blank" rel="noopener noreferrer">
+                Notion's status page
+              </a>
+            </li>
           </ul>
         </div>
       </div>

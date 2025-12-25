@@ -15,7 +15,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
   onMilestoneAdd,
   onMilestoneUpdate,
   onMilestoneDelete,
-  onClose
+  onClose,
 }) => {
   const [milestones, setMilestones] = useState<ProjectMilestone[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -26,7 +26,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
     targetDate: '',
     priority: 'medium' as const,
     deliverables: '',
-    dependencies: ''
+    dependencies: '',
   });
 
   // Mock data for demonstration
@@ -43,7 +43,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
         priority: 'high',
         deliverables: ['Project charter', 'Team assignments', 'Initial timeline'],
         dependencies: [],
-        progress: 100
+        progress: 100,
       },
       {
         id: 'milestone-2',
@@ -55,7 +55,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
         priority: 'high',
         deliverables: ['Wireframes', 'Mockups', 'Design system', 'User flows'],
         dependencies: ['milestone-1'],
-        progress: 65
+        progress: 65,
       },
       {
         id: 'milestone-3',
@@ -67,7 +67,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
         priority: 'critical',
         deliverables: ['Backend API', 'Frontend components', 'Database schema', 'Unit tests'],
         dependencies: ['milestone-2'],
-        progress: 0
+        progress: 0,
       },
       {
         id: 'milestone-4',
@@ -79,7 +79,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
         priority: 'high',
         deliverables: ['Test reports', 'Bug fixes', 'Performance optimization'],
         dependencies: ['milestone-3'],
-        progress: 0
+        progress: 0,
       },
       {
         id: 'milestone-5',
@@ -91,8 +91,8 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
         priority: 'critical',
         deliverables: ['Production deployment', 'Monitoring setup', 'Documentation'],
         dependencies: ['milestone-4'],
-        progress: 0
-      }
+        progress: 0,
+      },
     ];
     setMilestones(mockMilestones);
   }, [project.id]);
@@ -106,9 +106,15 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
         targetDate: newMilestone.targetDate,
         status: 'pending',
         priority: newMilestone.priority,
-        deliverables: newMilestone.deliverables.split(',').map(d => d.trim()).filter(d => d),
-        dependencies: newMilestone.dependencies.split(',').map(d => d.trim()).filter(d => d),
-        progress: 0
+        deliverables: newMilestone.deliverables
+          .split(',')
+          .map(d => d.trim())
+          .filter(d => d),
+        dependencies: newMilestone.dependencies
+          .split(',')
+          .map(d => d.trim())
+          .filter(d => d),
+        progress: 0,
       };
       onMilestoneAdd(milestone);
       setNewMilestone({
@@ -117,7 +123,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
         targetDate: '',
         priority: 'medium',
         deliverables: '',
-        dependencies: ''
+        dependencies: '',
       });
       setShowAddForm(false);
     }
@@ -128,7 +134,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
     if (milestone) {
       const updates: Partial<ProjectMilestone> = {
         progress: Math.max(0, Math.min(100, progress)),
-        status: progress === 100 ? 'completed' : progress > 0 ? 'in-progress' : 'pending'
+        status: progress === 100 ? 'completed' : progress > 0 ? 'in-progress' : 'pending',
       };
       if (progress === 100 && !milestone.completedDate) {
         updates.completedDate = new Date().toISOString().split('T')[0];
@@ -139,31 +145,46 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return '✅';
-      case 'in-progress': return '🔄';
-      case 'overdue': return '⚠️';
-      case 'pending': return '⏳';
-      default: return '📋';
+      case 'completed':
+        return '✅';
+      case 'in-progress':
+        return '🔄';
+      case 'overdue':
+        return '⚠️';
+      case 'pending':
+        return '⏳';
+      default:
+        return '📋';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return '#16a34a';
-      case 'in-progress': return '#3b82f6';
-      case 'overdue': return '#dc2626';
-      case 'pending': return '#6b7280';
-      default: return '#6b7280';
+      case 'completed':
+        return '#16a34a';
+      case 'in-progress':
+        return '#3b82f6';
+      case 'overdue':
+        return '#dc2626';
+      case 'pending':
+        return '#6b7280';
+      default:
+        return '#6b7280';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return '#dc2626';
-      case 'high': return '#ea580c';
-      case 'medium': return '#ca8a04';
-      case 'low': return '#16a34a';
-      default: return '#6b7280';
+      case 'critical':
+        return '#dc2626';
+      case 'high':
+        return '#ea580c';
+      case 'medium':
+        return '#ca8a04';
+      case 'low':
+        return '#16a34a';
+      default:
+        return '#6b7280';
     }
   };
 
@@ -176,7 +197,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -193,7 +214,9 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
       <div className="project-milestones-modal">
         <div className="milestones-header">
           <h2>🎯 Project Milestones</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="milestones-content">
@@ -209,15 +232,21 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                 <span className="stat-label">Total Milestones</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">{milestones.filter(m => m.status === 'completed').length}</span>
+                <span className="stat-number">
+                  {milestones.filter(m => m.status === 'completed').length}
+                </span>
                 <span className="stat-label">Completed</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">{milestones.filter(m => m.status === 'in-progress').length}</span>
+                <span className="stat-number">
+                  {milestones.filter(m => m.status === 'in-progress').length}
+                </span>
                 <span className="stat-label">In Progress</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">{milestones.filter(m => isOverdue(m.targetDate, m.status)).length}</span>
+                <span className="stat-number">
+                  {milestones.filter(m => isOverdue(m.targetDate, m.status)).length}
+                </span>
                 <span className="stat-label">Overdue</span>
               </div>
             </div>
@@ -226,10 +255,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
           <div className="milestones-section">
             <div className="section-header">
               <h4>Milestone Timeline</h4>
-              <button 
-                className="btn btn-primary btn-small"
-                onClick={() => setShowAddForm(true)}
-              >
+              <button className="btn btn-primary btn-small" onClick={() => setShowAddForm(true)}>
                 + Add Milestone
               </button>
             </div>
@@ -239,7 +265,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                 <div key={milestone.id} className="milestone-item">
                   <div className="milestone-header">
                     <div className="milestone-status">
-                      <span 
+                      <span
                         className="status-icon"
                         style={{ color: getStatusColor(milestone.status) }}
                       >
@@ -248,32 +274,30 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                       <span className="milestone-name">{milestone.name}</span>
                     </div>
                     <div className="milestone-meta">
-                      <span 
+                      <span
                         className="priority-badge"
                         style={{ backgroundColor: getPriorityColor(milestone.priority) }}
                       >
                         {milestone.priority}
                       </span>
-                      <span className="target-date">
-                        {formatDate(milestone.targetDate)}
-                      </span>
+                      <span className="target-date">{formatDate(milestone.targetDate)}</span>
                     </div>
                   </div>
 
                   <div className="milestone-content">
                     <p className="milestone-description">{milestone.description}</p>
-                    
+
                     <div className="milestone-progress">
                       <div className="progress-header">
                         <span className="progress-label">Progress</span>
                         <span className="progress-percentage">{milestone.progress}%</span>
                       </div>
                       <div className="progress-bar">
-                        <div 
+                        <div
                           className="progress-fill"
-                          style={{ 
+                          style={{
                             width: `${milestone.progress}%`,
-                            backgroundColor: getStatusColor(milestone.status)
+                            backgroundColor: getStatusColor(milestone.status),
                           }}
                         ></div>
                       </div>
@@ -283,7 +307,9 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                           min="0"
                           max="100"
                           value={milestone.progress}
-                          onChange={(e) => handleUpdateProgress(milestone.id, parseInt(e.target.value))}
+                          onChange={e =>
+                            handleUpdateProgress(milestone.id, parseInt(e.target.value))
+                          }
                           className="progress-slider"
                         />
                       </div>
@@ -301,13 +327,17 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                     )}
 
                     <div className="milestone-actions">
-                      <button 
+                      <button
                         className="btn btn-outline btn-small"
-                        onClick={() => setEditingMilestone(editingMilestone === milestone.id ? null : milestone.id)}
+                        onClick={() =>
+                          setEditingMilestone(
+                            editingMilestone === milestone.id ? null : milestone.id
+                          )
+                        }
                       >
                         {editingMilestone === milestone.id ? 'Cancel' : 'Edit'}
                       </button>
-                      <button 
+                      <button
                         className="btn btn-danger btn-small"
                         onClick={() => onMilestoneDelete(milestone.id)}
                       >
@@ -316,9 +346,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                     </div>
                   </div>
 
-                  {index < milestones.length - 1 && (
-                    <div className="timeline-connector"></div>
-                  )}
+                  {index < milestones.length - 1 && <div className="timeline-connector"></div>}
                 </div>
               ))}
             </div>
@@ -333,7 +361,7 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                   <input
                     type="text"
                     value={newMilestone.name}
-                    onChange={(e) => setNewMilestone(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={e => setNewMilestone(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="e.g., Design Phase Complete"
                     className="form-input"
                   />
@@ -343,7 +371,9 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                   <input
                     type="date"
                     value={newMilestone.targetDate}
-                    onChange={(e) => setNewMilestone(prev => ({ ...prev, targetDate: e.target.value }))}
+                    onChange={e =>
+                      setNewMilestone(prev => ({ ...prev, targetDate: e.target.value }))
+                    }
                     className="form-input"
                   />
                 </div>
@@ -353,7 +383,9 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                 <label>Description</label>
                 <textarea
                   value={newMilestone.description}
-                  onChange={(e) => setNewMilestone(prev => ({ ...prev, description: e.target.value }))}
+                  onChange={e =>
+                    setNewMilestone(prev => ({ ...prev, description: e.target.value }))
+                  }
                   placeholder="Describe this milestone..."
                   className="form-textarea"
                   rows={3}
@@ -365,7 +397,9 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                   <label>Priority</label>
                   <select
                     value={newMilestone.priority}
-                    onChange={(e) => setNewMilestone(prev => ({ ...prev, priority: e.target.value as any }))}
+                    onChange={e =>
+                      setNewMilestone(prev => ({ ...prev, priority: e.target.value as any }))
+                    }
                     className="form-select"
                   >
                     <option value="low">Low</option>
@@ -379,7 +413,9 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
                   <input
                     type="text"
                     value={newMilestone.deliverables}
-                    onChange={(e) => setNewMilestone(prev => ({ ...prev, deliverables: e.target.value }))}
+                    onChange={e =>
+                      setNewMilestone(prev => ({ ...prev, deliverables: e.target.value }))
+                    }
                     placeholder="e.g., Wireframes, Mockups, User flows"
                     className="form-input"
                   />
@@ -387,13 +423,10 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
               </div>
 
               <div className="form-actions">
-                <button 
-                  className="btn btn-outline"
-                  onClick={() => setShowAddForm(false)}
-                >
+                <button className="btn btn-outline" onClick={() => setShowAddForm(false)}>
                   Cancel
                 </button>
-                <button 
+                <button
                   className="btn btn-primary"
                   onClick={handleAddMilestone}
                   disabled={!newMilestone.name || !newMilestone.targetDate}
@@ -410,5 +443,3 @@ const ProjectMilestones: React.FC<ProjectMilestonesProps> = ({
 };
 
 export default ProjectMilestones;
-
-

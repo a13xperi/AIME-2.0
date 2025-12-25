@@ -45,7 +45,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
   sessions,
   currentUserId,
   onProjectUpdate,
-  onSessionUpdate
+  onSessionUpdate,
 }) => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [projectComments, setProjectComments] = useState<ProjectComment[]>([]);
@@ -68,7 +68,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
           email: 'alex@example.com',
           role: 'owner',
           isOnline: true,
-          lastActive: new Date()
+          lastActive: new Date(),
         },
         {
           id: '2',
@@ -76,7 +76,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
           email: 'sarah@example.com',
           role: 'admin',
           isOnline: true,
-          lastActive: new Date(Date.now() - 5 * 60 * 1000) // 5 minutes ago
+          lastActive: new Date(Date.now() - 5 * 60 * 1000), // 5 minutes ago
         },
         {
           id: '3',
@@ -84,12 +84,12 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
           email: 'mike@example.com',
           role: 'member',
           isOnline: false,
-          lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000) // 2 hours ago
-        }
+          lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+        },
       ];
 
       setTeamMembers(mockTeamMembers);
-      
+
       // Load comments for projects and sessions
       await loadComments();
     } catch (error) {
@@ -115,7 +115,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
           authorName: 'Sarah',
           content: 'Great progress on the frontend! The new components look amazing.',
           timestamp: new Date(Date.now() - 30 * 60 * 1000),
-          type: 'comment'
+          type: 'comment',
         },
         {
           id: '2',
@@ -124,8 +124,8 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
           authorName: 'Alex',
           content: 'Updated the API endpoints. Ready for testing.',
           timestamp: new Date(Date.now() - 15 * 60 * 1000),
-          type: 'update'
-        }
+          type: 'update',
+        },
       ];
 
       const mockSessionComments: SessionComment[] = [
@@ -136,8 +136,8 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
           authorName: 'Mike',
           content: 'Could you add more error handling for the edge cases?',
           timestamp: new Date(Date.now() - 45 * 60 * 1000),
-          type: 'suggestion'
-        }
+          type: 'suggestion',
+        },
       ];
 
       setProjectComments(mockProjectComments);
@@ -157,12 +157,12 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
       authorName: 'You',
       content: newComment,
       timestamp: new Date(),
-      type: commentType
+      type: commentType,
     };
 
     setProjectComments(prev => [comment, ...prev]);
     setNewComment('');
-    
+
     // In real implementation, this would save to backend
     console.log('Added project comment:', comment);
   };
@@ -177,16 +177,15 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
       authorName: 'You',
       content: newComment,
       timestamp: new Date(),
-      type: 'comment'
+      type: 'comment',
     };
 
     setSessionComments(prev => [comment, ...prev]);
     setNewComment('');
-    
+
     // In real implementation, this would save to backend
     console.log('Added session comment:', comment);
   };
-
 
   if (loading) {
     return (
@@ -203,7 +202,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
       <div className="team-header">
         <h2>👥 Team Collaboration</h2>
         <div className="team-controls">
-          <button 
+          <button
             className="btn btn-secondary"
             onClick={() => setShowTeamMembers(!showTeamMembers)}
           >
@@ -223,9 +222,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
                   {member.avatar ? (
                     <img src={member.avatar} alt={member.name} />
                   ) : (
-                    <div className="avatar-placeholder">
-                      {member.name.charAt(0).toUpperCase()}
-                    </div>
+                    <div className="avatar-placeholder">{member.name.charAt(0).toUpperCase()}</div>
                   )}
                   <div className={`status-indicator ${member.isOnline ? 'online' : 'offline'}`} />
                 </div>
@@ -233,7 +230,9 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
                   <div className="member-name">{member.name}</div>
                   <div className="member-role">{member.role}</div>
                   <div className="member-status">
-                    {member.isOnline ? 'Online' : `Last active ${member.lastActive.toLocaleTimeString()}`}
+                    {member.isOnline
+                      ? 'Online'
+                      : `Last active ${member.lastActive.toLocaleTimeString()}`}
                   </div>
                 </div>
               </div>
@@ -247,9 +246,9 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
         <div className="collaboration-section">
           <h3>📁 Project Collaboration</h3>
           <div className="project-selector">
-            <select 
-              value={selectedProject?.id || ''} 
-              onChange={(e) => {
+            <select
+              value={selectedProject?.id || ''}
+              onChange={e => {
                 const project = projects.find(p => p.id === e.target.value);
                 setSelectedProject(project || null);
               }}
@@ -297,7 +296,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
                         name="commentType"
                         value="comment"
                         checked={commentType === 'comment'}
-                        onChange={(e) => setCommentType(e.target.value as any)}
+                        onChange={e => setCommentType(e.target.value as any)}
                       />
                       Comment
                     </label>
@@ -307,7 +306,7 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
                         name="commentType"
                         value="update"
                         checked={commentType === 'update'}
-                        onChange={(e) => setCommentType(e.target.value as any)}
+                        onChange={e => setCommentType(e.target.value as any)}
                       />
                       Update
                     </label>
@@ -317,18 +316,18 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
                         name="commentType"
                         value="handoff"
                         checked={commentType === 'handoff'}
-                        onChange={(e) => setCommentType(e.target.value as any)}
+                        onChange={e => setCommentType(e.target.value as any)}
                       />
                       Handoff
                     </label>
                   </div>
                   <textarea
                     value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
+                    onChange={e => setNewComment(e.target.value)}
                     placeholder="Add a comment, update, or handoff note..."
                     rows={3}
                   />
-                  <button 
+                  <button
                     className="btn btn-primary"
                     onClick={addProjectComment}
                     disabled={!newComment.trim()}
@@ -345,9 +344,9 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
         <div className="collaboration-section">
           <h3>💬 Session Collaboration</h3>
           <div className="session-selector">
-            <select 
-              value={selectedSession?.id || ''} 
-              onChange={(e) => {
+            <select
+              value={selectedSession?.id || ''}
+              onChange={e => {
                 const session = sessions.find(s => s.id === e.target.value);
                 setSelectedSession(session || null);
               }}
@@ -391,11 +390,11 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
                 <div className="add-comment">
                   <textarea
                     value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
+                    onChange={e => setNewComment(e.target.value)}
                     placeholder="Ask a question, make a suggestion, or add a comment..."
                     rows={3}
                   />
-                  <button 
+                  <button
                     className="btn btn-primary"
                     onClick={addSessionComment}
                     disabled={!newComment.trim()}
@@ -413,5 +412,3 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
 };
 
 export default TeamCollaboration;
-
-

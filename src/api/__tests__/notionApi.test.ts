@@ -28,9 +28,7 @@ describe('Notion API Client', () => {
 
       expect(result.success).toBe(true);
       expect(result.data).toEqual(mockProjects);
-      expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/projects')
-      );
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/projects'));
     });
 
     it('should handle fetch errors', async () => {
@@ -46,9 +44,7 @@ describe('Notion API Client', () => {
     });
 
     it('should handle network errors', async () => {
-      (global.fetch as jest.Mock).mockRejectedValueOnce(
-        new Error('Network error')
-      );
+      (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
 
       const result = await fetchProjects();
 
@@ -70,9 +66,7 @@ describe('Notion API Client', () => {
 
       expect(result.success).toBe(true);
       expect(result.data).toEqual(mockProject);
-      expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/projects/1')
-      );
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/projects/1'));
     });
   });
 
@@ -102,9 +96,7 @@ describe('Notion API Client', () => {
 
       await fetchSessions({ projectId: 'proj-123' });
 
-      expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('projectId=proj-123')
-      );
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('projectId=proj-123'));
     });
   });
 

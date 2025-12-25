@@ -64,7 +64,7 @@
   background: #f1f5f9;
 }
 
-.setting-item input[type="checkbox"] {
+.setting-item input[type='checkbox'] {
   margin: 0;
   cursor: pointer;
 }
@@ -234,68 +234,68 @@
   .notification-system {
     background: #374151;
   }
-  
+
   .notification-header {
     border-bottom-color: #4b5563;
   }
-  
+
   .notification-header h3 {
     color: #f9fafb;
   }
-  
+
   .setting-item {
     background: #4b5563;
   }
-  
+
   .setting-item:hover {
     background: #6b7280;
   }
-  
+
   .setting-item span {
     color: #d1d5db;
   }
-  
+
   .no-notifications {
     color: #9ca3af;
   }
-  
+
   .notification-item.break {
     background: #451a03;
   }
-  
+
   .notification-item.timeout {
     background: #450a0a;
   }
-  
+
   .notification-item.summary {
     background: #1e3a8a;
   }
-  
+
   .notification-item.alert {
     background: #450a0a;
   }
-  
+
   .notification-item.achievement {
     background: #064e3b;
   }
-  
+
   .notification-title {
     color: #f9fafb;
   }
-  
+
   .notification-message {
     color: #d1d5db;
   }
-  
+
   .notification-time {
     color: #9ca3af;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #4b5563;
     border-color: #6b7280;
@@ -308,33 +308,31 @@
   .notification-system {
     padding: 16px;
   }
-  
+
   .notification-header {
     flex-direction: column;
     gap: 12px;
     align-items: stretch;
   }
-  
+
   .notification-controls {
     justify-content: center;
   }
-  
+
   .settings-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .notification-item {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .notification-content {
     margin-right: 0;
   }
-  
+
   .notification-actions {
     align-self: flex-end;
   }
 }
-
-

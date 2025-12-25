@@ -208,53 +208,53 @@
   .break-reminder-modal {
     background: #1f2937;
   }
-  
+
   .break-reminder-header {
     border-bottom-color: #374151;
   }
-  
+
   .break-reminder-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .work-stats {
     background: #374151;
   }
-  
+
   .stat-label {
     color: #9ca3af;
   }
-  
+
   .stat-value {
     color: #f9fafb;
   }
-  
+
   .break-suggestions h3 {
     color: #f9fafb;
   }
-  
+
   .break-suggestions li {
     color: #d1d5db;
   }
-  
+
   .countdown {
     background: #451a03;
     border-color: #d97706;
   }
-  
+
   .countdown-label {
     color: #fbbf24;
   }
-  
+
   .countdown-value {
     color: #f59e0b;
   }
@@ -265,31 +265,29 @@
   .break-reminder-overlay {
     padding: 10px;
   }
-  
+
   .break-reminder-modal {
     max-width: 100%;
   }
-  
+
   .break-reminder-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .break-reminder-header h2 {
     font-size: 20px;
   }
-  
+
   .break-reminder-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .break-reminder-actions {
     padding: 0 16px 16px 16px;
   }
-  
+
   .btn-large {
     padding: 14px 28px;
     font-size: 15px;
   }
 }
-
-

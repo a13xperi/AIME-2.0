@@ -89,10 +89,14 @@ const ProjectDetail: React.FC = () => {
         <div className="project-title-section">
           <h1>{project.name}</h1>
           <div className="project-badges">
-            <span className={`status-badge status-${project.status.toLowerCase().replace(/[^a-z]/g, '')}`}>
+            <span
+              className={`status-badge status-${project.status.toLowerCase().replace(/[^a-z]/g, '')}`}
+            >
               {project.status}
             </span>
-            <span className={`priority-badge priority-${project.priority.toLowerCase().replace(/[^a-z]/g, '')}`}>
+            <span
+              className={`priority-badge priority-${project.priority.toLowerCase().replace(/[^a-z]/g, '')}`}
+            >
               {project.priority}
             </span>
           </div>
@@ -124,7 +128,9 @@ const ProjectDetail: React.FC = () => {
             <div className="tech-stack-list">
               {project.techStack && project.techStack.length > 0 ? (
                 project.techStack.map((tech, index) => (
-                  <span key={index} className="tech-badge">{tech}</span>
+                  <span key={index} className="tech-badge">
+                    {tech}
+                  </span>
                 ))
               ) : (
                 <p>No tech stack specified</p>
@@ -136,7 +142,7 @@ const ProjectDetail: React.FC = () => {
             <h2>📝 Recent Work Sessions</h2>
             {sessions.length > 0 ? (
               <div className="sessions-list-rich">
-                {sessions.slice(0, 10).map((session) => (
+                {sessions.slice(0, 10).map(session => (
                   <SessionCard key={session.id} session={session} detailed={false} />
                 ))}
               </div>
@@ -159,7 +165,9 @@ const ProjectDetail: React.FC = () => {
                 <div className="timeline-dot"></div>
                 <div className="timeline-content">
                   <span className="timeline-date">
-                    {project.lastUpdated ? new Date(project.lastUpdated).toLocaleDateString() : 'N/A'}
+                    {project.lastUpdated
+                      ? new Date(project.lastUpdated).toLocaleDateString()
+                      : 'N/A'}
                   </span>
                   <span className="timeline-label">Last Updated</span>
                 </div>
@@ -168,7 +176,9 @@ const ProjectDetail: React.FC = () => {
                 <div className="timeline-dot"></div>
                 <div className="timeline-content">
                   <span className="timeline-date">
-                    {project.startedDate ? new Date(project.startedDate).toLocaleDateString() : 'N/A'}
+                    {project.startedDate
+                      ? new Date(project.startedDate).toLocaleDateString()
+                      : 'N/A'}
                   </span>
                   <span className="timeline-label">Project Started</span>
                 </div>
@@ -182,7 +192,12 @@ const ProjectDetail: React.FC = () => {
             <h3>🔗 Quick Links</h3>
             <div className="quick-links">
               {project.repository && (
-                <a href={project.repository} target="_blank" rel="noopener noreferrer" className="link-item">
+                <a
+                  href={project.repository}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-item"
+                >
                   <span className="link-icon">📦</span>
                   <span className="link-text">Repository</span>
                 </a>
@@ -258,4 +273,3 @@ const ProjectDetail: React.FC = () => {
 };
 
 export default ProjectDetail;
-

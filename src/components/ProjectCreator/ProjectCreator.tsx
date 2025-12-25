@@ -12,11 +12,7 @@ interface ProjectCreatorProps {
   onSuccess: () => void;
 }
 
-const ProjectCreator: React.FC<ProjectCreatorProps> = ({
-  isOpen,
-  onClose,
-  onSuccess,
-}) => {
+const ProjectCreator: React.FC<ProjectCreatorProps> = ({ isOpen, onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -89,10 +85,12 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = ({
 
   return (
     <div className="project-creator-overlay" onClick={onClose}>
-      <div className="project-creator-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="project-creator-modal" onClick={e => e.stopPropagation()}>
         <div className="project-creator-header">
           <h2>🚀 Create New Project</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="project-creator-form">
@@ -100,7 +98,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = ({
 
           <div className="form-section">
             <h3>📋 Basic Information</h3>
-            
+
             <div className="form-group">
               <label htmlFor="name">Project Name *</label>
               <input
@@ -163,13 +161,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = ({
 
             <div className="form-group">
               <label htmlFor="type">Project Type *</label>
-              <select
-                id="type"
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                required
-              >
+              <select id="type" name="type" value={formData.type} onChange={handleChange} required>
                 <option value="Web Application">Web Application</option>
                 <option value="Mobile App">Mobile App</option>
                 <option value="API/Backend">API/Backend</option>
@@ -182,7 +174,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = ({
 
           <div className="form-section">
             <h3>💻 Technical Details</h3>
-            
+
             <div className="form-group">
               <label htmlFor="workspace">Local Workspace Path</label>
               <input
@@ -222,7 +214,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = ({
 
           <div className="form-section">
             <h3>📝 Project Context</h3>
-            
+
             <div className="form-group">
               <label htmlFor="currentContext">Current Context</label>
               <textarea
@@ -263,8 +255,3 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = ({
 };
 
 export default ProjectCreator;
-
-
-
-
-

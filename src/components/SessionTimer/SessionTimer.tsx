@@ -9,11 +9,7 @@ interface SessionTimerProps {
   onClose: () => void;
 }
 
-const SessionTimer: React.FC<SessionTimerProps> = ({
-  session,
-  onSessionUpdate,
-  onClose
-}) => {
+const SessionTimer: React.FC<SessionTimerProps> = ({ session, onSessionUpdate, onClose }) => {
   const [showTimeTracker, setShowTimeTracker] = useState(false);
   const [sessionDuration, setSessionDuration] = useState(session.duration || 0);
   const [isTracking, setIsTracking] = useState(false);
@@ -22,7 +18,7 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    
+
     if (isTracking && startTime) {
       interval = setInterval(() => {
         const now = new Date();
@@ -47,15 +43,15 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
       const now = new Date();
       const totalDuration = Math.floor((now.getTime() - startTime.getTime()) / 1000);
       const newDuration = sessionDuration + totalDuration;
-      
+
       setSessionDuration(newDuration);
       setElapsedTime(0);
       setIsTracking(false);
       setStartTime(null);
-      
+
       onSessionUpdate(session.id, {
         duration: newDuration,
-        status: 'Completed'
+        status: 'Completed',
       });
     }
   }, [startTime, sessionDuration, session.id, onSessionUpdate]);
@@ -65,14 +61,14 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
       const now = new Date();
       const sessionDuration = Math.floor((now.getTime() - startTime.getTime()) / 1000);
       const newDuration = sessionDuration + sessionDuration;
-      
+
       setSessionDuration(newDuration);
       setElapsedTime(0);
       setIsTracking(false);
       setStartTime(null);
-      
+
       onSessionUpdate(session.id, {
-        duration: newDuration
+        duration: newDuration,
       });
     }
   }, [startTime, session.id, onSessionUpdate]);
@@ -81,7 +77,7 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    
+
     if (hours > 0) {
       return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
@@ -95,7 +91,9 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
       <div className="session-timer-modal">
         <div className="session-timer-header">
           <h2>⏱️ Session Timer</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="session-timer-content">
@@ -114,7 +112,7 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
               <div className="time-label">Current Session</div>
               <div className="time-value">{formatTime(elapsedTime)}</div>
             </div>
-            
+
             <div className="total-time">
               <div className="time-label">Total Time</div>
               <div className="time-value">{formatTime(totalTime)}</div>
@@ -136,9 +134,9 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
                 </button>
               </div>
             )}
-            
-            <button 
-              className="btn btn-outline" 
+
+            <button
+              className="btn btn-outline"
               onClick={() => setShowTimeTracker(!showTimeTracker)}
             >
               📊 {showTimeTracker ? 'Hide' : 'Show'} Advanced Timer
@@ -187,5 +185,3 @@ const SessionTimer: React.FC<SessionTimerProps> = ({
 };
 
 export default SessionTimer;
-
-

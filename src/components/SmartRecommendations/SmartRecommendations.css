@@ -581,193 +581,193 @@
   .smart-recommendations-modal {
     background: #1f2937;
   }
-  
+
   .recommendations-header {
     border-bottom-color: #374151;
   }
-  
+
   .recommendations-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .recommendations-tabs {
     border-bottom-color: #374151;
   }
-  
+
   .tab-button {
     color: #9ca3af;
   }
-  
+
   .tab-button:hover {
     color: #d1d5db;
   }
-  
+
   .tab-button.active {
     color: #60a5fa;
     border-bottom-color: #60a5fa;
   }
-  
+
   .recommendations-filters {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .filter-group label {
     color: #d1d5db;
   }
-  
+
   .filter-select {
     background: #4b5563;
     border-color: #6b7280;
     color: #f9fafb;
   }
-  
+
   .filter-select:focus {
     border-color: #60a5fa;
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
   }
-  
+
   .recommendation-card {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .recommendation-card:hover {
     border-color: #60a5fa;
     box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
   }
-  
+
   .rec-title h3 {
     color: #f9fafb;
   }
-  
+
   .impact-label {
     color: #9ca3af;
   }
-  
+
   .impact-value {
     color: #34d399;
   }
-  
+
   .rec-description {
     color: #9ca3af;
   }
-  
+
   .rec-steps h4 {
     color: #d1d5db;
   }
-  
+
   .step-item {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .step-item.completed {
     background: #064e3b;
     border-color: #10b981;
   }
-  
+
   .step-title {
     color: #d1d5db;
   }
-  
+
   .step-time {
     background: #6b7280;
     color: #d1d5db;
   }
-  
+
   .step-complete {
     background: #4b5563;
     border-color: #6b7280;
     color: #9ca3af;
   }
-  
+
   .step-complete:hover {
     border-color: #60a5fa;
     color: #60a5fa;
   }
-  
+
   .step-description {
     color: #9ca3af;
   }
-  
+
   .step-resources {
     background: #4b5563;
   }
-  
+
   .step-resources h5 {
     color: #d1d5db;
   }
-  
+
   .rec-meta {
     background: #4b5563;
   }
-  
+
   .meta-label {
     color: #9ca3af;
   }
-  
+
   .meta-value {
     color: #d1d5db;
   }
-  
+
   .suggestions-section {
     border-top-color: #374151;
   }
-  
+
   .suggestions-section h3 {
     color: #f9fafb;
   }
-  
+
   .suggestion-card {
     background: #451a03;
     border-color: #d97706;
   }
-  
+
   .suggestion-card:hover {
     border-color: #f59e0b;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
   }
-  
+
   .suggestion-header h4 {
     color: #fbbf24;
   }
-  
+
   .suggestion-description {
     color: #fbbf24;
   }
-  
+
   .suggestion-reasoning {
     color: #f59e0b;
   }
-  
+
   .time-sensitive {
     background: #7f1d1d;
     border-color: #fca5a5;
   }
-  
+
   .time-label {
     color: #fca5a5;
   }
-  
+
   .expires-at {
     color: #fca5a5;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -780,76 +780,74 @@
   .smart-recommendations-overlay {
     padding: 10px;
   }
-  
+
   .smart-recommendations-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .recommendations-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .recommendations-header h2 {
     font-size: 20px;
   }
-  
+
   .recommendations-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .recommendations-filters {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
-  
+
   .filter-group {
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
   }
-  
+
   .rec-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .rec-impact {
     align-items: flex-start;
   }
-  
+
   .step-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .step-info {
     flex-wrap: wrap;
     gap: 8px;
   }
-  
+
   .rec-meta {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .rec-actions {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .suggestion-actions {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .btn {
     width: 100%;
     justify-content: center;
   }
 }
-
-

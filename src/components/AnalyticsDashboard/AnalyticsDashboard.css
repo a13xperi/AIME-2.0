@@ -408,100 +408,100 @@
   .analytics-dashboard {
     background: #1f2937;
   }
-  
+
   .analytics-header {
     background: #374151;
   }
-  
+
   .analytics-header h1 {
     color: #f9fafb;
   }
-  
+
   .time-range-selector label {
     color: #d1d5db;
   }
-  
+
   .time-range-selector select {
     background: #4b5563;
     border-color: #6b7280;
     color: #f9fafb;
   }
-  
+
   .time-range-selector select:hover {
     border-color: #3b82f6;
   }
-  
+
   .analytics-loading,
   .analytics-error {
     background: #374151;
   }
-  
+
   .analytics-loading h2 {
     color: #9ca3af;
   }
-  
+
   .analytics-error h2 {
     color: #f87171;
   }
-  
+
   .analytics-error p {
     color: #9ca3af;
   }
-  
+
   .metric-card {
     background: #374151;
   }
-  
+
   .metric-value {
     color: #f9fafb;
   }
-  
+
   .metric-label {
     color: #9ca3af;
   }
-  
+
   .insights-section {
     background: #374151;
   }
-  
+
   .insights-section h2 {
     color: #f9fafb;
   }
-  
+
   .insight-card {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .insight-card:hover {
     background: #6b7280;
     border-color: #3b82f6;
   }
-  
+
   .insight-card p {
     color: #d1d5db;
   }
-  
+
   .chart-card {
     background: #374151;
   }
-  
+
   .chart-card h3 {
     color: #f9fafb;
   }
-  
+
   .project-name,
   .type-name,
   .status-name {
     color: #f9fafb;
   }
-  
+
   .project-metrics,
   .type-count,
   .status-count {
     color: #9ca3af;
   }
-  
+
   .trend-label {
     color: #9ca3af;
   }
@@ -512,64 +512,62 @@
   .analytics-dashboard {
     padding: 16px;
   }
-  
+
   .analytics-header {
     flex-direction: column;
     gap: 16px;
     align-items: stretch;
     padding: 16px;
   }
-  
+
   .analytics-header h1 {
     font-size: 24px;
     text-align: center;
   }
-  
+
   .time-range-selector {
     justify-content: center;
   }
-  
+
   .metrics-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
   }
-  
+
   .metric-card {
     padding: 16px;
   }
-  
+
   .metric-value {
     font-size: 28px;
   }
-  
+
   .insights-section {
     padding: 16px;
   }
-  
+
   .insights-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .charts-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .chart-card {
     padding: 16px;
   }
-  
+
   .trends-chart {
     height: 150px;
   }
-  
+
   .trend-bars {
     height: 100px;
   }
-  
+
   .trend-sessions,
   .trend-hours {
     width: 16px;
   }
 }
-
-

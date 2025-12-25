@@ -39,9 +39,10 @@ const ProjectsList: React.FC = () => {
     }
   };
 
-  const filteredProjects = filterStatus === 'all' 
-    ? projects 
-    : projects.filter(p => p.status.toLowerCase().includes(filterStatus.toLowerCase()));
+  const filteredProjects =
+    filterStatus === 'all'
+      ? projects
+      : projects.filter(p => p.status.toLowerCase().includes(filterStatus.toLowerCase()));
 
   if (loading) {
     return (
@@ -70,25 +71,25 @@ const ProjectsList: React.FC = () => {
       </header>
 
       <div className="filters-bar">
-        <button 
+        <button
           className={`filter-btn ${filterStatus === 'all' ? 'active' : ''}`}
           onClick={() => setFilterStatus('all')}
         >
           All ({projects.length})
         </button>
-        <button 
+        <button
           className={`filter-btn ${filterStatus === 'active' ? 'active' : ''}`}
           onClick={() => setFilterStatus('active')}
         >
           🟢 Active ({projects.filter(p => p.status.toLowerCase().includes('active')).length})
         </button>
-        <button 
+        <button
           className={`filter-btn ${filterStatus === 'complete' ? 'active' : ''}`}
           onClick={() => setFilterStatus('complete')}
         >
           ✅ Complete ({projects.filter(p => p.status.toLowerCase().includes('complete')).length})
         </button>
-        <button 
+        <button
           className={`filter-btn ${filterStatus === 'paused' ? 'active' : ''}`}
           onClick={() => setFilterStatus('paused')}
         >
@@ -97,9 +98,9 @@ const ProjectsList: React.FC = () => {
       </div>
 
       <div className="projects-table">
-        {filteredProjects.map((project) => (
-          <div 
-            key={project.id} 
+        {filteredProjects.map(project => (
+          <div
+            key={project.id}
             className="project-row"
             onClick={() => navigate(`/project/${project.id}`)}
           >
@@ -108,14 +109,19 @@ const ProjectsList: React.FC = () => {
               <p className="project-desc">{project.description}</p>
             </div>
             <div className="project-meta-info">
-              <span className={`status-pill ${project.status.toLowerCase().replace(/[^a-z]/g, '')}`}>
+              <span
+                className={`status-pill ${project.status.toLowerCase().replace(/[^a-z]/g, '')}`}
+              >
                 {project.status}
               </span>
-              <span className={`priority-pill ${project.priority.toLowerCase().replace(/[^a-z]/g, '')}`}>
+              <span
+                className={`priority-pill ${project.priority.toLowerCase().replace(/[^a-z]/g, '')}`}
+              >
                 {project.priority}
               </span>
               <span className="date-info">
-                Updated: {project.lastUpdated ? new Date(project.lastUpdated).toLocaleDateString() : 'N/A'}
+                Updated:{' '}
+                {project.lastUpdated ? new Date(project.lastUpdated).toLocaleDateString() : 'N/A'}
               </span>
             </div>
           </div>
@@ -126,6 +132,3 @@ const ProjectsList: React.FC = () => {
 };
 
 export default ProjectsList;
-
-
-

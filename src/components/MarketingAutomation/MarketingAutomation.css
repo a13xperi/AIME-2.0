@@ -517,32 +517,32 @@
   .marketing-automation-container {
     padding: 1rem;
   }
-  
+
   .tabs {
     flex-direction: column;
   }
-  
+
   .tab-btn {
     width: 100%;
     text-align: center;
   }
-  
+
   .metrics-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .campaigns-list,
   .email-campaigns-list,
   .automations-list {
     grid-template-columns: 1fr;
   }
-  
+
   .campaign-details,
   .email-campaign-details,
   .automation-details {
     grid-template-columns: 1fr;
   }
-  
+
   .campaign-actions,
   .email-campaign-actions,
   .automation-actions,
@@ -550,7 +550,7 @@
   .report-actions {
     flex-direction: column;
   }
-  
+
   .analytic-metrics,
   .report-metrics {
     grid-template-columns: 1fr;
@@ -566,7 +566,7 @@
     --surface-color: #1f2937;
     --hover-bg: #374151;
   }
-  
+
   .metric-card,
   .campaign-card,
   .email-campaign-card,
@@ -576,7 +576,7 @@
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .channel-tag,
   .trigger-tag {
     background: #4b5563;

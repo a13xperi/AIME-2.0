@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Project } from '../../types';
+import SessionTemplates, { SessionTemplate } from '../SessionTemplates/SessionTemplates';
 import './SessionLogger.css';
 
 interface SessionLoggerProps {
@@ -43,6 +44,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showTemplates, setShowTemplates] = useState(false);
 
   useEffect(() => {
     if (preselectedProjectId) {
@@ -55,6 +57,18 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleTemplateSelect = (template: SessionTemplate) => {
+    setFormData(prev => ({
+      ...prev,
+      sessionType: template.type,
+      aiAgent: template.defaultFields.aiAgent || prev.aiAgent,
+      workspace: template.defaultFields.workspace || prev.workspace,
+      summary: template.defaultFields.summary || prev.summary,
+      nextSteps: template.defaultFields.nextSteps || prev.nextSteps,
+    }));
+    setShowTemplates(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -115,10 +129,12 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
 
   return (
     <div className="session-logger-overlay" onClick={onClose}>
-      <div className="session-logger-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="session-logger-modal" onClick={e => e.stopPropagation()}>
         <div className="session-logger-header">
           <h2>📝 Log Work Session</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="session-logger-form">
@@ -127,7 +143,18 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Core Information */}
           <div className="form-section">
             <h3>📋 Core Information</h3>
-            
+
+            <div className="form-group">
+              <label>Session Template</label>
+              <button
+                type="button"
+                className="template-select-button"
+                onClick={() => setShowTemplates(true)}
+              >
+                🎯 Choose Template
+              </button>
+            </div>
+
             <div className="form-group">
               <label htmlFor="projectId">Project *</label>
               <select
@@ -234,7 +261,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Session Details */}
           <div className="form-section">
             <h3>📝 Session Details</h3>
-            
+
             <div className="form-group">
               <label htmlFor="summary">Summary *</label>
               <textarea
@@ -276,7 +303,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Next Steps & Blockers */}
           <div className="form-section">
             <h3>🚀 Next Steps & Issues</h3>
-            
+
             <div className="form-group">
               <label htmlFor="nextSteps">Next Steps</label>
               <textarea
@@ -305,7 +332,7 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           {/* Additional Context (Optional) */}
           <details className="form-section collapsible">
             <summary>💡 Additional Context (Optional)</summary>
-            
+
             <div className="form-group">
               <label htmlFor="keyDecisions">Key Decisions</label>
               <textarea
@@ -378,11 +405,15 @@ const SessionLogger: React.FC<SessionLoggerProps> = ({
           </div>
         </form>
       </div>
+
+      {showTemplates && (
+        <SessionTemplates
+          onSelectTemplate={handleTemplateSelect}
+          onClose={() => setShowTemplates(false)}
+        />
+      )}
     </div>
   );
 };
 
 export default SessionLogger;
-
-
-

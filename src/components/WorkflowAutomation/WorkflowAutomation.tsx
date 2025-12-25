@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Project, Session, Workflow, WorkflowExecution, AutomationRule, WorkflowTemplate } from '../../types';
+import {
+  Project,
+  Session,
+  Workflow,
+  WorkflowExecution,
+  AutomationRule,
+  WorkflowTemplate,
+} from '../../types';
 import './WorkflowAutomation.css';
 
 interface WorkflowAutomationProps {
@@ -8,16 +15,14 @@ interface WorkflowAutomationProps {
   onClose: () => void;
 }
 
-const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
-  projects,
-  sessions,
-  onClose
-}) => {
+const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({ projects, sessions, onClose }) => {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [executions, setExecutions] = useState<WorkflowExecution[]>([]);
   const [automationRules, setAutomationRules] = useState<AutomationRule[]>([]);
   const [templates, setTemplates] = useState<WorkflowTemplate[]>([]);
-  const [activeTab, setActiveTab] = useState<'workflows' | 'executions' | 'rules' | 'templates'>('workflows');
+  const [activeTab, setActiveTab] = useState<'workflows' | 'executions' | 'rules' | 'templates'>(
+    'workflows'
+  );
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
   const [showWorkflowBuilder, setShowWorkflowBuilder] = useState(false);
 
@@ -49,13 +54,13 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
               schedule: {
                 frequency: 'daily',
                 time: '09:00',
-                days: [1, 2, 3, 4, 5]
-              }
+                days: [1, 2, 3, 4, 5],
+              },
             },
             enabled: true,
             lastTriggered: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-            triggerCount: 45
-          }
+            triggerCount: 45,
+          },
         ],
         steps: [
           {
@@ -68,12 +73,12 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
               action: {
                 type: 'fetch_projects',
                 parameters: { status: 'active' },
-                timeout: 30
-              }
+                timeout: 30,
+              },
             },
             enabled: true,
             onError: 'stop',
-            dependencies: []
+            dependencies: [],
           },
           {
             id: 'step-2',
@@ -86,12 +91,12 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                 input: 'projects',
                 output: 'status_report',
                 transformation: 'generate_project_status',
-                schema: { type: 'object' }
-              }
+                schema: { type: 'object' },
+              },
             },
             enabled: true,
             onError: 'continue',
-            dependencies: ['step-1']
+            dependencies: ['step-1'],
           },
           {
             id: 'step-3',
@@ -104,13 +109,13 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                 type: 'email',
                 recipients: ['team@company.com'],
                 template: 'daily_status_report',
-                data: { report: '{{status_report}}' }
-              }
+                data: { report: '{{status_report}}' },
+              },
             },
             enabled: true,
             onError: 'continue',
-            dependencies: ['step-2']
-          }
+            dependencies: ['step-2'],
+          },
         ],
         conditions: [],
         variables: [
@@ -122,8 +127,8 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             description: 'Team email address for notifications',
             scope: 'workflow',
             encrypted: false,
-            required: true
-          }
+            required: true,
+          },
         ],
         settings: {
           maxConcurrentExecutions: 1,
@@ -131,31 +136,31 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
           retryPolicy: {
             maxRetries: 3,
             backoffStrategy: 'exponential',
-            initialDelay: 5
+            initialDelay: 5,
           },
           logging: {
             level: 'info',
-            retention: 30
+            retention: 30,
           },
           notifications: {
             onSuccess: false,
             onFailure: true,
             onTimeout: true,
-            recipients: ['admin@company.com']
+            recipients: ['admin@company.com'],
           },
           security: {
             requireApproval: false,
             allowedUsers: ['user-1'],
-            restrictedActions: []
-          }
+            restrictedActions: [],
+          },
         },
         permissions: {
           canView: ['user-1', 'user-2'],
           canEdit: ['user-1'],
           canExecute: ['user-1'],
           canDelete: ['user-1'],
-          canShare: ['user-1']
-        }
+          canShare: ['user-1'],
+        },
       },
       {
         id: 'workflow-2',
@@ -181,13 +186,13 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
               event: {
                 source: 'session_tracker',
                 eventType: 'session_completed',
-                filters: { status: 'completed' }
-              }
+                filters: { status: 'completed' },
+              },
             },
             enabled: true,
             lastTriggered: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-            triggerCount: 23
-          }
+            triggerCount: 23,
+          },
         ],
         steps: [
           {
@@ -199,12 +204,12 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             configuration: {
               action: {
                 type: 'update_project_progress',
-                parameters: { sessionId: '{{session_id}}' }
-              }
+                parameters: { sessionId: '{{session_id}}' },
+              },
             },
             enabled: true,
             onError: 'retry',
-            dependencies: []
+            dependencies: [],
           },
           {
             id: 'step-5',
@@ -215,13 +220,13 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             configuration: {
               action: {
                 type: 'create_followup_tasks',
-                parameters: { sessionId: '{{session_id}}' }
-              }
+                parameters: { sessionId: '{{session_id}}' },
+              },
             },
             enabled: true,
             onError: 'continue',
-            dependencies: ['step-4']
-          }
+            dependencies: ['step-4'],
+          },
         ],
         conditions: [],
         variables: [],
@@ -231,32 +236,32 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
           retryPolicy: {
             maxRetries: 2,
             backoffStrategy: 'linear',
-            initialDelay: 10
+            initialDelay: 10,
           },
           logging: {
             level: 'debug',
-            retention: 14
+            retention: 14,
           },
           notifications: {
             onSuccess: false,
             onFailure: true,
             onTimeout: false,
-            recipients: ['user-1']
+            recipients: ['user-1'],
           },
           security: {
             requireApproval: false,
             allowedUsers: ['user-1'],
-            restrictedActions: []
-          }
+            restrictedActions: [],
+          },
         },
         permissions: {
           canView: ['user-1'],
           canEdit: ['user-1'],
           canExecute: ['user-1'],
           canDelete: ['user-1'],
-          canShare: ['user-1']
-        }
-      }
+          canShare: ['user-1'],
+        },
+      },
     ];
 
     const mockExecutions: WorkflowExecution[] = [
@@ -279,7 +284,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             duration: 30,
             input: { status: 'active' },
             output: { projects: 12 },
-            retryCount: 0
+            retryCount: 0,
           },
           {
             id: 'exec-step-2',
@@ -290,7 +295,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             duration: 60,
             input: { projects: 12 },
             output: { report: 'Generated successfully' },
-            retryCount: 0
+            retryCount: 0,
           },
           {
             id: 'exec-step-3',
@@ -301,8 +306,8 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             duration: 30,
             input: { report: 'Generated successfully' },
             output: { emailSent: true },
-            retryCount: 0
-          }
+            retryCount: 0,
+          },
         ],
         variables: { team_email: 'team@company.com' },
         logs: [
@@ -312,7 +317,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             level: 'info',
             message: 'Workflow execution started',
             stepId: undefined,
-            data: { triggerId: 'trigger-1' }
+            data: { triggerId: 'trigger-1' },
           },
           {
             id: 'log-2',
@@ -320,14 +325,14 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             level: 'info',
             message: 'Fetched 12 active projects',
             stepId: 'step-1',
-            data: { count: 12 }
-          }
+            data: { count: 12 },
+          },
         ],
         metadata: {
           source: 'scheduler',
-          userAgent: 'WorkflowEngine/1.0'
-        }
-      }
+          userAgent: 'WorkflowEngine/1.0',
+        },
+      },
     ];
 
     const mockAutomationRules: AutomationRule[] = [
@@ -344,30 +349,30 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
             field: 'priority',
             operator: 'equals',
             value: 'high',
-            logicalOperator: 'AND'
+            logicalOperator: 'AND',
           },
           {
             id: 'cond-2',
             field: 'status',
             operator: 'equals',
-            value: 'pending'
-          }
+            value: 'pending',
+          },
         ],
         actions: [
           {
             id: 'action-1',
             type: 'assign_user',
             parameters: { userId: 'auto-assign' },
-            delay: 0
-          }
+            delay: 0,
+          },
         ],
         createdBy: 'user-1',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         lastExecuted: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
         executionCount: 8,
-        successRate: 100
-      }
+        successRate: 100,
+      },
     ];
 
     const mockTemplates: WorkflowTemplate[] = [
@@ -383,14 +388,19 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
         template: mockWorkflows[0],
         preview: {
           description: 'Automates the complete project onboarding process',
-          features: ['Project creation', 'Team assignment', 'Resource allocation', 'Notification setup']
+          features: [
+            'Project creation',
+            'Team assignment',
+            'Resource allocation',
+            'Notification setup',
+          ],
         },
         author: 'system',
         createdAt: new Date().toISOString(),
         downloads: 156,
         rating: 4.8,
-        reviews: 23
-      }
+        reviews: 23,
+      },
     ];
 
     setWorkflows(mockWorkflows);
@@ -400,13 +410,13 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
   }, []);
 
   const handleWorkflowToggle = (workflowId: string) => {
-    setWorkflows(prev => 
-      prev.map(workflow => 
-        workflow.id === workflowId 
-          ? { 
-              ...workflow, 
+    setWorkflows(prev =>
+      prev.map(workflow =>
+        workflow.id === workflowId
+          ? {
+              ...workflow,
               status: workflow.status === 'active' ? 'paused' : 'active',
-              updatedAt: new Date().toISOString()
+              updatedAt: new Date().toISOString(),
             }
           : workflow
       )
@@ -430,13 +440,13 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
           timestamp: new Date().toISOString(),
           level: 'info',
           message: 'Manual workflow execution started',
-          data: { triggeredBy: 'user-1' }
-        }
+          data: { triggeredBy: 'user-1' },
+        },
       ],
       metadata: {
         source: 'manual',
-        userAgent: 'AgentAlex/1.0'
-      }
+        userAgent: 'AgentAlex/1.0',
+      },
     };
 
     setExecutions(prev => [newExecution, ...prev]);
@@ -444,26 +454,41 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return '#10b981';
-      case 'paused': return '#f59e0b';
-      case 'draft': return '#6b7280';
-      case 'archived': return '#9ca3af';
-      case 'completed': return '#10b981';
-      case 'running': return '#3b82f6';
-      case 'failed': return '#dc2626';
-      case 'pending': return '#6b7280';
-      default: return '#6b7280';
+      case 'active':
+        return '#10b981';
+      case 'paused':
+        return '#f59e0b';
+      case 'draft':
+        return '#6b7280';
+      case 'archived':
+        return '#9ca3af';
+      case 'completed':
+        return '#10b981';
+      case 'running':
+        return '#3b82f6';
+      case 'failed':
+        return '#dc2626';
+      case 'pending':
+        return '#6b7280';
+      default:
+        return '#6b7280';
     }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'productivity': return '⚡';
-      case 'project_management': return '📋';
-      case 'communication': return '💬';
-      case 'data_processing': return '🔄';
-      case 'task_management': return '✅';
-      default: return '🔧';
+      case 'productivity':
+        return '⚡';
+      case 'project_management':
+        return '📋';
+      case 'communication':
+        return '💬';
+      case 'data_processing':
+        return '🔄';
+      case 'task_management':
+        return '✅';
+      default:
+        return '🔧';
     }
   };
 
@@ -478,30 +503,32 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
       <div className="workflow-automation-modal">
         <div className="automation-header">
           <h2>🤖 Workflow Automation</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="automation-content">
           <div className="automation-tabs">
-            <button 
+            <button
               className={`tab-button ${activeTab === 'workflows' ? 'active' : ''}`}
               onClick={() => setActiveTab('workflows')}
             >
               🔄 Workflows ({workflows.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'executions' ? 'active' : ''}`}
               onClick={() => setActiveTab('executions')}
             >
               📊 Executions ({executions.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'rules' ? 'active' : ''}`}
               onClick={() => setActiveTab('rules')}
             >
               ⚙️ Rules ({automationRules.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'templates' ? 'active' : ''}`}
               onClick={() => setActiveTab('templates')}
             >
@@ -514,10 +541,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
               <div className="workflows-section">
                 <div className="section-header">
                   <h3>Active Workflows</h3>
-                  <button 
-                    className="btn btn-primary"
-                    onClick={() => setShowWorkflowBuilder(true)}
-                  >
+                  <button className="btn btn-primary" onClick={() => setShowWorkflowBuilder(true)}>
                     ➕ Create Workflow
                   </button>
                 </div>
@@ -530,7 +554,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                           <h4>
                             {getCategoryIcon(workflow.category)} {workflow.name}
                           </h4>
-                          <span 
+                          <span
                             className="status-badge"
                             style={{ backgroundColor: getStatusColor(workflow.status) }}
                           >
@@ -538,13 +562,13 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                           </span>
                         </div>
                         <div className="workflow-actions">
-                          <button 
+                          <button
                             className="btn btn-outline btn-small"
                             onClick={() => handleWorkflowToggle(workflow.id)}
                           >
                             {workflow.status === 'active' ? '⏸️ Pause' : '▶️ Start'}
                           </button>
-                          <button 
+                          <button
                             className="btn btn-primary btn-small"
                             onClick={() => handleExecuteWorkflow(workflow.id)}
                           >
@@ -566,7 +590,9 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                         </div>
                         <div className="stat-item">
                           <span className="stat-label">Avg Time:</span>
-                          <span className="stat-value">{formatDuration(workflow.averageExecutionTime)}</span>
+                          <span className="stat-value">
+                            {formatDuration(workflow.averageExecutionTime)}
+                          </span>
                         </div>
                       </div>
 
@@ -577,7 +603,9 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                             <div key={trigger.id} className="trigger-item">
                               <span className="trigger-type">{trigger.type}</span>
                               <span className="trigger-name">{trigger.name}</span>
-                              <span className={`trigger-status ${trigger.enabled ? 'enabled' : 'disabled'}`}>
+                              <span
+                                className={`trigger-status ${trigger.enabled ? 'enabled' : 'disabled'}`}
+                              >
                                 {trigger.enabled ? '✓' : '✗'}
                               </span>
                             </div>
@@ -588,7 +616,8 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                       <div className="workflow-meta">
                         <span className="meta-item">v{workflow.version}</span>
                         <span className="meta-item">
-                          Last run: {workflow.lastRun ? new Date(workflow.lastRun).toLocaleString() : 'Never'}
+                          Last run:{' '}
+                          {workflow.lastRun ? new Date(workflow.lastRun).toLocaleString() : 'Never'}
                         </span>
                         {workflow.nextRun && (
                           <span className="meta-item">
@@ -616,7 +645,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                         <div className="execution-header">
                           <div className="execution-title">
                             <h4>{workflow?.name || 'Unknown Workflow'}</h4>
-                            <span 
+                            <span
                               className="status-badge"
                               style={{ backgroundColor: getStatusColor(execution.status) }}
                             >
@@ -625,7 +654,9 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                           </div>
                           <div className="execution-meta">
                             <span className="execution-duration">
-                              {execution.duration ? formatDuration(execution.duration) : 'Running...'}
+                              {execution.duration
+                                ? formatDuration(execution.duration)
+                                : 'Running...'}
                             </span>
                             <span className="execution-time">
                               {new Date(execution.startedAt).toLocaleString()}
@@ -644,7 +675,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                                     <span className="step-name">
                                       {workflowStep?.name || 'Unknown Step'}
                                     </span>
-                                    <span 
+                                    <span
                                       className="step-status"
                                       style={{ backgroundColor: getStatusColor(step.status) }}
                                     >
@@ -679,9 +710,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
               <div className="rules-section">
                 <div className="section-header">
                   <h3>Automation Rules</h3>
-                  <button className="btn btn-primary">
-                    ➕ Create Rule
-                  </button>
+                  <button className="btn btn-primary">➕ Create Rule</button>
                 </div>
 
                 <div className="rules-list">
@@ -697,9 +726,7 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                           </span>
                         </div>
                         <div className="rule-actions">
-                          <button className="btn btn-outline btn-small">
-                            Edit
-                          </button>
+                          <button className="btn btn-outline btn-small">Edit</button>
                           <button className="btn btn-secondary btn-small">
                             {rule.enabled ? 'Disable' : 'Enable'}
                           </button>
@@ -719,7 +746,8 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                                 </span>
                               )}
                               <span className="condition-text">
-                                {condition.field} {condition.operator} {JSON.stringify(condition.value)}
+                                {condition.field} {condition.operator}{' '}
+                                {JSON.stringify(condition.value)}
                               </span>
                             </div>
                           ))}
@@ -738,7 +766,9 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                         <div className="stat-item">
                           <span className="stat-label">Last Run:</span>
                           <span className="stat-value">
-                            {rule.lastExecuted ? new Date(rule.lastExecuted).toLocaleString() : 'Never'}
+                            {rule.lastExecuted
+                              ? new Date(rule.lastExecuted).toLocaleString()
+                              : 'Never'}
                           </span>
                         </div>
                       </div>
@@ -794,12 +824,8 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
                       </div>
 
                       <div className="template-actions">
-                        <button className="btn btn-primary">
-                          Use Template
-                        </button>
-                        <button className="btn btn-outline">
-                          Preview
-                        </button>
+                        <button className="btn btn-primary">Use Template</button>
+                        <button className="btn btn-outline">Preview</button>
                       </div>
                     </div>
                   ))}
@@ -814,5 +840,3 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
 };
 
 export default WorkflowAutomation;
-
-

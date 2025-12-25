@@ -543,162 +543,162 @@
   .project-templates-modal {
     background: #1f2937;
   }
-  
+
   .templates-header {
     border-bottom-color: #374151;
   }
-  
+
   .templates-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .templates-sidebar {
     border-right-color: #374151;
   }
-  
+
   .search-input {
     background: #374151;
     border-color: #4b5563;
     color: #f9fafb;
   }
-  
+
   .search-input:focus {
     border-color: #60a5fa;
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
   }
-  
+
   .categories-section h3 {
     color: #f9fafb;
   }
-  
+
   .category-button {
     background: #374151;
     border-color: #4b5563;
     color: #d1d5db;
   }
-  
+
   .category-button:hover {
     background: #4b5563;
     border-color: #6b7280;
     color: #f9fafb;
   }
-  
+
   .category-button.active {
     background: #60a5fa;
     border-color: #60a5fa;
     color: white;
   }
-  
+
   .template-card {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .template-card:hover {
     border-color: #60a5fa;
     box-shadow: 0 4px 12px rgba(96, 165, 250, 0.15);
   }
-  
+
   .template-card-header h3 {
     color: #f9fafb;
   }
-  
+
   .template-category {
     background: #1e3a8a;
     color: #dbeafe;
   }
-  
+
   .template-description {
     color: #9ca3af;
   }
-  
+
   .template-duration,
   .template-phases {
     background: #4b5563;
     color: #d1d5db;
   }
-  
+
   .template-tag {
     background: #4b5563;
     color: #9ca3af;
   }
-  
+
   .template-details-header h3 {
     color: #f9fafb;
   }
-  
+
   .back-button {
     color: #9ca3af;
   }
-  
+
   .back-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .template-info .template-description {
     color: #9ca3af;
   }
-  
+
   .template-phases h4,
   .template-sessions h4,
   .template-resources h4 {
     color: #f9fafb;
   }
-  
+
   .phase-item,
   .session-item,
   .resource-item {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .phase-name,
   .session-name,
   .resource-name {
     color: #f9fafb;
   }
-  
+
   .phase-description,
   .session-description,
   .resource-description {
     color: #9ca3af;
   }
-  
+
   .phase-duration,
   .session-duration {
     background: #374151;
     color: #9ca3af;
   }
-  
+
   .session-type,
   .resource-type {
     background: #6b7280;
     color: #d1d5db;
   }
-  
+
   .resource-link {
     color: #60a5fa;
   }
-  
+
   .template-actions {
     border-top-color: #374151;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -711,54 +711,52 @@
   .project-templates-overlay {
     padding: 10px;
   }
-  
+
   .project-templates-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .templates-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .templates-header h2 {
     font-size: 20px;
   }
-  
+
   .templates-content {
     flex-direction: column;
     height: auto;
   }
-  
+
   .templates-sidebar {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid #e5e7eb;
     padding: 16px;
   }
-  
+
   .templates-main {
     padding: 16px;
   }
-  
+
   .templates-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .template-details-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .template-actions {
     flex-direction: column;
   }
-  
+
   .template-actions .btn {
     width: 100%;
   }
 }
-
-

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Project, Session, ApiEndpoint, Webhook, ThirdPartyIntegration, ApiDocumentation, ApiKey, IntegrationTest } from '../../types';
+import {
+  Project,
+  Session,
+  ApiEndpoint,
+  Webhook,
+  ThirdPartyIntegration,
+  ApiDocumentation,
+  ApiKey,
+  IntegrationTest,
+} from '../../types';
 import './IntegrationManagement.css';
 
 interface IntegrationManagementProps {
@@ -11,14 +20,16 @@ interface IntegrationManagementProps {
 const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
   projects,
   sessions,
-  onClose
+  onClose,
 }) => {
   const [endpoints, setEndpoints] = useState<ApiEndpoint[]>([]);
   const [webhooks, setWebhooks] = useState<Webhook[]>([]);
   const [integrations, setIntegrations] = useState<ThirdPartyIntegration[]>([]);
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
   const [tests, setTests] = useState<IntegrationTest[]>([]);
-  const [activeTab, setActiveTab] = useState<'endpoints' | 'webhooks' | 'integrations' | 'keys' | 'tests' | 'docs'>('endpoints');
+  const [activeTab, setActiveTab] = useState<
+    'endpoints' | 'webhooks' | 'integrations' | 'keys' | 'tests' | 'docs'
+  >('endpoints');
   const [selectedEndpoint, setSelectedEndpoint] = useState<ApiEndpoint | null>(null);
   const [showApiDocs, setShowApiDocs] = useState(false);
 
@@ -37,12 +48,12 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         authentication: {
           required: true,
           type: 'api_key',
-          scopes: ['read:projects']
+          scopes: ['read:projects'],
         },
         rateLimit: {
           requests: 100,
           period: 'hour',
-          burst: 10
+          burst: 10,
         },
         parameters: [
           {
@@ -52,8 +63,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
             description: 'Filter projects by status',
             location: 'query',
             validation: {
-              enum: ['Active', 'Paused', 'Complete', 'Archived']
-            }
+              enum: ['Active', 'Paused', 'Complete', 'Archived'],
+            },
           },
           {
             name: 'limit',
@@ -64,9 +75,9 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
             location: 'query',
             validation: {
               min: 1,
-              max: 100
-            }
-          }
+              max: 100,
+            },
+          },
         ],
         responses: [
           {
@@ -78,12 +89,12 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               properties: {
                 projects: {
                   type: 'array',
-                  items: { $ref: '#/components/schemas/Project' }
+                  items: { $ref: '#/components/schemas/Project' },
                 },
                 total: { type: 'number' },
-                page: { type: 'number' }
-              }
-            }
+                page: { type: 'number' },
+              },
+            },
           },
           {
             statusCode: 401,
@@ -93,17 +104,17 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               type: 'object',
               properties: {
                 error: { type: 'string' },
-                message: { type: 'string' }
-              }
-            }
-          }
+                message: { type: 'string' },
+              },
+            },
+          },
         ],
         examples: [
           {
             name: 'Get Active Projects',
             description: 'Retrieve all active projects',
             request: {
-              query: { status: 'Active', limit: '10' }
+              query: { status: 'Active', limit: '10' },
             },
             response: {
               statusCode: 200,
@@ -113,14 +124,14 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                     id: 'proj-1',
                     name: 'Agent Alex',
                     status: 'Active',
-                    priority: 'High'
-                  }
+                    priority: 'High',
+                  },
                 ],
                 total: 1,
-                page: 1
-              }
-            }
-          }
+                page: 1,
+              },
+            },
+          },
         ],
         tags: ['projects', 'read'],
         createdAt: new Date().toISOString(),
@@ -128,7 +139,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         lastUsed: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
         usageCount: 1247,
         errorRate: 0.2,
-        averageResponseTime: 45
+        averageResponseTime: 45,
       },
       {
         id: 'endpoint-2',
@@ -142,11 +153,11 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         authentication: {
           required: true,
           type: 'api_key',
-          scopes: ['write:sessions']
+          scopes: ['write:sessions'],
         },
         rateLimit: {
           requests: 200,
-          period: 'hour'
+          period: 'hour',
         },
         parameters: [
           {
@@ -154,8 +165,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
             type: 'object',
             required: true,
             description: 'Session data',
-            location: 'body'
-          }
+            location: 'body',
+          },
         ],
         responses: [
           {
@@ -166,10 +177,10 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               type: 'object',
               properties: {
                 id: { type: 'string' },
-                message: { type: 'string' }
-              }
-            }
-          }
+                message: { type: 'string' },
+              },
+            },
+          },
         ],
         examples: [],
         tags: ['sessions', 'write'],
@@ -178,8 +189,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         lastUsed: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
         usageCount: 89,
         errorRate: 1.1,
-        averageResponseTime: 120
-      }
+        averageResponseTime: 120,
+      },
     ];
 
     const mockWebhooks: Webhook[] = [
@@ -193,20 +204,20 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         authentication: {
           type: 'hmac',
           credentials: {
-            secret: 'webhook-secret-key'
-          }
+            secret: 'webhook-secret-key',
+          },
         },
         retryPolicy: {
           maxRetries: 3,
           backoffStrategy: 'exponential',
-          initialDelay: 1000
+          initialDelay: 1000,
         },
         filters: [
           {
             field: 'status',
             operator: 'equals',
-            value: 'Complete'
-          }
+            value: 'Complete',
+          },
         ],
         transformations: [
           {
@@ -215,15 +226,15 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               mapping: {
                 'project.id': 'id',
                 'project.name': 'title',
-                'project.status': 'status'
-              }
+                'project.status': 'status',
+              },
             },
-            order: 1
-          }
+            order: 1,
+          },
         ],
         headers: {
           'Content-Type': 'application/json',
-          'User-Agent': 'AgentAlex/1.0'
+          'User-Agent': 'AgentAlex/1.0',
         },
         timeout: 5000,
         createdAt: new Date().toISOString(),
@@ -231,8 +242,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         lastTriggered: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
         triggerCount: 23,
         successRate: 95.7,
-        averageResponseTime: 180
-      }
+        averageResponseTime: 180,
+      },
     ];
 
     const mockIntegrations: ThirdPartyIntegration[] = [
@@ -246,7 +257,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         configuration: {
           apiKey: 'xoxb-***',
           baseUrl: 'https://slack.com/api',
-          timeout: 10000
+          timeout: 10000,
         },
         capabilities: [
           {
@@ -257,8 +268,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
             parameters: {
               channel: 'string',
               text: 'string',
-              blocks: 'array'
-            }
+              blocks: 'array',
+            },
           },
           {
             name: 'Update Status',
@@ -267,29 +278,29 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
             endpoints: ['/users.profile.set'],
             parameters: {
               status_text: 'string',
-              status_emoji: 'string'
-            }
-          }
+              status_emoji: 'string',
+            },
+          },
         ],
         webhooks: ['webhook-1'],
         syncSettings: {
           enabled: true,
           frequency: 'realtime',
           lastSync: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
-          direction: 'bidirectional'
+          direction: 'bidirectional',
         },
         permissions: {
           read: true,
           write: true,
           delete: false,
-          admin: false
+          admin: false,
         },
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         lastUsed: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
         usageCount: 156,
         errorCount: 2,
-        healthScore: 98.7
+        healthScore: 98.7,
       },
       {
         id: 'integration-2',
@@ -301,7 +312,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         configuration: {
           apiKey: 'ghp_***',
           baseUrl: 'https://api.github.com',
-          timeout: 15000
+          timeout: 15000,
         },
         capabilities: [
           {
@@ -311,9 +322,9 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
             endpoints: ['/repos', '/repos/{owner}/{repo}'],
             parameters: {
               owner: 'string',
-              repo: 'string'
-            }
-          }
+              repo: 'string',
+            },
+          },
         ],
         webhooks: [],
         syncSettings: {
@@ -321,21 +332,21 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
           frequency: 'hourly',
           lastSync: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
           nextSync: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
-          direction: 'import'
+          direction: 'import',
         },
         permissions: {
           read: true,
           write: false,
           delete: false,
-          admin: false
+          admin: false,
         },
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         lastUsed: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
         usageCount: 89,
         errorCount: 0,
-        healthScore: 100
-      }
+        healthScore: 100,
+      },
     ];
 
     const mockApiKeys: ApiKey[] = [
@@ -350,8 +361,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
           methods: ['GET', 'POST'],
           rateLimit: {
             requests: 1000,
-            period: 'hour'
-          }
+            period: 'hour',
+          },
         },
         status: 'active',
         expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
@@ -361,9 +372,9 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         createdBy: 'user-1',
         metadata: {
           environment: 'production',
-          application: 'frontend'
-        }
-      }
+          application: 'frontend',
+        },
+      },
     ];
 
     const mockTests: IntegrationTest[] = [
@@ -375,16 +386,16 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
         type: 'connection',
         configuration: {
           endpoint: '/auth.test',
-          method: 'GET'
+          method: 'GET',
         },
         expectedResult: {
           ok: true,
-          url: 'https://workspace.slack.com/'
+          url: 'https://workspace.slack.com/',
         },
         actualResult: {
           ok: true,
           url: 'https://workspace.slack.com/',
-          team: 'Agent Alex Team'
+          team: 'Agent Alex Team',
         },
         status: 'passed',
         startedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
@@ -395,18 +406,18 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
             timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
             level: 'info',
             message: 'Starting connection test',
-            data: { integration: 'Slack' }
+            data: { integration: 'Slack' },
           },
           {
             timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000 + 500).toISOString(),
             level: 'info',
             message: 'Connection test completed successfully',
-            data: { responseTime: 500 }
-          }
+            data: { responseTime: 500 },
+          },
         ],
         createdAt: new Date().toISOString(),
-        createdBy: 'user-1'
-      }
+        createdBy: 'user-1',
+      },
     ];
 
     setEndpoints(mockEndpoints);
@@ -417,13 +428,13 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
   }, []);
 
   const handleEndpointToggle = (endpointId: string) => {
-    setEndpoints(prev => 
-      prev.map(endpoint => 
-        endpoint.id === endpointId 
-          ? { 
-              ...endpoint, 
+    setEndpoints(prev =>
+      prev.map(endpoint =>
+        endpoint.id === endpointId
+          ? {
+              ...endpoint,
               status: endpoint.status === 'active' ? 'deprecated' : 'active',
-              updatedAt: new Date().toISOString()
+              updatedAt: new Date().toISOString(),
             }
           : endpoint
       )
@@ -431,13 +442,13 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
   };
 
   const handleWebhookToggle = (webhookId: string) => {
-    setWebhooks(prev => 
-      prev.map(webhook => 
-        webhook.id === webhookId 
-          ? { 
-              ...webhook, 
+    setWebhooks(prev =>
+      prev.map(webhook =>
+        webhook.id === webhookId
+          ? {
+              ...webhook,
               status: webhook.status === 'active' ? 'inactive' : 'active',
-              updatedAt: new Date().toISOString()
+              updatedAt: new Date().toISOString(),
             }
           : webhook
       )
@@ -445,13 +456,13 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
   };
 
   const handleIntegrationToggle = (integrationId: string) => {
-    setIntegrations(prev => 
-      prev.map(integration => 
-        integration.id === integrationId 
-          ? { 
-              ...integration, 
+    setIntegrations(prev =>
+      prev.map(integration =>
+        integration.id === integrationId
+          ? {
+              ...integration,
               status: integration.status === 'connected' ? 'disconnected' : 'connected',
-              updatedAt: new Date().toISOString()
+              updatedAt: new Date().toISOString(),
             }
           : integration
       )
@@ -462,42 +473,63 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
     switch (status) {
       case 'active':
       case 'connected':
-      case 'passed': return '#10b981';
+      case 'passed':
+        return '#10b981';
       case 'inactive':
       case 'disconnected':
-      case 'failed': return '#dc2626';
+      case 'failed':
+        return '#dc2626';
       case 'deprecated':
-      case 'error': return '#f59e0b';
+      case 'error':
+        return '#f59e0b';
       case 'beta':
-      case 'pending': return '#3b82f6';
+      case 'pending':
+        return '#3b82f6';
       case 'maintenance':
-      case 'testing': return '#6b7280';
-      default: return '#6b7280';
+      case 'testing':
+        return '#6b7280';
+      default:
+        return '#6b7280';
     }
   };
 
   const getMethodColor = (method: string) => {
     switch (method) {
-      case 'GET': return '#10b981';
-      case 'POST': return '#3b82f6';
-      case 'PUT': return '#f59e0b';
-      case 'DELETE': return '#dc2626';
-      case 'PATCH': return '#8b5cf6';
-      default: return '#6b7280';
+      case 'GET':
+        return '#10b981';
+      case 'POST':
+        return '#3b82f6';
+      case 'PUT':
+        return '#f59e0b';
+      case 'DELETE':
+        return '#dc2626';
+      case 'PATCH':
+        return '#8b5cf6';
+      default:
+        return '#6b7280';
     }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'projects': return '📋';
-      case 'sessions': return '⏱️';
-      case 'analytics': return '📊';
-      case 'workflows': return '🔄';
-      case 'integrations': return '🔗';
-      case 'communication': return '💬';
-      case 'development': return '💻';
-      case 'productivity': return '⚡';
-      default: return '🔧';
+      case 'projects':
+        return '📋';
+      case 'sessions':
+        return '⏱️';
+      case 'analytics':
+        return '📊';
+      case 'workflows':
+        return '🔄';
+      case 'integrations':
+        return '🔗';
+      case 'communication':
+        return '💬';
+      case 'development':
+        return '💻';
+      case 'productivity':
+        return '⚡';
+      default:
+        return '🔧';
     }
   };
 
@@ -512,42 +544,44 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
       <div className="integration-management-modal">
         <div className="integration-header">
           <h2>🔗 Integration & API Management</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="integration-content">
           <div className="integration-tabs">
-            <button 
+            <button
               className={`tab-button ${activeTab === 'endpoints' ? 'active' : ''}`}
               onClick={() => setActiveTab('endpoints')}
             >
               🌐 API Endpoints ({endpoints.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'webhooks' ? 'active' : ''}`}
               onClick={() => setActiveTab('webhooks')}
             >
               🪝 Webhooks ({webhooks.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'integrations' ? 'active' : ''}`}
               onClick={() => setActiveTab('integrations')}
             >
               🔌 Integrations ({integrations.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'keys' ? 'active' : ''}`}
               onClick={() => setActiveTab('keys')}
             >
               🔑 API Keys ({apiKeys.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'tests' ? 'active' : ''}`}
               onClick={() => setActiveTab('tests')}
             >
               🧪 Tests ({tests.length})
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'docs' ? 'active' : ''}`}
               onClick={() => setActiveTab('docs')}
             >
@@ -560,9 +594,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               <div className="endpoints-section">
                 <div className="section-header">
                   <h3>API Endpoints</h3>
-                  <button className="btn btn-primary">
-                    ➕ Add Endpoint
-                  </button>
+                  <button className="btn btn-primary">➕ Add Endpoint</button>
                 </div>
 
                 <div className="endpoints-list">
@@ -570,7 +602,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                     <div key={endpoint.id} className="endpoint-card">
                       <div className="endpoint-header">
                         <div className="endpoint-title">
-                          <span 
+                          <span
                             className="method-badge"
                             style={{ backgroundColor: getMethodColor(endpoint.method) }}
                           >
@@ -579,7 +611,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           <h4>
                             {getCategoryIcon(endpoint.category)} {endpoint.name}
                           </h4>
-                          <span 
+                          <span
                             className="status-badge"
                             style={{ backgroundColor: getStatusColor(endpoint.status) }}
                           >
@@ -587,13 +619,13 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           </span>
                         </div>
                         <div className="endpoint-actions">
-                          <button 
+                          <button
                             className="btn btn-outline btn-small"
                             onClick={() => handleEndpointToggle(endpoint.id)}
                           >
                             {endpoint.status === 'active' ? 'Deprecate' : 'Activate'}
                           </button>
-                          <button 
+                          <button
                             className="btn btn-primary btn-small"
                             onClick={() => setSelectedEndpoint(endpoint)}
                           >
@@ -624,20 +656,21 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                         </div>
                         <div className="stat-item">
                           <span className="stat-label">Rate Limit:</span>
-                          <span className="stat-value">{endpoint.rateLimit.requests}/{endpoint.rateLimit.period}</span>
+                          <span className="stat-value">
+                            {endpoint.rateLimit.requests}/{endpoint.rateLimit.period}
+                          </span>
                         </div>
                       </div>
 
                       <div className="endpoint-meta">
+                        <span className="meta-item">Auth: {endpoint.authentication.type}</span>
                         <span className="meta-item">
-                          Auth: {endpoint.authentication.type}
+                          Last used:{' '}
+                          {endpoint.lastUsed
+                            ? new Date(endpoint.lastUsed).toLocaleString()
+                            : 'Never'}
                         </span>
-                        <span className="meta-item">
-                          Last used: {endpoint.lastUsed ? new Date(endpoint.lastUsed).toLocaleString() : 'Never'}
-                        </span>
-                        <span className="meta-item">
-                          Tags: {endpoint.tags.join(', ')}
-                        </span>
+                        <span className="meta-item">Tags: {endpoint.tags.join(', ')}</span>
                       </div>
                     </div>
                   ))}
@@ -649,9 +682,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               <div className="webhooks-section">
                 <div className="section-header">
                   <h3>Webhooks</h3>
-                  <button className="btn btn-primary">
-                    ➕ Add Webhook
-                  </button>
+                  <button className="btn btn-primary">➕ Add Webhook</button>
                 </div>
 
                 <div className="webhooks-list">
@@ -660,7 +691,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                       <div className="webhook-header">
                         <div className="webhook-title">
                           <h4>🪝 {webhook.name}</h4>
-                          <span 
+                          <span
                             className="status-badge"
                             style={{ backgroundColor: getStatusColor(webhook.status) }}
                           >
@@ -668,15 +699,13 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           </span>
                         </div>
                         <div className="webhook-actions">
-                          <button 
+                          <button
                             className="btn btn-outline btn-small"
                             onClick={() => handleWebhookToggle(webhook.id)}
                           >
                             {webhook.status === 'active' ? 'Disable' : 'Enable'}
                           </button>
-                          <button className="btn btn-primary btn-small">
-                            Test
-                          </button>
+                          <button className="btn btn-primary btn-small">Test</button>
                         </div>
                       </div>
 
@@ -717,11 +746,12 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                       </div>
 
                       <div className="webhook-meta">
+                        <span className="meta-item">Auth: {webhook.authentication.type}</span>
                         <span className="meta-item">
-                          Auth: {webhook.authentication.type}
-                        </span>
-                        <span className="meta-item">
-                          Last triggered: {webhook.lastTriggered ? new Date(webhook.lastTriggered).toLocaleString() : 'Never'}
+                          Last triggered:{' '}
+                          {webhook.lastTriggered
+                            ? new Date(webhook.lastTriggered).toLocaleString()
+                            : 'Never'}
                         </span>
                         {webhook.lastError && (
                           <span className="meta-item error">
@@ -739,9 +769,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               <div className="integrations-section">
                 <div className="section-header">
                   <h3>Third-Party Integrations</h3>
-                  <button className="btn btn-primary">
-                    ➕ Add Integration
-                  </button>
+                  <button className="btn btn-primary">➕ Add Integration</button>
                 </div>
 
                 <div className="integrations-grid">
@@ -752,7 +780,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           <h4>
                             {getCategoryIcon(integration.category)} {integration.name}
                           </h4>
-                          <span 
+                          <span
                             className="status-badge"
                             style={{ backgroundColor: getStatusColor(integration.status) }}
                           >
@@ -760,15 +788,13 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           </span>
                         </div>
                         <div className="integration-actions">
-                          <button 
+                          <button
                             className="btn btn-outline btn-small"
                             onClick={() => handleIntegrationToggle(integration.id)}
                           >
                             {integration.status === 'connected' ? 'Disconnect' : 'Connect'}
                           </button>
-                          <button className="btn btn-primary btn-small">
-                            Configure
-                          </button>
+                          <button className="btn btn-primary btn-small">Configure</button>
                         </div>
                       </div>
 
@@ -811,10 +837,16 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
 
                       <div className="integration-meta">
                         <span className="meta-item">
-                          Last used: {integration.lastUsed ? new Date(integration.lastUsed).toLocaleString() : 'Never'}
+                          Last used:{' '}
+                          {integration.lastUsed
+                            ? new Date(integration.lastUsed).toLocaleString()
+                            : 'Never'}
                         </span>
                         <span className="meta-item">
-                          Last sync: {integration.syncSettings.lastSync ? new Date(integration.syncSettings.lastSync).toLocaleString() : 'Never'}
+                          Last sync:{' '}
+                          {integration.syncSettings.lastSync
+                            ? new Date(integration.syncSettings.lastSync).toLocaleString()
+                            : 'Never'}
                         </span>
                       </div>
                     </div>
@@ -827,9 +859,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               <div className="keys-section">
                 <div className="section-header">
                   <h3>API Keys</h3>
-                  <button className="btn btn-primary">
-                    ➕ Generate Key
-                  </button>
+                  <button className="btn btn-primary">➕ Generate Key</button>
                 </div>
 
                 <div className="keys-list">
@@ -838,7 +868,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                       <div className="key-header">
                         <div className="key-title">
                           <h4>🔑 {apiKey.name}</h4>
-                          <span 
+                          <span
                             className="status-badge"
                             style={{ backgroundColor: getStatusColor(apiKey.status) }}
                           >
@@ -846,12 +876,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           </span>
                         </div>
                         <div className="key-actions">
-                          <button className="btn btn-outline btn-small">
-                            Regenerate
-                          </button>
-                          <button className="btn btn-secondary btn-small">
-                            Revoke
-                          </button>
+                          <button className="btn btn-outline btn-small">Regenerate</button>
+                          <button className="btn btn-secondary btn-small">Revoke</button>
                         </div>
                       </div>
 
@@ -867,15 +893,22 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                         <div className="permissions-list">
                           <div className="permission-item">
                             <span className="permission-label">Endpoints:</span>
-                            <span className="permission-value">{apiKey.permissions.endpoints.join(', ')}</span>
+                            <span className="permission-value">
+                              {apiKey.permissions.endpoints.join(', ')}
+                            </span>
                           </div>
                           <div className="permission-item">
                             <span className="permission-label">Methods:</span>
-                            <span className="permission-value">{apiKey.permissions.methods.join(', ')}</span>
+                            <span className="permission-value">
+                              {apiKey.permissions.methods.join(', ')}
+                            </span>
                           </div>
                           <div className="permission-item">
                             <span className="permission-label">Rate Limit:</span>
-                            <span className="permission-value">{apiKey.permissions.rateLimit.requests}/{apiKey.permissions.rateLimit.period}</span>
+                            <span className="permission-value">
+                              {apiKey.permissions.rateLimit.requests}/
+                              {apiKey.permissions.rateLimit.period}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -887,12 +920,16 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                         </div>
                         <div className="stat-item">
                           <span className="stat-label">Created:</span>
-                          <span className="stat-value">{new Date(apiKey.createdAt).toLocaleDateString()}</span>
+                          <span className="stat-value">
+                            {new Date(apiKey.createdAt).toLocaleDateString()}
+                          </span>
                         </div>
                         <div className="stat-item">
                           <span className="stat-label">Expires:</span>
                           <span className="stat-value">
-                            {apiKey.expiresAt ? new Date(apiKey.expiresAt).toLocaleDateString() : 'Never'}
+                            {apiKey.expiresAt
+                              ? new Date(apiKey.expiresAt).toLocaleDateString()
+                              : 'Never'}
                           </span>
                         </div>
                         <div className="stat-item">
@@ -912,9 +949,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               <div className="tests-section">
                 <div className="section-header">
                   <h3>Integration Tests</h3>
-                  <button className="btn btn-primary">
-                    ➕ Run Test
-                  </button>
+                  <button className="btn btn-primary">➕ Run Test</button>
                 </div>
 
                 <div className="tests-list">
@@ -923,7 +958,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                       <div className="test-header">
                         <div className="test-title">
                           <h4>🧪 {test.name}</h4>
-                          <span 
+                          <span
                             className="status-badge"
                             style={{ backgroundColor: getStatusColor(test.status) }}
                           >
@@ -931,12 +966,8 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           </span>
                         </div>
                         <div className="test-actions">
-                          <button className="btn btn-outline btn-small">
-                            View Logs
-                          </button>
-                          <button className="btn btn-primary btn-small">
-                            Run Again
-                          </button>
+                          <button className="btn btn-outline btn-small">View Logs</button>
+                          <button className="btn btn-primary btn-small">Run Again</button>
                         </div>
                       </div>
 
@@ -980,15 +1011,15 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
 
                       <div className="test-meta">
                         <span className="meta-item">
-                          Started: {test.startedAt ? new Date(test.startedAt).toLocaleString() : 'N/A'}
+                          Started:{' '}
+                          {test.startedAt ? new Date(test.startedAt).toLocaleString() : 'N/A'}
                         </span>
                         <span className="meta-item">
-                          Completed: {test.completedAt ? new Date(test.completedAt).toLocaleString() : 'N/A'}
+                          Completed:{' '}
+                          {test.completedAt ? new Date(test.completedAt).toLocaleString() : 'N/A'}
                         </span>
                         {test.errorMessage && (
-                          <span className="meta-item error">
-                            Error: {test.errorMessage}
-                          </span>
+                          <span className="meta-item error">Error: {test.errorMessage}</span>
                         )}
                       </div>
                     </div>
@@ -1001,18 +1032,16 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
               <div className="docs-section">
                 <div className="section-header">
                   <h3>API Documentation</h3>
-                  <button className="btn btn-primary">
-                    📖 View Full Docs
-                  </button>
+                  <button className="btn btn-primary">📖 View Full Docs</button>
                 </div>
 
                 <div className="docs-content">
                   <div className="docs-overview">
                     <h4>Agent Alex API v1</h4>
                     <p>
-                      The Agent Alex API provides programmatic access to projects, sessions, 
-                      analytics, and workflow management. All API endpoints are RESTful and 
-                      return JSON responses.
+                      The Agent Alex API provides programmatic access to projects, sessions,
+                      analytics, and workflow management. All API endpoints are RESTful and return
+                      JSON responses.
                     </p>
                   </div>
 
@@ -1020,7 +1049,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                     <h4>Quick Start</h4>
                     <div className="code-block">
                       <pre>
-{`# Get your API key from the API Keys section
+                        {`# Get your API key from the API Keys section
 curl -H "Authorization: Bearer YOUR_API_KEY" \\
      https://api.agentalex.com/v1/projects`}
                       </pre>
@@ -1032,7 +1061,7 @@ curl -H "Authorization: Bearer YOUR_API_KEY" \\
                     <div className="endpoints-summary">
                       {endpoints.map(endpoint => (
                         <div key={endpoint.id} className="endpoint-summary">
-                          <span 
+                          <span
                             className="method-badge"
                             style={{ backgroundColor: getMethodColor(endpoint.method) }}
                           >
@@ -1055,5 +1084,3 @@ curl -H "Authorization: Bearer YOUR_API_KEY" \\
 };
 
 export default IntegrationManagement;
-
-

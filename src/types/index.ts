@@ -21,7 +21,7 @@ export type SessionStatus = 'In Progress' | 'Completed' | 'Paused';
 /**
  * Session type categories
  */
-export type SessionType = 
+export type SessionType =
   | 'Feature Development'
   | 'Bug Fix'
   | 'Refactoring'
@@ -86,7 +86,7 @@ export interface Session {
   workspace: string;
   type: SessionType;
   tags: string[];
-  
+
   // Extended fields from Notion
   keyDecisions?: string;
   challenges?: string;
@@ -476,7 +476,13 @@ export interface ReportAnalytics {
  */
 export interface AIInsight {
   id: string;
-  type: 'productivity' | 'efficiency' | 'pattern' | 'recommendation' | 'prediction' | 'optimization';
+  type:
+    | 'productivity'
+    | 'efficiency'
+    | 'pattern'
+    | 'recommendation'
+    | 'prediction'
+    | 'optimization';
   category: 'workflow' | 'time_management' | 'project_management' | 'collaboration' | 'learning';
   title: string;
   description: string;
@@ -855,7 +861,12 @@ export interface AutomationRule {
   id: string;
   name: string;
   description: string;
-  category: 'task_management' | 'project_management' | 'communication' | 'data_processing' | 'custom';
+  category:
+    | 'task_management'
+    | 'project_management'
+    | 'communication'
+    | 'data_processing'
+    | 'custom';
   enabled: boolean;
   priority: number;
   conditions: AutomationCondition[];
@@ -876,14 +887,34 @@ export interface AutomationRule {
 export interface AutomationCondition {
   id: string;
   field: string;
-  operator: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'greater_than' | 'less_than' | 'exists' | 'not_exists' | 'in' | 'not_in';
+  operator:
+    | 'equals'
+    | 'not_equals'
+    | 'contains'
+    | 'not_contains'
+    | 'greater_than'
+    | 'less_than'
+    | 'exists'
+    | 'not_exists'
+    | 'in'
+    | 'not_in';
   value: any;
   logicalOperator?: 'AND' | 'OR';
 }
 
 export interface AutomationAction {
   id: string;
-  type: 'create_task' | 'update_status' | 'send_notification' | 'assign_user' | 'set_priority' | 'add_tag' | 'create_project' | 'schedule_meeting' | 'send_email' | 'webhook_call';
+  type:
+    | 'create_task'
+    | 'update_status'
+    | 'send_notification'
+    | 'assign_user'
+    | 'set_priority'
+    | 'add_tag'
+    | 'create_project'
+    | 'schedule_meeting'
+    | 'send_email'
+    | 'webhook_call';
   parameters: Record<string, any>;
   delay?: number;
   retryPolicy?: {
@@ -1021,7 +1052,15 @@ export interface Webhook {
 
 export interface WebhookFilter {
   field: string;
-  operator: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'greater_than' | 'less_than' | 'exists' | 'not_exists';
+  operator:
+    | 'equals'
+    | 'not_equals'
+    | 'contains'
+    | 'not_contains'
+    | 'greater_than'
+    | 'less_than'
+    | 'exists'
+    | 'not_exists';
   value: any;
   logicalOperator?: 'AND' | 'OR';
 }
@@ -1037,7 +1076,14 @@ export interface ThirdPartyIntegration {
   name: string;
   description: string;
   service: string;
-  category: 'productivity' | 'communication' | 'development' | 'analytics' | 'storage' | 'payment' | 'custom';
+  category:
+    | 'productivity'
+    | 'communication'
+    | 'development'
+    | 'analytics'
+    | 'storage'
+    | 'payment'
+    | 'custom';
   status: 'connected' | 'disconnected' | 'error' | 'pending';
   configuration: {
     apiKey?: string;
@@ -1279,14 +1325,26 @@ export interface AuditLog {
   };
   timestamp: string;
   severity: 'low' | 'medium' | 'high' | 'critical';
-  category: 'authentication' | 'authorization' | 'data_access' | 'data_modification' | 'system' | 'security';
+  category:
+    | 'authentication'
+    | 'authorization'
+    | 'data_access'
+    | 'data_modification'
+    | 'system'
+    | 'security';
   tags: string[];
   metadata: Record<string, any>;
 }
 
 export interface SecurityEvent {
   id: string;
-  type: 'login_attempt' | 'permission_denied' | 'data_breach' | 'suspicious_activity' | 'system_compromise' | 'policy_violation';
+  type:
+    | 'login_attempt'
+    | 'permission_denied'
+    | 'data_breach'
+    | 'suspicious_activity'
+    | 'system_compromise'
+    | 'policy_violation';
   severity: 'low' | 'medium' | 'high' | 'critical';
   title: string;
   description: string;
@@ -1463,7 +1521,12 @@ export interface SecurityPolicy {
   id: string;
   name: string;
   description: string;
-  category: 'access_control' | 'data_protection' | 'incident_response' | 'business_continuity' | 'vendor_management';
+  category:
+    | 'access_control'
+    | 'data_protection'
+    | 'incident_response'
+    | 'business_continuity'
+    | 'vendor_management';
   version: string;
   status: 'draft' | 'active' | 'archived';
   content: string;
@@ -1958,7 +2021,15 @@ export interface SalesReport {
 export interface CustomerLifecycle {
   id: string;
   customer: string;
-  stage: 'awareness' | 'interest' | 'evaluation' | 'purchase' | 'onboarding' | 'adoption' | 'expansion' | 'renewal';
+  stage:
+    | 'awareness'
+    | 'interest'
+    | 'evaluation'
+    | 'purchase'
+    | 'onboarding'
+    | 'adoption'
+    | 'expansion'
+    | 'renewal';
   value: number;
   duration: number;
   nextStage: string;
@@ -2631,4 +2702,3 @@ export interface MarketingSync {
   records: number;
   errors: number;
 }
-

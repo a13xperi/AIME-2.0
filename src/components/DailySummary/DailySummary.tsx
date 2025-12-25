@@ -20,21 +20,17 @@ interface SummaryData {
   recommendations: string[];
 }
 
-const DailySummary: React.FC<DailySummaryProps> = ({
-  sessions,
-  isVisible,
-  onClose
-}) => {
+const DailySummary: React.FC<DailySummaryProps> = ({ sessions, isVisible, onClose }) => {
   const [summaryData, setSummaryData] = useState<SummaryData | null>(null);
   const [loading, setLoading] = useState(true);
 
   const calculateSummary = useCallback(() => {
     setLoading(true);
-    
+
     try {
       const today = new Date().toISOString().split('T')[0];
       const todaysSessions = sessions.filter(session => session.date === today);
-      
+
       if (todaysSessions.length === 0) {
         setSummaryData(null);
         setLoading(false);
@@ -53,14 +49,16 @@ const DailySummary: React.FC<DailySummaryProps> = ({
         const projectName = session.projectName || 'Unknown Project';
         projectCounts.set(projectName, (projectCounts.get(projectName) || 0) + 1);
       });
-      const topProject = Array.from(projectCounts.entries()).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+      const topProject = Array.from(projectCounts.entries()).reduce((a, b) =>
+        a[1] > b[1] ? a : b
+      )[0];
 
       // Determine work pattern
       const sessionHours = todaysSessions.map(s => new Date(s.date).getHours());
       const morningSessions = sessionHours.filter(h => h >= 6 && h < 12).length;
       const afternoonSessions = sessionHours.filter(h => h >= 12 && h < 18).length;
       const eveningSessions = sessionHours.filter(h => h >= 18 || h < 6).length;
-      
+
       let workPattern = 'Balanced';
       if (morningSessions > afternoonSessions && morningSessions > eveningSessions) {
         workPattern = 'Early Bird';
@@ -112,7 +110,7 @@ const DailySummary: React.FC<DailySummaryProps> = ({
         averageSessionLength,
         workPattern,
         achievements,
-        recommendations
+        recommendations,
       });
     } catch (error) {
       console.error('Error calculating summary:', error);
@@ -162,7 +160,9 @@ const DailySummary: React.FC<DailySummaryProps> = ({
       <div className="daily-summary-modal">
         <div className="daily-summary-header">
           <h2>📊 Daily Summary</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="daily-summary-content">
@@ -172,19 +172,19 @@ const DailySummary: React.FC<DailySummaryProps> = ({
               <div className="stat-value">{summaryData.totalSessions}</div>
               <div className="stat-label">Sessions</div>
             </div>
-            
+
             <div className="stat-card">
               <div className="stat-icon">⏰</div>
               <div className="stat-value">{summaryData.totalHours.toFixed(1)}h</div>
               <div className="stat-label">Total Time</div>
             </div>
-            
+
             <div className="stat-card">
               <div className="stat-icon">🎯</div>
               <div className="stat-value">{summaryData.productivityScore}%</div>
               <div className="stat-label">Productivity</div>
             </div>
-            
+
             <div className="stat-card">
               <div className="stat-icon">⚡</div>
               <div className="stat-value">{summaryData.averageSessionLength.toFixed(1)}h</div>
@@ -197,7 +197,7 @@ const DailySummary: React.FC<DailySummaryProps> = ({
               <h3>🏆 Top Project</h3>
               <p>{summaryData.topProject}</p>
             </div>
-            
+
             <div className="insight-section">
               <h3>🕐 Work Pattern</h3>
               <p>{summaryData.workPattern}</p>
@@ -240,5 +240,3 @@ const DailySummary: React.FC<DailySummaryProps> = ({
 };
 
 export default DailySummary;
-
-

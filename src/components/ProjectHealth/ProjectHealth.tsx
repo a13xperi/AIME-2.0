@@ -21,7 +21,7 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
         onBudget: 92,
         quality: 88,
         teamSatisfaction: 76,
-        stakeholderSatisfaction: 82
+        stakeholderSatisfaction: 82,
       },
       risks: [
         {
@@ -33,7 +33,7 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           impact: 80,
           mitigation: 'Schedule additional time for API exploration and create fallback plan',
           owner: 'Development Team',
-          status: 'monitoring'
+          status: 'monitoring',
         },
         {
           id: 'risk-2',
@@ -44,7 +44,7 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           impact: 60,
           mitigation: 'Cross-train team members and document critical processes',
           owner: 'Project Manager',
-          status: 'identified'
+          status: 'identified',
         },
         {
           id: 'risk-3',
@@ -55,8 +55,8 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           impact: 50,
           mitigation: 'Implement change control process and client communication protocol',
           owner: 'Project Manager',
-          status: 'mitigating'
-        }
+          status: 'mitigating',
+        },
       ],
       alerts: [
         {
@@ -67,7 +67,7 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           message: 'Design Phase Complete milestone is due in 3 days',
           timestamp: new Date().toISOString(),
           acknowledged: false,
-          actionRequired: true
+          actionRequired: true,
         },
         {
           id: 'alert-2',
@@ -77,7 +77,7 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           message: 'Latest code review shows 95% quality score',
           timestamp: new Date(Date.now() - 3600000).toISOString(),
           acknowledged: true,
-          actionRequired: false
+          actionRequired: false,
         },
         {
           id: 'alert-3',
@@ -87,12 +87,12 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           message: 'Lead developer will be unavailable for 2 days next week',
           timestamp: new Date(Date.now() - 7200000).toISOString(),
           acknowledged: false,
-          actionRequired: true
-        }
+          actionRequired: true,
+        },
       ],
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     };
-    
+
     setTimeout(() => {
       setHealth(mockHealth);
       setLoading(false);
@@ -115,32 +115,48 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return '#dc2626';
-      case 'high': return '#ea580c';
-      case 'medium': return '#ca8a04';
-      case 'low': return '#16a34a';
-      default: return '#6b7280';
+      case 'critical':
+        return '#dc2626';
+      case 'high':
+        return '#ea580c';
+      case 'medium':
+        return '#ca8a04';
+      case 'low':
+        return '#16a34a';
+      default:
+        return '#6b7280';
     }
   };
 
   const getAlertIcon = (type: string) => {
     switch (type) {
-      case 'deadline': return '⏰';
-      case 'budget': return '💰';
-      case 'quality': return '⭐';
-      case 'resource': return '👥';
-      case 'dependency': return '🔗';
-      default: return '📋';
+      case 'deadline':
+        return '⏰';
+      case 'budget':
+        return '💰';
+      case 'quality':
+        return '⭐';
+      case 'resource':
+        return '👥';
+      case 'dependency':
+        return '🔗';
+      default:
+        return '📋';
     }
   };
 
   const getAlertSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return '#dc2626';
-      case 'error': return '#dc2626';
-      case 'warning': return '#ea580c';
-      case 'info': return '#3b82f6';
-      default: return '#6b7280';
+      case 'critical':
+        return '#dc2626';
+      case 'error':
+        return '#dc2626';
+      case 'warning':
+        return '#ea580c';
+      case 'info':
+        return '#3b82f6';
+      default:
+        return '#6b7280';
     }
   };
 
@@ -149,7 +165,7 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -173,7 +189,9 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
       <div className="project-health-modal">
         <div className="health-header">
           <h2>🏥 Project Health Monitor</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="health-content">
@@ -185,10 +203,10 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           <div className="health-overview">
             <div className="overall-score">
               <div className="score-circle">
-                <div 
+                <div
                   className="score-fill"
-                  style={{ 
-                    background: `conic-gradient(${getHealthColor(health.overallScore)} ${health.overallScore * 3.6}deg, #e5e7eb 0deg)`
+                  style={{
+                    background: `conic-gradient(${getHealthColor(health.overallScore)} ${health.overallScore * 3.6}deg, #e5e7eb 0deg)`,
                   }}
                 >
                   <div className="score-inner">
@@ -215,11 +233,11 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
                       <span className="indicator-score">{value}%</span>
                     </div>
                     <div className="indicator-bar">
-                      <div 
+                      <div
                         className="indicator-fill"
-                        style={{ 
+                        style={{
                           width: `${value}%`,
-                          backgroundColor: getHealthColor(value)
+                          backgroundColor: getHealthColor(value),
                         }}
                       ></div>
                     </div>
@@ -236,7 +254,7 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
                 <div key={risk.id} className="risk-item">
                   <div className="risk-header">
                     <div className="risk-title">
-                      <span 
+                      <span
                         className="risk-severity"
                         style={{ backgroundColor: getSeverityColor(risk.severity) }}
                       >
@@ -272,15 +290,16 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
             <h4>Active Alerts</h4>
             <div className="alerts-list">
               {health.alerts.map(alert => (
-                <div key={alert.id} className={`alert-item ${alert.acknowledged ? 'acknowledged' : ''}`}>
+                <div
+                  key={alert.id}
+                  className={`alert-item ${alert.acknowledged ? 'acknowledged' : ''}`}
+                >
                   <div className="alert-header">
-                    <div className="alert-icon">
-                      {getAlertIcon(alert.type)}
-                    </div>
+                    <div className="alert-icon">{getAlertIcon(alert.type)}</div>
                     <div className="alert-content">
                       <div className="alert-title-row">
                         <h5>{alert.title}</h5>
-                        <span 
+                        <span
                           className="alert-severity"
                           style={{ color: getAlertSeverityColor(alert.severity) }}
                         >
@@ -298,13 +317,9 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
                   </div>
                   {!alert.acknowledged && (
                     <div className="alert-actions">
-                      <button className="btn btn-outline btn-small">
-                        Acknowledge
-                      </button>
+                      <button className="btn btn-outline btn-small">Acknowledge</button>
                       {alert.actionRequired && (
-                        <button className="btn btn-primary btn-small">
-                          Take Action
-                        </button>
+                        <button className="btn btn-primary btn-small">Take Action</button>
                       )}
                     </div>
                   )}
@@ -314,12 +329,8 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
           </div>
 
           <div className="health-actions">
-            <button className="btn btn-outline">
-              Export Report
-            </button>
-            <button className="btn btn-primary">
-              Update Health Metrics
-            </button>
+            <button className="btn btn-outline">Export Report</button>
+            <button className="btn btn-primary">Update Health Metrics</button>
           </div>
         </div>
       </div>
@@ -328,5 +339,3 @@ const ProjectHealth: React.FC<ProjectHealthProps> = ({ project, onClose }) => {
 };
 
 export default ProjectHealth;
-
-

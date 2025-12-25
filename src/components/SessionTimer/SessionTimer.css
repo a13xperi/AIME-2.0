@@ -304,109 +304,109 @@
   .session-timer-modal {
     background: #1f2937;
   }
-  
+
   .session-timer-header {
     border-bottom-color: #374151;
   }
-  
+
   .session-timer-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .session-info {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .session-info h3 {
     color: #f9fafb;
   }
-  
+
   .session-project {
     color: #9ca3af;
   }
-  
+
   .status-badge.inprogress {
     background: #1e3a8a;
     color: #dbeafe;
   }
-  
+
   .status-badge.completed {
     background: #166534;
     color: #dcfce7;
   }
-  
+
   .status-badge.paused {
     background: #92400e;
     color: #fef3c7;
   }
-  
+
   .status-badge.active {
     background: #166534;
     color: #dcfce7;
   }
-  
+
   .timer-display {
     background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
     border-color: #4b5563;
   }
-  
+
   .time-label {
     color: #9ca3af;
   }
-  
+
   .time-value {
     color: #f9fafb;
   }
-  
+
   .total-time .time-value {
     color: #60a5fa;
   }
-  
+
   .stat-grid {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .stat-item {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .stat-label {
     color: #9ca3af;
   }
-  
+
   .stat-value {
     color: #f9fafb;
   }
-  
+
   .stat-value.tracking {
     color: #34d399;
   }
-  
+
   .stat-value.paused {
     color: #9ca3af;
   }
-  
+
   .advanced-timer-section {
     border-top-color: #374151;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -419,46 +419,44 @@
   .session-timer-overlay {
     padding: 10px;
   }
-  
+
   .session-timer-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .session-timer-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .session-timer-header h2 {
     font-size: 20px;
   }
-  
+
   .session-timer-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .timer-display {
     flex-direction: column;
     gap: 16px;
     padding: 16px;
   }
-  
+
   .time-value {
     font-size: 28px;
   }
-  
+
   .running-controls {
     flex-direction: column;
   }
-  
+
   .btn-large {
     padding: 14px 28px;
     font-size: 16px;
   }
-  
+
   .stat-grid {
     grid-template-columns: 1fr;
   }
 }
-
-

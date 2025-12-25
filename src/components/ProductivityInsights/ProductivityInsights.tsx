@@ -29,27 +29,25 @@ interface ProductivityInsightsProps {
 const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
   sessions,
   projects,
-  timeRange
+  timeRange,
 }) => {
   const [insights, setInsights] = useState<ProductivityData | null>(null);
   const [loading, setLoading] = useState(true);
 
   const calculateInsights = useCallback(() => {
     setLoading(true);
-    
+
     try {
       const now = new Date();
       const timeRangeMs = {
         '7d': 7 * 24 * 60 * 60 * 1000,
         '30d': 30 * 24 * 60 * 60 * 1000,
         '90d': 90 * 24 * 60 * 60 * 1000,
-        '1y': 365 * 24 * 60 * 60 * 1000
+        '1y': 365 * 24 * 60 * 60 * 1000,
       };
 
       const cutoffDate = new Date(now.getTime() - timeRangeMs[timeRange]);
-      const filteredSessions = sessions.filter(session => 
-        new Date(session.date) >= cutoffDate
-      );
+      const filteredSessions = sessions.filter(session => new Date(session.date) >= cutoffDate);
 
       if (filteredSessions.length === 0) {
         setInsights(null);
@@ -77,7 +75,7 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
         const hour = new Date(session.date).getHours();
         hourCounts.set(hour, (hourCounts.get(hour) || 0) + 1);
       });
-      const bestHour = Array.from(hourCounts.entries()).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+      const bestHour = Array.from(hourCounts.entries()).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
       const bestTimeOfDay = formatHour(bestHour);
 
       // Find most productive day
@@ -86,12 +84,20 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
         const day = new Date(session.date).toLocaleDateString('en-US', { weekday: 'long' });
         dayCounts.set(day, (dayCounts.get(day) || 0) + 1);
       });
-      const mostProductiveDay = Array.from(dayCounts.entries()).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+      const mostProductiveDay = Array.from(dayCounts.entries()).reduce((a, b) =>
+        a[1] > b[1] ? a : b
+      )[0];
 
       // Calculate trends
-      const weeklySessions = Math.round(filteredSessions.length / (timeRange === '7d' ? 1 : timeRange === '30d' ? 4 : timeRange === '90d' ? 12 : 52));
-      const monthlySessions = Math.round(filteredSessions.length / (timeRange === '7d' ? 0.25 : timeRange === '30d' ? 1 : timeRange === '90d' ? 3 : 12));
-      
+      const weeklySessions = Math.round(
+        filteredSessions.length /
+          (timeRange === '7d' ? 1 : timeRange === '30d' ? 4 : timeRange === '90d' ? 12 : 52)
+      );
+      const monthlySessions = Math.round(
+        filteredSessions.length /
+          (timeRange === '7d' ? 0.25 : timeRange === '30d' ? 1 : timeRange === '90d' ? 3 : 12)
+      );
+
       const productivityTrend = weeklySessions > 5 ? 'up' : weeklySessions < 3 ? 'down' : 'stable';
 
       // Generate recommendations
@@ -102,7 +108,7 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
         bestTimeOfDay,
         mostProductiveDay,
         averageSessionDuration,
-        productivityTrend
+        productivityTrend,
       });
 
       setInsights({
@@ -114,13 +120,13 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
           bestTimeOfDay,
           mostProductiveDay: mostProductiveDay[0],
           averageSessionLength: averageSessionDuration,
-          completionRate: focusScore
+          completionRate: focusScore,
         },
         trends: {
           weeklyProgress: weeklySessions,
           monthlyProgress: monthlySessions,
-          productivityTrend
-        }
+          productivityTrend,
+        },
       });
     } catch (error) {
       console.error('Error calculating insights:', error);
@@ -144,31 +150,45 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
     const recommendations = [];
 
     if (data.focusScore < 70) {
-      recommendations.push("🎯 Focus on completing more sessions. Try breaking down larger tasks into smaller, manageable chunks.");
+      recommendations.push(
+        '🎯 Focus on completing more sessions. Try breaking down larger tasks into smaller, manageable chunks.'
+      );
     }
 
     if (data.consistencyScore < 60) {
-      recommendations.push("📅 Establish a more consistent work schedule. Try to work on projects at the same time each day.");
+      recommendations.push(
+        '📅 Establish a more consistent work schedule. Try to work on projects at the same time each day.'
+      );
     }
 
     if (data.efficiencyScore < 50) {
-      recommendations.push("⚡ Consider longer focused work sessions. The optimal session length is 1-2 hours for deep work.");
+      recommendations.push(
+        '⚡ Consider longer focused work sessions. The optimal session length is 1-2 hours for deep work.'
+      );
     }
 
     if (data.averageSessionDuration < 0.5) {
-      recommendations.push("⏱️ Your sessions are quite short. Try extending them to 30-60 minutes for better productivity.");
+      recommendations.push(
+        '⏱️ Your sessions are quite short. Try extending them to 30-60 minutes for better productivity.'
+      );
     }
 
     if (data.productivityTrend === 'down') {
-      recommendations.push("📈 Your productivity has been declining. Consider taking breaks and reviewing your work priorities.");
+      recommendations.push(
+        '📈 Your productivity has been declining. Consider taking breaks and reviewing your work priorities.'
+      );
     }
 
     if (data.bestTimeOfDay.includes('Evening')) {
-      recommendations.push("🌙 You're most productive in the evening. Consider scheduling important work during this time.");
+      recommendations.push(
+        "🌙 You're most productive in the evening. Consider scheduling important work during this time."
+      );
     }
 
     if (recommendations.length === 0) {
-      recommendations.push("🌟 Great job! Your productivity metrics are looking excellent. Keep up the good work!");
+      recommendations.push(
+        '🌟 Great job! Your productivity metrics are looking excellent. Keep up the good work!'
+      );
     }
 
     return recommendations;
@@ -209,14 +229,14 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
           <div className="metric-label">Focus Score</div>
           <div className="metric-description">Session completion rate</div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">📅</div>
           <div className="metric-value">{insights.consistencyScore}%</div>
           <div className="metric-label">Consistency</div>
           <div className="metric-description">Regular work patterns</div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">⚡</div>
           <div className="metric-value">{insights.efficiencyScore}%</div>
@@ -238,7 +258,9 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
           </div>
           <div className="pattern-item">
             <span className="pattern-label">Avg Session:</span>
-            <span className="pattern-value">{insights.patterns.averageSessionLength.toFixed(1)}h</span>
+            <span className="pattern-value">
+              {insights.patterns.averageSessionLength.toFixed(1)}h
+            </span>
           </div>
           <div className="pattern-item">
             <span className="pattern-label">Completion Rate:</span>
@@ -261,8 +283,11 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
           <div className="trend-item">
             <span className="trend-label">Productivity Trend:</span>
             <span className={`trend-value trend-${insights.trends.productivityTrend}`}>
-              {insights.trends.productivityTrend === 'up' ? '📈 Improving' : 
-               insights.trends.productivityTrend === 'down' ? '📉 Declining' : '📊 Stable'}
+              {insights.trends.productivityTrend === 'up'
+                ? '📈 Improving'
+                : insights.trends.productivityTrend === 'down'
+                  ? '📉 Declining'
+                  : '📊 Stable'}
             </span>
           </div>
         </div>
@@ -283,5 +308,3 @@ const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
 };
 
 export default ProductivityInsights;
-
-

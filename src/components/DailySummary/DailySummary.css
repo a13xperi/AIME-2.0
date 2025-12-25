@@ -246,72 +246,72 @@
   .daily-summary-modal {
     background: #1f2937;
   }
-  
+
   .daily-summary-header {
     border-bottom-color: #374151;
   }
-  
+
   .daily-summary-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .daily-summary-loading h2,
   .daily-summary-empty h2 {
     color: #9ca3af;
   }
-  
+
   .daily-summary-empty p {
     color: #6b7280;
   }
-  
+
   .stat-card {
     background: #374151;
   }
-  
+
   .stat-value {
     color: #f9fafb;
   }
-  
+
   .stat-label {
     color: #9ca3af;
   }
-  
+
   .insight-section {
     background: #374151;
   }
-  
+
   .insight-section h3 {
     color: #d1d5db;
   }
-  
+
   .insight-section p {
     color: #f9fafb;
   }
-  
+
   .achievements-section h3,
   .recommendations-section h3 {
     color: #f9fafb;
   }
-  
+
   .achievement-item {
     background: #064e3b;
     color: #d1fae5;
   }
-  
+
   .recommendation-item {
     background: #451a03;
     color: #fef3c7;
   }
-  
+
   .daily-summary-footer {
     border-top-color: #374151;
   }
@@ -322,44 +322,42 @@
   .daily-summary-overlay {
     padding: 10px;
   }
-  
+
   .daily-summary-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .daily-summary-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .daily-summary-header h2 {
     font-size: 20px;
   }
-  
+
   .daily-summary-content {
     padding: 0 16px;
   }
-  
+
   .summary-stats {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-  
+
   .stat-card {
     padding: 16px;
   }
-  
+
   .stat-value {
     font-size: 20px;
   }
-  
+
   .summary-insights {
     grid-template-columns: 1fr;
   }
-  
+
   .daily-summary-footer {
     padding: 16px;
   }
 }
-
-

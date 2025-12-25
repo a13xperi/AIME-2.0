@@ -8,11 +8,7 @@ interface ReportGeneratorProps {
   onClose: () => void;
 }
 
-const ReportGenerator: React.FC<ReportGeneratorProps> = ({
-  projects,
-  sessions,
-  onClose
-}) => {
+const ReportGenerator: React.FC<ReportGeneratorProps> = ({ projects, sessions, onClose }) => {
   const [templates, setTemplates] = useState<ReportTemplate[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<ReportTemplate | null>(null);
   const [exportOptions, setExportOptions] = useState<ExportOptions>({
@@ -21,9 +17,9 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     includeImages: true,
     dateRange: {
       start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 30 days ago
-      end: new Date().toISOString().split('T')[0] // today
+      end: new Date().toISOString().split('T')[0], // today
     },
-    filters: {}
+    filters: {},
   });
   const [generatedReports, setGeneratedReports] = useState<GeneratedReport[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -52,7 +48,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               dataSource: 'projects',
               configuration: {},
               order: 1,
-              visible: true
+              visible: true,
             },
             {
               id: 'metrics',
@@ -61,7 +57,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               dataSource: 'projects',
               configuration: {},
               order: 2,
-              visible: true
+              visible: true,
             },
             {
               id: 'timeline',
@@ -70,8 +66,8 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               dataSource: 'projects',
               configuration: {},
               order: 3,
-              visible: true
-            }
+              visible: true,
+            },
           ],
           filters: [],
           format: 'pdf',
@@ -82,12 +78,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               secondary: '#6b7280',
               accent: '#10b981',
               background: '#ffffff',
-              text: '#1f2937'
+              text: '#1f2937',
             },
             fonts: {
               heading: 'Inter',
               body: 'Inter',
-              monospace: 'JetBrains Mono'
+              monospace: 'JetBrains Mono',
             },
             layout: {
               orientation: 'portrait',
@@ -95,11 +91,11 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 top: 20,
                 right: 20,
                 bottom: 20,
-                left: 20
-              }
-            }
-          }
-        }
+                left: 20,
+              },
+            },
+          },
+        },
       },
       {
         id: 'template-2',
@@ -121,7 +117,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               dataSource: 'sessions',
               configuration: {},
               order: 1,
-              visible: true
+              visible: true,
             },
             {
               id: 'tables',
@@ -130,8 +126,8 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               dataSource: 'sessions',
               configuration: {},
               order: 2,
-              visible: true
-            }
+              visible: true,
+            },
           ],
           filters: [],
           format: 'pdf',
@@ -142,12 +138,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               secondary: '#6b7280',
               accent: '#3b82f6',
               background: '#ffffff',
-              text: '#1f2937'
+              text: '#1f2937',
             },
             fonts: {
               heading: 'Inter',
               body: 'Inter',
-              monospace: 'JetBrains Mono'
+              monospace: 'JetBrains Mono',
             },
             layout: {
               orientation: 'landscape',
@@ -155,11 +151,11 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 top: 20,
                 right: 20,
                 bottom: 20,
-                left: 20
-              }
-            }
-          }
-        }
+                left: 20,
+              },
+            },
+          },
+        },
       },
       {
         id: 'template-3',
@@ -181,7 +177,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               dataSource: 'team',
               configuration: {},
               order: 1,
-              visible: true
+              visible: true,
             },
             {
               id: 'metrics',
@@ -190,8 +186,8 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               dataSource: 'team',
               configuration: {},
               order: 2,
-              visible: true
-            }
+              visible: true,
+            },
           ],
           filters: [],
           format: 'pdf',
@@ -202,12 +198,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               secondary: '#6b7280',
               accent: '#f59e0b',
               background: '#ffffff',
-              text: '#1f2937'
+              text: '#1f2937',
             },
             fonts: {
               heading: 'Inter',
               body: 'Inter',
-              monospace: 'JetBrains Mono'
+              monospace: 'JetBrains Mono',
             },
             layout: {
               orientation: 'portrait',
@@ -215,12 +211,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 top: 20,
                 right: 20,
                 bottom: 20,
-                left: 20
-              }
-            }
-          }
-        }
-      }
+                left: 20,
+              },
+            },
+          },
+        },
+      },
     ];
     setTemplates(mockTemplates);
   }, []);
@@ -229,7 +225,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     if (!selectedTemplate) return;
 
     setIsGenerating(true);
-    
+
     // Simulate report generation
     setTimeout(() => {
       const newReport: GeneratedReport = {
@@ -239,24 +235,26 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
         generatedAt: new Date().toISOString(),
         generatedBy: 'current-user',
         data: {
-          projects: projects.filter(p => 
-            new Date(p.lastUpdated) >= new Date(exportOptions.dateRange.start) &&
-            new Date(p.lastUpdated) <= new Date(exportOptions.dateRange.end)
+          projects: projects.filter(
+            p =>
+              new Date(p.lastUpdated) >= new Date(exportOptions.dateRange.start) &&
+              new Date(p.lastUpdated) <= new Date(exportOptions.dateRange.end)
           ),
-          sessions: sessions.filter(s => 
-            new Date(s.date) >= new Date(exportOptions.dateRange.start) &&
-            new Date(s.date) <= new Date(exportOptions.dateRange.end)
-          )
+          sessions: sessions.filter(
+            s =>
+              new Date(s.date) >= new Date(exportOptions.dateRange.start) &&
+              new Date(s.date) <= new Date(exportOptions.dateRange.end)
+          ),
         },
-        format: exportOptions.format === 'excel' ? 'csv' : exportOptions.format as any,
+        format: exportOptions.format === 'excel' ? 'csv' : (exportOptions.format as any),
         filePath: `/reports/report-${Date.now()}.${exportOptions.format}`,
         fileSize: Math.floor(Math.random() * 1000000) + 50000,
         status: 'completed',
         metadata: {
           recordCount: projects.length + sessions.length,
           dateRange: exportOptions.dateRange,
-          filters: []
-        }
+          filters: [],
+        },
       };
 
       setGeneratedReports(prev => [newReport, ...prev]);
@@ -276,21 +274,31 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
 
   const getFormatIcon = (format: string) => {
     switch (format) {
-      case 'pdf': return '📄';
-      case 'csv': return '📊';
-      case 'json': return '🔧';
-      case 'excel': return '📈';
-      default: return '📋';
+      case 'pdf':
+        return '📄';
+      case 'csv':
+        return '📊';
+      case 'json':
+        return '🔧';
+      case 'excel':
+        return '📈';
+      default:
+        return '📋';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return '#10b981';
-      case 'generating': return '#3b82f6';
-      case 'failed': return '#dc2626';
-      case 'archived': return '#6b7280';
-      default: return '#6b7280';
+      case 'completed':
+        return '#10b981';
+      case 'generating':
+        return '#3b82f6';
+      case 'failed':
+        return '#dc2626';
+      case 'archived':
+        return '#6b7280';
+      default:
+        return '#6b7280';
     }
   };
 
@@ -307,18 +315,20 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
       <div className="report-generator-modal">
         <div className="generator-header">
           <h2>📊 Report Generator</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="generator-content">
           <div className="generator-tabs">
-            <button 
+            <button
               className={`tab-button ${!showPreview ? 'active' : ''}`}
               onClick={() => setShowPreview(false)}
             >
               Generate Report
             </button>
-            <button 
+            <button
               className={`tab-button ${showPreview ? 'active' : ''}`}
               onClick={() => setShowPreview(true)}
             >
@@ -332,7 +342,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 <h3>Select Template</h3>
                 <div className="template-grid">
                   {templates.map(template => (
-                    <div 
+                    <div
                       key={template.id}
                       className={`template-card ${selectedTemplate?.id === template.id ? 'selected' : ''}`}
                       onClick={() => setSelectedTemplate(template)}
@@ -359,10 +369,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     <label>Format</label>
                     <select
                       value={exportOptions.format}
-                      onChange={(e) => setExportOptions(prev => ({ 
-                        ...prev, 
-                        format: e.target.value as any 
-                      }))}
+                      onChange={e =>
+                        setExportOptions(prev => ({
+                          ...prev,
+                          format: e.target.value as any,
+                        }))
+                      }
                       className="form-select"
                     >
                       <option value="pdf">PDF Document</option>
@@ -378,20 +390,24 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                       <input
                         type="date"
                         value={exportOptions.dateRange.start}
-                        onChange={(e) => setExportOptions(prev => ({
-                          ...prev,
-                          dateRange: { ...prev.dateRange, start: e.target.value }
-                        }))}
+                        onChange={e =>
+                          setExportOptions(prev => ({
+                            ...prev,
+                            dateRange: { ...prev.dateRange, start: e.target.value },
+                          }))
+                        }
                         className="form-input"
                       />
                       <span>to</span>
                       <input
                         type="date"
                         value={exportOptions.dateRange.end}
-                        onChange={(e) => setExportOptions(prev => ({
-                          ...prev,
-                          dateRange: { ...prev.dateRange, end: e.target.value }
-                        }))}
+                        onChange={e =>
+                          setExportOptions(prev => ({
+                            ...prev,
+                            dateRange: { ...prev.dateRange, end: e.target.value },
+                          }))
+                        }
                         className="form-input"
                       />
                     </div>
@@ -404,10 +420,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                         <input
                           type="checkbox"
                           checked={exportOptions.includeCharts}
-                          onChange={(e) => setExportOptions(prev => ({
-                            ...prev,
-                            includeCharts: e.target.checked
-                          }))}
+                          onChange={e =>
+                            setExportOptions(prev => ({
+                              ...prev,
+                              includeCharts: e.target.checked,
+                            }))
+                          }
                         />
                         Include Charts
                       </label>
@@ -415,10 +433,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                         <input
                           type="checkbox"
                           checked={exportOptions.includeImages}
-                          onChange={(e) => setExportOptions(prev => ({
-                            ...prev,
-                            includeImages: e.target.checked
-                          }))}
+                          onChange={e =>
+                            setExportOptions(prev => ({
+                              ...prev,
+                              includeImages: e.target.checked,
+                            }))
+                          }
                         />
                         Include Images
                       </label>
@@ -428,7 +448,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               </div>
 
               <div className="form-actions">
-                <button 
+                <button
                   className="btn btn-primary btn-large"
                   onClick={handleGenerateReport}
                   disabled={!selectedTemplate || isGenerating}
@@ -439,9 +459,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                       Generating Report...
                     </>
                   ) : (
-                    <>
-                      📊 Generate Report
-                    </>
+                    <>📊 Generate Report</>
                   )}
                 </button>
               </div>
@@ -456,10 +474,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
               {generatedReports.length === 0 ? (
                 <div className="no-reports">
                   <p>No reports generated yet.</p>
-                  <button 
-                    className="btn btn-outline"
-                    onClick={() => setShowPreview(false)}
-                  >
+                  <button className="btn btn-outline" onClick={() => setShowPreview(false)}>
                     Generate First Report
                   </button>
                 </div>
@@ -475,7 +490,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                           </span>
                         </div>
                         <div className="report-status">
-                          <span 
+                          <span
                             className="status-badge"
                             style={{ backgroundColor: getStatusColor(report.status) }}
                           >
@@ -504,14 +519,14 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                       </div>
 
                       <div className="report-actions">
-                        <button 
+                        <button
                           className="btn btn-outline btn-small"
                           onClick={() => handleExportReport(report)}
                           disabled={report.status !== 'completed'}
                         >
                           📥 Download
                         </button>
-                        <button 
+                        <button
                           className="btn btn-secondary btn-small"
                           disabled={report.status !== 'completed'}
                         >

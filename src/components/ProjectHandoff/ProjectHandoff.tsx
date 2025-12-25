@@ -33,7 +33,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
   teamMembers,
   isVisible,
   onClose,
-  onHandoff
+  onHandoff,
 }) => {
   const [selectedMember, setSelectedMember] = useState<string>('');
   const [handoffData, setHandoffData] = useState<HandoffData>({
@@ -42,7 +42,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
     context: '',
     nextSteps: '',
     deadline: '',
-    notes: ''
+    notes: '',
   });
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -89,7 +89,9 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
       <div className="project-handoff-modal">
         <div className="handoff-header">
           <h2>🔄 Project Handoff</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="handoff-content">
@@ -121,7 +123,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                         name="selectedMember"
                         value={member.id}
                         checked={selectedMember === member.id}
-                        onChange={(e) => setSelectedMember(e.target.value)}
+                        onChange={e => setSelectedMember(e.target.value)}
                       />
                       <div className="member-card">
                         <div className="member-avatar">
@@ -132,7 +134,9 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                               {member.name.charAt(0).toUpperCase()}
                             </div>
                           )}
-                          <div className={`status-indicator ${member.isOnline ? 'online' : 'offline'}`} />
+                          <div
+                            className={`status-indicator ${member.isOnline ? 'online' : 'offline'}`}
+                          />
                         </div>
                         <div className="member-info">
                           <div className="member-name">{member.name}</div>
@@ -155,7 +159,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                   <label>Reason for handoff *</label>
                   <select
                     value={handoffData.reason}
-                    onChange={(e) => setHandoffData(prev => ({ ...prev, reason: e.target.value }))}
+                    onChange={e => setHandoffData(prev => ({ ...prev, reason: e.target.value }))}
                   >
                     <option value="">Select a reason...</option>
                     <option value="vacation">Going on vacation</option>
@@ -170,7 +174,9 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                   <label>Priority Level</label>
                   <select
                     value={handoffData.priority}
-                    onChange={(e) => setHandoffData(prev => ({ ...prev, priority: e.target.value as any }))}
+                    onChange={e =>
+                      setHandoffData(prev => ({ ...prev, priority: e.target.value as any }))
+                    }
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -183,7 +189,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                   <label>Current Context *</label>
                   <textarea
                     value={handoffData.context}
-                    onChange={(e) => setHandoffData(prev => ({ ...prev, context: e.target.value }))}
+                    onChange={e => setHandoffData(prev => ({ ...prev, context: e.target.value }))}
                     placeholder="Describe the current state of the project, what's been done, and any important context..."
                     rows={4}
                   />
@@ -194,7 +200,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                   <input
                     type="date"
                     value={handoffData.deadline}
-                    onChange={(e) => setHandoffData(prev => ({ ...prev, deadline: e.target.value }))}
+                    onChange={e => setHandoffData(prev => ({ ...prev, deadline: e.target.value }))}
                   />
                 </div>
               </div>
@@ -207,7 +213,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                   <label>Next Steps *</label>
                   <textarea
                     value={handoffData.nextSteps}
-                    onChange={(e) => setHandoffData(prev => ({ ...prev, nextSteps: e.target.value }))}
+                    onChange={e => setHandoffData(prev => ({ ...prev, nextSteps: e.target.value }))}
                     placeholder="What should be done next? Any immediate actions required?"
                     rows={3}
                   />
@@ -217,7 +223,7 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                   <label>Additional Notes</label>
                   <textarea
                     value={handoffData.notes}
-                    onChange={(e) => setHandoffData(prev => ({ ...prev, notes: e.target.value }))}
+                    onChange={e => setHandoffData(prev => ({ ...prev, notes: e.target.value }))}
                     placeholder="Any additional information, warnings, or special instructions..."
                     rows={3}
                   />
@@ -236,7 +242,8 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
                   </div>
                   {handoffData.deadline && (
                     <div className="summary-item">
-                      <strong>Deadline:</strong> {new Date(handoffData.deadline).toLocaleDateString()}
+                      <strong>Deadline:</strong>{' '}
+                      {new Date(handoffData.deadline).toLocaleDateString()}
                     </div>
                   )}
                 </div>
@@ -251,17 +258,13 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
               ← Previous
             </button>
           )}
-          
+
           {step < 3 ? (
-            <button 
-              className="btn btn-primary"
-              onClick={nextStep}
-              disabled={!isStepValid()}
-            >
+            <button className="btn btn-primary" onClick={nextStep} disabled={!isStepValid()}>
               Next →
             </button>
           ) : (
-            <button 
+            <button
               className="btn btn-primary"
               onClick={handleSubmit}
               disabled={!isStepValid() || loading}
@@ -276,5 +279,3 @@ const ProjectHandoff: React.FC<ProjectHandoffProps> = ({
 };
 
 export default ProjectHandoff;
-
-

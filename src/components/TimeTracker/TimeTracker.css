@@ -223,73 +223,73 @@
   .time-tracker-modal {
     background: #1f2937;
   }
-  
+
   .time-tracker-header {
     border-bottom-color: #374151;
   }
-  
+
   .time-tracker-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .session-info h3 {
     color: #f9fafb;
   }
-  
+
   .session-project {
     color: #9ca3af;
   }
-  
+
   .timer-display {
     background: #374151;
   }
-  
+
   .time-label {
     color: #9ca3af;
   }
-  
+
   .time-value {
     color: #f9fafb;
   }
-  
+
   .total-time .time-value {
     color: #60a5fa;
   }
-  
+
   .timer-stats {
     background: #374151;
   }
-  
+
   .stat-label {
     color: #9ca3af;
   }
-  
+
   .stat-value {
     color: #f9fafb;
   }
-  
+
   .stat-value.running {
     color: #34d399;
   }
-  
+
   .stat-value.paused {
     color: #fbbf24;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -302,37 +302,37 @@
   .time-tracker-overlay {
     padding: 10px;
   }
-  
+
   .time-tracker-modal {
     max-width: 100%;
   }
-  
+
   .time-tracker-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .time-tracker-header h2 {
     font-size: 20px;
   }
-  
+
   .time-tracker-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .timer-display {
     flex-direction: column;
     gap: 16px;
     padding: 16px;
   }
-  
+
   .time-value {
     font-size: 28px;
   }
-  
+
   .running-controls {
     flex-direction: column;
   }
-  
+
   .btn-large {
     padding: 14px 28px;
     font-size: 16px;
@@ -468,55 +468,55 @@
   .time-entries-section {
     border-top-color: #374151;
   }
-  
+
   .time-entries h4 {
     color: #f9fafb;
   }
-  
+
   .no-entries {
     color: #6b7280;
   }
-  
+
   .time-entry {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .time-entry:hover {
     background: #374151;
     border-color: #60a5fa;
   }
-  
+
   .entry-number {
     background: #6b7280;
     color: #d1d5db;
   }
-  
+
   .entry-duration {
     color: #f9fafb;
   }
-  
+
   .entry-time {
     color: #9ca3af;
   }
-  
+
   .entry-description {
     color: #6b7280;
   }
-  
+
   .timer-stats {
     background: #374151;
   }
-  
+
   .stat-item {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .stat-label {
     color: #9ca3af;
   }
-  
+
   .stat-value {
     color: #f9fafb;
   }

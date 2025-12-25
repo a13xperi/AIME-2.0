@@ -13,7 +13,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
   isOpen,
   onClose,
   onSave,
-  initialTemplate
+  initialTemplate,
 }) => {
   const [template, setTemplate] = useState<Partial<ProjectTemplate>>({
     name: '',
@@ -35,8 +35,8 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
       phases: [],
       defaultSessions: [],
       checklist: [],
-      resources: []
-    }
+      resources: [],
+    },
   });
 
   const [newTag, setNewTag] = useState('');
@@ -46,7 +46,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
     estimatedDuration: 8,
     dependencies: [],
     deliverables: [],
-    checklist: []
+    checklist: [],
   });
   const [newSession, setNewSession] = useState<Partial<SessionTemplate>>({
     name: '',
@@ -55,13 +55,13 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
     estimatedDuration: 4,
     objectives: [],
     deliverables: [],
-    checklist: []
+    checklist: [],
   });
   const [newResource, setNewResource] = useState<Partial<Resource>>({
     name: '',
     type: 'Document',
     description: '',
-    category: 'Reference'
+    category: 'Reference',
   });
 
   const categories = [
@@ -71,7 +71,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
     'Marketing',
     'Business',
     'Personal',
-    'Learning'
+    'Learning',
   ];
 
   const sessionTypes = [
@@ -81,15 +81,10 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
     'Documentation',
     'Planning',
     'Testing',
-    'Deployment'
+    'Deployment',
   ];
 
-  const resourceTypes = [
-    'Document',
-    'Link',
-    'Tool',
-    'Reference'
-  ];
+  const resourceTypes = ['Document', 'Link', 'Tool', 'Reference'];
 
   const handleSave = () => {
     if (!template.name || !template.description) {
@@ -108,7 +103,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
       createdBy: template.createdBy!,
       createdAt: template.createdAt!,
       updatedAt: new Date().toISOString(),
-      templateData: template.templateData!
+      templateData: template.templateData!,
     };
 
     onSave(fullTemplate);
@@ -119,7 +114,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
     if (newTag.trim() && !template.tags?.includes(newTag.trim())) {
       setTemplate(prev => ({
         ...prev,
-        tags: [...(prev.tags || []), newTag.trim()]
+        tags: [...(prev.tags || []), newTag.trim()],
       }));
       setNewTag('');
     }
@@ -128,7 +123,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
   const removeTag = (tagToRemove: string) => {
     setTemplate(prev => ({
       ...prev,
-      tags: prev.tags?.filter(tag => tag !== tagToRemove) || []
+      tags: prev.tags?.filter(tag => tag !== tagToRemove) || [],
     }));
   };
 
@@ -142,15 +137,15 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
         estimatedDuration: newPhase.estimatedDuration || 8,
         dependencies: newPhase.dependencies || [],
         deliverables: newPhase.deliverables || [],
-        checklist: newPhase.checklist || []
+        checklist: newPhase.checklist || [],
       };
 
       setTemplate(prev => ({
         ...prev,
         templateData: {
           ...prev.templateData!,
-          phases: [...(prev.templateData?.phases || []), phase]
-        }
+          phases: [...(prev.templateData?.phases || []), phase],
+        },
       }));
 
       setNewPhase({
@@ -159,7 +154,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
         estimatedDuration: 8,
         dependencies: [],
         deliverables: [],
-        checklist: []
+        checklist: [],
       });
     }
   };
@@ -169,8 +164,8 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
       ...prev,
       templateData: {
         ...prev.templateData!,
-        phases: prev.templateData?.phases?.filter(phase => phase.id !== phaseId) || []
-      }
+        phases: prev.templateData?.phases?.filter(phase => phase.id !== phaseId) || [],
+      },
     }));
   };
 
@@ -184,15 +179,15 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
         estimatedDuration: newSession.estimatedDuration || 4,
         objectives: newSession.objectives || [],
         deliverables: newSession.deliverables || [],
-        checklist: newSession.checklist || []
+        checklist: newSession.checklist || [],
       };
 
       setTemplate(prev => ({
         ...prev,
         templateData: {
           ...prev.templateData!,
-          defaultSessions: [...(prev.templateData?.defaultSessions || []), session]
-        }
+          defaultSessions: [...(prev.templateData?.defaultSessions || []), session],
+        },
       }));
 
       setNewSession({
@@ -202,7 +197,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
         estimatedDuration: 4,
         objectives: [],
         deliverables: [],
-        checklist: []
+        checklist: [],
       });
     }
   };
@@ -212,8 +207,9 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
       ...prev,
       templateData: {
         ...prev.templateData!,
-        defaultSessions: prev.templateData?.defaultSessions?.filter(session => session.id !== sessionId) || []
-      }
+        defaultSessions:
+          prev.templateData?.defaultSessions?.filter(session => session.id !== sessionId) || [],
+      },
     }));
   };
 
@@ -225,22 +221,22 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
         type: newResource.type!,
         description: newResource.description,
         category: newResource.category || 'Reference',
-        url: newResource.url
+        url: newResource.url,
       };
 
       setTemplate(prev => ({
         ...prev,
         templateData: {
           ...prev.templateData!,
-          resources: [...(prev.templateData?.resources || []), resource]
-        }
+          resources: [...(prev.templateData?.resources || []), resource],
+        },
       }));
 
       setNewResource({
         name: '',
         type: 'Document',
         description: '',
-        category: 'Reference'
+        category: 'Reference',
       });
     }
   };
@@ -250,8 +246,9 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
       ...prev,
       templateData: {
         ...prev.templateData!,
-        resources: prev.templateData?.resources?.filter(resource => resource.id !== resourceId) || []
-      }
+        resources:
+          prev.templateData?.resources?.filter(resource => resource.id !== resourceId) || [],
+      },
     }));
   };
 
@@ -262,7 +259,9 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
       <div className="template-builder-modal">
         <div className="builder-header">
           <h2>🔧 Template Builder</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="builder-content">
@@ -273,7 +272,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
               <input
                 type="text"
                 value={template.name || ''}
-                onChange={(e) => setTemplate(prev => ({ ...prev, name: e.target.value }))}
+                onChange={e => setTemplate(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="e.g., Web Application Template"
                 className="form-input"
               />
@@ -283,7 +282,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
               <label>Description *</label>
               <textarea
                 value={template.description || ''}
-                onChange={(e) => setTemplate(prev => ({ ...prev, description: e.target.value }))}
+                onChange={e => setTemplate(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="Describe what this template is for..."
                 className="form-textarea"
                 rows={3}
@@ -295,11 +294,13 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                 <label>Category</label>
                 <select
                   value={template.category || 'Development'}
-                  onChange={(e) => setTemplate(prev => ({ ...prev, category: e.target.value }))}
+                  onChange={e => setTemplate(prev => ({ ...prev, category: e.target.value }))}
                   className="form-select"
                 >
                   {categories.map(category => (
-                    <option key={category} value={category}>{category}</option>
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -309,13 +310,15 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                 <input
                   type="number"
                   value={template.templateData?.estimatedDuration || 40}
-                  onChange={(e) => setTemplate(prev => ({
-                    ...prev,
-                    templateData: {
-                      ...prev.templateData!,
-                      estimatedDuration: parseInt(e.target.value) || 40
-                    }
-                  }))}
+                  onChange={e =>
+                    setTemplate(prev => ({
+                      ...prev,
+                      templateData: {
+                        ...prev.templateData!,
+                        estimatedDuration: parseInt(e.target.value) || 40,
+                      },
+                    }))
+                  }
                   className="form-input"
                   min="1"
                 />
@@ -328,10 +331,10 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                 <input
                   type="text"
                   value={newTag}
-                  onChange={(e) => setNewTag(e.target.value)}
+                  onChange={e => setNewTag(e.target.value)}
                   placeholder="Add a tag..."
                   className="form-input"
-                  onKeyPress={(e) => e.key === 'Enter' && addTag()}
+                  onKeyPress={e => e.key === 'Enter' && addTag()}
                 />
                 <button type="button" onClick={addTag} className="btn btn-outline btn-small">
                   Add
@@ -341,7 +344,9 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                 {template.tags?.map(tag => (
                   <span key={tag} className="tag">
                     {tag}
-                    <button onClick={() => removeTag(tag)} className="tag-remove">×</button>
+                    <button onClick={() => removeTag(tag)} className="tag-remove">
+                      ×
+                    </button>
                   </span>
                 ))}
               </div>
@@ -357,7 +362,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <input
                     type="text"
                     value={newPhase.name || ''}
-                    onChange={(e) => setNewPhase(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={e => setNewPhase(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="e.g., Planning & Setup"
                     className="form-input"
                   />
@@ -367,7 +372,12 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <input
                     type="number"
                     value={newPhase.estimatedDuration || 8}
-                    onChange={(e) => setNewPhase(prev => ({ ...prev, estimatedDuration: parseInt(e.target.value) || 8 }))}
+                    onChange={e =>
+                      setNewPhase(prev => ({
+                        ...prev,
+                        estimatedDuration: parseInt(e.target.value) || 8,
+                      }))
+                    }
                     className="form-input"
                     min="1"
                   />
@@ -377,7 +387,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                 <label>Description</label>
                 <textarea
                   value={newPhase.description || ''}
-                  onChange={(e) => setNewPhase(prev => ({ ...prev, description: e.target.value }))}
+                  onChange={e => setNewPhase(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Describe this phase..."
                   className="form-textarea"
                   rows={2}
@@ -395,7 +405,10 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                     <span className="phase-number">{index + 1}</span>
                     <span className="phase-name">{phase.name}</span>
                     <span className="phase-duration">{phase.estimatedDuration}h</span>
-                    <button onClick={() => removePhase(phase.id)} className="btn btn-danger btn-small">
+                    <button
+                      onClick={() => removePhase(phase.id)}
+                      className="btn btn-danger btn-small"
+                    >
                       Remove
                     </button>
                   </div>
@@ -414,7 +427,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <input
                     type="text"
                     value={newSession.name || ''}
-                    onChange={(e) => setNewSession(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={e => setNewSession(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="e.g., Planning Session"
                     className="form-input"
                   />
@@ -423,11 +436,15 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <label>Type</label>
                   <select
                     value={newSession.type || 'Planning'}
-                    onChange={(e) => setNewSession(prev => ({ ...prev, type: e.target.value as any }))}
+                    onChange={e =>
+                      setNewSession(prev => ({ ...prev, type: e.target.value as any }))
+                    }
                     className="form-select"
                   >
                     {sessionTypes.map(type => (
-                      <option key={type} value={type}>{type}</option>
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -436,7 +453,12 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <input
                     type="number"
                     value={newSession.estimatedDuration || 4}
-                    onChange={(e) => setNewSession(prev => ({ ...prev, estimatedDuration: parseInt(e.target.value) || 4 }))}
+                    onChange={e =>
+                      setNewSession(prev => ({
+                        ...prev,
+                        estimatedDuration: parseInt(e.target.value) || 4,
+                      }))
+                    }
                     className="form-input"
                     min="1"
                   />
@@ -446,7 +468,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                 <label>Description</label>
                 <textarea
                   value={newSession.description || ''}
-                  onChange={(e) => setNewSession(prev => ({ ...prev, description: e.target.value }))}
+                  onChange={e => setNewSession(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Describe this session..."
                   className="form-textarea"
                   rows={2}
@@ -464,7 +486,10 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                     <span className="session-name">{session.name}</span>
                     <span className="session-type">{session.type}</span>
                     <span className="session-duration">{session.estimatedDuration}h</span>
-                    <button onClick={() => removeSession(session.id)} className="btn btn-danger btn-small">
+                    <button
+                      onClick={() => removeSession(session.id)}
+                      className="btn btn-danger btn-small"
+                    >
                       Remove
                     </button>
                   </div>
@@ -483,7 +508,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <input
                     type="text"
                     value={newResource.name || ''}
-                    onChange={(e) => setNewResource(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={e => setNewResource(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="e.g., React Documentation"
                     className="form-input"
                   />
@@ -492,11 +517,15 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <label>Type</label>
                   <select
                     value={newResource.type || 'Document'}
-                    onChange={(e) => setNewResource(prev => ({ ...prev, type: e.target.value as any }))}
+                    onChange={e =>
+                      setNewResource(prev => ({ ...prev, type: e.target.value as any }))
+                    }
                     className="form-select"
                   >
                     {resourceTypes.map(type => (
-                      <option key={type} value={type}>{type}</option>
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -505,7 +534,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                 <label>Description</label>
                 <textarea
                   value={newResource.description || ''}
-                  onChange={(e) => setNewResource(prev => ({ ...prev, description: e.target.value }))}
+                  onChange={e => setNewResource(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Describe this resource..."
                   className="form-textarea"
                   rows={2}
@@ -517,7 +546,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <input
                     type="url"
                     value={newResource.url || ''}
-                    onChange={(e) => setNewResource(prev => ({ ...prev, url: e.target.value }))}
+                    onChange={e => setNewResource(prev => ({ ...prev, url: e.target.value }))}
                     placeholder="https://example.com"
                     className="form-input"
                   />
@@ -534,13 +563,21 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
                   <div className="resource-header">
                     <span className="resource-name">{resource.name}</span>
                     <span className="resource-type">{resource.type}</span>
-                    <button onClick={() => removeResource(resource.id)} className="btn btn-danger btn-small">
+                    <button
+                      onClick={() => removeResource(resource.id)}
+                      className="btn btn-danger btn-small"
+                    >
                       Remove
                     </button>
                   </div>
                   <p className="resource-description">{resource.description}</p>
                   {resource.url && (
-                    <a href={resource.url} target="_blank" rel="noopener noreferrer" className="resource-link">
+                    <a
+                      href={resource.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="resource-link"
+                    >
                       View Resource
                     </a>
                   )}
@@ -564,5 +601,3 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({
 };
 
 export default TemplateBuilder;
-
-

@@ -483,121 +483,121 @@
   .project-milestones-modal {
     background: #1f2937;
   }
-  
+
   .milestones-header {
     border-bottom-color: #374151;
   }
-  
+
   .milestones-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .project-info {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .project-info h3 {
     color: #f9fafb;
   }
-  
+
   .project-description {
     color: #9ca3af;
   }
-  
+
   .overview-stats {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .stat-number {
     color: #f9fafb;
   }
-  
+
   .stat-label {
     color: #9ca3af;
   }
-  
+
   .section-header h4 {
     color: #f9fafb;
   }
-  
+
   .milestone-item {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .milestone-item:hover {
     border-color: #60a5fa;
     box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
   }
-  
+
   .milestone-name {
     color: #f9fafb;
   }
-  
+
   .target-date {
     color: #9ca3af;
   }
-  
+
   .milestone-description {
     color: #9ca3af;
   }
-  
+
   .progress-label {
     color: #d1d5db;
   }
-  
+
   .progress-percentage {
     color: #9ca3af;
   }
-  
+
   .progress-bar {
     background: #4b5563;
   }
-  
+
   .progress-slider {
     background: #4b5563;
   }
-  
+
   .milestone-deliverables h5 {
     color: #d1d5db;
   }
-  
+
   .milestone-deliverables li {
     color: #9ca3af;
   }
-  
+
   .timeline-connector {
     background: #6b7280;
   }
-  
+
   .timeline-connector::before {
     border-top-color: #6b7280;
   }
-  
+
   .add-milestone-form {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .add-milestone-form h4 {
     color: #f9fafb;
   }
-  
+
   .form-group label {
     color: #d1d5db;
   }
-  
+
   .form-input,
   .form-textarea,
   .form-select {
@@ -605,19 +605,19 @@
     border-color: #6b7280;
     color: #f9fafb;
   }
-  
+
   .form-input:focus,
   .form-textarea:focus,
   .form-select:focus {
     border-color: #60a5fa;
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -630,66 +630,64 @@
   .project-milestones-overlay {
     padding: 10px;
   }
-  
+
   .project-milestones-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .milestones-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .milestones-header h2 {
     font-size: 20px;
   }
-  
+
   .milestones-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .overview-stats {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 16px;
   }
-  
+
   .section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .milestone-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .milestone-meta {
     flex-wrap: wrap;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
+
   .form-actions {
     flex-direction: column;
   }
-  
+
   .form-actions .btn {
     width: 100%;
   }
-  
+
   .milestone-actions {
     flex-direction: column;
   }
-  
+
   .milestone-actions .btn {
     width: 100%;
   }
 }
-
-

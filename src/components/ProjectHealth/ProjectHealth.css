@@ -511,8 +511,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Dark mode support */
@@ -520,153 +524,153 @@
   .project-health-modal {
     background: #1f2937;
   }
-  
+
   .health-header {
     border-bottom-color: #374151;
   }
-  
+
   .health-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .project-info {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .project-info h3 {
     color: #f9fafb;
   }
-  
+
   .project-description {
     color: #9ca3af;
   }
-  
+
   .score-number {
     color: #f9fafb;
   }
-  
+
   .score-label {
     color: #9ca3af;
   }
-  
+
   .score-details h4 {
     color: #f9fafb;
   }
-  
+
   .score-details p {
     color: #9ca3af;
   }
-  
+
   .health-indicators h4 {
     color: #f9fafb;
   }
-  
+
   .indicator-item {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .indicator-name {
     color: #d1d5db;
   }
-  
+
   .indicator-score {
     color: #9ca3af;
   }
-  
+
   .indicator-bar {
     background: #4b5563;
   }
-  
+
   .risks-section h4,
   .alerts-section h4 {
     color: #f9fafb;
   }
-  
+
   .risk-item {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .risk-item:hover {
     border-color: #60a5fa;
     box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
   }
-  
+
   .risk-title h5 {
     color: #f9fafb;
   }
-  
+
   .risk-owner,
   .risk-status {
     color: #9ca3af;
   }
-  
+
   .risk-description {
     color: #9ca3af;
   }
-  
+
   .detail-label {
     color: #9ca3af;
   }
-  
+
   .detail-value {
     color: #d1d5db;
   }
-  
+
   .risk-mitigation {
     color: #d1d5db;
   }
-  
+
   .alert-item {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .alert-item:hover {
     border-color: #60a5fa;
     box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
   }
-  
+
   .alert-item.acknowledged {
     background: #4b5563;
   }
-  
+
   .alert-title-row h5 {
     color: #f9fafb;
   }
-  
+
   .alert-message {
     color: #9ca3af;
   }
-  
+
   .alert-timestamp {
     color: #9ca3af;
   }
-  
+
   .health-actions {
     border-top-color: #374151;
   }
-  
+
   .loading-spinner p {
     color: #9ca3af;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -679,80 +683,78 @@
   .project-health-overlay {
     padding: 10px;
   }
-  
+
   .project-health-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .health-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .health-header h2 {
     font-size: 20px;
   }
-  
+
   .health-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .health-overview {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   .score-circle {
     width: 100px;
     height: 100px;
   }
-  
+
   .score-fill {
     width: 80px;
     height: 80px;
   }
-  
+
   .score-inner {
     width: 60px;
     height: 60px;
   }
-  
+
   .score-number {
     font-size: 20px;
   }
-  
+
   .risk-header,
   .alert-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .risk-meta,
   .alert-meta {
     align-items: flex-start;
   }
-  
+
   .risk-details {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .alert-actions {
     flex-direction: column;
   }
-  
+
   .alert-actions .btn {
     width: 100%;
   }
-  
+
   .health-actions {
     flex-direction: column;
   }
-  
+
   .health-actions .btn {
     width: 100%;
   }
 }
-
-

@@ -708,32 +708,32 @@
   .business-intelligence-container {
     padding: 1rem;
   }
-  
+
   .tabs {
     flex-direction: column;
   }
-  
+
   .tab-btn {
     width: 100%;
     text-align: center;
   }
-  
+
   .metrics-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .visualizations-grid,
   .predictive-grid,
   .warehouse-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .dashboard-meta,
   .report-meta,
   .insight-meta {
     grid-template-columns: 1fr;
   }
-  
+
   .dashboard-actions,
   .viz-actions,
   .pred-actions,
@@ -752,7 +752,7 @@
     --surface-color: #1f2937;
     --hover-bg: #374151;
   }
-  
+
   .metric-card,
   .kpi-dashboard,
   .visualization-card,
@@ -763,17 +763,15 @@
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .warehouse-card,
   .etl-card {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .metric-row {
     background: #4b5563;
     border-color: #6b7280;
   }
 }
-
-

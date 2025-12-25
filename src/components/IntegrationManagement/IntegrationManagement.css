@@ -951,45 +951,45 @@
   .integration-management-modal {
     background: #1f2937;
   }
-  
+
   .integration-header {
     border-bottom-color: #374151;
   }
-  
+
   .integration-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .integration-tabs {
     border-bottom-color: #374151;
   }
-  
+
   .tab-button {
     color: #9ca3af;
   }
-  
+
   .tab-button:hover {
     color: #d1d5db;
   }
-  
+
   .tab-button.active {
     color: #60a5fa;
     border-bottom-color: #60a5fa;
   }
-  
+
   .section-header h3 {
     color: #f9fafb;
   }
-  
+
   .endpoint-card,
   .webhook-card,
   .integration-card,
@@ -998,7 +998,7 @@
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .endpoint-card:hover,
   .webhook-card:hover,
   .integration-card:hover,
@@ -1007,7 +1007,7 @@
     border-color: #60a5fa;
     box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
   }
-  
+
   .endpoint-title h4,
   .webhook-title h4,
   .integration-title h4,
@@ -1015,7 +1015,7 @@
   .test-title h4 {
     color: #f9fafb;
   }
-  
+
   .endpoint-description,
   .webhook-description,
   .integration-description,
@@ -1023,20 +1023,20 @@
   .test-description {
     color: #9ca3af;
   }
-  
+
   .endpoint-path,
   .webhook-url,
   .key-value {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .endpoint-path code,
   .webhook-url code,
   .key-value code {
     color: #d1d5db;
   }
-  
+
   .endpoint-stats,
   .webhook-stats,
   .integration-stats,
@@ -1045,100 +1045,100 @@
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .stat-label,
   .detail-label {
     color: #9ca3af;
   }
-  
+
   .stat-value,
   .detail-value {
     color: #d1d5db;
   }
-  
+
   .endpoint-meta,
   .webhook-meta,
   .integration-meta,
   .test-meta {
     border-top-color: #4b5563;
   }
-  
+
   .meta-item {
     background: #6b7280;
     color: #d1d5db;
   }
-  
+
   .meta-item.error {
     background: #7f1d1d;
     color: #fca5a5;
   }
-  
+
   .event-tag {
     background: #1e3a8a;
     color: #93c5fd;
   }
-  
+
   .service-badge {
     background: #312e81;
     color: #a5b4fc;
   }
-  
+
   .capability-item,
   .permission-item {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .capability-name,
   .permission-label {
     color: #d1d5db;
   }
-  
+
   .capability-type,
   .permission-value {
     color: #9ca3af;
   }
-  
+
   .result-json {
     background: #111827;
     color: #f9fafb;
   }
-  
+
   .docs-overview,
   .docs-quick-start,
   .docs-endpoints {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .docs-overview h4,
   .docs-quick-start h4,
   .docs-endpoints h4 {
     color: #f9fafb;
   }
-  
+
   .docs-overview p {
     color: #9ca3af;
   }
-  
+
   .endpoint-summary {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
+
   .endpoint-summary .endpoint-path {
     color: #d1d5db;
   }
-  
+
   .endpoint-summary .endpoint-description {
     color: #9ca3af;
   }
-  
+
   .btn-outline {
     color: #9ca3af;
     border-color: #4b5563;
   }
-  
+
   .btn-outline:hover {
     background: #374151;
     border-color: #6b7280;
@@ -1151,39 +1151,39 @@
   .integration-management-overlay {
     padding: 10px;
   }
-  
+
   .integration-management-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .integration-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .integration-header h2 {
     font-size: 20px;
   }
-  
+
   .integration-content {
     padding: 0 16px 16px 16px;
   }
-  
+
   .integration-tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 4px;
   }
-  
+
   .tab-button {
     padding: 8px 12px;
     font-size: 12px;
   }
-  
+
   .integrations-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .endpoint-header,
   .webhook-header,
   .integration-header,
@@ -1193,7 +1193,7 @@
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .endpoint-actions,
   .webhook-actions,
   .integration-actions,
@@ -1202,7 +1202,7 @@
     width: 100%;
     justify-content: stretch;
   }
-  
+
   .endpoint-actions .btn,
   .webhook-actions .btn,
   .integration-actions .btn,
@@ -1210,7 +1210,7 @@
   .test-actions .btn {
     flex: 1;
   }
-  
+
   .endpoint-stats,
   .webhook-stats,
   .integration-stats,
@@ -1219,12 +1219,12 @@
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .stat-item,
   .detail-item {
     text-align: left;
   }
-  
+
   .endpoint-meta,
   .webhook-meta,
   .integration-meta,
@@ -1232,16 +1232,14 @@
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .endpoint-summary {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .endpoint-summary .method-badge {
     align-self: flex-start;
   }
 }
-
-

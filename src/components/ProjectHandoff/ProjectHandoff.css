@@ -162,7 +162,7 @@
   cursor: pointer;
 }
 
-.member-option input[type="radio"] {
+.member-option input[type='radio'] {
   display: none;
 }
 
@@ -176,7 +176,7 @@
   transition: all 0.2s ease;
 }
 
-.member-option input[type="radio"]:checked + .member-card {
+.member-option input[type='radio']:checked + .member-card {
   border-color: #3b82f6;
   background: #f0f9ff;
 }
@@ -404,100 +404,100 @@
   .project-handoff-modal {
     background: #1f2937;
   }
-  
+
   .handoff-header {
     border-bottom-color: #374151;
   }
-  
+
   .handoff-header h2 {
     color: #f9fafb;
   }
-  
+
   .close-button {
     color: #9ca3af;
   }
-  
+
   .close-button:hover {
     background: #374151;
     color: #d1d5db;
   }
-  
+
   .project-info {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .project-info h3 {
     color: #f9fafb;
   }
-  
+
   .project-info p {
     color: #9ca3af;
   }
-  
+
   .meta-item {
     background: #4b5563;
     border-color: #6b7280;
     color: #d1d5db;
   }
-  
+
   .step-indicator {
     background: #374151;
   }
-  
+
   .step {
     background: #4b5563;
     color: #9ca3af;
   }
-  
+
   .step.active {
     background: #60a5fa;
     color: white;
   }
-  
+
   .handoff-step {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .handoff-step h4 {
     color: #f9fafb;
   }
-  
+
   .handoff-step p {
     color: #9ca3af;
   }
-  
+
   .member-card {
     background: #4b5563;
     border-color: #6b7280;
   }
-  
-  .member-option input[type="radio"]:checked + .member-card {
+
+  .member-option input[type='radio']:checked + .member-card {
     border-color: #60a5fa;
     background: #1e3a8a;
   }
-  
+
   .member-option:hover .member-card {
     border-color: #60a5fa;
   }
-  
+
   .member-name {
     color: #f9fafb;
   }
-  
+
   .member-role {
     color: #9ca3af;
   }
-  
+
   .member-status {
     color: #6b7280;
   }
-  
+
   .form-group label {
     color: #d1d5db;
   }
-  
+
   .form-group select,
   .form-group input,
   .form-group textarea {
@@ -505,33 +505,33 @@
     border-color: #6b7280;
     color: #f9fafb;
   }
-  
+
   .form-group select:hover,
   .form-group input:hover,
   .form-group textarea:hover {
     border-color: #60a5fa;
   }
-  
+
   .form-group select:focus,
   .form-group input:focus,
   .form-group textarea:focus {
     border-color: #60a5fa;
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
   }
-  
+
   .handoff-summary {
     background: #374151;
     border-color: #4b5563;
   }
-  
+
   .handoff-summary h5 {
     color: #f9fafb;
   }
-  
+
   .summary-item strong {
     color: #d1d5db;
   }
-  
+
   .handoff-actions {
     background: #374151;
     border-top-color: #4b5563;
@@ -543,61 +543,59 @@
   .project-handoff-overlay {
     padding: 10px;
   }
-  
+
   .project-handoff-modal {
     max-width: 100%;
     max-height: 95vh;
   }
-  
+
   .handoff-header {
     padding: 16px 16px 0 16px;
   }
-  
+
   .handoff-header h2 {
     font-size: 20px;
   }
-  
+
   .handoff-content {
     padding: 0 16px;
   }
-  
+
   .project-info {
     padding: 16px;
   }
-  
+
   .project-meta {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .step-indicator {
     gap: 8px;
   }
-  
+
   .step {
     width: 28px;
     height: 28px;
     font-size: 12px;
   }
-  
+
   .handoff-step {
     padding: 16px;
   }
-  
+
   .member-card {
     padding: 12px;
   }
-  
+
   .handoff-actions {
     padding: 16px;
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .btn {
     width: 100%;
     padding: 14px 20px;
   }
 }
-
-

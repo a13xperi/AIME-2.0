@@ -21,10 +21,7 @@ interface NotificationSystemProps {
   onSessionUpdate?: (sessionId: string, updates: Partial<Session>) => void;
 }
 
-const NotificationSystem: React.FC<NotificationSystemProps> = ({
-  sessions,
-  onSessionUpdate
-}) => {
+const NotificationSystem: React.FC<NotificationSystemProps> = ({ sessions, onSessionUpdate }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isEnabled, setIsEnabled] = useState(true);
   const [settings, setSettings] = useState({
@@ -34,28 +31,31 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
     productivityAlerts: true,
     breakInterval: 25, // minutes
     sessionTimeout: 120, // minutes
-    quietHours: { start: 22, end: 8 } // 10 PM to 8 AM
+    quietHours: { start: 22, end: 8 }, // 10 PM to 8 AM
   });
 
   // Add notification
-  const addNotification = useCallback((notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
-    const newNotification: Notification = {
-      ...notification,
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      read: false
-    };
+  const addNotification = useCallback(
+    (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
+      const newNotification: Notification = {
+        ...notification,
+        id: Date.now().toString(),
+        timestamp: new Date(),
+        read: false,
+      };
 
-    setNotifications(prev => [newNotification, ...prev.slice(0, 9)]); // Keep last 10
+      setNotifications(prev => [newNotification, ...prev.slice(0, 9)]); // Keep last 10
 
-    // Auto-remove after duration
-    if (notification.duration) {
-      setTimeout(() => {
-        removeNotification(newNotification.id);
-      }, notification.duration);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      // Auto-remove after duration
+      if (notification.duration) {
+        setTimeout(() => {
+          removeNotification(newNotification.id);
+        }, notification.duration);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    []
+  );
 
   // Remove notification
   const removeNotification = useCallback((id: string) => {
@@ -68,7 +68,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
 
     const now = new Date();
     const currentHour = now.getHours();
-    
+
     // Skip during quiet hours
     if (currentHour >= settings.quietHours.start || currentHour < settings.quietHours.end) {
       return;
@@ -99,8 +99,8 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
               if (onSessionUpdate && lastSession.id) {
                 onSessionUpdate(lastSession.id, { status: 'Paused' });
               }
-            }
-          }
+            },
+          },
         });
       }
     }
@@ -111,9 +111,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
     if (!settings.sessionTimeouts) return;
 
     const now = new Date();
-    const activeSessions = sessions.filter(session => 
-      session.status === 'In Progress'
-    );
+    const activeSessions = sessions.filter(session => session.status === 'In Progress');
 
     activeSessions.forEach(session => {
       const sessionStart = new Date(session.date);
@@ -131,8 +129,8 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
               if (onSessionUpdate) {
                 onSessionUpdate(session.id, { status: 'Paused' });
               }
-            }
-          }
+            },
+          },
         });
       }
     });
@@ -144,7 +142,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
 
     const today = new Date().toISOString().split('T')[0];
     const todaysSessions = sessions.filter(session => session.date === today);
-    
+
     if (todaysSessions.length === 0) return;
 
     const totalHours = todaysSessions.reduce((sum, session) => sum + (session.duration || 0), 0);
@@ -152,20 +150,20 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
     const productivityScore = Math.round((completedSessions / todaysSessions.length) * 100);
 
     let message = `Today you completed ${completedSessions} sessions in ${totalHours.toFixed(1)} hours.`;
-    
+
     if (productivityScore >= 80) {
-      message += " 🎉 Excellent productivity!";
+      message += ' 🎉 Excellent productivity!';
     } else if (productivityScore >= 60) {
-      message += " 📈 Good work! Keep it up!";
+      message += ' 📈 Good work! Keep it up!';
     } else {
-      message += " 💡 Room for improvement tomorrow.";
+      message += ' 💡 Room for improvement tomorrow.';
     }
 
     addNotification({
       type: 'summary',
       title: '📊 Daily Summary',
       message,
-      duration: 8000
+      duration: 8000,
     });
   }, [sessions, settings, addNotification]);
 
@@ -189,15 +187,16 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
       addNotification({
         type: 'alert',
         title: '📉 Productivity Alert',
-        message: 'Your session completion rate has dropped below 50%. Consider reviewing your work approach.',
-        duration: 12000
+        message:
+          'Your session completion rate has dropped below 50%. Consider reviewing your work approach.',
+        duration: 12000,
       });
     } else if (completionRate > 0.8) {
       addNotification({
         type: 'achievement',
         title: '🏆 Achievement Unlocked',
-        message: 'Outstanding productivity! You\'ve maintained an 80%+ completion rate this week.',
-        duration: 10000
+        message: "Outstanding productivity! You've maintained an 80%+ completion rate this week.",
+        duration: 10000,
       });
     }
   }, [sessions, settings, addNotification]);
@@ -228,7 +227,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
     endOfDay.setHours(18, 0, 0, 0); // 6 PM
 
     const timeUntilEndOfDay = endOfDay.getTime() - now.getTime();
-    
+
     if (timeUntilEndOfDay > 0) {
       const timeout = setTimeout(() => {
         generateDailySummary();
@@ -242,9 +241,12 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
   useEffect(() => {
     if (!isEnabled || !settings.productivityAlerts) return;
 
-    const interval = setInterval(() => {
-      checkProductivityTrends();
-    }, 24 * 60 * 60 * 1000); // Daily
+    const interval = setInterval(
+      () => {
+        checkProductivityTrends();
+      },
+      24 * 60 * 60 * 1000
+    ); // Daily
 
     return () => clearInterval(interval);
   }, [isEnabled, settings.productivityAlerts, checkProductivityTrends]);
@@ -253,10 +255,7 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
     return (
       <div className="notification-system">
         <div className="notification-toggle">
-          <button 
-            className="btn btn-primary"
-            onClick={() => setIsEnabled(true)}
-          >
+          <button className="btn btn-primary" onClick={() => setIsEnabled(true)}>
             🔔 Enable Notifications
           </button>
         </div>
@@ -269,17 +268,11 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
       <div className="notification-header">
         <h3>🔔 Smart Notifications</h3>
         <div className="notification-controls">
-          <button 
-            className="btn btn-secondary btn-small"
-            onClick={() => setIsEnabled(false)}
-          >
+          <button className="btn btn-secondary btn-small" onClick={() => setIsEnabled(false)}>
             Disable
           </button>
           {notifications.length > 0 && (
-            <button 
-              className="btn btn-outline btn-small"
-              onClick={clearAll}
-            >
+            <button className="btn btn-outline btn-small" onClick={clearAll}>
               Clear All
             </button>
           )}
@@ -293,34 +286,36 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
             <input
               type="checkbox"
               checked={settings.breakReminders}
-              onChange={(e) => setSettings(prev => ({ ...prev, breakReminders: e.target.checked }))}
+              onChange={e => setSettings(prev => ({ ...prev, breakReminders: e.target.checked }))}
             />
             <span>Break Reminders ({settings.breakInterval}min)</span>
           </label>
-          
+
           <label className="setting-item">
             <input
               type="checkbox"
               checked={settings.sessionTimeouts}
-              onChange={(e) => setSettings(prev => ({ ...prev, sessionTimeouts: e.target.checked }))}
+              onChange={e => setSettings(prev => ({ ...prev, sessionTimeouts: e.target.checked }))}
             />
             <span>Session Timeouts ({settings.sessionTimeout}min)</span>
           </label>
-          
+
           <label className="setting-item">
             <input
               type="checkbox"
               checked={settings.dailySummaries}
-              onChange={(e) => setSettings(prev => ({ ...prev, dailySummaries: e.target.checked }))}
+              onChange={e => setSettings(prev => ({ ...prev, dailySummaries: e.target.checked }))}
             />
             <span>Daily Summaries</span>
           </label>
-          
+
           <label className="setting-item">
             <input
               type="checkbox"
               checked={settings.productivityAlerts}
-              onChange={(e) => setSettings(prev => ({ ...prev, productivityAlerts: e.target.checked }))}
+              onChange={e =>
+                setSettings(prev => ({ ...prev, productivityAlerts: e.target.checked }))
+              }
             />
             <span>Productivity Alerts</span>
           </label>
@@ -334,8 +329,8 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
           </div>
         ) : (
           notifications.map(notification => (
-            <div 
-              key={notification.id} 
+            <div
+              key={notification.id}
               className={`notification-item ${notification.type} ${notification.read ? 'read' : ''}`}
             >
               <div className="notification-content">
@@ -345,17 +340,17 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({
                   {notification.timestamp.toLocaleTimeString()}
                 </div>
               </div>
-              
+
               <div className="notification-actions">
                 {notification.action && (
-                  <button 
+                  <button
                     className="btn btn-primary btn-small"
                     onClick={notification.action.onClick}
                   >
                     {notification.action.label}
                   </button>
                 )}
-                <button 
+                <button
                   className="btn btn-outline btn-small"
                   onClick={() => removeNotification(notification.id)}
                 >

@@ -8,20 +8,16 @@ interface DataExportProps {
   onClose: () => void;
 }
 
-const DataExport: React.FC<DataExportProps> = ({
-  projects,
-  sessions,
-  onClose
-}) => {
+const DataExport: React.FC<DataExportProps> = ({ projects, sessions, onClose }) => {
   const [exportOptions, setExportOptions] = useState<ExportOptions>({
     format: 'csv',
     includeCharts: false,
     includeImages: false,
     dateRange: {
       start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      end: new Date().toISOString().split('T')[0]
+      end: new Date().toISOString().split('T')[0],
     },
-    filters: {}
+    filters: {},
   });
   const [isExporting, setIsExporting] = useState(false);
   const [exportHistory, setExportHistory] = useState<any[]>([]);
@@ -32,7 +28,7 @@ const DataExport: React.FC<DataExportProps> = ({
   }>({
     projects: true,
     sessions: true,
-    analytics: false
+    analytics: false,
   });
 
   // Mock export history
@@ -44,7 +40,7 @@ const DataExport: React.FC<DataExportProps> = ({
         format: 'csv',
         exportedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
         recordCount: 45,
-        fileSize: 125000
+        fileSize: 125000,
       },
       {
         id: 'export-2',
@@ -52,32 +48,41 @@ const DataExport: React.FC<DataExportProps> = ({
         format: 'json',
         exportedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
         recordCount: 23,
-        fileSize: 89000
-      }
+        fileSize: 89000,
+      },
     ];
     setExportHistory(mockHistory);
   }, []);
 
   const handleExport = async () => {
     setIsExporting(true);
-    
+
     // Simulate export process
     setTimeout(() => {
       const exportData = {
-        projects: selectedData.projects ? projects.filter(p => 
-          new Date(p.lastUpdated) >= new Date(exportOptions.dateRange.start) &&
-          new Date(p.lastUpdated) <= new Date(exportOptions.dateRange.end)
-        ) : [],
-        sessions: selectedData.sessions ? sessions.filter(s => 
-          new Date(s.date) >= new Date(exportOptions.dateRange.start) &&
-          new Date(s.date) <= new Date(exportOptions.dateRange.end)
-        ) : [],
-        analytics: selectedData.analytics ? {
-          totalProjects: projects.length,
-          totalSessions: sessions.length,
-          averageSessionDuration: sessions.reduce((acc, s) => acc + (s.duration || 0), 0) / sessions.length,
-          mostActiveCategory: 'Development'
-        } : null
+        projects: selectedData.projects
+          ? projects.filter(
+              p =>
+                new Date(p.lastUpdated) >= new Date(exportOptions.dateRange.start) &&
+                new Date(p.lastUpdated) <= new Date(exportOptions.dateRange.end)
+            )
+          : [],
+        sessions: selectedData.sessions
+          ? sessions.filter(
+              s =>
+                new Date(s.date) >= new Date(exportOptions.dateRange.start) &&
+                new Date(s.date) <= new Date(exportOptions.dateRange.end)
+            )
+          : [],
+        analytics: selectedData.analytics
+          ? {
+              totalProjects: projects.length,
+              totalSessions: sessions.length,
+              averageSessionDuration:
+                sessions.reduce((acc, s) => acc + (s.duration || 0), 0) / sessions.length,
+              mostActiveCategory: 'Development',
+            }
+          : null,
       };
 
       // Create and download file
@@ -111,7 +116,7 @@ const DataExport: React.FC<DataExportProps> = ({
       }
 
       downloadFile(content, filename, mimeType);
-      
+
       // Add to history
       const newExport = {
         id: `export-${Date.now()}`,
@@ -119,9 +124,9 @@ const DataExport: React.FC<DataExportProps> = ({
         format: exportOptions.format,
         exportedAt: new Date().toISOString(),
         recordCount: (exportData.projects?.length || 0) + (exportData.sessions?.length || 0),
-        fileSize: new Blob([content]).size
+        fileSize: new Blob([content]).size,
       };
-      
+
       setExportHistory(prev => [newExport, ...prev]);
       setIsExporting(false);
     }, 2000);
@@ -129,7 +134,7 @@ const DataExport: React.FC<DataExportProps> = ({
 
   const convertToCSV = (data: any) => {
     let csv = '';
-    
+
     if (data.projects && data.projects.length > 0) {
       csv += 'PROJECTS\n';
       csv += 'ID,Name,Description,Category,Status,Priority,Created At,Updated At\n';
@@ -138,7 +143,7 @@ const DataExport: React.FC<DataExportProps> = ({
       });
       csv += '\n';
     }
-    
+
     if (data.sessions && data.sessions.length > 0) {
       csv += 'SESSIONS\n';
       csv += 'ID,Title,Date,Duration,Project,Status,Summary,AI Agent,Workspace\n';
@@ -147,7 +152,7 @@ const DataExport: React.FC<DataExportProps> = ({
       });
       csv += '\n';
     }
-    
+
     if (data.analytics) {
       csv += 'ANALYTICS\n';
       csv += 'Metric,Value\n';
@@ -156,14 +161,14 @@ const DataExport: React.FC<DataExportProps> = ({
       csv += `"Average Session Duration","${data.analytics.averageSessionDuration.toFixed(2)} minutes"\n`;
       csv += `"Most Active Category","${data.analytics.mostActiveCategory}"\n`;
     }
-    
+
     return csv;
   };
 
   const convertToText = (data: any) => {
     let text = 'AGENT ALEX DATA EXPORT\n';
     text += '='.repeat(50) + '\n\n';
-    
+
     if (data.projects && data.projects.length > 0) {
       text += 'PROJECTS\n';
       text += '-'.repeat(20) + '\n';
@@ -174,7 +179,7 @@ const DataExport: React.FC<DataExportProps> = ({
         text += `  Created: ${new Date(project.lastUpdated).toLocaleDateString()}\n\n`;
       });
     }
-    
+
     if (data.sessions && data.sessions.length > 0) {
       text += 'SESSIONS\n';
       text += '-'.repeat(20) + '\n';
@@ -186,7 +191,7 @@ const DataExport: React.FC<DataExportProps> = ({
         text += `  Status: ${session.status || 'Unknown'}\n\n`;
       });
     }
-    
+
     if (data.analytics) {
       text += 'ANALYTICS\n';
       text += '-'.repeat(20) + '\n';
@@ -195,7 +200,7 @@ const DataExport: React.FC<DataExportProps> = ({
       text += `Average Session Duration: ${data.analytics.averageSessionDuration.toFixed(2)} minutes\n`;
       text += `Most Active Category: ${data.analytics.mostActiveCategory}\n`;
     }
-    
+
     return text;
   };
 
@@ -213,11 +218,16 @@ const DataExport: React.FC<DataExportProps> = ({
 
   const getFormatIcon = (format: string) => {
     switch (format) {
-      case 'csv': return '📊';
-      case 'json': return '🔧';
-      case 'excel': return '📈';
-      case 'pdf': return '📄';
-      default: return '📋';
+      case 'csv':
+        return '📊';
+      case 'json':
+        return '🔧';
+      case 'excel':
+        return '📈';
+      case 'pdf':
+        return '📄';
+      default:
+        return '📋';
     }
   };
 
@@ -235,7 +245,7 @@ const DataExport: React.FC<DataExportProps> = ({
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -244,7 +254,9 @@ const DataExport: React.FC<DataExportProps> = ({
       <div className="data-export-modal">
         <div className="export-header">
           <h2>📤 Data Export</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="export-content">
@@ -261,11 +273,15 @@ const DataExport: React.FC<DataExportProps> = ({
                   <input
                     type="checkbox"
                     checked={selectedData.projects}
-                    onChange={(e) => setSelectedData(prev => ({ ...prev, projects: e.target.checked }))}
+                    onChange={e =>
+                      setSelectedData(prev => ({ ...prev, projects: e.target.checked }))
+                    }
                   />
                   <span className="checkbox-content">
                     <strong>Projects</strong>
-                    <span className="checkbox-description">Export all project data ({projects.length} projects)</span>
+                    <span className="checkbox-description">
+                      Export all project data ({projects.length} projects)
+                    </span>
                   </span>
                 </label>
 
@@ -273,11 +289,15 @@ const DataExport: React.FC<DataExportProps> = ({
                   <input
                     type="checkbox"
                     checked={selectedData.sessions}
-                    onChange={(e) => setSelectedData(prev => ({ ...prev, sessions: e.target.checked }))}
+                    onChange={e =>
+                      setSelectedData(prev => ({ ...prev, sessions: e.target.checked }))
+                    }
                   />
                   <span className="checkbox-content">
                     <strong>Sessions</strong>
-                    <span className="checkbox-description">Export all session data ({sessions.length} sessions)</span>
+                    <span className="checkbox-description">
+                      Export all session data ({sessions.length} sessions)
+                    </span>
                   </span>
                 </label>
 
@@ -285,11 +305,15 @@ const DataExport: React.FC<DataExportProps> = ({
                   <input
                     type="checkbox"
                     checked={selectedData.analytics}
-                    onChange={(e) => setSelectedData(prev => ({ ...prev, analytics: e.target.checked }))}
+                    onChange={e =>
+                      setSelectedData(prev => ({ ...prev, analytics: e.target.checked }))
+                    }
                   />
                   <span className="checkbox-content">
                     <strong>Analytics</strong>
-                    <span className="checkbox-description">Export calculated analytics and metrics</span>
+                    <span className="checkbox-description">
+                      Export calculated analytics and metrics
+                    </span>
                   </span>
                 </label>
               </div>
@@ -302,10 +326,12 @@ const DataExport: React.FC<DataExportProps> = ({
                   <label>Format</label>
                   <select
                     value={exportOptions.format}
-                    onChange={(e) => setExportOptions(prev => ({ 
-                      ...prev, 
-                      format: e.target.value as any 
-                    }))}
+                    onChange={e =>
+                      setExportOptions(prev => ({
+                        ...prev,
+                        format: e.target.value as any,
+                      }))
+                    }
                     className="form-select"
                   >
                     <option value="csv">CSV Spreadsheet</option>
@@ -321,20 +347,24 @@ const DataExport: React.FC<DataExportProps> = ({
                     <input
                       type="date"
                       value={exportOptions.dateRange.start}
-                      onChange={(e) => setExportOptions(prev => ({
-                        ...prev,
-                        dateRange: { ...prev.dateRange, start: e.target.value }
-                      }))}
+                      onChange={e =>
+                        setExportOptions(prev => ({
+                          ...prev,
+                          dateRange: { ...prev.dateRange, start: e.target.value },
+                        }))
+                      }
                       className="form-input"
                     />
                     <span>to</span>
                     <input
                       type="date"
                       value={exportOptions.dateRange.end}
-                      onChange={(e) => setExportOptions(prev => ({
-                        ...prev,
-                        dateRange: { ...prev.dateRange, end: e.target.value }
-                      }))}
+                      onChange={e =>
+                        setExportOptions(prev => ({
+                          ...prev,
+                          dateRange: { ...prev.dateRange, end: e.target.value },
+                        }))
+                      }
                       className="form-input"
                     />
                   </div>
@@ -347,10 +377,12 @@ const DataExport: React.FC<DataExportProps> = ({
                       <input
                         type="checkbox"
                         checked={exportOptions.includeCharts}
-                        onChange={(e) => setExportOptions(prev => ({
-                          ...prev,
-                          includeCharts: e.target.checked
-                        }))}
+                        onChange={e =>
+                          setExportOptions(prev => ({
+                            ...prev,
+                            includeCharts: e.target.checked,
+                          }))
+                        }
                       />
                       Include Charts
                     </label>
@@ -358,10 +390,12 @@ const DataExport: React.FC<DataExportProps> = ({
                       <input
                         type="checkbox"
                         checked={exportOptions.includeImages}
-                        onChange={(e) => setExportOptions(prev => ({
-                          ...prev,
-                          includeImages: e.target.checked
-                        }))}
+                        onChange={e =>
+                          setExportOptions(prev => ({
+                            ...prev,
+                            includeImages: e.target.checked,
+                          }))
+                        }
                       />
                       Include Images
                     </label>
@@ -371,10 +405,13 @@ const DataExport: React.FC<DataExportProps> = ({
             </div>
 
             <div className="form-actions">
-              <button 
+              <button
                 className="btn btn-primary btn-large"
                 onClick={handleExport}
-                disabled={!selectedData.projects && !selectedData.sessions && !selectedData.analytics || isExporting}
+                disabled={
+                  (!selectedData.projects && !selectedData.sessions && !selectedData.analytics) ||
+                  isExporting
+                }
               >
                 {isExporting ? (
                   <>
@@ -382,9 +419,7 @@ const DataExport: React.FC<DataExportProps> = ({
                     Exporting Data...
                   </>
                 ) : (
-                  <>
-                    📤 Export Data
-                  </>
+                  <>📤 Export Data</>
                 )}
               </button>
             </div>
