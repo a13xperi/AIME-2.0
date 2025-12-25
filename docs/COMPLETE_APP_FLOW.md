@@ -10,7 +10,13 @@
 
 2. **Splash Screen** (`/splash`)
    - AIME logo with golf icon
-   - Auto-navigates to Course Selection after 2 seconds
+   - Auto-navigates to Welcome or Course Selection
+
+3. **Welcome/Onboarding** (`/welcome`)
+   - Multi-step onboarding flow (4 steps)
+   - GPS Tracking, Precision Putting, Round Tracking features
+   - Skip option for returning users
+   - Saves completion to localStorage
 
 3. **Course Selection** (`/course-selection`)
    - Select golf course from list
@@ -104,7 +110,45 @@
     - Haptic Feedback toggle
     - Data management (Auto-save, Export, Clear Cache)
     - About information (Version, Build)
+    - Help & Tutorials link
     - Accessible from anywhere via navigation
+
+15. **Round History** (`/round-history`)
+    - View all previous rounds
+    - Summary statistics (Total Rounds, Avg Score, Best Score)
+    - Round cards with course, date, score, location
+    - Click to view round details
+    - Start New Round button
+
+16. **Scorecard** (`/scorecard`)
+    - Multi-hole scorecard view
+    - Front 9 and Back 9 sections
+    - Color-coded scores (Eagle, Birdie, Par, Bogey, Double+)
+    - Totals and over/under par
+    - Click holes to view details
+    - Accessible from Round Complete
+
+17. **Detailed Statistics** (`/detailed-stats`)
+    - Comprehensive round analytics
+    - Driving stats (Fairways, Avg Distance, Longest)
+    - Approach shots (GIR, Avg Distance, Proximity)
+    - Putting stats (Total, Avg, 3-Putt Avoidance, Make %)
+    - Scoring breakdown
+    - Penalties & Recovery stats
+    - Progress bars for percentages
+
+18. **Help & Tutorials** (`/help`)
+    - Expandable help sections
+    - Getting Started, GPS Tracking, Robo Puck, Shot Tracking
+    - Statistics explanation, Troubleshooting
+    - Contact Support option
+    - Accessible from Settings
+
+19. **Welcome/Onboarding** (`/welcome`)
+    - First-time user onboarding
+    - 4-step introduction to features
+    - Skip option for returning users
+    - Auto-saves completion status
 
 ## 🔄 Complete Navigation Flow
 
@@ -211,11 +255,14 @@ Dashboard or Landing Page
 
 ## 📊 Implementation Status
 
-**Total Screens Implemented**: 14
-**Total Routes**: 14
+**Total Screens Implemented**: 19
+**Total Routes**: 19
 **Complete Flows**: ✅ Full round flow from start to finish
 **Design Match**: ✅ All screens match Figma design
 **Navigation**: ✅ All screens connected and navigable
+**Onboarding**: ✅ Welcome screen with localStorage persistence
+**History & Stats**: ✅ Round History, Scorecard, Detailed Stats
+**Help System**: ✅ Help & Tutorials screen
 
 ## 🎯 Testing Checklist
 
