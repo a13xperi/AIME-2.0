@@ -19,13 +19,17 @@ const LandingPage: React.FC = () => {
     { name: 'Hole Stats', component: 'hole-stats' },
   ];
 
-  // Auto-cycle through screens every 4 seconds
+  // Pause auto-cycle on hover
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-cycle through screens every 4 seconds (paused on hover)
   useEffect(() => {
+    if (isHovered) return;
     const interval = setInterval(() => {
       setCurrentScreen((prev) => (prev + 1) % screens.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, [screens.length]);
+  }, [screens.length, isHovered]);
 
   const handleStartApp = () => {
     navigate('/splash');
@@ -53,7 +57,7 @@ const LandingPage: React.FC = () => {
             <h2 className="hero-subtitle">AI-Powered Golf Assistant</h2>
             <p className="hero-description">
               Get real-time shot guidance, precision putting lines, and complete round tracking. 
-              Powered by AI and RTK GPS technology.
+              Powered by AI and RTK GPS technology for the ultimate golf experience.
             </p>
             <div className="hero-actions">
               <button className="btn-primary" onClick={handleStartApp}>
@@ -67,17 +71,23 @@ const LandingPage: React.FC = () => {
 
           {/* Phone Mockup */}
           <div className="phone-mockup-container">
-            <div className="phone-mockup">
+            <div 
+              className="phone-mockup"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               <div className="phone-frame">
                 {/* Notch/Dynamic Island */}
                 <div className="phone-notch"></div>
                 
                 {/* Screen Content */}
                 <div className="phone-screen">
-                  {currentScreen === 0 && <SplashPreview />}
-                  {currentScreen === 1 && <ShotGuidancePreview />}
-                  {currentScreen === 2 && <PuttingPreview />}
-                  {currentScreen === 3 && <HoleStatsPreview />}
+                  <div className="screen-wrapper">
+                    {currentScreen === 0 && <SplashPreview />}
+                    {currentScreen === 1 && <ShotGuidancePreview />}
+                    {currentScreen === 2 && <PuttingPreview />}
+                    {currentScreen === 3 && <HoleStatsPreview />}
+                  </div>
                 </div>
 
                 {/* Screen Indicator Dots */}
