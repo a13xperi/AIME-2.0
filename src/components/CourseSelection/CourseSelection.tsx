@@ -5,35 +5,74 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRound } from '../../context/RoundContext';
+import { Course } from '../../types/round';
 import './CourseSelection.css';
-
-interface Course {
-  id: string;
-  name: string;
-  location: string;
-  holes: number;
-  par: number;
-  image?: string;
-}
 
 const CourseSelection: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedCourse, setSelectedCourse] = useState<string>('');
+  const { selectCourse } = useRound();
+  const [selectedCourseId, setSelectedCourseId] = useState<string>('');
 
+  // Mock courses - in production, these would come from an API
   const courses: Course[] = [
-    { id: '1', name: 'Pebble Beach', location: 'Pebble Beach, CA', holes: 18, par: 72 },
-    { id: '2', name: 'Augusta National', location: 'Augusta, GA', holes: 18, par: 72 },
-    { id: '3', name: 'St. Andrews', location: 'St. Andrews, Scotland', holes: 18, par: 72 },
-    { id: '4', name: 'Riverside Golf Club', location: 'Riverside, CA', holes: 18, par: 72 },
+    {
+      id: '1',
+      name: 'Pebble Beach',
+      location: 'Pebble Beach, CA',
+      holes: Array.from({ length: 18 }, (_, i) => ({
+        number: i + 1,
+        par: 4,
+        yards: 400,
+      })),
+      totalPar: 72,
+    },
+    {
+      id: '2',
+      name: 'Augusta National',
+      location: 'Augusta, GA',
+      holes: Array.from({ length: 18 }, (_, i) => ({
+        number: i + 1,
+        par: 4,
+        yards: 400,
+      })),
+      totalPar: 72,
+    },
+    {
+      id: '3',
+      name: 'St. Andrews',
+      location: 'St. Andrews, Scotland',
+      holes: Array.from({ length: 18 }, (_, i) => ({
+        number: i + 1,
+        par: 4,
+        yards: 400,
+      })),
+      totalPar: 72,
+    },
+    {
+      id: '4',
+      name: 'Riverside Golf Club',
+      location: 'Riverside, CA',
+      holes: Array.from({ length: 18 }, (_, i) => ({
+        number: i + 1,
+        par: 4,
+        yards: 400,
+      })),
+      totalPar: 72,
+    },
   ];
 
   const handleSelectCourse = (courseId: string) => {
-    setSelectedCourse(courseId);
+    setSelectedCourseId(courseId);
+    const course = courses.find((c) => c.id === courseId);
+    if (course) {
+      selectCourse(course);
+    }
   };
 
   const handleContinue = () => {
-    if (selectedCourse) {
-      navigate(`/round-settings?course=${selectedCourse}`);
+    if (selectedCourseId) {
+      navigate(`/round-settings?course=${selectedCourseId}`);
     }
   };
 
@@ -63,7 +102,7 @@ const CourseSelection: React.FC = () => {
             {courses.map((course) => (
               <div
                 key={course.id}
-                className={`course-card ${selectedCourse === course.id ? 'selected' : ''}`}
+                className={`course-card ${selectedCourseId === course.id ? 'selected' : ''}`}
                 onClick={() => handleSelectCourse(course.id)}
                 onDoubleClick={() => navigate(`/course-detail/${course.id}`)}
               >
@@ -71,13 +110,13 @@ const CourseSelection: React.FC = () => {
                   <div className="course-name">{course.name}</div>
                   <div className="course-location">{course.location}</div>
                   <div className="course-details">
-                    <span>{course.holes} holes</span>
+                    <span>{course.holes.length} holes</span>
                     <span>•</span>
-                    <span>Par {course.par}</span>
+                    <span>Par {course.totalPar}</span>
                   </div>
                 </div>
                 <div className="course-select-indicator">
-                  {selectedCourse === course.id && '✓'}
+                  {selectedCourseId === course.id && '✓'}
                 </div>
               </div>
             ))}
@@ -87,7 +126,7 @@ const CourseSelection: React.FC = () => {
             <button 
               className="btn-primary" 
               onClick={handleContinue}
-              disabled={!selectedCourse}
+              disabled={!selectedCourseId}
             >
               Continue →
             </button>

@@ -5,14 +5,19 @@
 
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRound } from '../../context/RoundContext';
+import { ShotCondition } from '../../types/round';
 import './ShotGuidance.css';
 
 const ShotGuidance: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const holeNumber = parseInt(searchParams.get('hole') || '1');
+  const { currentRound, currentHole, trackShot } = useRound();
+  
+  const holeNumber = parseInt(searchParams.get('hole') || currentHole.toString() || '1');
+  const hole = currentRound?.holes.find((h) => h.number === holeNumber);
   const [step, setStep] = useState(1);
-  const [condition, setCondition] = useState<string>('');
+  const [condition, setCondition] = useState<ShotCondition>('Fairway');
   const [distance, setDistance] = useState(162);
 
   const handleConfirmPosition = () => {
@@ -23,8 +28,26 @@ const ShotGuidance: React.FC = () => {
     } else if (step === 3) {
       setStep(4);
     } else {
+      // Track the shot
+      const shotNumber = (hole?.shots.length || 0) + 1;
+      const shot = {
+        id: `shot-${Date.now()}`,
+        holeNumber,
+        shotNumber,
+        club: '7 Iron',
+        distance,
+        condition,
+        result: 'Good' as const,
+        timestamp: new Date().toISOString(),
+        carry: distance - 10,
+        total: distance,
+        remaining: 45,
+      };
+      
+      trackShot(shot);
+      
       // Navigate to shot complete screen
-      navigate(`/shot-complete?hole=${holeNumber}&shot=1&club=7 Iron&distance=${distance}&condition=${condition}`);
+      navigate(`/shot-complete?hole=${holeNumber}&shot=${shotNumber}&club=7 Iron&distance=${distance}&condition=${condition}`);
     }
   };
 
@@ -66,17 +89,17 @@ const ShotGuidance: React.FC = () => {
           {step >= 2 && (
             <div className="shot-condition">
               <h3>Shot Condition</h3>
-              <div className="condition-buttons">
-                {['Tee', 'Fairway', 'Rough', 'Bunker', 'Penalty'].map((cond) => (
-                  <button
-                    key={cond}
-                    className={`condition-btn ${condition === cond ? 'active' : ''}`}
-                    onClick={() => setCondition(cond)}
-                  >
-                    {cond}
-                  </button>
-                ))}
-              </div>
+                  <div className="condition-buttons">
+                    {(['Tee', 'Fairway', 'Rough', 'Bunker', 'Penalty'] as ShotCondition[]).map((cond) => (
+                      <button
+                        key={cond}
+                        className={`condition-btn ${condition === cond ? 'active' : ''}`}
+                        onClick={() => setCondition(cond)}
+                      >
+                        {cond}
+                      </button>
+                    ))}
+                  </div>
             </div>
           )}
 

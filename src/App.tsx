@@ -5,6 +5,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/auth-context';
+import { RoundProvider } from './context/RoundContext';
 import Dashboard from './components/Dashboard/Dashboard';
 import ProjectDetail from './components/ProjectDetail/ProjectDetail';
 import ProjectsList from './components/ProjectsList/ProjectsList';
@@ -59,9 +60,10 @@ import './App.css';
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div className="App">
-          <Routes>
+      <RoundProvider>
+        <Router>
+          <div className="App">
+            <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/projects" element={<ProjectsList />} />
@@ -115,9 +117,10 @@ function App() {
             <Route path="/shot-analysis" element={<ShotAnalysis />} />
             <Route path="/round-summary" element={<RoundSummary />} />
             <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </div>
-      </Router>
+            </Routes>
+          </div>
+        </Router>
+      </RoundProvider>
     </AuthProvider>
   );
 }

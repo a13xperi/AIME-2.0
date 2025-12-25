@@ -5,19 +5,53 @@
 
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRound } from '../../context/RoundContext';
+import { RoundFormat, Player } from '../../types/round';
 import './RoundSettings.css';
 
 const RoundSettings: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const courseId = searchParams.get('course') || '1';
+  const { selectedCourse, startRound } = useRound();
   
   const [players, setPlayers] = useState(1);
-  const [format, setFormat] = useState('stroke');
+  const [format, setFormat] = useState<RoundFormat>('Stroke Play');
   const [useGPS, setUseGPS] = useState(true);
   const [usePuck, setUsePuck] = useState(true);
+  const [playerNames, setPlayerNames] = useState<string[]>(['Player 1']);
 
   const handleStartRound = () => {
+    if (!selectedCourse) {
+      navigate('/course-selection');
+      return;
+    }
+
+    // Create player objects
+    const playerList: Player[] = Array.from({ length: players }, (_, i) => ({
+      id: `player-${i + 1}`,
+      name: playerNames[i] || `Player ${i + 1}`,
+      scores: [],
+      stats: {
+        fairwaysHit: 0,
+        greensInRegulation: 0,
+        totalPutts: 0,
+        penalties: 0,
+        birdies: 0,
+        pars: 0,
+        bogeys: 0,
+        doubleBogeysPlus: 0,
+      },
+    }));
+
+    // Start the round with settings
+    startRound(selectedCourse, {
+      players: playerList,
+      format,
+      gpsEnabled: useGPS,
+      puckEnabled: usePuck,
+      autoTrackShots: useGPS,
+    });
+
     navigate('/my-bag');
   };
 
@@ -55,13 +89,13 @@ const RoundSettings: React.FC = () => {
             <div className="setting-item">
               <div className="setting-label">Game Format</div>
               <div className="format-options">
-                {['stroke', 'match', 'skins', 'scramble'].map((fmt) => (
+                {(['Stroke Play', 'Match Play', 'Scramble', 'Best Ball'] as RoundFormat[]).map((fmt) => (
                   <button
                     key={fmt}
                     className={`format-btn ${format === fmt ? 'active' : ''}`}
                     onClick={() => setFormat(fmt)}
                   >
-                    {fmt.charAt(0).toUpperCase() + fmt.slice(1)}
+                    {fmt}
                   </button>
                 ))}
               </div>

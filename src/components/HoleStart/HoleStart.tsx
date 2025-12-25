@@ -5,15 +5,20 @@
 
 import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRound } from '../../context/RoundContext';
 import './HoleStart.css';
 
 const HoleStart: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const holeNumber = parseInt(searchParams.get('hole') || '1');
-  const par = parseInt(searchParams.get('par') || '4');
+  const { currentRound, currentHole, setCurrentHole } = useRound();
+  
+  const holeNumber = parseInt(searchParams.get('hole') || currentHole.toString() || '1');
+  const hole = currentRound?.holes.find((h) => h.number === holeNumber);
+  const par = hole?.par || parseInt(searchParams.get('par') || '4');
 
   const handleStartHole = () => {
+    setCurrentHole(holeNumber);
     navigate(`/shot-guidance?hole=${holeNumber}&par=${par}`);
   };
 
