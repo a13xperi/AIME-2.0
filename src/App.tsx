@@ -44,6 +44,8 @@ import RoundComparison from './components/RoundComparison/RoundComparison';
 import ClubAnalysis from './components/ClubAnalysis/ClubAnalysis';
 import Sharing from './components/Sharing/Sharing';
 import Tutorial from './components/Tutorial/Tutorial';
+import ErrorPage from './components/ErrorPage/ErrorPage';
+import Leaderboard from './components/Leaderboard/Leaderboard';
 import './App.css';
 
 function App() {
@@ -95,6 +97,8 @@ function App() {
             <Route path="/club-analysis" element={<ClubAnalysis />} />
             <Route path="/sharing" element={<Sharing />} />
             <Route path="/tutorial" element={<Tutorial />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
       </Router>
