@@ -2,100 +2,106 @@
 
 /**
  * Environment Variable Validation Script
- * Validates that all required environment variables are set before running the app
+ * Run this before starting the server to ensure all required env vars are set
+ *
+ * Usage: node validate-env.js [all|server|client]
  */
 
-const requiredEnvVars = {
-  // Required for all environments
-  common: [],
-
-  // Required for development
-  development: [
-    'NOTION_API_KEY',
+const requiredVars = {
+  server: [
+    'NOTION_TOKEN',
     'NOTION_PROJECTS_DATABASE_ID',
-    'NOTION_SESSIONS_DATABASE_ID',
-    'REACT_APP_API_URL',
-    'PORT'
+    'NOTION_SESSIONS_DATABASE_ID'
   ],
-
-  // Required for production
-  production: [
-    'NOTION_API_KEY',
-    'NOTION_PROJECTS_DATABASE_ID',
-    'NOTION_SESSIONS_DATABASE_ID',
+  client: [
     'REACT_APP_API_URL'
-  ],
-
-  // Required for testing
-  test: []
+  ]
 };
 
-const optionalEnvVars = [
-  'DEBUG',
-  'LOG_LEVEL',
-  'ALLOWED_ORIGINS'
-];
+const optionalVars = {
+  server: ['PORT', 'ALLOWED_ORIGINS', 'NODE_ENV', 'DEBUG', 'LOG_LEVEL'],
+  client: []
+};
 
-function validateEnv() {
-  const env = process.env.NODE_ENV || 'development';
-  const errors = [];
+function validateEnv(type = 'all') {
+  const missing = [];
   const warnings = [];
 
+  const varsToCheck = type === 'server' ? requiredVars.server :
+                      type === 'client' ? requiredVars.client :
+                      [...requiredVars.server, ...requiredVars.client];
+
+  const env = process.env.NODE_ENV || 'development';
   console.log(`\n🔍 Validating environment variables for: ${env}\n`);
 
   // Check required variables
-  const required = [
-    ...requiredEnvVars.common,
-    ...(requiredEnvVars[env] || [])
-  ];
-
-  for (const varName of required) {
+  varsToCheck.forEach(varName => {
     if (!process.env[varName]) {
-      errors.push(`❌ Missing required: ${varName}`);
+      missing.push(varName);
     } else {
       // Mask sensitive values
-      const value = varName.includes('KEY') || varName.includes('TOKEN') || varName.includes('SECRET')
+      const value = varName.includes('TOKEN') || varName.includes('KEY') || varName.includes('SECRET')
         ? '***masked***'
         : process.env[varName];
       console.log(`✅ ${varName}: ${value}`);
     }
-  }
+  });
 
   // Check optional variables
+  const optionalToCheck = type === 'server' ? optionalVars.server :
+                          type === 'client' ? optionalVars.client :
+                          [...optionalVars.server, ...optionalVars.client];
+
   console.log('\n📋 Optional variables:');
-  for (const varName of optionalEnvVars) {
+  optionalToCheck.forEach(varName => {
     if (process.env[varName]) {
       console.log(`  ✓ ${varName}: ${process.env[varName]}`);
     } else {
       console.log(`  - ${varName}: (not set)`);
+      warnings.push(varName);
     }
-  }
+  });
 
   // Report results
   console.log('\n');
 
-  if (errors.length > 0) {
-    console.error('🚫 Environment validation failed:\n');
-    errors.forEach(err => console.error(`  ${err}`));
+  if (missing.length > 0) {
+    console.error('🚫 Missing required environment variables:\n');
+    missing.forEach(varName => console.error(`   ❌ ${varName}`));
     console.error('\n💡 Tip: Copy .env.example to .env and fill in the values\n');
     process.exit(1);
   }
 
   if (warnings.length > 0) {
-    console.warn('⚠️  Warnings:\n');
-    warnings.forEach(warn => console.warn(`  ${warn}`));
-    console.warn('\n');
+    console.warn('⚠️  Some optional variables not set (using defaults)\n');
   }
 
   console.log('✅ Environment validation passed!\n');
-  process.exit(0);
+  console.log(`   Environment: ${env}`);
+  console.log(`   Port: ${process.env.PORT || '3001'}`);
+  if (type === 'all' || type === 'server') {
+    console.log(`   Notion: ${process.env.NOTION_TOKEN ? 'Configured' : 'Missing'}`);
+  }
+  if (type === 'all' || type === 'client') {
+    console.log(`   API URL: ${process.env.REACT_APP_API_URL || 'Not set'}`);
+  }
+  console.log('');
+}
+
+// Parse command line args
+const args = process.argv.slice(2);
+const type = args[0] || 'all';
+
+if (!['all', 'server', 'client'].includes(type)) {
+  console.error('Usage: node validate-env.js [all|server|client]');
+  process.exit(1);
 }
 
 // Load dotenv if available
 try {
   require('dotenv').config();
 } catch (e) {
-  // dotenv not installed, that's okay
+  // dotenv not installed, that's okay in some environments
 }
 
-validateEnv();
+validateEnv(type);

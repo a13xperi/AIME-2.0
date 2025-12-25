@@ -1,0 +1,1066 @@
+import React, { useState, useEffect } from 'react';
+import {
+  MarketingCampaign, EmailCampaign, SocialMediaCampaign, ContentCampaign,
+  MarketingAutomation as MarketingAutomationType, LeadNurturing, MarketingSegment, MarketingAudience,
+  MarketingTemplate, MarketingAsset, MarketingEvent, MarketingWebinar,
+  MarketingLandingPage, MarketingForm, MarketingLead, MarketingScore,
+  MarketingWorkflow, MarketingTrigger, MarketingAction, MarketingCondition,
+  MarketingAnalytics, MarketingMetrics, MarketingReport, MarketingInsight,
+  MarketingABTest, MarketingPersonalization, MarketingRetargeting,
+  MarketingAttribution, MarketingROI, MarketingBudget, MarketingCost,
+  MarketingChannel, MarketingTouchpoint, MarketingJourney, MarketingFunnel,
+  MarketingGoal, MarketingKPI, MarketingTarget, MarketingForecast,
+  MarketingOptimization, MarketingRecommendation, MarketingAlert,
+  MarketingIntegration, MarketingAPI, MarketingWebhook, MarketingSync
+} from '../../types';
+import './MarketingAutomation.css';
+
+const MarketingAutomation: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<string>('overview');
+  const [campaigns, setCampaigns] = useState<MarketingCampaign[]>([]);
+  const [emailCampaigns, setEmailCampaigns] = useState<EmailCampaign[]>([]);
+  const [socialMediaCampaigns, setSocialMediaCampaigns] = useState<SocialMediaCampaign[]>([]);
+  const [contentCampaigns, setContentCampaigns] = useState<ContentCampaign[]>([]);
+  const [automations, setAutomations] = useState<MarketingAutomationType[]>([]);
+  const [leadNurturing, setLeadNurturing] = useState<LeadNurturing[]>([]);
+  const [segments, setSegments] = useState<MarketingSegment[]>([]);
+  const [audiences, setAudiences] = useState<MarketingAudience[]>([]);
+  const [templates, setTemplates] = useState<MarketingTemplate[]>([]);
+  const [assets, setAssets] = useState<MarketingAsset[]>([]);
+  const [events, setEvents] = useState<MarketingEvent[]>([]);
+  const [webinars, setWebinars] = useState<MarketingWebinar[]>([]);
+  const [landingPages, setLandingPages] = useState<MarketingLandingPage[]>([]);
+  const [forms, setForms] = useState<MarketingForm[]>([]);
+  const [leads, setLeads] = useState<MarketingLead[]>([]);
+  const [scores, setScores] = useState<MarketingScore[]>([]);
+  const [workflows, setWorkflows] = useState<MarketingWorkflow[]>([]);
+  const [triggers, setTriggers] = useState<MarketingTrigger[]>([]);
+  const [actions, setActions] = useState<MarketingAction[]>([]);
+  const [conditions, setConditions] = useState<MarketingCondition[]>([]);
+  const [analytics, setAnalytics] = useState<MarketingAnalytics[]>([]);
+  const [metrics, setMetrics] = useState<MarketingMetrics[]>([]);
+  const [reports, setReports] = useState<MarketingReport[]>([]);
+  const [insights, setInsights] = useState<MarketingInsight[]>([]);
+  const [abTests, setAbTests] = useState<MarketingABTest[]>([]);
+  const [personalizations, setPersonalizations] = useState<MarketingPersonalization[]>([]);
+  const [retargeting, setRetargeting] = useState<MarketingRetargeting[]>([]);
+  const [attributions, setAttributions] = useState<MarketingAttribution[]>([]);
+  const [rois, setRois] = useState<MarketingROI[]>([]);
+  const [budgets, setBudgets] = useState<MarketingBudget[]>([]);
+  const [costs, setCosts] = useState<MarketingCost[]>([]);
+  const [channels, setChannels] = useState<MarketingChannel[]>([]);
+  const [touchpoints, setTouchpoints] = useState<MarketingTouchpoint[]>([]);
+  const [journeys, setJourneys] = useState<MarketingJourney[]>([]);
+  const [funnels, setFunnels] = useState<MarketingFunnel[]>([]);
+  const [goals, setGoals] = useState<MarketingGoal[]>([]);
+  const [kpis, setKpis] = useState<MarketingKPI[]>([]);
+  const [targets, setTargets] = useState<MarketingTarget[]>([]);
+  const [forecasts, setForecasts] = useState<MarketingForecast[]>([]);
+  const [optimizations, setOptimizations] = useState<MarketingOptimization[]>([]);
+  const [recommendations, setRecommendations] = useState<MarketingRecommendation[]>([]);
+  const [alerts, setAlerts] = useState<MarketingAlert[]>([]);
+  const [integrations, setIntegrations] = useState<MarketingIntegration[]>([]);
+  const [apis, setApis] = useState<MarketingAPI[]>([]);
+  const [webhooks, setWebhooks] = useState<MarketingWebhook[]>([]);
+  const [syncs, setSyncs] = useState<MarketingSync[]>([]);
+
+  useEffect(() => {
+    // Simulate fetching marketing automation data
+    setCampaigns([
+      {
+        id: 'campaign-1',
+        name: 'Q4 Product Launch',
+        type: 'product_launch',
+        status: 'active',
+        startDate: '2023-10-01',
+        endDate: '2023-12-31',
+        budget: 100000,
+        spent: 45000,
+        targetAudience: 'enterprise_customers',
+        channels: ['email', 'social', 'content'],
+        metrics: {
+          impressions: 500000,
+          clicks: 25000,
+          conversions: 500,
+          revenue: 250000
+        },
+        createdAt: '2023-09-15',
+        lastUpdated: '2023-10-28'
+      },
+      {
+        id: 'campaign-2',
+        name: 'Holiday Sales Push',
+        type: 'seasonal',
+        status: 'planned',
+        startDate: '2023-11-15',
+        endDate: '2023-12-25',
+        budget: 75000,
+        spent: 0,
+        targetAudience: 'all_customers',
+        channels: ['email', 'social', 'paid_ads'],
+        metrics: {
+          impressions: 0,
+          clicks: 0,
+          conversions: 0,
+          revenue: 0
+        },
+        createdAt: '2023-10-20',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setEmailCampaigns([
+      {
+        id: 'email-1',
+        name: 'Welcome Series',
+        type: 'automated',
+        status: 'active',
+        subject: 'Welcome to Agent Alex!',
+        audience: 'new_users',
+        sendTime: 'immediate',
+        openRate: 0.35,
+        clickRate: 0.12,
+        conversionRate: 0.08,
+        unsubscribes: 5,
+        createdAt: '2023-09-01',
+        lastSent: '2023-10-28'
+      },
+      {
+        id: 'email-2',
+        name: 'Product Update Newsletter',
+        type: 'newsletter',
+        status: 'scheduled',
+        subject: 'New Features in Agent Alex',
+        audience: 'active_users',
+        sendTime: '2023-11-01T10:00:00Z',
+        openRate: 0.0,
+        clickRate: 0.0,
+        conversionRate: 0.0,
+        unsubscribes: 0,
+        createdAt: '2023-10-25',
+        lastSent: null
+      }
+    ]);
+
+    setSocialMediaCampaigns([
+      {
+        id: 'social-1',
+        name: 'LinkedIn Thought Leadership',
+        platform: 'linkedin',
+        status: 'active',
+        objective: 'brand_awareness',
+        budget: 15000,
+        spent: 8500,
+        reach: 125000,
+        engagement: 0.08,
+        clicks: 2500,
+        conversions: 45,
+        createdAt: '2023-10-01',
+        lastUpdated: '2023-10-28'
+      },
+      {
+        id: 'social-2',
+        name: 'Twitter Product Updates',
+        platform: 'twitter',
+        status: 'active',
+        objective: 'engagement',
+        budget: 5000,
+        spent: 3200,
+        reach: 75000,
+        engagement: 0.12,
+        clicks: 1800,
+        conversions: 25,
+        createdAt: '2023-10-15',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setContentCampaigns([
+      {
+        id: 'content-1',
+        name: 'AI Productivity Blog Series',
+        type: 'blog_series',
+        status: 'active',
+        topics: ['AI Productivity', 'Workflow Automation', 'Team Collaboration'],
+        channels: ['blog', 'social', 'email'],
+        performance: {
+          views: 25000,
+          shares: 500,
+          leads: 150,
+          conversions: 25
+        },
+        createdAt: '2023-09-01',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setAutomations([
+      {
+        id: 'auto-1',
+        name: 'Lead Scoring Automation',
+        type: 'lead_scoring',
+        status: 'active',
+        triggers: ['email_open', 'website_visit', 'form_submit'],
+        actions: ['update_score', 'send_email', 'assign_sales'],
+        conditions: ['score_threshold', 'behavior_pattern'],
+        lastRun: '2023-10-28T10:00:00Z',
+        nextRun: '2023-10-28T11:00:00Z',
+        successRate: 0.95,
+        createdAt: '2023-08-01'
+      },
+      {
+        id: 'auto-2',
+        name: 'Abandoned Cart Recovery',
+        type: 'cart_recovery',
+        status: 'active',
+        triggers: ['cart_abandoned'],
+        actions: ['send_email', 'apply_discount', 'retarget_ads'],
+        conditions: ['cart_value', 'time_since_abandon'],
+        lastRun: '2023-10-28T09:30:00Z',
+        nextRun: '2023-10-28T10:30:00Z',
+        successRate: 0.78,
+        createdAt: '2023-07-15'
+      }
+    ]);
+
+    setLeadNurturing([
+      {
+        id: 'nurture-1',
+        name: 'Enterprise Lead Nurturing',
+        status: 'active',
+        leads: 150,
+        stages: ['awareness', 'consideration', 'decision'],
+        duration: 30,
+        conversionRate: 0.25,
+        lastActivity: '2023-10-28',
+        nextActivity: '2023-10-29'
+      }
+    ]);
+
+    setSegments([
+      {
+        id: 'segment-1',
+        name: 'Enterprise Prospects',
+        criteria: 'company_size > 500 AND industry = "technology"',
+        size: 250,
+        lastUpdated: '2023-10-28',
+        performance: {
+          openRate: 0.42,
+          clickRate: 0.18,
+          conversionRate: 0.12
+        }
+      },
+      {
+        id: 'segment-2',
+        name: 'SMB Active Users',
+        criteria: 'company_size < 100 AND last_login < 7_days',
+        size: 1200,
+        lastUpdated: '2023-10-28',
+        performance: {
+          openRate: 0.38,
+          clickRate: 0.15,
+          conversionRate: 0.08
+        }
+      }
+    ]);
+
+    setAudiences([
+      {
+        id: 'audience-1',
+        name: 'High-Value Prospects',
+        type: 'custom',
+        size: 500,
+        source: 'website_visitors',
+        lastUpdated: '2023-10-28',
+        engagement: 0.75
+      }
+    ]);
+
+    setTemplates([
+      {
+        id: 'template-1',
+        name: 'Product Launch Email',
+        type: 'email',
+        category: 'product',
+        usage: 25,
+        performance: {
+          openRate: 0.45,
+          clickRate: 0.20,
+          conversionRate: 0.15
+        },
+        createdAt: '2023-08-01',
+        lastUsed: '2023-10-25'
+      }
+    ]);
+
+    setAssets([
+      {
+        id: 'asset-1',
+        name: 'Product Demo Video',
+        type: 'video',
+        category: 'product',
+        size: 50000000,
+        url: '/assets/product-demo.mp4',
+        usage: 15,
+        performance: {
+          views: 5000,
+          engagement: 0.65,
+          conversions: 75
+        },
+        createdAt: '2023-09-15',
+        lastUsed: '2023-10-20'
+      }
+    ]);
+
+    setEvents([
+      {
+        id: 'event-1',
+        name: 'AI Productivity Webinar',
+        type: 'webinar',
+        date: '2023-11-15',
+        attendees: 150,
+        registrations: 200,
+        conversionRate: 0.75,
+        revenue: 15000,
+        status: 'scheduled'
+      }
+    ]);
+
+    setWebinars([
+      {
+        id: 'webinar-1',
+        name: 'Advanced Workflow Automation',
+        date: '2023-11-15T14:00:00Z',
+        duration: 60,
+        attendees: 150,
+        registrations: 200,
+        conversionRate: 0.75,
+        revenue: 15000,
+        status: 'scheduled',
+        topic: 'workflow_automation',
+        presenter: 'Alex Johnson'
+      }
+    ]);
+
+    setLandingPages([
+      {
+        id: 'landing-1',
+        name: 'Product Demo Landing Page',
+        url: '/demo',
+        status: 'active',
+        traffic: 5000,
+        conversions: 250,
+        conversionRate: 0.05,
+        bounceRate: 0.35,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setForms([
+      {
+        id: 'form-1',
+        name: 'Contact Sales Form',
+        type: 'contact',
+        fields: ['name', 'email', 'company', 'phone'],
+        submissions: 150,
+        conversionRate: 0.12,
+        lastSubmission: '2023-10-28',
+        createdAt: '2023-09-01'
+      }
+    ]);
+
+    setLeads([
+      {
+        id: 'lead-1',
+        name: 'John Smith',
+        email: 'john@techcorp.com',
+        company: 'TechCorp',
+        score: 85,
+        source: 'website',
+        status: 'qualified',
+        lastActivity: '2023-10-28',
+        createdAt: '2023-10-25'
+      }
+    ]);
+
+    setScores([
+      {
+        id: 'score-1',
+        lead: 'John Smith',
+        score: 85,
+        factors: ['email_open', 'website_visit', 'form_submit'],
+        lastUpdated: '2023-10-28',
+        trend: 'increasing'
+      }
+    ]);
+
+    setWorkflows([
+      {
+        id: 'workflow-1',
+        name: 'New Lead Onboarding',
+        status: 'active',
+        steps: 5,
+        duration: 7,
+        leads: 150,
+        conversionRate: 0.30,
+        lastRun: '2023-10-28',
+        nextRun: '2023-10-29'
+      }
+    ]);
+
+    setTriggers([
+      {
+        id: 'trigger-1',
+        name: 'Email Opened',
+        type: 'email_interaction',
+        conditions: ['email_opened', 'campaign_id'],
+        actions: ['update_score', 'send_follow_up'],
+        active: true,
+        lastTriggered: '2023-10-28T10:15:00Z'
+      }
+    ]);
+
+    setActions([
+      {
+        id: 'action-1',
+        name: 'Send Welcome Email',
+        type: 'email',
+        template: 'welcome_email',
+        delay: 0,
+        conditions: ['new_lead'],
+        active: true,
+        lastExecuted: '2023-10-28T09:30:00Z'
+      }
+    ]);
+
+    setConditions([
+      {
+        id: 'condition-1',
+        name: 'High Lead Score',
+        type: 'score_threshold',
+        value: 80,
+        operator: 'greater_than',
+        active: true,
+        lastEvaluated: '2023-10-28T10:00:00Z'
+      }
+    ]);
+
+    setAnalytics([
+      {
+        id: 'analytics-1',
+        name: 'Campaign Performance',
+        type: 'campaign',
+        metrics: {
+          impressions: 1000000,
+          clicks: 50000,
+          conversions: 1000,
+          revenue: 500000
+        },
+        period: 'last_30_days',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setMetrics([
+      {
+        id: 'metric-1',
+        name: 'Email Open Rate',
+        value: 0.35,
+        target: 0.40,
+        trend: 'increasing',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setReports([
+      {
+        id: 'report-1',
+        name: 'Monthly Marketing Performance',
+        type: 'performance',
+        period: 'October 2023',
+        metrics: {
+          totalCampaigns: 12,
+          totalSpend: 75000,
+          totalRevenue: 300000,
+          roi: 4.0
+        },
+        insights: ['Email campaigns performing above target', 'Social media ROI improving'],
+        generatedAt: '2023-10-28'
+      }
+    ]);
+
+    setInsights([
+      {
+        id: 'insight-1',
+        title: 'Email Open Rates Peak at 10 AM',
+        description: 'Emails sent at 10 AM have 25% higher open rates',
+        confidence: 0.85,
+        impact: 'high',
+        recommendation: 'Schedule more emails for 10 AM',
+        createdAt: '2023-10-28'
+      }
+    ]);
+
+    setAbTests([
+      {
+        id: 'abtest-1',
+        name: 'Email Subject Line Test',
+        status: 'running',
+        variants: ['A: "New Features Available"', 'B: "You\'ll Love These Updates"'],
+        traffic: 0.5,
+        startDate: '2023-10-20',
+        endDate: '2023-11-03',
+        results: {
+          variantA: { opens: 1500, clicks: 300 },
+          variantB: { opens: 1200, clicks: 360 }
+        },
+        winner: null
+      }
+    ]);
+
+    setPersonalizations([
+      {
+        id: 'personalization-1',
+        name: 'Product Recommendations',
+        type: 'product',
+        criteria: ['purchase_history', 'browsing_behavior'],
+        performance: {
+          clickRate: 0.25,
+          conversionRate: 0.08,
+          revenue: 15000
+        },
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setRetargeting([
+      {
+        id: 'retargeting-1',
+        name: 'Abandoned Cart Retargeting',
+        audience: 'cart_abandoners',
+        budget: 5000,
+        spent: 3200,
+        impressions: 100000,
+        clicks: 2500,
+        conversions: 125,
+        roas: 3.2,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setAttributions([
+      {
+        id: 'attribution-1',
+        model: 'multi_touch',
+        touchpoints: ['email', 'social', 'website'],
+        conversions: 500,
+        revenue: 250000,
+        lastCalculated: '2023-10-28'
+      }
+    ]);
+
+    setRois([
+      {
+        id: 'roi-1',
+        campaign: 'Q4 Product Launch',
+        spend: 45000,
+        revenue: 250000,
+        roi: 5.56,
+        period: 'October 2023',
+        lastCalculated: '2023-10-28'
+      }
+    ]);
+
+    setBudgets([
+      {
+        id: 'budget-1',
+        name: 'Q4 Marketing Budget',
+        total: 200000,
+        allocated: 150000,
+        spent: 75000,
+        remaining: 125000,
+        period: 'Q4 2023',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setCosts([
+      {
+        id: 'cost-1',
+        category: 'paid_ads',
+        amount: 25000,
+        period: 'October 2023',
+        breakdown: {
+          google: 15000,
+          facebook: 10000
+        },
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setChannels([
+      {
+        id: 'channel-1',
+        name: 'Email Marketing',
+        type: 'owned',
+        performance: {
+          reach: 100000,
+          engagement: 0.35,
+          conversions: 500,
+          cost: 5000
+        },
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setTouchpoints([
+      {
+        id: 'touchpoint-1',
+        name: 'Welcome Email',
+        type: 'email',
+        position: 'onboarding',
+        performance: {
+          opens: 3500,
+          clicks: 700,
+          conversions: 140
+        },
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setJourneys([
+      {
+        id: 'journey-1',
+        name: 'New Customer Journey',
+        stages: ['awareness', 'consideration', 'purchase', 'onboarding'],
+        duration: 30,
+        conversionRate: 0.15,
+        customers: 500,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setFunnels([
+      {
+        id: 'funnel-1',
+        name: 'Lead Generation Funnel',
+        stages: ['awareness', 'interest', 'consideration', 'intent', 'purchase'],
+        conversionRates: [1.0, 0.25, 0.15, 0.08, 0.05],
+        customers: 1000,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setGoals([
+      {
+        id: 'goal-1',
+        name: 'Monthly Lead Generation',
+        target: 500,
+        current: 350,
+        progress: 0.70,
+        deadline: '2023-11-30',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setKpis([
+      {
+        id: 'kpi-1',
+        name: 'Cost Per Lead',
+        value: 25.50,
+        target: 20.00,
+        trend: 'decreasing',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setTargets([
+      {
+        id: 'target-1',
+        name: 'Q4 Revenue Target',
+        value: 500000,
+        current: 300000,
+        progress: 0.60,
+        deadline: '2023-12-31',
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setForecasts([
+      {
+        id: 'forecast-1',
+        name: 'Q4 Marketing Performance',
+        period: 'Q4 2023',
+        predicted: {
+          leads: 2000,
+          conversions: 200,
+          revenue: 500000
+        },
+        confidence: 0.85,
+        lastUpdated: '2023-10-28'
+      }
+    ]);
+
+    setOptimizations([
+      {
+        id: 'optimization-1',
+        name: 'Email Send Time Optimization',
+        type: 'timing',
+        improvement: 0.15,
+        impact: 'medium',
+        effort: 'low',
+        status: 'implemented',
+        implementedAt: '2023-10-15'
+      }
+    ]);
+
+    setRecommendations([
+      {
+        id: 'recommendation-1',
+        title: 'Increase Social Media Budget',
+        description: 'Social media campaigns showing 3x ROI',
+        priority: 'high',
+        impact: 'high',
+        effort: 'medium',
+        status: 'pending',
+        createdAt: '2023-10-28'
+      }
+    ]);
+
+    setAlerts([
+      {
+        id: 'alert-1',
+        name: 'Budget Exceeded',
+        type: 'budget',
+        severity: 'high',
+        message: 'Q4 Marketing Budget 90% spent',
+        status: 'active',
+        createdAt: '2023-10-28'
+      }
+    ]);
+
+    setIntegrations([
+      {
+        id: 'integration-1',
+        name: 'HubSpot Integration',
+        type: 'crm',
+        status: 'active',
+        lastSync: '2023-10-28T10:00:00Z',
+        syncFrequency: 'hourly',
+        records: 5000
+      }
+    ]);
+
+    setApis([
+      {
+        id: 'api-1',
+        name: 'Marketing API',
+        endpoint: '/api/marketing',
+        version: 'v1',
+        status: 'active',
+        requests: 10000,
+        lastUsed: '2023-10-28T10:15:00Z'
+      }
+    ]);
+
+    setWebhooks([
+      {
+        id: 'webhook-1',
+        name: 'Lead Created Webhook',
+        url: 'https://api.example.com/webhooks/lead-created',
+        events: ['lead_created', 'lead_updated'],
+        status: 'active',
+        lastTriggered: '2023-10-28T09:45:00Z'
+      }
+    ]);
+
+    setSyncs([
+      {
+        id: 'sync-1',
+        name: 'CRM Sync',
+        source: 'marketing_platform',
+        destination: 'crm',
+        status: 'active',
+        lastSync: '2023-10-28T10:00:00Z',
+        records: 500,
+        errors: 0
+      }
+    ]);
+  }, []);
+
+  const renderOverview = () => (
+    <div className="overview-section">
+      <h3>Marketing Automation Overview</h3>
+      <div className="marketing-metrics">
+        <div className="metrics-grid">
+          <div className="metric-card">
+            <h4>Active Campaigns</h4>
+            <div className="metric-value">{campaigns.filter(c => c.status === 'active').length}</div>
+            <div className="metric-change">+2 this month</div>
+          </div>
+          <div className="metric-card">
+            <h4>Total Leads</h4>
+            <div className="metric-value">{leads.length}</div>
+            <div className="metric-value">${leads.reduce((sum, lead) => sum + (lead.score * 100), 0).toLocaleString()}</div>
+          </div>
+          <div className="metric-card">
+            <h4>Email Open Rate</h4>
+            <div className="metric-value">35%</div>
+            <div className="metric-change">+5% this week</div>
+          </div>
+          <div className="metric-card">
+            <h4>Campaign ROI</h4>
+            <div className="metric-value">4.2x</div>
+            <div className="metric-change">+0.8x this quarter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCampaigns = () => (
+    <div className="campaigns-section">
+      <h3>Marketing Campaigns ({campaigns.length})</h3>
+      <div className="campaigns-list">
+        {campaigns.map(campaign => (
+          <div key={campaign.id} className="campaign-card">
+            <div className="campaign-header">
+              <h4>{campaign.name}</h4>
+              <span className={`status-badge ${campaign.status}`}>{campaign.status}</span>
+            </div>
+            <div className="campaign-details">
+              <div className="detail-item">
+                <span className="label">Type:</span>
+                <span className="value">{campaign.type}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Budget:</span>
+                <span className="value">${campaign.budget.toLocaleString()}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Spent:</span>
+                <span className="value">${campaign.spent.toLocaleString()}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Revenue:</span>
+                <span className="value">${campaign.metrics.revenue.toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="campaign-channels">
+              <span className="label">Channels:</span>
+              <div className="channels-list">
+                {campaign.channels.map((channel, index) => (
+                  <span key={index} className="channel-tag">{channel}</span>
+                ))}
+              </div>
+            </div>
+            <div className="campaign-actions">
+              <button className="btn btn-primary">View Details</button>
+              <button className="btn btn-outline">Edit</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderEmailCampaigns = () => (
+    <div className="email-campaigns-section">
+      <h3>Email Campaigns ({emailCampaigns.length})</h3>
+      <div className="email-campaigns-list">
+        {emailCampaigns.map(campaign => (
+          <div key={campaign.id} className="email-campaign-card">
+            <div className="email-campaign-header">
+              <h4>{campaign.name}</h4>
+              <span className={`status-badge ${campaign.status}`}>{campaign.status}</span>
+            </div>
+            <div className="email-campaign-details">
+              <div className="detail-item">
+                <span className="label">Subject:</span>
+                <span className="value">{campaign.subject}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Audience:</span>
+                <span className="value">{campaign.audience}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Open Rate:</span>
+                <span className="value">{(campaign.openRate * 100).toFixed(1)}%</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Click Rate:</span>
+                <span className="value">{(campaign.clickRate * 100).toFixed(1)}%</span>
+              </div>
+            </div>
+            <div className="email-campaign-actions">
+              <button className="btn btn-primary">View Performance</button>
+              <button className="btn btn-outline">Edit</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderAutomations = () => (
+    <div className="automations-section">
+      <h3>Marketing Automations ({automations.length})</h3>
+      <div className="automations-list">
+        {automations.map(automation => (
+          <div key={automation.id} className="automation-card">
+            <div className="automation-header">
+              <h4>{automation.name}</h4>
+              <span className={`status-badge ${automation.status}`}>{automation.status}</span>
+            </div>
+            <div className="automation-details">
+              <div className="detail-item">
+                <span className="label">Type:</span>
+                <span className="value">{automation.type}</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Success Rate:</span>
+                <span className="value">{(automation.successRate * 100).toFixed(1)}%</span>
+              </div>
+              <div className="detail-item">
+                <span className="label">Last Run:</span>
+                <span className="value">{new Date(automation.lastRun).toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="automation-triggers">
+              <span className="label">Triggers:</span>
+              <div className="triggers-list">
+                {automation.triggers.map((trigger, index) => (
+                  <span key={index} className="trigger-tag">{trigger}</span>
+                ))}
+              </div>
+            </div>
+            <div className="automation-actions">
+              <button className="btn btn-primary">View Details</button>
+              <button className="btn btn-outline">Edit</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderAnalytics = () => (
+    <div className="analytics-section">
+      <h3>Marketing Analytics</h3>
+      <div className="analytics-overview">
+        {analytics.map(analytic => (
+          <div key={analytic.id} className="analytic-card">
+            <div className="analytic-header">
+              <h4>{analytic.name}</h4>
+              <span className="analytic-period">{analytic.period}</span>
+            </div>
+            <div className="analytic-metrics">
+              <div className="metric-item">
+                <span className="metric-label">Impressions:</span>
+                <span className="metric-value">{analytic.metrics.impressions.toLocaleString()}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">Clicks:</span>
+                <span className="metric-value">{analytic.metrics.clicks.toLocaleString()}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">Conversions:</span>
+                <span className="metric-value">{analytic.metrics.conversions.toLocaleString()}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">Revenue:</span>
+                <span className="metric-value">${analytic.metrics.revenue.toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="analytic-actions">
+              <button className="btn btn-primary">View Report</button>
+              <button className="btn btn-outline">Export</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderReports = () => (
+    <div className="reports-section">
+      <h3>Marketing Reports ({reports.length})</h3>
+      <div className="reports-list">
+        {reports.map(report => (
+          <div key={report.id} className="report-card">
+            <div className="report-header">
+              <h4>{report.name}</h4>
+              <span className="report-type">{report.type}</span>
+            </div>
+            <div className="report-metrics">
+              <div className="metric-item">
+                <span className="metric-label">Total Campaigns:</span>
+                <span className="metric-value">{report.metrics.totalCampaigns}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">Total Spend:</span>
+                <span className="metric-value">${report.metrics.totalSpend.toLocaleString()}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">Total Revenue:</span>
+                <span className="metric-value">${report.metrics.totalRevenue.toLocaleString()}</span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">ROI:</span>
+                <span className="metric-value">{report.metrics.roi}x</span>
+              </div>
+            </div>
+            <div className="report-insights">
+              <h5>Key Insights:</h5>
+              <ul>
+                {report.insights.map((insight, index) => (
+                  <li key={index}>{insight}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="report-actions">
+              <button className="btn btn-primary">View Report</button>
+              <button className="btn btn-outline">Download</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="marketing-automation-container">
+      <div className="tabs">
+        <button className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+          Overview
+        </button>
+        <button className={`tab-btn ${activeTab === 'campaigns' ? 'active' : ''}`} onClick={() => setActiveTab('campaigns')}>
+          Campaigns
+        </button>
+        <button className={`tab-btn ${activeTab === 'email' ? 'active' : ''}`} onClick={() => setActiveTab('email')}>
+          Email
+        </button>
+        <button className={`tab-btn ${activeTab === 'automations' ? 'active' : ''}`} onClick={() => setActiveTab('automations')}>
+          Automations
+        </button>
+        <button className={`tab-btn ${activeTab === 'analytics' ? 'active' : ''}`} onClick={() => setActiveTab('analytics')}>
+          Analytics
+        </button>
+        <button className={`tab-btn ${activeTab === 'reports' ? 'active' : ''}`} onClick={() => setActiveTab('reports')}>
+          Reports
+        </button>
+      </div>
+
+      <div className="tab-content">
+        {activeTab === 'overview' && renderOverview()}
+        {activeTab === 'campaigns' && renderCampaigns()}
+        {activeTab === 'email' && renderEmailCampaigns()}
+        {activeTab === 'automations' && renderAutomations()}
+        {activeTab === 'analytics' && renderAnalytics()}
+        {activeTab === 'reports' && renderReports()}
+      </div>
+    </div>
+  );
+};
+
+export default MarketingAutomation;

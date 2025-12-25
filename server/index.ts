@@ -927,14 +927,16 @@ app.get('/api/dashboard/stats', async (req: Request, res: Response) => {
   }
 });
 
-// Start server
-app.listen(PORT, () => {
-  logger.info(`Agent Alex API server running on port ${PORT}`);
-  logger.info(`Health check: http://localhost:${PORT}/health`);
-  logger.info(`Notion integration: Configured ✅`);
-  logger.info(`Projects DB: Set ✅`);
-  logger.info(`Sessions DB: Set ✅`);
-});
+// Start server (only in local development, not in Vercel serverless)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    logger.info(`Agent Alex API server running on port ${PORT}`);
+    logger.info(`Health check: http://localhost:${PORT}/health`);
+    logger.info(`Notion integration: Configured ✅`);
+    logger.info(`Projects DB: Set ✅`);
+    logger.info(`Sessions DB: Set ✅`);
+  });
+}
 
 export default app;
 

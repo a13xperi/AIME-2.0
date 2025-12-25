@@ -10,9 +10,15 @@ import { fetchProjects, fetchDashboardStats } from '../../api/notionApi';
 import QuickResume from '../QuickResume/QuickResume';
 import SessionLogger from '../SessionLogger/SessionLogger';
 import ProjectCreator from '../ProjectCreator/ProjectCreator';
-import SessionDuplicator from '../SessionDuplicator/SessionDuplicator';
-import SessionStatusManager from '../SessionStatusManager/SessionStatusManager';
-import SessionStatusBadge from '../SessionStatusBadge/SessionStatusBadge';
+import NotificationSystem from '../NotificationSystem/NotificationSystem';
+import BreakReminder from '../BreakReminder/BreakReminder';
+import DailySummary from '../DailySummary/DailySummary';
+import SessionTimer from '../SessionTimer/SessionTimer';
+import ProjectTemplates from '../ProjectTemplates/ProjectTemplates';
+import TemplateBuilder from '../TemplateBuilder/TemplateBuilder';
+// import CustomerCRM from '../CustomerCRM/CustomerCRM';
+// import MarketingAutomation from '../MarketingAutomation/MarketingAutomation';
+import OfflineMode from '../OfflineMode/OfflineMode';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -22,13 +28,20 @@ const Dashboard: React.FC = () => {
   const [categories, setCategories] = useState<CategoryStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isOffline, setIsOffline] = useState(false);
   const [resumeProject, setResumeProject] = useState<Project | null>(null);
   const [resumeSession, setResumeSession] = useState<Session | null>(null);
   const [showSessionLogger, setShowSessionLogger] = useState(false);
   const [showProjectCreator, setShowProjectCreator] = useState(false);
   const [currentSessions, setCurrentSessions] = useState<Session[]>([]);
-  const [sessionToDuplicate, setSessionToDuplicate] = useState<Session | null>(null);
-  const [sessionToUpdateStatus, setSessionToUpdateStatus] = useState<Session | null>(null);
+  const [showBreakReminder, setShowBreakReminder] = useState(false);
+  const [showDailySummary, setShowDailySummary] = useState(false);
+  const [allSessions, setAllSessions] = useState<Session[]>([]);
+  const [sessionToTrack, setSessionToTrack] = useState<Session | null>(null);
+  const [showProjectTemplates, setShowProjectTemplates] = useState(false);
+  const [showTemplateBuilder, setShowTemplateBuilder] = useState(false);
+  // const [showCustomerCRM, setShowCustomerCRM] = useState(false);
+  // const [showMarketingAutomation, setShowMarketingAutomation] = useState(false);
 
   useEffect(() => {
     loadDashboard();
@@ -50,20 +63,46 @@ const Dashboard: React.FC = () => {
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
     try {
-      const [projectsResponse, statsResponse, sessionsResponse] = await Promise.all([
-        fetchProjects(),
-        fetchDashboardStats(),
-        fetch(`${API_URL}/api/sessions`).then(res => res.json()),
+      // Add timeout and error handling for Notion API calls
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timeout')), 10000)
+      );
+
+      const [projectsResponse, statsResponse, sessionsResponse] = await Promise.allSettled([
+        Promise.race([fetchProjects(), timeoutPromise]),
+        Promise.race([fetchDashboardStats(), timeoutPromise]),
+        Promise.race([fetch(`${API_URL}/api/sessions`).then(res => res.json()), timeoutPromise]),
       ]);
 
-      if (projectsResponse.success && projectsResponse.data) {
-        setProjects(projectsResponse.data);
+      // Handle projects response
+      if (
+        projectsResponse.status === 'fulfilled' &&
+        (projectsResponse.value as any)?.success &&
+        (projectsResponse.value as any)?.data
+      ) {
+        setProjects((projectsResponse.value as any).data);
       } else {
-        setError(projectsResponse.error || 'Failed to load projects');
+        console.warn('Failed to load projects, using fallback data');
+        setProjects([]); // Use empty array as fallback
+        setError('Notion API temporarily unavailable - using offline mode');
+        setIsOffline(true);
       }
 
-      if (statsResponse.success && statsResponse.data) {
-        setStats(statsResponse.data);
+      // Handle stats response
+      if (
+        statsResponse.status === 'fulfilled' &&
+        (statsResponse.value as any)?.success &&
+        (statsResponse.value as any)?.data
+      ) {
+        setStats((statsResponse.value as any).data);
+      } else {
+        console.warn('Failed to load stats, using fallback data');
+        setStats({
+          totalProjects: 0,
+          totalSessions: 0,
+          totalHours: 0,
+          activeProjects: 0,
+        });
       }
 
       // Fetch categories
@@ -77,24 +116,38 @@ const Dashboard: React.FC = () => {
         console.error('Failed to load categories:', err);
       }
 
-      // Set current sessions (all sessions from today)
+      // Handle sessions response
       if (
-        sessionsResponse.success &&
-        sessionsResponse.sessions &&
-        sessionsResponse.sessions.length > 0
+        sessionsResponse.status === 'fulfilled' &&
+        (sessionsResponse.value as any)?.success &&
+        (sessionsResponse.value as any)?.sessions
       ) {
-        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-        const todaysSessions = sessionsResponse.sessions.filter(
+        setAllSessions((sessionsResponse.value as any).sessions);
+
+        // Filter for today's sessions
+        const today = new Date().toISOString().split('T')[0];
+        const todaySessions = (sessionsResponse.value as any).sessions.filter(
           (session: Session) => session.date === today
         );
-        setCurrentSessions(todaysSessions);
+        setCurrentSessions(todaySessions);
+      } else {
+        console.warn('Failed to load sessions, using fallback data');
+        setAllSessions([]);
+        setCurrentSessions([]);
       }
     } catch (err) {
       setError('Failed to load dashboard');
+      setIsOffline(true);
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleRetry = () => {
+    setIsOffline(false);
+    setError(null);
+    loadDashboard();
   };
 
   const handleResumeProject = async (project: Project, e: React.MouseEvent) => {
@@ -121,52 +174,6 @@ const Dashboard: React.FC = () => {
     setResumeProject(project);
   };
 
-  const handleDuplicateSession = async (duplicatedSession: Partial<Session>) => {
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
-    try {
-      const response = await fetch(`${API_URL}/api/sessions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(duplicatedSession),
-      });
-
-      if (response.ok) {
-        console.log('✅ Session duplicated successfully');
-        // Refresh dashboard to show the new session
-        loadDashboard();
-      } else {
-        console.error('Failed to duplicate session');
-      }
-    } catch (err) {
-      console.error('Error duplicating session:', err);
-    }
-  };
-
-  const handleSessionStatusChange = async (sessionId: string, newStatus: string) => {
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
-    try {
-      const response = await fetch(`${API_URL}/api/sessions/${sessionId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (response.ok) {
-        console.log('✅ Session status updated successfully');
-        // Refresh dashboard to show the updated status
-        loadDashboard();
-      } else {
-        console.error('Failed to update session status');
-      }
-    } catch (err) {
-      console.error('Error updating session status:', err);
-    }
-  };
-
   if (loading) {
     return (
       <div className="dashboard">
@@ -185,6 +192,38 @@ const Dashboard: React.FC = () => {
           <p>{error}</p>
           <button onClick={loadDashboard}>Retry</button>
         </div>
+      </div>
+    );
+  }
+
+  const handleSessionTimeUpdate = (sessionId: string, updates: Partial<Session>) => {
+    // Update session with time tracking data
+    setCurrentSessions(prev => prev.map(s => (s.id === sessionId ? { ...s, ...updates } : s)));
+    setAllSessions(prev => prev.map(s => (s.id === sessionId ? { ...s, ...updates } : s)));
+  };
+
+  const handleTemplateSelect = (template: any) => {
+    // Handle template selection
+    console.log('Template selected:', template);
+  };
+
+  const handleApplyTemplate = (template: any, projectData: any) => {
+    // Apply template to create new project
+    console.log('Applying template:', template, projectData);
+    // This would integrate with the existing project creation flow
+    setShowProjectTemplates(false);
+  };
+
+  const handleSaveTemplate = (template: any) => {
+    // Save new template
+    console.log('Saving template:', template);
+    setShowTemplateBuilder(false);
+  };
+
+  if (isOffline) {
+    return (
+      <div className="dashboard-container">
+        <OfflineMode onRetry={handleRetry} error={error || undefined} />
       </div>
     );
   }
@@ -249,14 +288,7 @@ const Dashboard: React.FC = () => {
             {currentSessions.map(session => (
               <div key={session.id} className="current-session-card">
                 <div className="session-header">
-                  <div className="session-title-row">
-                    <h3>{session.title}</h3>
-                    <SessionStatusBadge
-                      status={session.status}
-                      size="small"
-                      onClick={() => setSessionToUpdateStatus(session)}
-                    />
-                  </div>
+                  <h3>{session.title}</h3>
                   <div className="session-meta">
                     {session.aiAgent && <span className="session-agent">🤖 {session.aiAgent}</span>}
                     {session.workspace && (
@@ -288,10 +320,10 @@ const Dashboard: React.FC = () => {
                     Add Update
                   </button>
                   <button
-                    className="btn btn-outline btn-small"
-                    onClick={() => setSessionToDuplicate(session)}
+                    className="btn btn-success btn-small"
+                    onClick={() => setSessionToTrack(session)}
                   >
-                    📋 Duplicate
+                    ⏱️ Timer
                   </button>
                 </div>
               </div>
@@ -314,6 +346,23 @@ const Dashboard: React.FC = () => {
         </button>
         <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>
           📝 Log Session
+        </button>
+        <button className="btn btn-outline" onClick={() => setShowProjectTemplates(true)}>
+          📋 Templates
+        </button>
+        <button className="btn btn-outline" onClick={() => setShowTemplateBuilder(true)}>
+          🔧 Build Template
+        </button>
+        {/* <button className="btn btn-outline" onClick={() => setShowCustomerCRM(true)}>👥 Customer CRM</button>
+            <button className="btn btn-outline" onClick={() => setShowMarketingAutomation(true)}>📢 Marketing</button> */}
+        <button className="btn btn-outline" onClick={() => navigate('/analytics')}>
+          📊 Analytics
+        </button>
+        <button className="btn btn-outline" onClick={() => navigate('/team')}>
+          👥 Team
+        </button>
+        <button className="btn btn-outline" onClick={() => setShowDailySummary(true)}>
+          📋 Daily Summary
         </button>
       </div>
 
@@ -443,23 +492,103 @@ const Dashboard: React.FC = () => {
         }}
       />
 
-      {/* Session Duplicator Modal */}
-      {sessionToDuplicate && (
-        <SessionDuplicator
-          session={sessionToDuplicate}
-          onDuplicate={handleDuplicateSession}
-          onClose={() => setSessionToDuplicate(null)}
+      {/* Notification System */}
+      <NotificationSystem
+        sessions={allSessions}
+        onSessionUpdate={(sessionId, updates) => {
+          // Update session in local state
+          setAllSessions(prev => prev.map(s => (s.id === sessionId ? { ...s, ...updates } : s)));
+          setCurrentSessions(prev =>
+            prev.map(s => (s.id === sessionId ? { ...s, ...updates } : s))
+          );
+        }}
+      />
+
+      {/* Break Reminder Modal */}
+      {showBreakReminder && (
+        <BreakReminder
+          isVisible={showBreakReminder}
+          onClose={() => setShowBreakReminder(false)}
+          onTakeBreak={() => {
+            setShowBreakReminder(false);
+            // Logic to pause current session
+          }}
+          workDuration={30} // This would be calculated from current session
         />
       )}
 
-      {/* Session Status Manager Modal */}
-      {sessionToUpdateStatus && (
-        <SessionStatusManager
-          session={sessionToUpdateStatus}
-          onStatusChange={handleSessionStatusChange}
-          onClose={() => setSessionToUpdateStatus(null)}
+      {/* Daily Summary Modal */}
+      {showDailySummary && (
+        <DailySummary
+          sessions={allSessions}
+          isVisible={showDailySummary}
+          onClose={() => setShowDailySummary(false)}
         />
       )}
+
+      {/* Session Timer Modal */}
+      {sessionToTrack && (
+        <SessionTimer
+          session={sessionToTrack}
+          onSessionUpdate={handleSessionTimeUpdate}
+          onClose={() => setSessionToTrack(null)}
+        />
+      )}
+
+      {/* Project Templates Modal */}
+      <ProjectTemplates
+        isOpen={showProjectTemplates}
+        onClose={() => setShowProjectTemplates(false)}
+        onTemplateSelect={handleTemplateSelect}
+        onApplyTemplate={handleApplyTemplate}
+      />
+
+      {/* Template Builder Modal */}
+      <TemplateBuilder
+        isOpen={showTemplateBuilder}
+        onClose={() => setShowTemplateBuilder(false)}
+        onSave={handleSaveTemplate}
+      />
+
+      {/* Customer CRM Modal */}
+      {/* {showCustomerCRM && (
+        <div className="modal-overlay">
+          <div className="modal-content customer-crm-modal">
+            <div className="modal-header">
+              <h2>👥 Customer CRM</h2>
+              <button
+                className="close-button"
+                onClick={() => setShowCustomerCRM(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <CustomerCRM />
+            </div>
+          </div>
+        </div>
+      )} */}
+
+      {/* Marketing Automation Modal */}
+      {/* {showMarketingAutomation && (
+        <div className="modal-overlay">
+          <div className="modal-content marketing-automation-modal">
+            <div className="modal-header">
+              <h2>📢 Marketing Automation</h2>
+              <button
+                className="close-button"
+                onClick={() => setShowMarketingAutomation(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <MarketingAutomation />
+            </div>
+          </div>
+        </div>
+      )} */}
     </div>
   );
 };
