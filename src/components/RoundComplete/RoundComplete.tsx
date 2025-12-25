@@ -138,7 +138,7 @@ const RoundComplete: React.FC = () => {
               View Detailed Stats →
             </button>
             <div className="footer-links">
-              <button className="link-btn" onClick={handleReturnHome}>
+              <button className="link-btn" onClick={() => navigate('/sharing')}>
                 Share Results
               </button>
               <button className="link-btn" onClick={handleReturnHome}>

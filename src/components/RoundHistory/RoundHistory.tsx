@@ -90,7 +90,10 @@ const RoundHistory: React.FC = () => {
             ))}
           </div>
 
-          <div className="screen-footer">
+          <div className="action-buttons">
+            <button className="btn-secondary" onClick={() => navigate('/round-comparison')}>
+              Compare Rounds
+            </button>
             <button className="btn-primary" onClick={handleStartNewRound}>
               Start New Round →
             </button>

@@ -37,6 +37,12 @@ import Weather from './components/Weather/Weather';
 import RoundDetail from './components/RoundDetail/RoundDetail';
 import Profile from './components/Profile/Profile';
 import CourseSearch from './components/CourseSearch/CourseSearch';
+import MultiPlayerScorecard from './components/MultiPlayerScorecard/MultiPlayerScorecard';
+import PracticeMode from './components/PracticeMode/PracticeMode';
+import Achievements from './components/Achievements/Achievements';
+import RoundComparison from './components/RoundComparison/RoundComparison';
+import ClubAnalysis from './components/ClubAnalysis/ClubAnalysis';
+import Sharing from './components/Sharing/Sharing';
 import './App.css';
 
 function App() {
@@ -80,6 +86,13 @@ function App() {
             <Route path="/round-detail/:id" element={<RoundDetail />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/course-search" element={<CourseSearch />} />
+            <Route path="/multiplayer-scorecard" element={<MultiPlayerScorecard />} />
+            <Route path="/practice" element={<PracticeMode />} />
+            <Route path="/practice/:type" element={<PracticeMode />} />
+            <Route path="/achievements" element={<Achievements />} />
+            <Route path="/round-comparison" element={<RoundComparison />} />
+            <Route path="/club-analysis" element={<ClubAnalysis />} />
+            <Route path="/sharing" element={<Sharing />} />
           </Routes>
         </div>
       </Router>

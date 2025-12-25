@@ -96,10 +96,28 @@ const RoundSettings: React.FC = () => {
             </div>
           </div>
 
+          {players > 1 && (
+            <div className="multiplayer-note">
+              <div className="note-icon">👥</div>
+              <div className="note-text">
+                Multi-player mode enabled. You'll be able to track scores for all {players} players.
+              </div>
+            </div>
+          )}
+
           <div className="screen-footer">
             <button className="btn-primary" onClick={handleStartRound}>
               Start Round →
             </button>
+            {players > 1 && (
+              <button 
+                className="btn-secondary" 
+                onClick={() => navigate('/multiplayer-scorecard')}
+                style={{ marginTop: '12px' }}
+              >
+                View Multi-Player Scorecard
+              </button>
+            )}
           </div>
         </div>
       </div>
