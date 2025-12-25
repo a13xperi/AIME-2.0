@@ -150,6 +150,42 @@
     - Skip option for returning users
     - Auto-saves completion status
 
+20. **Club Recommendations** (`/club-recommendations?distance=150&condition=fairway`)
+    - AI-powered club recommendations
+    - Multiple options with confidence scores
+    - Distance and condition factors
+    - Alternative club suggestions
+    - Accessible from Shot Guidance
+
+21. **Weather & Conditions** (`/weather?course=1`)
+    - Current weather display
+    - Temperature, wind, humidity, pressure
+    - Course conditions (green speed, firmness, rough, bunkers)
+    - Impact on play guidance
+    - Accessible from Hole Start
+
+22. **Round Detail** (`/round-detail/:id`)
+    - Detailed view of specific round
+    - Score summary with front/back 9
+    - Quick stats overview
+    - Links to Scorecard and Detailed Stats
+    - Round notes section
+    - Accessible from Round History
+
+23. **Profile/Account** (`/profile`)
+    - User profile with avatar
+    - Handicap and basic info
+    - Lifetime statistics
+    - Quick access to key features
+    - Sign out option
+
+24. **Course Search** (`/course-search`)
+    - Real-time course search
+    - Filter by name or location
+    - Course ratings and distance
+    - No results state
+    - Accessible from Course Selection
+
 ## 🔄 Complete Navigation Flow
 
 ```
@@ -255,14 +291,15 @@ Dashboard or Landing Page
 
 ## 📊 Implementation Status
 
-**Total Screens Implemented**: 19
-**Total Routes**: 19
+**Total Screens Implemented**: 25
+**Total Routes**: 25
 **Complete Flows**: ✅ Full round flow from start to finish
 **Design Match**: ✅ All screens match Figma design
 **Navigation**: ✅ All screens connected and navigable
 **Onboarding**: ✅ Welcome screen with localStorage persistence
-**History & Stats**: ✅ Round History, Scorecard, Detailed Stats
+**History & Stats**: ✅ Round History, Scorecard, Detailed Stats, Round Detail
 **Help System**: ✅ Help & Tutorials screen
+**Additional Features**: ✅ Club Recommendations, Weather, Profile, Course Search
 
 ## 🎯 Testing Checklist
 
