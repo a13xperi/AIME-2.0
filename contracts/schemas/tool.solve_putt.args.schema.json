@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Solve Putt Tool Arguments",
+  "description": "Arguments for the solve_putt tool in the AI chat interface",
+  "type": "object",
+  "required": ["course_id", "hole_id", "ball_wgs84", "cup_wgs84", "stimp"],
+  "properties": {
+    "course_id": {
+      "type": "string",
+      "description": "Course identifier in lowercase_snake_case",
+      "pattern": "^[a-z0-9_]+$",
+      "example": "riverside_country_club"
+    },
+    "hole_id": {
+      "type": "integer",
+      "description": "Hole number (1-18)",
+      "minimum": 1,
+      "maximum": 18
+    },
+    "ball_wgs84": {
+      "type": "object",
+      "description": "Ball position in WGS84 coordinates (lat/lon)",
+      "required": ["lat", "lon"],
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "Latitude in decimal degrees",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "description": "Longitude in decimal degrees",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    },
+    "cup_wgs84": {
+      "type": "object",
+      "description": "Cup position in WGS84 coordinates (lat/lon)",
+      "required": ["lat", "lon"],
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "Latitude in decimal degrees",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "description": "Longitude in decimal degrees",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    },
+    "stimp": {
+      "type": "number",
+      "description": "Green stimp meter reading (typically 8-14)",
+      "minimum": 0,
+      "maximum": 20
+    }
+  }
+}
+

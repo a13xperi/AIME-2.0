@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Solve Putt Request",
+  "description": "Request to solve a putt from ball to cup",
+  "type": "object",
+  "required": ["dtm_id", "ball_local_m", "cup_local_m", "stimp", "request_id"],
+  "properties": {
+    "dtm_id": {
+      "type": "string",
+      "description": "DTM identifier (must exist in registry)",
+      "pattern": "^[a-z0-9_]+$",
+      "example": "riverside_2023_20cm"
+    },
+    "ball_local_m": {
+      "type": "object",
+      "description": "Ball position in green_local_m coordinates",
+      "required": ["x", "y"],
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "X coordinate in meters (relative to green origin)"
+        },
+        "y": {
+          "type": "number",
+          "description": "Y coordinate in meters (relative to green origin)"
+        }
+      }
+    },
+    "cup_local_m": {
+      "type": "object",
+      "description": "Cup position in green_local_m coordinates",
+      "required": ["x", "y"],
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "X coordinate in meters (relative to green origin)"
+        },
+        "y": {
+          "type": "number",
+          "description": "Y coordinate in meters (relative to green origin)"
+        }
+      }
+    },
+    "stimp": {
+      "type": "number",
+      "description": "Green stimp meter reading (typically 8-14)",
+      "minimum": 0,
+      "maximum": 20
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Unique request identifier for tracing",
+      "format": "uuid"
+    }
+  }
+}
+

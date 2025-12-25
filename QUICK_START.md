@@ -1,243 +1,177 @@
-# ⚡ Agent Alex - Quick Start
+# 🚀 Quick Start Guide - AIME-2.0
 
-**Get up and running in 5 minutes!**
+## Prerequisites Check
 
----
-
-## 🎯 What is Agent Alex?
-
-Agent Alex is your personal AI work session tracker. It helps you:
-- 📊 Track all your projects in one place
-- 📝 Log AI work sessions with context
-- 🔄 Resume projects exactly where you left off
-- 🗄️ Store everything in your Notion workspace
-
----
-
-## 🚀 Quick Setup (First Time)
-
-### 1. Install Dependencies (1 min)
-
+First, verify you have the required tools:
 ```bash
-cd "/Users/alex/Agent Alex/agent-alex"
+node --version    # Should be 18.x or 22.x
+python3 --version # Should be 3.8+
+npm --version     # Should be installed
+```
+
+## Step 1: Install Dependencies (5-10 minutes)
+
+### Frontend & Express Backend
+```bash
+cd /Users/alex/A13x/AIME/AIME-2.0
 npm install
 ```
 
-### 2. Set Up Notion (3 min)
-
-**Create Integration:**
-1. Go to https://www.notion.so/my-integrations
-2. Create "Agent Alex" integration
-3. Copy the token
-
-**Create Databases:**
-1. Create "Projects" database in Notion
-2. Create "Sessions" database in Notion
-3. Share both with your integration
-4. Copy both database IDs
-
-**Full details:** [NOTION_DATABASE_SETUP.md](./NOTION_DATABASE_SETUP.md)
-
-### 3. Configure Environment (30 sec)
-
+### Python FastAPI Backend
 ```bash
-# Copy example file
-cp .env.example .env
-
-# Edit with your values
-nano .env
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Paste your Notion token and database IDs.
-
-### 4. Run the App (30 sec)
-
+### PuttSolver Service
 ```bash
-npm run dev
+cd ../putt-solver-service
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Open http://localhost:3000 🎉
+## Step 2: Set Up Environment Variables
 
----
-
-## 🔄 Daily Usage
-
-### Start Agent Alex
-
+### Root `.env` (Express Backend)
 ```bash
-cd "/Users/alex/Agent Alex/agent-alex"
-npm run dev
+cd /Users/alex/A13x/AIME/AIME-2.0
+cat > .env << 'EOF'
+PORT=3001
+NOTION_TOKEN=your_notion_token_here
+NOTION_PROJECTS_DATABASE_ID=your_projects_db_id
+NOTION_SESSIONS_DATABASE_ID=your_sessions_db_id
+OPENAI_API_KEY=your_openai_key_here
+OPENAI_MODEL=gpt-4o
+OPEN_WEATHER_API_KEY=your_weather_key_here
+EOF
 ```
 
-Then open http://localhost:3000
-
-### Log a Work Session
-
-1. Click **"📝 Log Session"**
-2. Fill in what you worked on
-3. Add files modified, next steps
-4. Save to Notion
-
-### Resume a Project
-
-1. Find your project on dashboard
-2. Click **"Resume"**
-3. See full context:
-   - Where you left off
-   - Last session notes
-   - Next steps
-   - Files in progress
-
----
-
-## 📚 Key Features
-
-### Dashboard
-- View all projects at a glance
-- See statistics (total projects, hours logged)
-- Quick access to any project
-
-### Session Logging
-- Track what you accomplished
-- Note files modified
-- Document blockers
-- Set next steps
-
-### Context Preservation
-- Never lose track of where you were
-- Full project history
-- Resume with complete context
-
-### Notion Integration
-- All data stored in your Notion
-- Use Notion's powerful views
-- Access from anywhere
-
----
-
-## 🎯 Typical Workflow
-
-### Starting a New Project
-
-1. **Create in Notion** or via Agent Alex
-2. Set project details (name, type, tech stack)
-3. Add initial context
-4. Start first session
-
-### Working on a Project
-
-1. **Open Agent Alex dashboard**
-2. Click project to see context
-3. Work on your project
-4. **Log session** when done:
-   - What you accomplished
-   - Files you changed
-   - What's next
-
-### Resuming Later
-
-1. **Open Agent Alex**
-2. Find the project
-3. Click **"Resume"**
-4. Read the context
-5. Jump right back in!
-
----
-
-## 💡 Pro Tips
-
-### Use Sessions Effectively
-
-**Good session note:**
-```
-"Implemented user authentication:
-- Added JWT token generation
-- Created login/signup endpoints
-- Updated User model with password hashing
-- Files: auth.ts, user.model.ts, routes.ts
-
-Next: Test authentication flow and add refresh tokens"
-```
-
-**Why this is good:**
-- Clear what was done
-- Lists specific files
-- Has clear next step
-
-### Keep Context Updated
-
-Update "Current Context" on your project:
-- What phase you're in
-- What's working vs. blocked
-- Architecture decisions made
-
-### Use Tags
-
-Tag your sessions:
-- `frontend`, `backend`, `database`
-- `bug-fix`, `new-feature`
-- `refactor`, `testing`
-
-Makes it easy to find related work later!
-
----
-
-## 📱 Access Anywhere
-
-Since Agent Alex uses Notion:
-
-1. **Mobile:** View projects in Notion mobile app
-2. **Web:** Access your Notion workspace
-3. **Desktop:** Use Agent Alex locally
-
-Your data is always available!
-
----
-
-## 🆘 Troubleshooting
-
-### "Cannot connect to server"
-
+### Backend `.env` (Python FastAPI)
 ```bash
-# Make sure server is running
+cat > backend/.env << 'EOF'
+FRONTEND_URL=http://localhost:3000
+DEBUG=True
+HOST=0.0.0.0
+PORT=8000
+PUTTSOLVER_SERVICE_URL=http://localhost:8081
+AIME_TRANSFORM_MODE=mock
+EOF
+```
+
+### PuttSolver Service `.env`
+```bash
+cat > putt-solver-service/.env << 'EOF'
+PUTTSOLVER_MODE=mock
+EOF
+```
+
+### Frontend `.env.local` (Optional)
+```bash
+cat > .env.local << 'EOF'
+REACT_APP_API_URL=http://localhost:3001
+REACT_APP_PYTHON_API_URL=http://localhost:8000
+EOF
+```
+
+## Step 3: Start All Services
+
+You'll need **4 terminal windows/panes**:
+
+### Terminal 1: Express Backend (Port 3001)
+```bash
+cd /Users/alex/A13x/AIME/AIME-2.0
 npm run server:dev
+# Or: node server/index.ts
 ```
 
-### "Notion integration failed"
+### Terminal 2: Python FastAPI Backend (Port 8000)
+```bash
+cd /Users/alex/A13x/AIME/AIME-2.0/backend
+source venv/bin/activate
+uvicorn main:app --reload --port 8000
+```
 
-1. Check `.env` has correct token
-2. Verify databases are shared with integration
-3. Restart server after changing `.env`
+### Terminal 3: PuttSolver Service (Port 8081)
+```bash
+cd /Users/alex/A13x/AIME/AIME-2.0/putt-solver-service
+source venv/bin/activate
+export PUTTSOLVER_MODE=mock
+uvicorn main:app --host 0.0.0.0 --port 8081 --reload
+```
 
-### "Database not found"
+### Terminal 4: Frontend (Port 3000)
+```bash
+cd /Users/alex/A13x/AIME/AIME-2.0
+npm start
+```
 
-Double-check database IDs in `.env` match your Notion database URLs.
+## Step 4: Verify Everything Works
 
----
+### Health Checks
+```bash
+# PuttSolver Service
+curl http://localhost:8081/health
 
-## 📚 More Help
+# Python FastAPI Backend
+curl http://localhost:8000/
 
-- **Full setup:** [SETUP_GUIDE.md](./SETUP_GUIDE.md)
-- **Notion setup:** [NOTION_DATABASE_SETUP.md](./NOTION_DATABASE_SETUP.md)
-- **Architecture:** [ARCHITECTURE.md](./ARCHITECTURE.md)
-- **GitHub:** [GITHUB_SETUP.md](./GITHUB_SETUP.md)
+# Express Backend
+curl http://localhost:3001/health || curl http://localhost:3001/
+```
 
----
+### Test PuttSolver Endpoint
+```bash
+curl -X POST http://localhost:8000/api/solve_putt \
+  -H "Content-Type: application/json" \
+  -d '{
+    "course_id": "riverside_country_club",
+    "hole_id": 1,
+    "ball_wgs84": {"lat": 37.774929, "lon": -122.419416},
+    "cup_wgs84": {"lat": 37.774850, "lon": -122.419300},
+    "stimp": 10.5
+  }'
+```
 
-## ✅ You're Ready!
+### Open in Browser
+Navigate to: `http://localhost:3000/golf`
 
-That's it! You now have a powerful tool to track all your AI work sessions.
+## Troubleshooting
 
-**Benefits:**
-- ✅ Never lose context on a project
-- ✅ Resume work instantly
-- ✅ Track your productivity
-- ✅ Organized project portfolio
+### Port Already in Use
+```bash
+# Find what's using the port
+lsof -i :3000
+lsof -i :3001
+lsof -i :8000
+lsof -i :8081
 
-**Happy tracking!** 🤖🚀
+# Kill the process if needed
+kill -9 <PID>
+```
 
----
+### Python Virtual Environment Issues
+```bash
+# Recreate venv
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-**Created:** October 17, 2025  
-**Project:** Agent Alex v1.0
+### Missing Dependencies
+```bash
+# Frontend
+npm install
 
+# Python
+pip install -r requirements.txt
+```
+
+## Next Steps After Setup
+
+1. ✅ **Test End-to-End** - Follow validation steps above
+2. 🚀 **Start Phase 1** - Begin Course/Green Data Foundation work
+3. 📝 **Update Notion** - Mark Phase 0 as complete

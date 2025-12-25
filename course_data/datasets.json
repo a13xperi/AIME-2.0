@@ -1,0 +1,14 @@
+{
+  "datasets": [
+    {
+      "dtm_id": "riverside_2023_20cm",
+      "course_id": "riverside_country_club",
+      "hole_id": 1,
+      "manifest_path": "manifests/riverside_2023_20cm.json",
+      "grid_file_path": "ovation_golf/dll/Riverside_20cm_Grid.txt",
+      "state_plane_epsg": 3675,
+      "description": "Riverside Country Club - Hole 1 - 20cm resolution DTM from 2023 survey"
+    }
+  ]
+}
+

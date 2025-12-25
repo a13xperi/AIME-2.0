@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test solve_putt Tool</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+        }
+        .result.error {
+            border-left-color: #f44336;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .result.error h3 {
+            color: #f44336;
+        }
+        pre {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .loading {
+            color: #4CAF50;
+            font-style: italic;
+        }
+        .plot-points {
+            margin-top: 15px;
+        }
+        .plot-points h4 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .plot-point {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background: #2a2a2a;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test solve_putt Tool</h1>
+        <p style="color: #b0b0b0;">Direct test of the solve_putt API endpoint without WebRTC</p>
+        
+        <form id="puttForm">
+            <div class="form-group">
+                <label>Course ID:</label>
+                <input type="text" id="courseId" value="riverside_country_club" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Hole ID:</label>
+                <input type="number" id="holeId" value="1" min="1" max="18" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Ball Latitude:</label>
+                <input type="number" id="ballLat" value="40.268240" step="0.000001" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Ball Longitude:</label>
+                <input type="number" id="ballLon" value="-111.659520" step="0.000001" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Cup Latitude:</label>
+                <input type="number" id="cupLat" value="40.268250" step="0.000001" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Cup Longitude:</label>
+                <input type="number" id="cupLon" value="-111.659530" step="0.000001" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Stimp:</label>
+                <input type="number" id="stimp" value="10.5" min="0" max="20" step="0.1" required>
+            </div>
+            
+            <button type="submit" id="submitBtn">Solve Putt</button>
+        </form>
+        
+        <div id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('puttForm');
+        const resultDiv = document.getElementById('result');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Solving...';
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="loading">⏳ Solving putt...</div>';
+            
+            const requestData = {
+                course_id: document.getElementById('courseId').value,
+                hole_id: parseInt(document.getElementById('holeId').value),
+                ball_wgs84: {
+                    lat: parseFloat(document.getElementById('ballLat').value),
+                    lon: parseFloat(document.getElementById('ballLon').value)
+                },
+                cup_wgs84: {
+                    lat: parseFloat(document.getElementById('cupLat').value),
+                    lon: parseFloat(document.getElementById('cupLon').value)
+                },
+                stimp: parseFloat(document.getElementById('stimp').value)
+            };
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/solve_putt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.className = 'result';
+                    resultDiv.innerHTML = `
+                        <h3>✅ Success!</h3>
+                        <p><strong>Instruction:</strong> ${data.instruction_text || 'N/A'}</p>
+                        <p><strong>Aim Line:</strong> ${data.aim_line_deg !== null ? data.aim_line_deg + '°' : 'N/A'}</p>
+                        <p><strong>Initial Speed:</strong> ${data.initial_speed_mph !== null ? data.initial_speed_mph.toFixed(2) + ' mph' : 'N/A'}</p>
+                        ${data.plot_points_local && data.plot_points_local.length > 0 ? `
+                            <div class="plot-points">
+                                <h4>Plot Points (${data.plot_points_local.length} points):</h4>
+                                <div>
+                                    ${data.plot_points_local.slice(0, 10).map(p => 
+                                        `<span class="plot-point">(${p.x.toFixed(2)}, ${p.y.toFixed(2)})</span>`
+                                    ).join('')}
+                                    ${data.plot_points_local.length > 10 ? `<span class="plot-point">... and ${data.plot_points_local.length - 10} more</span>` : ''}
+                                </div>
+                                <p style="margin-top: 10px; font-size: 12px; color: #b0b0b0;">
+                                    Range: x=[${Math.min(...data.plot_points_local.map(p => p.x)).toFixed(2)}, ${Math.max(...data.plot_points_local.map(p => p.x)).toFixed(2)}], 
+                                    y=[${Math.min(...data.plot_points_local.map(p => p.y)).toFixed(2)}, ${Math.max(...data.plot_points_local.map(p => p.y)).toFixed(2)}]
+                                </p>
+                            </div>
+                        ` : ''}
+                        <h4 style="margin-top: 20px;">Full Response:</h4>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <h3>❌ Error</h3>
+                        <p>${data.error || 'Unknown error'}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>❌ Request Failed</h3>
+                    <p>${error.message}</p>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Solve Putt';
+            }
+        });
+    </script>
+</body>
+</html>
+
+

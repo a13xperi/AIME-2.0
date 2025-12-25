@@ -1,0 +1,558 @@
+/**
+ * AIME Landing Page Styles
+ * Landing page that emulates the phone app
+ */
+
+.landing-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2e1f 0%, #1a4d3a 100%);
+  color: #ffffff;
+}
+
+/* Hero Section */
+.landing-hero {
+  padding: 80px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-text {
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.logo-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-a-inline {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.logo-a-left {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #4ade80;
+}
+
+.logo-golf-icon-inline {
+  font-size: 2.5rem;
+  margin: 0 -10px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-rest-inline {
+  font-size: 4.5rem;
+  font-weight: 700;
+}
+
+.hero-subtitle {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: #a7f3d0;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  color: #d1fae5;
+  max-width: 500px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #4ade80;
+  color: #0f2e1f;
+}
+
+.btn-primary:hover {
+  background: #22c55e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #4ade80;
+  border: 2px solid #4ade80;
+}
+
+.btn-secondary:hover {
+  background: rgba(74, 222, 128, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.2);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.btn-large {
+  padding: 20px 40px;
+  font-size: 1.25rem;
+}
+
+/* Phone Mockup */
+.phone-mockup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.phone-mockup {
+  position: relative;
+  transform: rotateY(-5deg) rotateX(5deg);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.phone-mockup:hover {
+  transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+}
+
+.phone-frame {
+  width: 320px;
+  height: 640px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 8px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 2px #333,
+    inset 0 0 0 4px #1a1a1a;
+  position: relative;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #1a4d3a;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
+
+.screen-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Screen Indicators */
+.screen-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: #4ade80;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Screen Previews */
+.screen-preview {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.screen-preview {
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Splash Preview */
+.splash-preview {
+  justify-content: center;
+  align-items: center;
+  background: #1a4d3a;
+}
+
+.preview-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.preview-logo-a {
+  color: #4ade80;
+  font-size: 3rem;
+}
+
+.preview-logo-golf {
+  font-size: 2rem;
+  margin: 0 -8px;
+}
+
+.preview-logo-rest {
+  color: #ffffff;
+}
+
+/* Shot Guidance Preview */
+.shot-guidance-preview {
+  background: #1a4d3a;
+}
+
+.preview-header {
+  margin-bottom: 20px;
+}
+
+.preview-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.preview-distance {
+  font-size: 1.1rem;
+  color: #a7f3d0;
+}
+
+.preview-map {
+  flex: 1;
+  background: #0f2e1f;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+}
+
+.map-marker {
+  font-size: 2rem;
+}
+
+.map-target {
+  font-size: 2rem;
+}
+
+.preview-actions {
+  margin-top: auto;
+}
+
+.preview-button {
+  background: #4ade80;
+  color: #0f2e1f;
+  padding: 14px 24px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Putting Preview */
+.putting-preview {
+  background: #1a4d3a;
+}
+
+.preview-green {
+  flex: 1;
+  background: #0f2e1f;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.green-visualization {
+  width: 80%;
+  height: 60%;
+  position: relative;
+  background: #22c55e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.ball-marker {
+  font-size: 1.5rem;
+}
+
+.cup-marker {
+  font-size: 1.5rem;
+}
+
+.putt-line {
+  position: absolute;
+  width: 2px;
+  height: 60%;
+  background: #4ade80;
+  opacity: 0.6;
+}
+
+.preview-puck-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-item {
+  font-size: 0.9rem;
+  color: #a7f3d0;
+}
+
+/* Hole Stats Preview */
+.hole-stats-preview {
+  background: #1a4d3a;
+}
+
+.preview-score {
+  font-size: 1.1rem;
+  color: #a7f3d0;
+  margin-top: 8px;
+}
+
+.preview-stats {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #a7f3d0;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4ade80;
+}
+
+/* Features Section */
+.features-section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(15, 46, 31, 0.5);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 60px;
+  font-weight: 600;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: rgba(74, 222, 128, 0.05);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(74, 222, 128, 0.5);
+  box-shadow: 0 10px 30px rgba(74, 222, 128, 0.2);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #4ade80;
+}
+
+.feature-card p {
+  color: #d1fae5;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 80px 20px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.cta-section p {
+  font-size: 1.25rem;
+  color: #d1fae5;
+  margin-bottom: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .phone-mockup {
+    transform: none;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .landing-hero {
+    padding: 40px 20px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .phone-frame {
+    width: 280px;
+    height: 560px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+

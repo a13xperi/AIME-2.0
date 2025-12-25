@@ -43,6 +43,19 @@ class Logger {
       console.debug(`[DEBUG] ${message}`, meta || '');
     }
   }
+
+  /**
+   * Create a scoped logger with a prefix (for component-specific logging)
+   */
+  createLogger(prefix: string): Logger {
+    return {
+      info: (message: string, meta?: any) => this.info(`[${prefix}] ${message}`, meta),
+      warn: (message: string, meta?: any) => this.warn(`[${prefix}] ${message}`, meta),
+      error: (message: string, error?: any) => this.error(`[${prefix}] ${message}`, error),
+      debug: (message: string, meta?: any) => this.debug(`[${prefix}] ${message}`, meta),
+      createLogger: (subPrefix: string) => this.createLogger(`${prefix}:${subPrefix}`)
+    } as Logger;
+  }
 }
 
 // Export singleton instance
