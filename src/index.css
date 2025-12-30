@@ -1,3 +1,6 @@
+/* Import accessibility utilities */
+@import './styles/accessibility.css';
+
 body {
   margin: 0;
   font-family:
@@ -9,4 +12,22 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Global semantic region styles */
+main {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Ensure html and body take full height for sticky footer */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
 }

@@ -176,9 +176,10 @@ const Dashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="dashboard">
+      <div className="dashboard" role="status" aria-live="polite" aria-busy="true">
         <div className="dashboard-loading">
           <h2>Loading Dashboard...</h2>
+          <span className="sr-only">Please wait while the dashboard loads</span>
         </div>
       </div>
     );
@@ -186,11 +187,13 @@ const Dashboard: React.FC = () => {
 
   if (error) {
     return (
-      <div className="dashboard">
+      <div className="dashboard" role="alert" aria-live="assertive">
         <div className="dashboard-error">
           <h2>Error Loading Dashboard</h2>
           <p>{error}</p>
-          <button onClick={loadDashboard}>Retry</button>
+          <button onClick={loadDashboard} aria-label="Retry loading dashboard">
+            Retry
+          </button>
         </div>
       </div>
     );
@@ -229,72 +232,147 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="dashboard">
-      <header className="dashboard-header">
+    <div className="dashboard" role="application" aria-label="Agent Alex Dashboard">
+      {/* Skip link for keyboard navigation */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
+      <header className="dashboard-header" role="banner">
         <div className="header-content">
           <div>
-            <h1>🤖 Agent Alex</h1>
+            <h1>
+              <span aria-hidden="true">🤖</span> Agent Alex
+            </h1>
             <p>Your AI Work Session & Project Tracker</p>
           </div>
           <button
             className="refresh-button"
             onClick={() => loadDashboard()}
+            aria-label="Refresh dashboard data from Notion"
             title="Refresh data from Notion"
           >
-            🔄 Refresh
+            <span aria-hidden="true">🔄</span> Refresh
           </button>
         </div>
       </header>
 
       {stats && (
-        <div className="dashboard-stats">
-          <div className="stat-card clickable" onClick={() => navigate('/projects')}>
-            <div className="stat-value">{stats.totalProjects}</div>
+        <section className="dashboard-stats" aria-label="Dashboard statistics">
+          <h2 className="sr-only">Quick Stats</h2>
+          <div
+            className="stat-card clickable"
+            onClick={() => navigate('/projects')}
+            onKeyDown={e => e.key === 'Enter' && navigate('/projects')}
+            role="button"
+            tabIndex={0}
+            aria-label={`${stats.totalProjects} total projects, ${stats.activeProjects} active. Click to view all projects`}
+          >
+            <div className="stat-value" aria-hidden="true">
+              {stats.totalProjects}
+            </div>
             <div className="stat-label">Total Projects</div>
             <div className="stat-sublabel">{stats.activeProjects} active</div>
-            <div className="stat-hint">Click to view all →</div>
+            <div className="stat-hint" aria-hidden="true">
+              Click to view all →
+            </div>
           </div>
-          <div className="stat-card clickable" onClick={() => navigate('/sessions')}>
-            <div className="stat-value">{stats.totalSessions}</div>
+          <div
+            className="stat-card clickable"
+            onClick={() => navigate('/sessions')}
+            onKeyDown={e => e.key === 'Enter' && navigate('/sessions')}
+            role="button"
+            tabIndex={0}
+            aria-label={`${stats.totalSessions} work sessions, ${stats.completedSessions || 0} with deliverables. Click to view timeline`}
+          >
+            <div className="stat-value" aria-hidden="true">
+              {stats.totalSessions}
+            </div>
             <div className="stat-label">Work Sessions</div>
             <div className="stat-sublabel">{stats.completedSessions || 0} with deliverables</div>
-            <div className="stat-hint">Click to view timeline →</div>
+            <div className="stat-hint" aria-hidden="true">
+              Click to view timeline →
+            </div>
           </div>
-          <div className="stat-card clickable" onClick={() => navigate('/sessions')}>
-            <div className="stat-value">{stats.totalHours}h</div>
+          <div
+            className="stat-card clickable"
+            onClick={() => navigate('/sessions')}
+            onKeyDown={e => e.key === 'Enter' && navigate('/sessions')}
+            role="button"
+            tabIndex={0}
+            aria-label={`${stats.totalHours} hours logged, average ${Math.round((stats.totalHours / stats.totalSessions) * 10) / 10} hours per session. Click to view timeline`}
+          >
+            <div className="stat-value" aria-hidden="true">
+              {stats.totalHours}h
+            </div>
             <div className="stat-label">Time Logged</div>
             <div className="stat-sublabel">
               {Math.round((stats.totalHours / stats.totalSessions) * 10) / 10}h avg per session
             </div>
-            <div className="stat-hint">Click to view timeline →</div>
+            <div className="stat-hint" aria-hidden="true">
+              Click to view timeline →
+            </div>
           </div>
-          <div className="stat-card clickable" onClick={() => navigate('/sessions')}>
-            <div className="stat-value">{stats.technologiesCount || 0}</div>
+          <div
+            className="stat-card clickable"
+            onClick={() => navigate('/sessions')}
+            onKeyDown={e => e.key === 'Enter' && navigate('/sessions')}
+            role="button"
+            tabIndex={0}
+            aria-label={`${stats.technologiesCount || 0} technologies used, ${stats.sessionsWithFiles || 0} sessions with files. Click to view details`}
+          >
+            <div className="stat-value" aria-hidden="true">
+              {stats.technologiesCount || 0}
+            </div>
             <div className="stat-label">Technologies Used</div>
             <div className="stat-sublabel">{stats.sessionsWithFiles || 0} sessions with files</div>
-            <div className="stat-hint">Click to view details →</div>
+            <div className="stat-hint" aria-hidden="true">
+              Click to view details →
+            </div>
           </div>
-        </div>
+        </section>
       )}
 
       {/* Current Sessions Section */}
       {currentSessions.length > 0 && (
-        <div className="current-sessions-section">
+        <section
+          className="current-sessions-section"
+          aria-label="Today's active sessions"
+          id="main-content"
+        >
           <h2>
-            🎯 Working On Today ({currentSessions.length} thread
+            <span aria-hidden="true">🎯</span> Working On Today ({currentSessions.length} thread
             {currentSessions.length !== 1 ? 's' : ''})
           </h2>
-          <div className="current-sessions-grid">
+          <div className="current-sessions-grid" role="list" aria-label="Current work sessions">
             {currentSessions.map(session => (
-              <div key={session.id} className="current-session-card">
+              <article
+                key={session.id}
+                className="current-session-card"
+                role="listitem"
+                aria-label={`Session: ${session.title}`}
+              >
                 <div className="session-header">
                   <h3>{session.title}</h3>
-                  <div className="session-meta">
-                    {session.aiAgent && <span className="session-agent">🤖 {session.aiAgent}</span>}
-                    {session.workspace && (
-                      <span className="session-workspace">📍 {session.workspace}</span>
+                  <div className="session-meta" aria-label="Session details">
+                    {session.aiAgent && (
+                      <span className="session-agent">
+                        <span aria-hidden="true">🤖</span>
+                        <span className="sr-only">AI Agent:</span> {session.aiAgent}
+                      </span>
                     )}
-                    {session.type && <span className="session-type">🎯 {session.type}</span>}
+                    {session.workspace && (
+                      <span className="session-workspace">
+                        <span aria-hidden="true">📍</span>
+                        <span className="sr-only">Workspace:</span> {session.workspace}
+                      </span>
+                    )}
+                    {session.type && (
+                      <span className="session-type">
+                        <span aria-hidden="true">🎯</span>
+                        <span className="sr-only">Type:</span> {session.type}
+                      </span>
+                    )}
                   </div>
                 </div>
                 {session.summary && (
@@ -306,106 +384,166 @@ const Dashboard: React.FC = () => {
                     </p>
                   </div>
                 )}
-                <div className="session-actions">
+                <div className="session-actions" role="group" aria-label="Session actions">
                   <button
                     className="btn btn-primary btn-small"
                     onClick={() => navigate(`/session/${session.id}`)}
+                    aria-label={`View details for session: ${session.title}`}
                   >
                     View Details
                   </button>
                   <button
                     className="btn btn-secondary btn-small"
                     onClick={() => setShowSessionLogger(true)}
+                    aria-label="Add update to session"
                   >
                     Add Update
                   </button>
                   <button
                     className="btn btn-success btn-small"
                     onClick={() => setSessionToTrack(session)}
+                    aria-label={`Start timer for session: ${session.title}`}
                   >
-                    ⏱️ Timer
+                    <span aria-hidden="true">⏱️</span> Timer
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-          <div className="sessions-overview-actions">
-            <button className="btn btn-primary" onClick={() => navigate('/sessions')}>
+          <div className="sessions-overview-actions" role="group" aria-label="Session navigation">
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate('/sessions')}
+              aria-label="View all work sessions"
+            >
               View All Sessions
             </button>
-            <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setShowSessionLogger(true)}
+              aria-label="Log a new work session"
+            >
               Log New Session
             </button>
           </div>
-        </div>
+        </section>
       )}
 
-      <div className="dashboard-actions">
-        <button className="btn btn-primary" onClick={() => setShowProjectCreator(true)}>
+      <nav className="dashboard-actions" aria-label="Quick actions">
+        <button
+          className="btn btn-primary"
+          onClick={() => setShowProjectCreator(true)}
+          aria-label="Create a new project"
+        >
           + New Project
         </button>
-        <button className="btn btn-secondary" onClick={() => setShowSessionLogger(true)}>
-          📝 Log Session
+        <button
+          className="btn btn-secondary"
+          onClick={() => setShowSessionLogger(true)}
+          aria-label="Log a new work session"
+        >
+          <span aria-hidden="true">📝</span> Log Session
         </button>
-        <button className="btn btn-outline" onClick={() => setShowProjectTemplates(true)}>
-          📋 Templates
+        <button
+          className="btn btn-outline"
+          onClick={() => setShowProjectTemplates(true)}
+          aria-label="Browse project templates"
+        >
+          <span aria-hidden="true">📋</span> Templates
         </button>
-        <button className="btn btn-outline" onClick={() => setShowTemplateBuilder(true)}>
-          🔧 Build Template
+        <button
+          className="btn btn-outline"
+          onClick={() => setShowTemplateBuilder(true)}
+          aria-label="Build a custom template"
+        >
+          <span aria-hidden="true">🔧</span> Build Template
         </button>
-        {/* <button className="btn btn-outline" onClick={() => setShowCustomerCRM(true)}>👥 Customer CRM</button>
-            <button className="btn btn-outline" onClick={() => setShowMarketingAutomation(true)}>📢 Marketing</button> */}
-        <button className="btn btn-outline" onClick={() => navigate('/analytics')}>
-          📊 Analytics
+        <button
+          className="btn btn-outline"
+          onClick={() => navigate('/analytics')}
+          aria-label="View analytics dashboard"
+        >
+          <span aria-hidden="true">📊</span> Analytics
         </button>
-        <button className="btn btn-outline" onClick={() => navigate('/team')}>
-          👥 Team
+        <button
+          className="btn btn-outline"
+          onClick={() => navigate('/team')}
+          aria-label="View team collaboration"
+        >
+          <span aria-hidden="true">👥</span> Team
         </button>
-        <button className="btn btn-outline" onClick={() => setShowDailySummary(true)}>
-          📋 Daily Summary
+        <button
+          className="btn btn-outline"
+          onClick={() => setShowDailySummary(true)}
+          aria-label="View daily summary"
+        >
+          <span aria-hidden="true">📋</span> Daily Summary
         </button>
-      </div>
+      </nav>
 
       {/* Categories Section */}
       {categories.length > 0 && (
-        <div className="categories-section">
-          <h2>📊 Project Categories & Work Distribution</h2>
+        <section className="categories-section" aria-labelledby="categories-heading">
+          <h2 id="categories-heading">
+            <span aria-hidden="true">📊</span> Project Categories & Work Distribution
+          </h2>
           <p className="section-subtitle">
             See how your work is distributed across different project types
           </p>
-          <div className="categories-grid">
+          <div className="categories-grid" role="list" aria-label="Project categories">
             {categories.map(category => (
-              <div key={category.name} className="category-card">
+              <article
+                key={category.name}
+                className="category-card"
+                role="listitem"
+                aria-label={`Category: ${category.name}`}
+              >
                 <div className="category-header">
                   <h3>{category.name}</h3>
-                  <span className="category-badge">
+                  <span className="category-badge" aria-label={`${category.projectCount} projects`}>
                     {category.projectCount} project{category.projectCount !== 1 ? 's' : ''}
                   </span>
                 </div>
-                <div className="category-stats">
+                <div className="category-stats" aria-label="Category statistics">
                   <div className="category-stat">
-                    <div className="stat-icon">🎯</div>
+                    <div className="stat-icon" aria-hidden="true">
+                      🎯
+                    </div>
                     <div className="stat-info">
                       <div className="stat-number">{category.activeProjects}</div>
                       <div className="stat-text">Active</div>
                     </div>
                   </div>
                   <div className="category-stat">
-                    <div className="stat-icon">📝</div>
+                    <div className="stat-icon" aria-hidden="true">
+                      📝
+                    </div>
                     <div className="stat-info">
                       <div className="stat-number">{category.sessionCount}</div>
                       <div className="stat-text">Sessions</div>
                     </div>
                   </div>
                   <div className="category-stat">
-                    <div className="stat-icon">⏱️</div>
+                    <div className="stat-icon" aria-hidden="true">
+                      ⏱️
+                    </div>
                     <div className="stat-info">
                       <div className="stat-number">{category.totalHours}h</div>
                       <div className="stat-text">Logged</div>
                     </div>
                   </div>
                 </div>
-                <div className="category-progress">
+                <div
+                  className="category-progress"
+                  role="progressbar"
+                  aria-valuenow={Math.min(
+                    100,
+                    Math.round((category.sessionCount / (stats?.totalSessions || 1)) * 100)
+                  )}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={`${Math.round((category.sessionCount / (stats?.totalSessions || 1)) * 100)}% of total sessions`}
+                >
                   <div
                     className="progress-bar"
                     style={{
@@ -420,46 +558,71 @@ const Dashboard: React.FC = () => {
                     </span>
                   )}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
-      <div className="projects-section">
-        <h2>Your Projects</h2>
+      <main
+        className="projects-section"
+        id={currentSessions.length === 0 ? 'main-content' : undefined}
+        aria-labelledby="projects-heading"
+      >
+        <h2 id="projects-heading">Your Projects</h2>
         {projects.length === 0 ? (
-          <div className="empty-state">
+          <div className="empty-state" role="status" aria-live="polite">
             <p>No projects yet. Create your first project to get started!</p>
           </div>
         ) : (
-          <div className="projects-grid">
+          <div className="projects-grid" role="list" aria-label="Project list">
             {projects.map(project => (
-              <div key={project.id} className="project-card">
+              <article
+                key={project.id}
+                className="project-card"
+                role="listitem"
+                aria-label={`Project: ${project.name}, Status: ${project.status}`}
+              >
                 <div className="project-header">
                   <h3>{project.name}</h3>
-                  <span className={`status-badge status-${project.status.toLowerCase()}`}>
+                  <span
+                    className={`status-badge status-${project.status.toLowerCase()}`}
+                    role="status"
+                    aria-label={`Status: ${project.status}`}
+                  >
                     {project.status}
                   </span>
                 </div>
                 <p className="project-description">{project.description}</p>
-                <div className="project-meta">
-                  <span className="project-type">{project.type}</span>
-                  <span className="project-workspace">{project.workspace}</span>
+                <div className="project-meta" aria-label="Project details">
+                  <span className="project-type">
+                    <span className="sr-only">Type:</span> {project.type}
+                  </span>
+                  <span className="project-workspace">
+                    <span className="sr-only">Workspace:</span> {project.workspace}
+                  </span>
                 </div>
-                <div className="project-actions">
-                  <button className="btn-link" onClick={() => navigate(`/project/${project.id}`)}>
+                <div className="project-actions" role="group" aria-label="Project actions">
+                  <button
+                    className="btn-link"
+                    onClick={() => navigate(`/project/${project.id}`)}
+                    aria-label={`View details for ${project.name}`}
+                  >
                     View Details
                   </button>
-                  <button className="btn-resume" onClick={e => handleResumeProject(project, e)}>
-                    🚀 Resume
+                  <button
+                    className="btn-resume"
+                    onClick={e => handleResumeProject(project, e)}
+                    aria-label={`Resume working on ${project.name}`}
+                  >
+                    <span aria-hidden="true">🚀</span> Resume
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         )}
-      </div>
+      </main>
 
       {/* Quick Resume Modal */}
       {resumeProject && (
