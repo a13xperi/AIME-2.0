@@ -9,14 +9,13 @@ interface SmartRecommendationsProps {
 }
 
 const SmartRecommendations: React.FC<SmartRecommendationsProps> = ({
-  projects,
-  sessions,
+  projects: _projects,
+  sessions: _sessions,
   onClose,
 }) => {
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
   const [suggestions, setSuggestions] = useState<SmartSuggestion[]>([]);
   const [activeFilter, setActiveFilter] = useState<'all' | 'high' | 'medium' | 'low'>('all');
-  const [loading, setLoading] = useState(false);
 
   // Mock data for demonstration
   useEffect(() => {

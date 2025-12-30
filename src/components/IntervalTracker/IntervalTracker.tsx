@@ -22,7 +22,10 @@ interface IntervalTrackerProps {
   onIntervalComplete?: (interval: WorkInterval) => void;
 }
 
-const IntervalTracker: React.FC<IntervalTrackerProps> = ({ sessionId, onIntervalComplete }) => {
+const IntervalTracker: React.FC<IntervalTrackerProps> = ({
+  sessionId: _sessionId,
+  onIntervalComplete,
+}) => {
   const [currentInterval, setCurrentInterval] = useState<WorkInterval | null>(null);
   const [completedIntervals, setCompletedIntervals] = useState<WorkInterval[]>([]);
   const [isRunning, setIsRunning] = useState(false);

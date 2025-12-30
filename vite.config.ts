@@ -23,4 +23,10 @@ export default defineConfig({
     // Support for process.env in the browser (CRA compatibility)
     'process.env': {},
   },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+  },
 });

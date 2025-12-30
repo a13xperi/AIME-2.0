@@ -61,7 +61,7 @@ const AnalyticsDashboard: React.FC = () => {
     loadAnalyticsData();
   }, [loadAnalyticsData]);
 
-  const calculateAnalytics = (sessions: Session[], projects: Project[]): AnalyticsData => {
+  const calculateAnalytics = (sessions: Session[], _projects: Project[]): AnalyticsData => {
     const now = new Date();
     const timeRangeMs = {
       '7d': 7 * 24 * 60 * 60 * 1000,

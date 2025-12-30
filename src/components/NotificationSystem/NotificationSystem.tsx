@@ -34,6 +34,11 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({ sessions, onSes
     quietHours: { start: 22, end: 8 }, // 10 PM to 8 AM
   });
 
+  // Remove notification
+  const removeNotification = useCallback((id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  }, []);
+
   // Add notification
   const addNotification = useCallback(
     (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
@@ -52,15 +57,9 @@ const NotificationSystem: React.FC<NotificationSystemProps> = ({ sessions, onSes
           removeNotification(newNotification.id);
         }, notification.duration);
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    []
+    [removeNotification]
   );
-
-  // Remove notification
-  const removeNotification = useCallback((id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
-  }, []);
 
   // Check for break reminders
   const checkBreakReminders = useCallback(() => {

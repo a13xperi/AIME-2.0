@@ -2,14 +2,15 @@
  * Tests for Notion API Client
  */
 
+import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { fetchProjects, fetchProject, fetchSessions, createSession } from '../notionApi';
 
 // Mock fetch globally
-global.fetch = jest.fn();
+global.fetch = vi.fn();
 
 describe('Notion API Client', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('fetchProjects', () => {
@@ -19,7 +20,7 @@ describe('Notion API Client', () => {
         { id: '2', name: 'Project 2', status: 'Completed' },
       ];
 
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as Mock).mockResolvedValueOnce({
         ok: true,
         json: async () => ({ success: true, projects: mockProjects }),
       });
@@ -32,7 +33,7 @@ describe('Notion API Client', () => {
     });
 
     it('should handle fetch errors', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as Mock).mockResolvedValueOnce({
         ok: false,
         json: async () => ({ error: 'Server error' }),
       });
@@ -44,7 +45,7 @@ describe('Notion API Client', () => {
     });
 
     it('should handle network errors', async () => {
-      (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+      (global.fetch as Mock).mockRejectedValueOnce(new Error('Network error'));
 
       const result = await fetchProjects();
 
@@ -57,7 +58,7 @@ describe('Notion API Client', () => {
     it('should fetch a single project by ID', async () => {
       const mockProject = { id: '1', name: 'Project 1', status: 'Active' };
 
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as Mock).mockResolvedValueOnce({
         ok: true,
         json: async () => ({ success: true, project: mockProject }),
       });
@@ -77,7 +78,7 @@ describe('Notion API Client', () => {
         { id: '2', title: 'Session 2', date: '2025-01-02' },
       ];
 
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as Mock).mockResolvedValueOnce({
         ok: true,
         json: async () => ({ success: true, sessions: mockSessions }),
       });
@@ -89,7 +90,7 @@ describe('Notion API Client', () => {
     });
 
     it('should apply filters when provided', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as Mock).mockResolvedValueOnce({
         ok: true,
         json: async () => ({ success: true, sessions: [] }),
       });
@@ -113,7 +114,7 @@ describe('Notion API Client', () => {
         ...newSession,
       };
 
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as Mock).mockResolvedValueOnce({
         ok: true,
         json: async () => ({ success: true, session: mockResponse }),
       });

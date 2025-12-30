@@ -12,7 +12,7 @@ interface ProjectTemplatesProps {
 const ProjectTemplates: React.FC<ProjectTemplatesProps> = ({
   isOpen,
   onClose,
-  onTemplateSelect,
+  onTemplateSelect: _onTemplateSelect,
   onApplyTemplate,
 }) => {
   const [templates, setTemplates] = useState<ProjectTemplate[]>([]);
