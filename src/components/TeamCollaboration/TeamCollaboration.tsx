@@ -44,8 +44,8 @@ const TeamCollaboration: React.FC<TeamCollaborationProps> = ({
   projects,
   sessions,
   currentUserId,
-  onProjectUpdate,
-  onSessionUpdate,
+  onProjectUpdate: _onProjectUpdate,
+  onSessionUpdate: _onSessionUpdate,
 }) => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [projectComments, setProjectComments] = useState<ProjectComment[]>([]);

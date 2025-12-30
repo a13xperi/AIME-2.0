@@ -5,7 +5,6 @@ import {
   ApiEndpoint,
   Webhook,
   ThirdPartyIntegration,
-  ApiDocumentation,
   ApiKey,
   IntegrationTest,
 } from '../../types';
@@ -18,8 +17,8 @@ interface IntegrationManagementProps {
 }
 
 const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
-  projects,
-  sessions,
+  projects: _projects,
+  sessions: _sessions,
   onClose,
 }) => {
   const [endpoints, setEndpoints] = useState<ApiEndpoint[]>([]);
@@ -30,8 +29,6 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
   const [activeTab, setActiveTab] = useState<
     'endpoints' | 'webhooks' | 'integrations' | 'keys' | 'tests' | 'docs'
   >('endpoints');
-  const [selectedEndpoint, setSelectedEndpoint] = useState<ApiEndpoint | null>(null);
-  const [showApiDocs, setShowApiDocs] = useState(false);
 
   // Mock data for demonstration
   useEffect(() => {
@@ -627,7 +624,7 @@ const IntegrationManagement: React.FC<IntegrationManagementProps> = ({
                           </button>
                           <button
                             className="btn btn-primary btn-small"
-                            onClick={() => setSelectedEndpoint(endpoint)}
+                            onClick={() => console.log('View details for', endpoint.id)}
                           >
                             View Details
                           </button>

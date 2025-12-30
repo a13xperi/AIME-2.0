@@ -2,6 +2,7 @@
  * Tests for Logger Utility
  */
 
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { logger } from '../logger';
 
 describe('Logger', () => {
@@ -13,10 +14,10 @@ describe('Logger', () => {
 
   beforeEach(() => {
     // Mock console methods
-    console.log = jest.fn();
-    console.error = jest.fn();
-    console.warn = jest.fn();
-    console.debug = jest.fn();
+    console.log = vi.fn();
+    console.error = vi.fn();
+    console.warn = vi.fn();
+    console.debug = vi.fn();
   });
 
   afterEach(() => {
@@ -66,7 +67,6 @@ describe('Logger', () => {
 
   describe('debug', () => {
     it('should log debug messages only in development/test', () => {
-      // eslint-disable-next-line testing-library/no-debugging-utils
       logger.debug('Debug message');
 
       expect(console.debug).toHaveBeenCalledWith('[DEBUG] Debug message', '');

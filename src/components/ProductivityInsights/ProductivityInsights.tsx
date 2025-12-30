@@ -28,7 +28,7 @@ interface ProductivityInsightsProps {
 
 const ProductivityInsights: React.FC<ProductivityInsightsProps> = ({
   sessions,
-  projects,
+  projects: _projects,
   timeRange,
 }) => {
   const [insights, setInsights] = useState<ProductivityData | null>(null);

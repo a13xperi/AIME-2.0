@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Project, ProjectHealth, ProjectRisk, ProjectAlert } from '../../types';
+import { Project, ProjectHealth } from '../../types';
 import './ProjectHealth.css';
 
 interface ProjectHealthProps {

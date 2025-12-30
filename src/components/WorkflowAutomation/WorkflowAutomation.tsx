@@ -15,7 +15,11 @@ interface WorkflowAutomationProps {
   onClose: () => void;
 }
 
-const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({ projects, sessions, onClose }) => {
+const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({
+  projects: _projects,
+  sessions: _sessions,
+  onClose,
+}) => {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [executions, setExecutions] = useState<WorkflowExecution[]>([]);
   const [automationRules, setAutomationRules] = useState<AutomationRule[]>([]);
@@ -23,8 +27,6 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({ projects, sessi
   const [activeTab, setActiveTab] = useState<'workflows' | 'executions' | 'rules' | 'templates'>(
     'workflows'
   );
-  const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
-  const [showWorkflowBuilder, setShowWorkflowBuilder] = useState(false);
 
   // Mock data for demonstration
   useEffect(() => {
@@ -541,7 +543,10 @@ const WorkflowAutomation: React.FC<WorkflowAutomationProps> = ({ projects, sessi
               <div className="workflows-section">
                 <div className="section-header">
                   <h3>Active Workflows</h3>
-                  <button className="btn btn-primary" onClick={() => setShowWorkflowBuilder(true)}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => console.log('Create workflow')}
+                  >
                     ➕ Create Workflow
                   </button>
                 </div>

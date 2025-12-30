@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import ErrorBoundary from '../ErrorBoundary';
 
@@ -19,7 +20,7 @@ describe('ErrorBoundary', () => {
   const originalError = console.error;
 
   beforeAll(() => {
-    console.error = jest.fn();
+    console.error = vi.fn();
   });
 
   afterAll(() => {
