@@ -102,10 +102,29 @@ agent-alex/
 
 ---
 
+## 📚 Documentation
+
+Comprehensive documentation is available for all APIs, components, and utilities:
+
+- **[Documentation Index](./docs/DOCUMENTATION_INDEX.md)** - Start here for complete overview
+- **[API Documentation](./docs/API_DOCUMENTATION.md)** - Full REST API reference (FastAPI + Express)
+- **[Components Documentation](./docs/COMPONENTS_DOCUMENTATION.md)** - All React components with examples
+- **[Utilities Documentation](./docs/UTILITIES_DOCUMENTATION.md)** - Utility functions and type definitions
+
+### Quick Links
+
+- [Setup Guide](./SETUP_GUIDE.md) - Detailed installation and configuration
+- [Quick Start](./QUICK_START.md) - Get running in 5 minutes
+- [Architecture](./ARCHITECTURE.md) - System architecture overview
+- [Troubleshooting](./TROUBLESHOOTING.md) - Common issues and solutions
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 16+
+- Node.js 18+
+- Python 3.8+
 - npm or yarn
 - Notion account with API integration
 
@@ -118,29 +137,49 @@ cd agent-alex
 
 # Install dependencies
 npm install
+pip install -r backend/requirements.txt
 
 # Set up environment variables
-cp .env.example .env
-# Edit .env with your Notion API key
+cp .env.example .env.development
+# Edit .env.development with your Notion credentials
 
-# Start development server
-npm start
-
-# In another terminal, start backend
-npm run server
+# Start development servers
+npm run dev                    # Frontend + Express backend (Terminal 1)
+python backend/main.py         # FastAPI backend (Terminal 2)
 ```
 
 ### Environment Variables
 
 ```env
-# Notion Integration
-NOTION_API_KEY=your_notion_integration_token_here
+# Notion Integration (Required)
+NOTION_TOKEN=secret_your_integration_token_here
+NOTION_PROJECTS_DATABASE_ID=your_projects_database_id
+NOTION_SESSIONS_DATABASE_ID=your_sessions_database_id
 
 # Frontend
-REACT_APP_API_URL=http://localhost:3001
+VITE_API_URL=http://localhost:3001
 
-# Server
+# Express Backend
 PORT=3001
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+
+# FastAPI Backend
+PUTTSOLVER_SERVICE_URL=http://localhost:8081
+AIME_TRANSFORM_MODE=mock
+```
+
+### Quick API Test
+
+```bash
+# Test health endpoints
+curl http://localhost:3001/health
+curl http://localhost:8000/api/health
+
+# Get projects
+curl http://localhost:3001/api/projects
+
+# Get courses
+curl http://localhost:8000/api/courses
 ```
 
 ---
@@ -173,9 +212,116 @@ PORT=3001
 
 ---
 
+## 🧩 Key Features
+
+### Dual Backend Architecture
+- **FastAPI Backend (Python)** - Golf putt solver with DLL integration
+- **Express Backend (TypeScript)** - Notion integration for projects and sessions
+
+### Comprehensive Component Library
+- **40+ React Components** - Fully documented with TypeScript
+- **Project Management** - Complete CRUD operations
+- **Session Tracking** - Detailed work session logging
+- **Analytics Dashboard** - Productivity insights and metrics
+- **CRM Integration** - Customer relationship management
+- **Workflow Automation** - Custom workflow builder
+
+### Developer Experience
+- **Full TypeScript** - Type-safe throughout the stack
+- **Comprehensive Documentation** - Every API, component, and function documented
+- **Error Handling** - Consistent error patterns
+- **Rate Limiting** - Built-in API protection
+- **CORS Configuration** - Secure cross-origin requests
+- **Offline Mode** - Works when Notion is unavailable
+
+---
+
+## 📖 Usage Examples
+
+### Create a Project
+
+```typescript
+import { createProject } from './api/notionApi';
+
+const response = await createProject({
+  name: 'My New Project',
+  status: 'Active',
+  priority: 'High',
+  type: 'Web Application',
+  description: 'Building something awesome',
+  techStack: ['React', 'TypeScript', 'Node.js']
+});
+
+if (response.success) {
+  console.log('Project created:', response.data);
+}
+```
+
+### Log a Work Session
+
+```tsx
+import SessionLogger from './components/SessionLogger/SessionLogger';
+
+<SessionLogger
+  isOpen={true}
+  onClose={() => setShowLogger(false)}
+  onSuccess={() => refreshData()}
+  projects={projects}
+/>
+```
+
+### Solve a Golf Putt
+
+```typescript
+const response = await fetch('/api/solve_putt', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    course_id: 'riverside_country_club',
+    hole_id: 1,
+    ball_wgs84: { lat: 37.774929, lon: -122.419416 },
+    cup_wgs84: { lat: 37.77485, lon: -122.4193 },
+    stimp: 10.5
+  })
+});
+
+const data = await response.json();
+console.log(data.instruction_text); // "Aim 2.5 degrees left..."
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage
+npm test -- --coverage
+
+# Watch mode
+npm test -- --watch
+
+# Test specific component
+npm test -- SessionLogger
+```
+
+---
+
 ## 🤝 Contributing
 
-This is a personal project, but suggestions and improvements are welcome!
+Contributions are welcome! When adding features:
+
+1. Follow existing code patterns
+2. Use TypeScript for type safety
+3. Write tests for new functionality
+4. Update relevant documentation:
+   - API changes → `docs/API_DOCUMENTATION.md`
+   - Component changes → `docs/COMPONENTS_DOCUMENTATION.md`
+   - Utility changes → `docs/UTILITIES_DOCUMENTATION.md`
+
+See [Contributing Guide](./CONTRIBUTING.md) for more details.
 
 ---
 
@@ -191,9 +337,21 @@ Built with inspiration from:
 - KAA App project (Notion workspace viewer)
 - Personal need for better project tracking
 - AI-assisted development workflow
+- Modern React and TypeScript best practices
 
 ---
 
-**Status:** 🚧 In Development  
+## 📞 Support
+
+- **Documentation:** [docs/DOCUMENTATION_INDEX.md](./docs/DOCUMENTATION_INDEX.md)
+- **Issues:** [GitHub Issues](https://github.com/YOUR_USERNAME/agent-alex/issues)
+- **Quick Start:** [QUICK_START.md](./QUICK_START.md)
+- **Troubleshooting:** [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
+
+---
+
+**Status:** ✅ Fully Documented  
+**Version:** 0.1.0  
 **Started:** October 17, 2025  
+**Documentation Completed:** December 30, 2024  
 **Maintainer:** Alex
