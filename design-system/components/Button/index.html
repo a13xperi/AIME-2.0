@@ -1,0 +1,41 @@
+<!-- @dsCard group="Actions" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Button</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .btn {
+    font-family: var(--font); font-weight: var(--fw-semi); font-size: var(--fs-body);
+    border: none; border-radius: var(--r-sm); min-height: var(--tap);
+    padding: 0 var(--s5); cursor: pointer; display: inline-flex; align-items: center;
+    justify-content: center; gap: var(--s2); transition: filter .15s, background .15s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn--primary { background: var(--accent); color: #1a1a1a; }          /* GOLD = primary CTA */
+  .btn--primary:hover { background: var(--accent-soft); }
+  .btn--secondary { background: var(--primary); color: var(--text); }    /* forest green */
+  .btn--secondary:hover { filter: brightness(1.08); }
+  .btn--ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .btn--ghost:hover { background: rgba(255,255,255,.04); }
+  .btn--block { width: 100%; }
+  .btn--lg { min-height: 56px; font-size: var(--fs-h2); border-radius: var(--r-md); padding: 0 var(--s6); }
+  .btn[disabled] { opacity: .4; cursor: not-allowed; }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack" style="max-width:360px">
+    <span class="ds-label">Variants</span>
+    <div class="ds-row">
+      <button class="btn btn--primary">Read My Putt</button>
+      <button class="btn btn--secondary">Continue</button>
+      <button class="btn btn--ghost">Re-read</button>
+    </div>
+    <span class="ds-label" style="margin-top:var(--s4)">Large / block + disabled</span>
+    <button class="btn btn--primary btn--lg btn--block">Start Round ⛳</button>
+    <button class="btn btn--secondary btn--block" disabled>Continue</button>
+  </div>
+</body>
+</html>

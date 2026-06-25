@@ -1,0 +1,25 @@
+<!-- @dsCard group="Feedback" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Progress Bar</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  /* Splash loader (spec S-01): gold fill on a surface track. */
+  .bar { width: 200px; height: 4px; border-radius: var(--r-pill); background: var(--surface); overflow: hidden; }
+  .bar > i { display: block; height: 100%; border-radius: var(--r-pill); background: var(--accent); width: 64%; }
+  .bar--indeterminate > i { width: 42%; animation: load 2.4s ease-in-out infinite; }
+  @keyframes load { 0% { transform: translateX(-120%); } 100% { transform: translateX(360%); } }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack">
+    <span class="ds-label">Determinate (64%)</span>
+    <div class="bar"><i></i></div>
+    <span class="ds-label" style="margin-top:var(--s3)">Indeterminate</span>
+    <div class="bar bar--indeterminate"><i></i></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- @dsCard group="Actions" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Read My Putt CTA</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  /* The primary CTA of the entire app (spec S-23). Gold, pulsing glow. */
+  .readputt {
+    width: 100%; min-height: 60px; border: none; border-radius: var(--r-md);
+    background: var(--accent); color: #1a1a1a;
+    font-family: var(--font); font-weight: var(--fw-bold); font-size: var(--fs-h2);
+    display: flex; align-items: center; justify-content: center; gap: var(--s2);
+    cursor: pointer;
+  }
+  .readputt--pulse { animation: rp 2s ease-in-out infinite; }
+  @keyframes rp { 0%,100% { box-shadow: 0 0 26px -4px rgba(201,162,39,.6); } 50% { box-shadow: 0 0 8px -2px rgba(201,162,39,.22); } }
+  .readputt--loading { background: var(--accent-press); color: rgba(26,26,26,.65); }
+  .readputt[disabled] { background: var(--surface); color: var(--dim); cursor: not-allowed; }
+  .spin { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(26,26,26,.35); border-top-color: #1a1a1a; animation: s .7s linear infinite; }
+  @keyframes s { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack" style="max-width:340px">
+    <span class="ds-label">Default (pulse)</span>
+    <button class="readputt readputt--pulse">🎯 Read My Putt</button>
+    <span class="ds-label" style="margin-top:var(--s3)">Loading</span>
+    <button class="readputt readputt--loading"><span class="spin"></span></button>
+    <span class="ds-label" style="margin-top:var(--s3)">Disabled (no RTK fix)</span>
+    <button class="readputt" disabled>Waiting for GPS fix…</button>
+  </div>
+</body>
+</html>

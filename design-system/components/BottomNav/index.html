@@ -1,0 +1,24 @@
+<!-- @dsCard group="Navigation" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bottom Nav</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .nav { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--bg); border-top: 1px solid var(--line); max-width: 360px; height: 64px; border-radius: 0 0 var(--r-md) var(--r-md); }
+  .nav__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: var(--dim); font-size: var(--fs-xs); cursor: pointer; }
+  .nav__item--active { color: var(--accent); }
+  .nav__ico { font-size: 18px; line-height: 1; }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <nav class="nav">
+    <div class="nav__item nav__item--active"><span class="nav__ico">🏠</span>Home</div>
+    <div class="nav__item"><span class="nav__ico">⛳</span>Rounds</div>
+    <div class="nav__item"><span class="nav__ico">📊</span>Stats</div>
+    <div class="nav__item"><span class="nav__ico">👤</span>Profile</div>
+  </nav>
+</body>
+</html>

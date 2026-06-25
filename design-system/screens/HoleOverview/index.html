@@ -1,0 +1,52 @@
+<!-- @dsCard group="Screens" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Screen · Hole Overview (S-09)</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .phone { width: 300px; aspect-ratio: 390/844; border-radius: 40px; box-shadow: var(--shadow); border: 1px solid var(--line); overflow: hidden; position: relative; background: var(--bg); }
+  .phone__notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 86px; height: 22px; background: #000; border-radius: var(--r-pill); z-index: 3; }
+  .screen { position: absolute; inset: 0; padding: 40px 16px 16px; display: flex; flex-direction: column; gap: var(--s3); }
+  .hole { display: flex; align-items: center; gap: var(--s3); }
+  .hole__num { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; font-size: var(--fs-h2); font-weight: var(--fw-bold); }
+  .hole__par { padding: 3px var(--s3); border-radius: var(--r-pill); background: var(--surface); color: var(--accent); font-size: var(--fs-sm); font-weight: var(--fw-semi); }
+  .hole__yds { margin-left: auto; font-size: var(--fs-h2); font-weight: var(--fw-bold); color: var(--accent); }
+  .map { flex: 1; min-height: 0; border-radius: var(--r-md); overflow: hidden; background: radial-gradient(120% 120% at 50% 100%, #16291d 0%, #101a14 70%); border: 1px solid var(--line); }
+  .map svg { display: block; width: 100%; height: 100%; }
+  .fairway { fill: var(--primary); opacity: .28; }
+  .greenz { fill: var(--primary); opacity: .55; }
+  .sand { fill: var(--accent); opacity: .35; }
+  .tee { fill: var(--text); }
+  .pin { fill: var(--bad); }
+  .info { display: flex; align-items: center; gap: var(--s2); font-size: var(--fs-sm); color: var(--muted); }
+  .cta { min-height: 52px; border: none; border-radius: var(--r-sm); background: var(--primary); color: #fff; font-family: var(--font); font-weight: var(--fw-semi); font-size: var(--fs-body); cursor: pointer; }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="phone">
+    <div class="phone__notch"></div>
+    <div class="screen">
+      <div class="hole">
+        <div class="hole__num">7</div>
+        <span class="hole__par">Par 5</span>
+        <span class="hole__yds">528 yds</span>
+      </div>
+      <div class="map">
+        <svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice">
+          <path class="fairway" d="M120 410 C 110 320, 150 250, 150 190 C 150 150, 130 120, 160 70 L 210 70 C 195 130, 200 165, 195 200 C 188 270, 175 340, 180 410 Z" />
+          <ellipse class="greenz" cx="185" cy="70" rx="40" ry="28" />
+          <circle class="sand" cx="150" cy="150" r="16" />
+          <circle class="sand" cx="210" cy="110" r="12" />
+          <rect class="tee" x="146" y="398" width="14" height="6" rx="2" />
+          <circle class="pin" cx="185" cy="68" r="4" />
+        </svg>
+      </div>
+      <div class="info">↖ 12 mph wind · uphill</div>
+      <button class="cta">I'm Ready</button>
+    </div>
+  </div>
+</body>
+</html>

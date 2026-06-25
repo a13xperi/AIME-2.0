@@ -1,0 +1,24 @@
+<!-- @dsCard group="Feedback" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RTK Status</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .rtk { display: inline-flex; align-items: center; gap: var(--s2); font-size: var(--fs-sm); color: var(--muted); }
+  .rtk__dot { width: 9px; height: 9px; border-radius: 50%; }
+  .rtk__dot--none { background: var(--bad); }
+  .rtk__dot--acquiring { background: var(--accent); }
+  .rtk__dot--fixed { background: var(--good); box-shadow: 0 0 8px 1px rgba(63,174,116,.7); }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack">
+    <span class="rtk"><span class="rtk__dot rtk__dot--none"></span>No fix</span>
+    <span class="rtk"><span class="rtk__dot rtk__dot--acquiring"></span>Acquiring…</span>
+    <span class="rtk"><span class="rtk__dot rtk__dot--fixed"></span>RTK connected (±2 cm)</span>
+  </div>
+</body>
+</html>

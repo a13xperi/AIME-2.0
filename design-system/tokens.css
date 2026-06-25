@@ -1,0 +1,75 @@
+/* ============================================================================
+   AIME Golf — Design Tokens (single source of truth)
+   Canonical brand (Figma/Notion spec): forest green + GOLD on near-black.
+   Reconciles the repo's drifted palette (Tailwind grays/greens #4ade80,
+   blues, amber, scattered across 80 CSS files) down to one system.
+   Every component + screen preview pulls color/type/space from HERE only.
+   ============================================================================ */
+:root {
+  /* ---- Surfaces ---- */
+  --bg: #1a1a1a;            /* app background */
+  --surface: #2a2a2a;       /* cards, inputs, raised surfaces */
+  --surface-2: #222222;     /* subtle alt surface */
+  --green-deep: #16291d;    /* on-course / green-reading screens */
+  --line: rgba(255, 255, 255, 0.10);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  /* ---- Brand ---- */
+  --primary: #2d6a4f;       /* forest green — structural, secondary CTAs */
+  --primary-press: #245a42;
+  --accent: #c9a227;        /* GOLD — primary CTAs, hero numbers, highlights */
+  --accent-soft: #e4c65a;
+  --accent-press: #a9871d;
+
+  /* ---- Text ---- */
+  --text: #ffffff;
+  --muted: #999999;
+  --dim: #666666;
+
+  /* ---- Semantic / scoring ---- */
+  --good: #3fae74;          /* under par / positive */
+  --bad: #c0392b;           /* over par / error */
+  --eagle: #c9a227;
+  --birdie: #2d6a4f;
+  --par: #2a2a2a;
+  --bogey: #8b0000;
+  --double: #4a0000;
+
+  /* ---- Type ---- */
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, system-ui, sans-serif;
+  --mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  --fs-display: 48px;
+  --fs-h1: 28px;
+  --fs-h2: 20px;
+  --fs-body: 16px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+  --fw-reg: 400;
+  --fw-med: 500;
+  --fw-semi: 600;
+  --fw-bold: 700;
+
+  /* ---- Space (8pt grid) ---- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px;
+
+  /* ---- Radius / elevation / controls ---- */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-pill: 999px;
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  --shadow-sm: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --tap: 44px;
+}
+
+/* ---- Preview base: wrap a preview body in .ds-preview to get the brand frame ---- */
+.ds-preview {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.ds-pad { padding: var(--s5); }
+.ds-row { display: flex; gap: var(--s3); align-items: center; flex-wrap: wrap; }
+.ds-stack { display: flex; flex-direction: column; gap: var(--s3); }
+.ds-label { font-size: var(--fs-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }

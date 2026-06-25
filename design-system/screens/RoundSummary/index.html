@@ -1,0 +1,55 @@
+<!-- @dsCard group="Screens" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Screen · Round Summary (S-35)</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .phone { width: 300px; aspect-ratio: 390/844; border-radius: 40px; box-shadow: var(--shadow); border: 1px solid var(--line); overflow: hidden; position: relative; background: var(--bg); }
+  .phone__notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 86px; height: 22px; background: #000; border-radius: var(--r-pill); z-index: 3; }
+  .screen { position: absolute; inset: 0; padding: 40px 16px 16px; display: flex; flex-direction: column; gap: var(--s3); overflow: hidden; }
+  .hero { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: var(--s3) 0; }
+  .hero__ring { width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 3px var(--accent); }
+  .hero__score { font-size: 40px; font-weight: var(--fw-bold); color: var(--text); line-height: 1; }
+  .hero__par { font-size: var(--fs-body); font-weight: var(--fw-bold); color: var(--good); margin-top: var(--s2); }
+  .hero__course { font-size: var(--fs-sm); color: var(--muted); }
+  .scorecard { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; }
+  .cell { aspect-ratio: 1; border-radius: 4px; display: grid; place-items: center; font-size: 11px; font-weight: var(--fw-semi); color: #fff; }
+  .c-birdie { background: var(--birdie); } .c-par { background: var(--par); color: var(--muted); } .c-bogey { background: var(--bogey); } .c-eagle { background: var(--eagle); color: #1a1a1a; }
+  .hl { background: var(--surface); border-radius: var(--r-md); padding: var(--s3) var(--s4); font-size: var(--fs-sm); color: var(--muted); }
+  .hl b { color: var(--text); font-weight: var(--fw-semi); }
+  .accuracy { color: var(--accent); font-weight: var(--fw-semi); font-size: var(--fs-sm); }
+  .actions { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s2); }
+  .btn { min-height: 46px; border: none; border-radius: var(--r-sm); font-family: var(--font); font-weight: var(--fw-semi); font-size: var(--fs-sm); cursor: pointer; }
+  .btn--ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .btn--green { background: var(--primary); color: #fff; }
+  .btn--gold { background: var(--accent); color: #1a1a1a; }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="phone">
+    <div class="phone__notch"></div>
+    <div class="screen">
+      <div class="hero">
+        <div class="hero__ring"><span class="hero__score">70</span></div>
+        <div class="hero__par">−2 · personal best</div>
+        <div class="hero__course">Riverside Country Club</div>
+      </div>
+      <div class="scorecard">
+        <div class="cell c-par">4</div><div class="cell c-birdie">3</div><div class="cell c-par">5</div>
+        <div class="cell c-bogey">5</div><div class="cell c-par">4</div><div class="cell c-birdie">2</div>
+        <div class="cell c-eagle">3</div><div class="cell c-par">4</div><div class="cell c-par">4</div>
+      </div>
+      <div class="hl">🏆 Best: <b>Eagle on #7</b> · 🎯 Longest putt: <b>32 ft</b></div>
+      <div class="hl"><span class="accuracy">AIME guidance followed: 78%</span><br />When followed: −1.2 putts/round</div>
+      <div class="actions">
+        <button class="btn btn--ghost">Share</button>
+        <button class="btn btn--green">Save</button>
+        <button class="btn btn--gold">New Round</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

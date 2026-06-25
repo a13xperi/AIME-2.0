@@ -1,0 +1,33 @@
+<!-- @dsCard group="Screens" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Screen · Splash (S-01)</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .phone { width: 300px; aspect-ratio: 390/844; border-radius: 40px; box-shadow: var(--shadow); border: 1px solid var(--line); overflow: hidden; position: relative;
+    background: radial-gradient(130% 70% at 50% 0%, #1f3328 0%, var(--bg) 55%, #121212 100%); }
+  .phone__notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 86px; height: 22px; background: #000; border-radius: var(--r-pill); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 24px; text-align: center; }
+  .wordmark { font-family: var(--font); font-weight: var(--fw-bold); font-size: 56px; letter-spacing: .04em; color: var(--text); }
+  .tagline { font-size: var(--fs-body); font-weight: var(--fw-med); color: var(--muted); margin-top: var(--s2); }
+  .bar { margin-top: var(--s7); width: 180px; height: 4px; border-radius: var(--r-pill); background: var(--surface); overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 42%; border-radius: var(--r-pill); background: var(--accent); animation: load 2.4s ease-in-out infinite; }
+  @keyframes load { 0% { transform: translateX(-120%); } 100% { transform: translateX(360%); } }
+  .ver { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; font-size: var(--fs-xs); color: var(--dim); }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="phone">
+    <div class="phone__notch"></div>
+    <div class="screen">
+      <div class="wordmark">AIME</div>
+      <div class="tagline">Your AI Caddie</div>
+      <div class="bar"><i></i></div>
+    </div>
+    <div class="ver">v1.0.0</div>
+  </div>
+</body>
+</html>

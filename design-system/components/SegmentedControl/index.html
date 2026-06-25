@@ -1,0 +1,30 @@
+<!-- @dsCard group="Forms" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Segmented Control</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .seg { display: inline-flex; background: var(--surface); border-radius: var(--r-sm); padding: 3px; max-width: 340px; width: 100%; }
+  .seg__opt { flex: 1; text-align: center; padding: var(--s2) var(--s3); border-radius: 6px; font-size: var(--fs-sm); font-weight: var(--fw-med); color: var(--muted); cursor: pointer; }
+  .seg__opt--active { background: var(--primary); color: var(--text); }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack">
+    <span class="ds-label">Round format</span>
+    <div class="seg">
+      <div class="seg__opt seg__opt--active">Stroke</div>
+      <div class="seg__opt">Match</div>
+      <div class="seg__opt">Stableford</div>
+    </div>
+    <span class="ds-label" style="margin-top:var(--s3)">Scoring</span>
+    <div class="seg" style="max-width:200px">
+      <div class="seg__opt seg__opt--active">Gross</div>
+      <div class="seg__opt">Net</div>
+    </div>
+  </div>
+</body>
+</html>

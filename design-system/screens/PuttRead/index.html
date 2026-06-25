@@ -1,0 +1,72 @@
+<!-- @dsCard group="Screens" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Screen · Putt Read / Aim Line (S-24, money screen)</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .phone { width: 300px; aspect-ratio: 390/844; border-radius: 40px; box-shadow: var(--shadow); border: 1px solid var(--line); overflow: hidden; position: relative; background: var(--bg); }
+  .phone__notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 86px; height: 22px; background: #000; border-radius: var(--r-pill); z-index: 3; }
+  .screen { position: absolute; inset: 0; padding: 40px 16px 16px; display: flex; flex-direction: column; gap: var(--s3); }
+  .hdr { display: flex; align-items: center; justify-content: space-between; }
+  .hdr__hole { font-size: var(--fs-sm); color: var(--muted); }
+  .rtk { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-xs); color: var(--muted); }
+  .rtk__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); box-shadow: 0 0 8px 1px rgba(63,174,116,.7); }
+  .instr { background: var(--surface); border-radius: var(--r-sm); padding: var(--s3); text-align: center; font-weight: var(--fw-semi); font-size: var(--fs-body); }
+  .green { flex: 1; min-height: 0; border-radius: var(--r-md); overflow: hidden; background: radial-gradient(120% 110% at 50% 25%, var(--green-deep) 0%, #122017 60%, #0f1a13 100%); border: 1px solid var(--line); }
+  .green svg { display: block; width: 100%; height: 100%; }
+  .contour { fill: none; stroke: var(--primary); opacity: .32; }
+  .plot { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 6; opacity: .65; }
+  .aim { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+  .aim-head { fill: var(--accent); }
+  .ball-ring { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .ball-core { fill: var(--text); }
+  .cup-ring { fill: none; stroke: var(--bad); stroke-width: 2.5; }
+  .speed { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border-radius: var(--r-sm); padding: var(--s3) var(--s4); }
+  .num { font-size: var(--fs-h2); font-weight: var(--fw-bold); color: var(--accent); }
+  .cap { font-size: var(--fs-xs); color: var(--muted); }
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+  .btn { min-height: 46px; border: none; border-radius: var(--r-sm); font-family: var(--font); font-weight: var(--fw-semi); font-size: var(--fs-sm); cursor: pointer; }
+  .btn--ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .btn--green { background: var(--primary); color: #fff; }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="phone">
+    <div class="phone__notch"></div>
+    <div class="screen">
+      <div class="hdr">
+        <span class="hdr__hole">H7 · Putt 1</span>
+        <span class="rtk"><span class="rtk__dot"></span>±2 cm</span>
+      </div>
+      <div class="instr">Aim a cup outside the right edge</div>
+      <div class="green">
+        <svg viewBox="0 0 300 360" preserveAspectRatio="xMidYMid slice">
+          <g class="contour" stroke-width="1.2">
+            <ellipse cx="186" cy="120" rx="40" ry="30" transform="rotate(-20 186 120)" />
+            <ellipse cx="176" cy="150" rx="86" ry="64" transform="rotate(-20 176 150)" />
+            <ellipse cx="162" cy="186" rx="140" ry="104" transform="rotate(-20 162 186)" />
+            <ellipse cx="150" cy="220" rx="196" ry="150" transform="rotate(-20 150 220)" />
+          </g>
+          <path class="plot" d="M96 300 C 120 232, 168 196, 196 150 S 200 130, 198 118" />
+          <line class="aim" x1="96" y1="300" x2="150" y2="96" />
+          <path class="aim-head" d="M150 96 l-10 6 l6 5 z" />
+          <circle class="ball-ring" cx="96" cy="300" r="8" />
+          <circle class="ball-core" cx="96" cy="300" r="3.8" />
+          <circle class="cup-ring" cx="198" cy="116" r="7.5" />
+        </svg>
+      </div>
+      <div class="speed">
+        <div><div class="num">3.0 mph</div><div class="cap">Medium pace</div></div>
+        <div style="text-align:right"><div class="num">15 ft</div><div class="cap">Stimp 10.5</div></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn--ghost">🔄 Re-read</button>
+        <button class="btn btn--green">✅ I Putted</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

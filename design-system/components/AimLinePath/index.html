@@ -1,0 +1,52 @@
+<!-- @dsCard group="Golf Canvas" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aim Line + Break Path</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  /* The S-24 "money screen" visual: gold aim line + dotted break path on the green. */
+  .read { max-width: 360px; }
+  .read__instruction { background: var(--surface); border-radius: var(--r-sm) var(--r-sm) 0 0; padding: var(--s3) var(--s4); font-size: var(--fs-body); font-weight: var(--fw-semi); text-align: center; }
+  .green { aspect-ratio: 320/200; overflow: hidden; background: radial-gradient(120% 120% at 50% 30%, var(--green-deep) 0%, #122017 60%, #0f1a13 100%); border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .green svg { display: block; width: 100%; height: 100%; }
+  .contour { fill: none; stroke: var(--primary); opacity: .35; }
+  .plot { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 6; opacity: .65; }
+  .aim { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+  .aim-head { fill: var(--accent); }
+  .ball-ring { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .ball-core { fill: var(--text); }
+  .cup-ring { fill: none; stroke: var(--bad); stroke-width: 2.5; }
+  .read__speed { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border-radius: 0 0 var(--r-sm) var(--r-sm); padding: var(--s3) var(--s4); }
+  .read__num { font-size: var(--fs-h2); font-weight: var(--fw-bold); color: var(--accent); }
+  .read__cap { font-size: var(--fs-xs); color: var(--muted); }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="read">
+    <div class="read__instruction">Aim a cup outside the right edge</div>
+    <div class="green">
+      <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-label="Aim line and predicted break path from ball to cup">
+        <g class="contour" stroke-width="1">
+          <ellipse cx="190" cy="78" rx="34" ry="22" transform="rotate(-22 190 78)" />
+          <ellipse cx="182" cy="90" rx="74" ry="48" transform="rotate(-22 182 90)" />
+          <ellipse cx="172" cy="104" rx="118" ry="78" transform="rotate(-22 172 104)" />
+          <ellipse cx="162" cy="118" rx="166" ry="112" transform="rotate(-22 162 118)" />
+        </g>
+        <path class="plot" d="M104 152 C 122 116, 154 104, 174 92 S 198 80, 198 74" />
+        <line class="aim" x1="104" y1="152" x2="150" y2="62" />
+        <path class="aim-head" d="M150 62 l-9 5 l5 4 z" />
+        <circle class="ball-ring" cx="104" cy="152" r="7" />
+        <circle class="ball-core" cx="104" cy="152" r="3.4" />
+        <circle class="cup-ring" cx="198" cy="74" r="6.5" />
+      </svg>
+    </div>
+    <div class="read__speed">
+      <div><div class="read__num">3.0 mph</div><div class="read__cap">Medium pace</div></div>
+      <div style="text-align:right"><div class="read__num">15 ft</div><div class="read__cap">Stimp 10.5</div></div>
+    </div>
+  </div>
+</body>
+</html>

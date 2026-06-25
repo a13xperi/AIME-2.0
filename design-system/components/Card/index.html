@@ -1,0 +1,36 @@
+<!-- @dsCard group="Surfaces" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Card</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .card { background: var(--surface); border-radius: var(--r-md); padding: var(--s4); box-shadow: var(--shadow-sm); }
+  .card--accent { border-left: 4px solid var(--accent); }
+  .card--green { background: var(--green-deep); }
+  .card__title { font-size: var(--fs-body); font-weight: var(--fw-semi); margin: 0; }
+  .card__sub { font-size: var(--fs-sm); color: var(--muted); margin: var(--s1) 0 0; }
+  .card__cta { color: var(--accent); font-size: var(--fs-sm); font-weight: var(--fw-semi); }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack" style="max-width:360px">
+    <div class="card card--accent">
+      <div class="ds-row" style="justify-content:space-between">
+        <div><p class="card__title">⛳ Start New Round</p><p class="card__sub">Tap to begin</p></div>
+        <span class="card__cta">›</span>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card__title">Riverside Country Club</p>
+      <p class="card__sub">Par 72 · 18 holes · 2 mi away</p>
+    </div>
+    <div class="card card--green">
+      <p class="card__title">Green Speed</p>
+      <p class="card__sub">Stimp 10.5 · set for this round</p>
+    </div>
+  </div>
+</body>
+</html>

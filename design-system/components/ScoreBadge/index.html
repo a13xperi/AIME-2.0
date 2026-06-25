@@ -1,0 +1,37 @@
+<!-- @dsCard group="Data Display" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Score Badge</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 32px; padding: 0 var(--s3); border-radius: var(--r-pill); font-size: var(--fs-sm); font-weight: var(--fw-bold); color: #fff; }
+  .badge--eagle { background: var(--eagle); color: #1a1a1a; }
+  .badge--birdie { background: var(--birdie); }
+  .badge--par { background: var(--par); color: var(--muted); box-shadow: inset 0 0 0 1px var(--line); }
+  .badge--bogey { background: var(--bogey); }
+  .badge--double { background: var(--double); }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack" style="max-width:360px">
+    <span class="ds-label">Score states (eagle → double)</span>
+    <div class="ds-row">
+      <span class="badge badge--eagle">Eagle</span>
+      <span class="badge badge--birdie">Birdie</span>
+      <span class="badge badge--par">Par</span>
+      <span class="badge badge--bogey">Bogey</span>
+      <span class="badge badge--double">Double</span>
+    </div>
+    <span class="ds-label" style="margin-top:var(--s3)">Numeric (vs par)</span>
+    <div class="ds-row">
+      <span class="badge badge--eagle">−2</span>
+      <span class="badge badge--birdie">−1</span>
+      <span class="badge badge--par">E</span>
+      <span class="badge badge--bogey">+1</span>
+    </div>
+  </div>
+</body>
+</html>

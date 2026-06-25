@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AIME Golf · Design System</title>
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1100px; margin: 0 auto; padding: var(--s7) var(--s5); }
+  h1 { font-size: var(--fs-display); font-weight: var(--fw-bold); letter-spacing: -.01em; margin: 0; }
+  .sub { color: var(--muted); margin: var(--s2) 0 var(--s6); }
+  .swatches { display: flex; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s7); }
+  .sw { width: 88px; }
+  .sw__chip { height: 56px; border-radius: var(--r-sm); border: 1px solid var(--line); }
+  .sw__name { font-size: var(--fs-xs); color: var(--muted); margin-top: 6px; }
+  .sw__hex { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+  h2 { font-size: var(--fs-h2); margin: var(--s6) 0 var(--s4); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--s4); }
+  .grid--screens { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .card { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .card__name { font-size: var(--fs-sm); font-weight: var(--fw-semi); padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line); }
+  .card iframe { width: 100%; border: 0; display: block; background: var(--bg); }
+  .grid iframe { height: 240px; }
+  .grid--screens iframe { height: 560px; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <h1>AIME Golf</h1>
+    <p class="sub">Design system · forest green + gold on near-black · one token source, synced to Claude Design.</p>
+
+    <div class="swatches">
+      <div class="sw"><div class="sw__chip" style="background:var(--bg)"></div><div class="sw__name">Background</div><div class="sw__hex">#1a1a1a</div></div>
+      <div class="sw"><div class="sw__chip" style="background:var(--surface)"></div><div class="sw__name">Surface</div><div class="sw__hex">#2a2a2a</div></div>
+      <div class="sw"><div class="sw__chip" style="background:var(--primary)"></div><div class="sw__name">Primary</div><div class="sw__hex">#2d6a4f</div></div>
+      <div class="sw"><div class="sw__chip" style="background:var(--accent)"></div><div class="sw__name">Accent</div><div class="sw__hex">#c9a227</div></div>
+      <div class="sw"><div class="sw__chip" style="background:var(--good)"></div><div class="sw__name">Under par</div><div class="sw__hex">#3fae74</div></div>
+      <div class="sw"><div class="sw__chip" style="background:var(--bad)"></div><div class="sw__name">Over par</div><div class="sw__hex">#c0392b</div></div>
+    </div>
+
+    <h2>Components</h2>
+    <div class="grid">
+      <div class="card"><div class="card__name">Button</div><iframe src="components/Button/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Read My Putt CTA</div><iframe src="components/ReadMyPuttCTA/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Card</div><iframe src="components/Card/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Stat Card</div><iframe src="components/StatCard/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Score Badge</div><iframe src="components/ScoreBadge/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Bottom Nav</div><iframe src="components/BottomNav/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Input</div><iframe src="components/Input/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Segmented Control</div><iframe src="components/SegmentedControl/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Toast</div><iframe src="components/Toast/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Splash Progress Bar</div><iframe src="components/SplashProgressBar/index.html"></iframe></div>
+      <div class="card"><div class="card__name">RTK Status Dot</div><iframe src="components/RTKStatusDot/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Hole Badge</div><iframe src="components/HoleBadge/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Green Topo Canvas</div><iframe src="components/GreenTopoCanvas/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Aim Line + Break Path</div><iframe src="components/AimLinePath/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Phone Frame</div><iframe src="components/PhoneFrame/index.html"></iframe></div>
+    </div>
+
+    <h2>Screens</h2>
+    <div class="grid grid--screens">
+      <div class="card"><div class="card__name">Splash · S-01</div><iframe src="screens/Splash/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Putt Read / Aim Line · S-24 (money screen)</div><iframe src="screens/PuttRead/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Hole Overview · S-09</div><iframe src="screens/HoleOverview/index.html"></iframe></div>
+      <div class="card"><div class="card__name">Round Summary · S-35</div><iframe src="screens/RoundSummary/index.html"></iframe></div>
+    </div>
+  </div>
+</body>
+</html>

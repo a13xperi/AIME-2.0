@@ -1,0 +1,21 @@
+<!-- @dsCard group="Layout" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Phone Frame</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .phone { width: 280px; aspect-ratio: 390/844; background: var(--bg); border-radius: 40px; box-shadow: var(--shadow); border: 1px solid var(--line); overflow: hidden; position: relative; }
+  .phone__notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 86px; height: 22px; background: #000; border-radius: var(--r-pill); z-index: 2; }
+  .phone__screen { position: absolute; inset: 0; padding: 40px 16px 16px; display: grid; place-items: center; }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="phone">
+    <div class="phone__notch"></div>
+    <div class="phone__screen"><span class="ds-label">390 × 844 · portrait</span></div>
+  </div>
+</body>
+</html>

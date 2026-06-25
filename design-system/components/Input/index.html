@@ -1,0 +1,36 @@
+<!-- @dsCard group="Forms" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Input</title>
+<link rel="stylesheet" href="../../tokens.css" />
+<style>
+  .field { max-width: 340px; }
+  .field__label { display: block; font-size: var(--fs-sm); color: var(--muted); margin: 0 0 var(--s2); }
+  .input { width: 100%; height: 48px; background: var(--surface); border: 1px solid transparent; border-radius: var(--r-sm); color: var(--text); font-family: var(--font); font-size: var(--fs-body); padding: 0 var(--s4); outline: none; }
+  .input::placeholder { color: var(--dim); }
+  .input:focus { border-color: var(--primary); }
+  .input--error { border-color: var(--bad); }
+  .field__err { color: var(--bad); font-size: var(--fs-xs); margin: var(--s2) 0 0; }
+</style>
+</head>
+<body class="ds-preview ds-pad">
+  <div class="ds-stack">
+    <div class="field">
+      <label class="field__label">Email or phone</label>
+      <input class="input" placeholder="you@example.com" />
+    </div>
+    <div class="field">
+      <label class="field__label">Focused</label>
+      <input class="input" style="border-color:var(--primary)" value="riverside golfer" />
+    </div>
+    <div class="field">
+      <label class="field__label">Error</label>
+      <input class="input input--error" value="bad@" />
+      <p class="field__err">Enter a valid email.</p>
+    </div>
+  </div>
+</body>
+</html>
