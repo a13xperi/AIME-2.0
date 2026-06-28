@@ -1,0 +1,26 @@
+# Deploy-ready local stack for the AIme putt-solver path (PER-630 groundwork).
+# The frontend POSTs /api/solve_putt to `backend` (:8000), which transforms
+# WGS84 -> green-local and calls `puttsolver` (:8081). Mock engine by default.
+#   docker compose up --build
+services:
+  puttsolver:
+    build:
+      context: .
+      dockerfile: putt-solver-service/Dockerfile
+    environment:
+      PUTTSOLVER_MODE: mock
+    ports:
+      - "8081:8081"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      AIME_TRANSFORM_MODE: mock
+      PUTTSOLVER_SERVICE_URL: http://puttsolver:8081
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - puttsolver

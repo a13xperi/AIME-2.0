@@ -1,0 +1,17 @@
+# Keep the Docker build context lean (the Python images only need backend/,
+# putt-solver-service/, and course_data/).
+node_modules
+build
+.git
+src
+public
+design-study
+design-system
+docs
+**/.venv
+**/__pycache__
+**/*.pyc
+*.log
+.env
+.env.*
+!.env.example
