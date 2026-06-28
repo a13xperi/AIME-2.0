@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIme, Direction C: Daylight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DIRECTION C, "DAYLIGHT", clean analytics
+   Light + white, dense data-forward, forest-green accent (the live/AI signal),
+   gold reserved for the hero read. White cards on a bright canvas. The rigor of
+   ShotScope / Golfy / TAG Heuer. The biggest departure from the dark app.
+   ============================================================ */
+:root{
+  --bg:#eef1ec;
+  --bg-2:#ffffff;
+  --panel:#ffffff00;
+  --glass:#ffffff;
+  --glass-2:#ffffff;
+  --line:rgba(20,40,28,.10);
+  --line-2:rgba(20,40,28,.18);
+  --lime:#15a34a;          /* the accent / live-AI signal, now green */
+  --lime-dim:#0f7a37;
+  --gold:#b9881a;          /* the read, slightly deepened for contrast on white */
+  --gold-soft:#caa033;
+  --forest:#1f6b4a;        /* structure */
+  --forest-deep:#16291d;
+  --text:#15231b;          /* ink */
+  --muted:#5d6b61;
+  --dim:#9aa79e;
+  /* scoring semantics */
+  --eagle:#b9881a; --birdie:#1f9c63; --par:#9aa39a; --bogey:#d9762f; --double:#c0392b;
+  --font:"Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --cond:"Space Grotesk",var(--font);
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:
+    radial-gradient(1100px 650px at 85% -10%, rgba(31,107,74,.10), transparent 60%),
+    radial-gradient(900px 600px at 0% 110%, rgba(21,163,74,.07), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.45;
+}
+a{color:inherit}
+
+/* ---- page chrome ---- */
+.wrap{max-width:1280px;margin:0 auto;padding:48px 28px 96px}
+.topnav{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin-bottom:40px}
+.topnav .links a{margin-left:18px;text-decoration:none;color:var(--muted)}
+.topnav .links a:hover{color:var(--text)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--lime)}
+.hero h1{font-family:var(--cond);font-weight:700;font-size:clamp(46px,8vw,104px);line-height:.92;letter-spacing:-.01em;margin:.18em 0 .12em}
+.hero h1 .gold{color:var(--gold)}
+.hero p.lede{font-size:clamp(16px,2.1vw,21px);color:var(--muted);max-width:62ch;margin:0}
+.hero .tag{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--text);border:1px solid var(--line-2);border-radius:999px;padding:7px 14px}
+.hero .tag b{color:var(--lime)}
+
+/* ---- identity strip ---- */
+.identity{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:18px;margin:44px 0 8px}
+@media(max-width:880px){.identity{grid-template-columns:1fr}}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 10px 30px -16px rgba(20,40,28,.22)}
+.card h3{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin:0 0 14px}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.sw{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.sw i{width:46px;height:46px;border-radius:11px;display:block;border:1px solid var(--line)}
+.type-spec .big{font-family:var(--cond);font-weight:700;font-size:42px;line-height:1}
+.type-spec .num{font-family:var(--cond);font-weight:700;font-size:30px;color:var(--gold)}
+.type-spec .row{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.type-spec .mono{font-family:var(--mono);font-size:13px;color:var(--lime)}
+.type-spec .body{font-size:14px;color:var(--muted);margin-top:8px}
+.steal li{font-size:13px;color:var(--muted);margin-bottom:7px;list-style:none;padding-left:18px;position:relative}
+.steal li:before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:2px;background:var(--lime)}
+.steal ul{margin:0;padding:0}
+
+/* ---- section label ---- */
+.seclabel{display:flex;align-items:center;gap:14px;margin:64px 0 26px}
+.seclabel h2{font-family:var(--cond);font-weight:600;font-size:30px;margin:0;letter-spacing:.01em}
+.seclabel .ln{flex:1;height:1px;background:var(--line)}
+.seclabel .n{font-family:var(--mono);font-size:12px;color:var(--lime)}
+
+/* ---- phone wall ---- */
+.wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:34px;justify-items:center}
+.phone{width:300px}
+.phone .frame{
+  position:relative;width:300px;height:640px;border-radius:42px;
+  background:#000;padding:9px;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.9), 0 0 0 1px var(--line-2), inset 0 0 0 2px #1c1f1b;
+}
+.phone .screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
+.phone .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:108px;height:24px;background:#000;border-radius:0 0 16px 16px;z-index:30}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:11px 20px 4px;font-size:11px;font-weight:600;color:var(--text);z-index:20}
+.statusbar .r{display:flex;gap:5px;align-items:center}
+.caption{width:300px;margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
+.caption b{color:var(--text);font-weight:600;font-family:var(--cond);font-size:16px;letter-spacing:.02em;display:block;margin-bottom:2px}
+
+/* generic screen bits */
+.scroll{flex:1;overflow:hidden;position:relative}
+.pad{padding:0 18px}
+.hgroup{padding:6px 18px 0}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime)}
+.screen-title{font-family:var(--cond);font-weight:700;font-size:26px;line-height:1.04;margin:4px 0 2px}
+.muted{color:var(--muted)} .dim{color:var(--dim)}
+.gold{color:var(--gold)}
+.mono{font-family:var(--mono)}
+.num{font-family:var(--cond);font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:11px;font-family:var(--mono);color:var(--text)}
+.chip.lime{border-color:rgba(21,163,74,.4);color:var(--lime)}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px -16px rgba(20,40,28,.22);backdrop-filter:blur(10px)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:14px;font-weight:700;font-size:15px;font-family:var(--cond);letter-spacing:.02em}
+.btn.primary{background:var(--lime);color:#ffffff}
+.btn.gold{background:var(--gold);color:#1a1405}
+.btn.ghost{background:transparent;border:1px solid var(--line-2);color:var(--text)}
+.bottomnav{display:flex;justify-content:space-around;align-items:center;padding:11px 8px 16px;border-top:1px solid var(--line);background:rgba(20,40,28,.04)}
+.bottomnav i{width:22px;height:22px;border-radius:7px;background:var(--dim);opacity:.55;display:block}
+.bottomnav .on{background:var(--lime);opacity:1}
+
+/* voice dock */
+.voicedock{display:flex;align-items:center;gap:11px;margin:0 18px;padding:11px 14px;border-radius:16px;
+  background:linear-gradient(180deg, rgba(21,163,74,.10), rgba(21,163,74,.03));border:1px solid rgba(21,163,74,.32)}
+.orb{width:34px;height:34px;border-radius:50%;flex:none;position:relative;
+  background:radial-gradient(circle at 35% 30%, var(--lime), var(--lime-dim));box-shadow:0 0 18px rgba(21,163,74,.55)}
+.orb:after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(21,163,74,.4);animation:none}
+.wave{display:flex;align-items:center;gap:3px;height:22px}
+.wave span{width:3px;border-radius:2px;background:var(--lime);opacity:.85}
+
+/* SVG canvases sit edge to edge */
+svg{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topnav">
+    <span class="mono">AIme · design directions</span>
+    <span class="links"><a href="index.html">← all directions</a><a href="fairway.html">Fairway</a><a href="caddie.html">Caddie</a><a href="daylight.html" style="color:var(--lime)">Daylight</a></span>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">Direction C · analytics</span>
+    <h1>Read it<br>in the <span class="gold">light</span>.</h1>
+    <p class="lede">The clean analytics direction. Light, white, data forward, forest green with a gold read. The rigor of the best stats apps, built for the post-round and the web. The biggest departure from the dark app, the strongest dashboard.</p>
+    <span class="tag">Signature: white cards, dense charts, a forest-green <b>read</b> in daylight</span>
+  </header>
+
+  <!-- IDENTITY -->
+  <section class="identity">
+    <div class="card">
+      <h3>Palette</h3>
+      <div class="swatches">
+        <span class="sw"><i style="background:#eef1ec"></i>bg EEF1EC</span>
+        <span class="sw"><i style="background:#ffffff"></i>white card</span>
+        <span class="sw"><i style="background:#15a34a"></i>green 15A34A</span>
+        <span class="sw"><i style="background:#b9881a"></i>gold B9881A</span>
+        <span class="sw"><i style="background:#1f6b4a"></i>forest 1F6B4A</span>
+        <span class="sw"><i style="background:#15231b"></i>ink 15231B</span>
+      </div>
+      <p class="body" style="font-size:12px;color:var(--dim);margin-top:14px">Green leads, gold is the read, white is the canvas. Calm and clinical.</p>
+    </div>
+    <div class="card type-spec">
+      <h3>Type</h3>
+      <div class="row"><span class="big">Aa</span><span class="num">168</span></div>
+      <div class="row" style="margin-top:10px"><span class="mono">11 ft · breaks R 4"</span></div>
+      <p class="body">Space Grotesk for reads &amp; numerics. Inter for body. IBM Plex Mono for data.</p>
+    </div>
+    <div class="card steal">
+      <h3>What it fuses</h3>
+      <ul>
+        <li>Light, white, data-forward dashboards (ShotScope, Golfy)</li>
+        <li>Radar + gauge + score bars rigor (Puttly, golf-app-web)</li>
+        <li>3D-clean hole render with yardages (TAG Heuer)</li>
+        <li>"Plays Like" adjusted distance (iWatch)</li>
+        <li>Our cm putt read, brought into daylight (AIme)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SCREEN WALL -->
+  <div class="seclabel"><span class="n">01-06</span><h2>The core caddie flow</h2><div class="ln"></div></div>
+
+  <div class="wall">
+
+    <!-- 1. SPLASH -->
+    <div class="phone">
+      <div class="frame"><div class="notch"></div><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="r mono">RTK ●</span></div>
+        <div style="flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 26px">
+          <!-- topo backdrop -->
+          <svg viewBox="0 0 300 600" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;opacity:.5">
+            <defs><radialGradient id="cg1" cx="50%" cy="42%" r="70%"><stop offset="0%" stop-color="#dfe7d9"/><stop offset="100%" stop-color="#eef1ec"/></radialGradient></defs>
+            <rect width="300" height="600" fill="url(#cg1)"/>
+            <g fill="none" stroke="#2d6a4f" stroke-width="1" opacity=".5">
+              <path d="M-20 250 Q150 180 320 250"/><path d="M-20 290 Q150 210 320 290"/>
+              <path d="M-20 330 Q150 250 320 330"/><path d="M-20 370 Q150 300 320 370"/>
+              <path d="M-20 410 Q150 350 320 410"/><path d="M-20 450 Q150 400 320 450"/>
+            </g>
+            <g fill="none" stroke="#c9a227" stroke-width="1" opacity=".35"><path d="M-20 350 Q150 280 320 350"/></g>
+          </svg>
+          <div style="position:relative;z-index:2">
+            <div class="num" style="font-size:64px;letter-spacing:.04em;line-height:1"><span style="color:var(--lime)">AI</span>me</div>
+            <div class="mono" style="font-size:11px;letter-spacing:.36em;color:var(--lime);margin-top:6px">AI GOLF CADDIE</div>
+            <div style="font-family:var(--cond);font-size:21px;margin-top:30px;color:var(--gold)">Trust the read.</div>
+            <div class="muted" style="font-size:13px;margin-top:2px">Speed wins.</div>
+          </div>
+        </div>
+        <div class="pad" style="padding-bottom:20px;position:relative;z-index:3">
+          <div class="btn primary">Start a round</div>
+          <div style="text-align:center;margin-top:12px" class="mono muted"><span style="font-size:11px">RoboPuck 007 · 89% · paired</span></div>
+        </div>
+      </div></div>
+      <div class="caption"><b>Splash</b>The brand seed, evolved. Topo + the read.</div>
+    </div>
+
+    <!-- 2. ROUND SETUP -->
+    <div class="phone">
+      <div class="frame"><div class="notch"></div><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="r mono">RTK ●</span></div>
+        <div class="hgroup"><span class="kicker">New round</span><div class="screen-title">Set up your round</div></div>
+        <div class="scroll pad" style="padding-top:10px">
+          <!-- course card -->
+          <div class="glass" style="overflow:hidden;margin-bottom:10px">
+            <svg viewBox="0 0 264 92" width="100%" height="48" preserveAspectRatio="none">
+              <defs><linearGradient id="crs" x1="0" x2="1"><stop offset="0" stop-color="#1d3a2a"/><stop offset="1" stop-color="#16291d"/></linearGradient></defs>
+              <rect width="264" height="92" fill="url(#crs)"/>
+              <path d="M0 70 Q70 40 140 60 T264 44 V92 H0Z" fill="#2d6a4f" opacity=".5"/>
+              <path d="M0 82 Q90 64 180 78 T264 70 V92 H0Z" fill="#3fae74" opacity=".35"/>
+              <circle cx="210" cy="40" r="8" fill="#0c0e0d" opacity=".5"/>
+            </svg>
+            <div style="padding:10px 14px">
+              <div class="num" style="font-size:16px">Pebble Beach Golf Links</div>
+              <div class="muted" style="font-size:12px;margin-top:2px">Pebble Beach, CA</div>
+              <div style="display:flex;gap:7px;margin-top:11px;flex-wrap:wrap">
+                <span class="chip">Par 72</span><span class="chip">6,828 yds</span><span class="chip">CR 74.7</span><span class="chip">SR 143</span>
+              </div>
+            </div>
+          </div>
+          <!-- format -->
+          <div class="mono dim" style="font-size:10px;letter-spacing:.18em;margin:2px 2px 7px">FORMAT</div>
+          <div style="display:flex;gap:8px;margin-bottom:10px">
+            <div class="btn primary" style="flex:1;height:40px;font-size:13px">Stroke</div>
+            <div class="btn ghost" style="flex:1;height:40px;font-size:13px">Match</div>
+            <div class="btn ghost" style="flex:1;height:40px;font-size:13px">Scramble</div>
+          </div>
+          <!-- tees + players -->
+          <div class="glass" style="padding:11px 14px;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center">
+            <div><div class="muted" style="font-size:11px">Tees</div><div class="num" style="font-size:16px">Blue · 6,116</div></div>
+            <span style="width:18px;height:18px;border-radius:5px;background:#3a6fd8"></span>
+          </div>
+          <div class="glass" style="padding:13px 14px;display:flex;justify-content:space-between;align-items:center">
+            <div><div class="muted" style="font-size:11px">Players</div><div class="num" style="font-size:16px">You · solo</div></div>
+            <span class="chip lime">+ add</span>
+          </div>
+        </div>
+        <div class="pad" style="padding-bottom:18px;padding-top:12px"><div class="btn gold">Start round →</div></div>
+      </div></div>
+      <div class="caption"><b>Round setup</b>Course card, format, tees, players.</div>
+    </div>
+
+    <!-- 3. SHOT GUIDANCE -->
+    <div class="phone">
+      <div class="frame"><div class="notch"></div><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="r mono">RTK ●</span></div>
+        <!-- hole canvas -->
+        <div style="position:relative;flex:1">
+          <div style="position:absolute;top:8px;left:12px;z-index:5"><span class="chip" style="font-size:9px;padding:4px 9px;background:rgba(255,255,255,.78)">HOLE 7 · PAR 4</span></div>
+          <svg viewBox="0 0 282 420" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0">
+            <defs>
+              <linearGradient id="rough" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dbe4d4"/><stop offset="1" stop-color="#e9eee4"/></linearGradient>
+              <radialGradient id="grn" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#49b06f"/><stop offset="100%" stop-color="#2d7a4c"/></radialGradient>
+              <linearGradient id="fwy" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2d6a4f"/><stop offset="1" stop-color="#357a52"/></linearGradient>
+            </defs>
+            <rect width="282" height="420" fill="url(#rough)"/>
+            <!-- fairway dogleg -->
+            <path d="M120 420 C100 340 150 300 170 250 C185 210 150 160 175 120 L235 120 C220 175 250 230 220 280 C195 325 200 380 205 420 Z" fill="url(#fwy)" opacity=".92"/>
+            <!-- bunkers -->
+            <ellipse cx="150" cy="250" rx="20" ry="13" fill="#d9c89a" opacity=".9"/>
+            <ellipse cx="232" cy="170" rx="15" ry="10" fill="#d9c89a" opacity=".9"/>
+            <!-- green -->
+            <ellipse cx="200" cy="108" rx="40" ry="30" fill="url(#grn)"/>
+            <!-- pin -->
+            <line x1="200" y1="108" x2="200" y2="80" stroke="#fff" stroke-width="1.5"/>
+            <path d="M200 80 l11 4 -11 4Z" fill="#15a34a"/>
+            <circle cx="200" cy="108" r="3" fill="#0c0e0d"/>
+            <!-- dotted shot path -->
+            <path d="M150 392 C150 320 175 250 200 130" fill="none" stroke="#15a34a" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round" opacity=".95"/>
+            <!-- you-are-here -->
+            <circle cx="150" cy="392" r="7" fill="none" stroke="#fff" stroke-width="2"/><circle cx="150" cy="392" r="3" fill="#fff"/>
+            <!-- distance pills on green -->
+            <g font-family="IBM Plex Mono, monospace" font-size="9" font-weight="700">
+              <g transform="translate(200,68)"><rect x="-18" y="-9" width="36" height="17" rx="8" fill="#15231bcc"/><text x="0" y="3" fill="#fff" text-anchor="middle">174</text></g>
+            </g>
+          </svg>
+          <!-- top distance hero -->
+          <div style="position:absolute;top:10px;left:0;right:0;text-align:center">
+            <div class="num gold" style="font-size:52px;line-height:.9;text-shadow:0 2px 14px rgba(255,255,255,.7)">162</div>
+            <div class="mono" style="font-size:10px;color:var(--muted);text-shadow:0 1px 6px rgba(255,255,255,.85)">YDS TO CENTER</div>
+          </div>
+          <!-- glass chips -->
+          <div style="position:absolute;bottom:14px;left:14px;right:14px;display:flex;gap:8px">
+            <div class="glass" style="flex:1;padding:9px 10px;text-align:center"><div class="num" style="font-size:18px">168</div><div class="mono" style="font-size:8.5px;color:var(--lime)">PLAYS LIKE</div></div>
+            <div class="glass" style="flex:1;padding:9px 10px;text-align:center"><div class="num" style="font-size:18px">↖ 9</div><div class="mono" style="font-size:8.5px;color:var(--muted)">MPH WIND</div></div>
+            <div class="glass" style="flex:1;padding:9px 10px;text-align:center"><div class="num" style="font-size:18px">151</div><div class="mono" style="font-size:8.5px;color:var(--muted)">FRONT</div></div>
+          </div>
+        </div>
+        <!-- caddie rec + voice dock -->
+        <div class="voicedock" style="margin:12px 14px 12px">
+          <div class="orb"></div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600">Smooth 7-iron.</div><div class="muted" style="font-size:11px">Favor left. Bunker right is the miss.</div></div>
+          <div class="wave"><span style="height:8px"></span><span style="height:16px"></span><span style="height:11px"></span><span style="height:20px"></span><span style="height:7px"></span></div>
+        </div>
+        <div class="bottomnav"><i class="on"></i><i></i><i></i><i></i></div>
+      </div></div>
+      <div class="caption"><b>Shot guidance</b>Satellite hole, glass chips, the caddie speaks.</div>
+    </div>
+
+    <!-- 4. PUTT READ (signature) -->
+    <div class="phone">
+      <div class="frame"><div class="notch"></div><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="r mono" style="color:var(--lime)">● 89%</span></div>
+        <div class="hgroup" style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div><span class="kicker">Putt 1 · Hole 7</span><div class="screen-title">The read</div></div>
+          <div style="text-align:right"><div class="num gold" style="font-size:30px;line-height:1">11<span style="font-size:14px"> ft</span></div><div class="mono" style="font-size:9px;color:var(--muted)">STIMP 11</div></div>
+        </div>
+        <!-- green render -->
+        <div style="position:relative;flex:1;margin-top:10px">
+          <svg viewBox="0 0 282 360" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0">
+            <defs>
+              <radialGradient id="grnP" cx="62%" cy="30%" r="85%"><stop offset="0" stop-color="#3f9a63"/><stop offset="55%" stop-color="#2d7a4c"/><stop offset="100%" stop-color="#1c5436"/></radialGradient>
+            </defs>
+            <rect width="282" height="360" fill="#e9eee4"/>
+            <!-- green body -->
+            <path d="M30 60 Q160 20 256 70 Q272 180 230 300 Q140 350 50 300 Q12 180 30 60Z" fill="url(#grnP)"/>
+            <!-- contour lines (slope) -->
+            <g fill="none" stroke="#15231b" stroke-width="1" opacity=".14">
+              <path d="M60 110 Q150 80 230 120"/><path d="M55 150 Q150 120 235 160"/>
+              <path d="M55 190 Q150 165 235 200"/><path d="M60 230 Q150 210 230 240"/>
+              <path d="M70 270 Q150 255 220 278"/>
+            </g>
+            <!-- high-side label -->
+            <g font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#ffffff" opacity=".55"><text x="232" y="98">HIGH</text><text x="58" y="296">LOW</text></g>
+            <!-- the curved predicted path (gold) -->
+            <path d="M96 286 C112 220 150 196 168 150 C176 128 178 118 182 112" fill="none" stroke="#c9a227" stroke-width="3" stroke-linecap="round"/>
+            <!-- the aim line (where to start it) dashed lime -->
+            <path d="M96 286 L150 118" fill="none" stroke="#15a34a" stroke-width="1.6" stroke-dasharray="3 5" opacity=".9"/>
+            <!-- ball -->
+            <circle cx="96" cy="286" r="6" fill="#fff"/><circle cx="96" cy="286" r="6" fill="none" stroke="#0c0e0d" stroke-opacity=".3"/>
+            <!-- target reticle at aim point -->
+            <g transform="translate(150,118)" stroke="#15a34a" stroke-width="1.4" fill="none"><circle r="9"/><line x1="-13" y1="0" x2="13" y2="0"/><line x1="0" y1="-13" x2="0" y2="13"/></g>
+            <!-- cup + flag -->
+            <circle cx="182" cy="112" r="6.5" fill="#0c0e0d"/><circle cx="182" cy="112" r="6.5" fill="none" stroke="#fff" stroke-opacity=".5"/>
+            <line x1="182" y1="112" x2="182" y2="78" stroke="#fff" stroke-width="1.5"/><path d="M182 78 l13 5 -13 5Z" fill="#15a34a"/>
+          </svg>
+        </div>
+        <!-- the read panel -->
+        <div style="margin:12px 14px 0">
+          <div class="glass" style="padding:13px 15px;border-color:rgba(201,162,39,.35)">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <div class="num gold" style="font-size:23px">Aim 2" left</div>
+              <div class="chip lime">medium pace</div>
+            </div>
+            <div class="muted" style="font-size:12px;margin-top:5px">Breaks right 4 inches over the last third. Firm through the apex, let the slope do the rest.</div>
+          </div>
+        </div>
+        <div class="voicedock" style="margin:11px 14px 12px;background:linear-gradient(180deg,rgba(201,162,39,.12),rgba(201,162,39,.03));border-color:rgba(201,162,39,.32)">
+          <div class="orb" style="background:radial-gradient(circle at 35% 30%,#e4c65a,#c9a227);box-shadow:0 0 18px rgba(201,162,39,.5)"></div>
+          <div style="flex:1"><div style="font-size:12px;font-weight:600">"Trust it. Start on the reticle."</div></div>
+        </div>
+      </div></div>
+      <div class="caption"><b>Putt read · the signature</b>cm-accurate. Gold path, green aim, reticle.</div>
+    </div>
+
+    <!-- 5. VOICE CADDIE -->
+    <div class="phone">
+      <div class="frame"><div class="notch"></div><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="r mono" style="color:var(--lime)">● live</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;padding:8px 18px 0">
+          <span class="kicker">Caddie</span>
+          <!-- big orb -->
+          <div style="display:flex;flex-direction:column;align-items:center;margin:18px 0 8px">
+            <div style="position:relative;width:140px;height:140px;display:flex;align-items:center;justify-content:center">
+              <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(21,163,74,.35),transparent 65%)"></div>
+              <div style="position:absolute;inset:24px;border-radius:50%;border:1px solid rgba(21,163,74,.35)"></div>
+              <div style="position:absolute;inset:40px;border-radius:50%;border:1px solid rgba(21,163,74,.5)"></div>
+              <div class="orb" style="width:58px;height:58px"></div>
+            </div>
+            <div class="wave" style="height:30px;margin-top:6px">
+              <span style="height:10px"></span><span style="height:24px"></span><span style="height:16px"></span><span style="height:30px"></span><span style="height:14px"></span><span style="height:22px"></span><span style="height:9px"></span>
+            </div>
+          </div>
+          <!-- transcript -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:10px;margin-top:6px">
+            <div style="align-self:flex-end;max-width:78%;background:var(--glass);border:1px solid var(--line);border-radius:14px 14px 4px 14px;padding:9px 12px;font-size:13px">What club from here?</div>
+            <div style="align-self:flex-start;max-width:88%;background:linear-gradient(180deg,rgba(21,163,74,.10),rgba(21,163,74,.02));border:1px solid rgba(21,163,74,.3);border-radius:14px 14px 14px 4px;padding:10px 13px;font-size:13px">
+              162 to the center, playing <b style="color:var(--lime)">168</b> into the wind. Smooth <b style="color:var(--lime)">7-iron</b>. Favor the left side, the bunker right is the only real miss.
+            </div>
+          </div>
+        </div>
+        <!-- input dock -->
+        <div style="padding:12px 16px 18px">
+          <div class="glass" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;border-color:rgba(21,163,74,.3)">
+            <div class="orb" style="width:26px;height:26px"></div>
+            <span class="muted" style="flex:1;font-size:13px">Hold to talk, or type…</span>
+            <span class="chip lime">⌨</span>
+          </div>
+        </div>
+      </div></div>
+      <div class="caption"><b>Voice caddie · the differentiator</b>It listens (green), it answers in plain golf.</div>
+    </div>
+
+    <!-- 6. ROUND SUMMARY -->
+    <div class="phone">
+      <div class="frame"><div class="notch"></div><div class="screen">
+        <div class="statusbar"><span>9:41</span><span class="r mono">FINAL</span></div>
+        <div class="scroll" style="padding-top:6px">
+          <div class="hgroup"><span class="kicker">Pebble Beach · Dec 10</span></div>
+          <div style="text-align:center;margin:6px 0 14px">
+            <div class="num gold" style="font-size:66px;line-height:.9">86</div>
+            <div class="mono" style="font-size:12px;color:var(--muted)">+14 · 34 putts</div>
+          </div>
+          <!-- key stats -->
+          <div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+            <div class="glass" style="padding:11px 13px"><div class="muted mono" style="font-size:9px">FAIRWAYS</div><div class="num" style="font-size:20px">8/14 <span style="font-size:12px;color:var(--muted)">57%</span></div></div>
+            <div class="glass" style="padding:11px 13px"><div class="muted mono" style="font-size:9px">GIR</div><div class="num" style="font-size:20px">6/18 <span style="font-size:12px;color:var(--muted)">33%</span></div></div>
+            <div class="glass" style="padding:11px 13px"><div class="muted mono" style="font-size:9px">PUTTS</div><div class="num" style="font-size:20px">34</div></div>
+            <div class="glass" style="padding:11px 13px"><div class="muted mono" style="font-size:9px">PENALTIES</div><div class="num" style="font-size:20px">2</div></div>
+          </div>
+          <!-- scoring breakdown bars -->
+          <div class="pad" style="margin-top:14px">
+            <div class="muted mono" style="font-size:9px;letter-spacing:.18em;margin-bottom:9px">SCORING</div>
+            <div style="display:flex;align-items:flex-end;gap:8px;height:74px">
+              <div style="flex:1;text-align:center"><div style="height:4px;background:var(--eagle);border-radius:3px 3px 0 0"></div><div class="mono" style="font-size:9px;margin-top:5px;color:var(--muted)">0<br>eag</div></div>
+              <div style="flex:1;text-align:center"><div style="height:44px;background:var(--birdie);border-radius:3px 3px 0 0"></div><div class="mono" style="font-size:9px;margin-top:5px;color:var(--muted)">7<br>bird</div></div>
+              <div style="flex:1;text-align:center"><div style="height:8px;background:var(--par);border-radius:3px 3px 0 0"></div><div class="mono" style="font-size:9px;margin-top:5px;color:var(--muted)">1<br>par</div></div>
+              <div style="flex:1;text-align:center"><div style="height:50px;background:var(--bogey);border-radius:3px 3px 0 0"></div><div class="mono" style="font-size:9px;margin-top:5px;color:var(--muted)">8<br>bog</div></div>
+              <div style="flex:1;text-align:center"><div style="height:14px;background:var(--double);border-radius:3px 3px 0 0"></div><div class="mono" style="font-size:9px;margin-top:5px;color:var(--muted)">2<br>dbl</div></div>
+            </div>
+          </div>
+          <!-- highlight -->
+          <div class="pad" style="margin-top:14px;padding-bottom:16px">
+            <div class="glass" style="padding:12px 14px;border-color:rgba(21,163,74,.28);display:flex;justify-content:space-between;align-items:center">
+              <div><div class="mono" style="font-size:9px;color:var(--lime)">BEST HOLE</div><div class="num" style="font-size:17px">#5 · Birdie</div></div>
+              <div style="text-align:right"><div class="mono" style="font-size:9px;color:var(--muted)">LONGEST</div><div class="num" style="font-size:17px">267 yds</div></div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+      <div class="caption"><b>Round summary</b>The read, scored. Color-coded breakdown.</div>
+    </div>
+
+  </div><!-- /wall -->
+
+  <p style="margin-top:64px;font-size:13px;color:var(--dim);font-family:var(--mono);text-align:center">
+    Direction C · "Daylight" · clean analytics, light theme · self-contained, no build step
+  </p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIme, design directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0b0c; --glass:rgba(255,255,255,.05); --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.16);
+  --lime:#c8f23a; --gold:#c9a227; --forest:#2d6a4f; --text:#f4f5f2; --muted:#8a8f88; --dim:#5c625a;
+  --font:"Inter",-apple-system,system-ui,sans-serif; --cond:"Saira Condensed",var(--font); --mono:"Space Mono",monospace;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{background:radial-gradient(1200px 700px at 80% -10%,rgba(45,106,79,.16),transparent 60%),var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:54px 28px 96px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--lime)}
+h1{font-family:var(--cond);font-weight:700;font-size:clamp(48px,8vw,96px);line-height:.92;letter-spacing:-.01em;margin:.2em 0 .2em}
+h1 .gold{color:var(--gold)}
+.lede{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:66ch;margin:0 0 10px}
+.links-top{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:18px;display:flex;gap:18px;flex-wrap:wrap}
+.links-top a{border:1px solid var(--line-2);border-radius:999px;padding:7px 13px;color:var(--text)}
+.links-top a:hover{border-color:var(--lime)}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.dir{display:block;background:var(--glass);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:border-color .15s,transform .15s}
+.dir:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.dir .top{height:150px;position:relative;display:flex;align-items:flex-end;padding:16px}
+.dir .nm{font-family:var(--cond);font-weight:700;font-size:30px;line-height:1}
+.dir .body{padding:16px 18px 20px}
+.dir .role{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.dir .desc{font-size:13.5px;color:var(--muted);min-height:60px}
+.dir .pal{display:flex;gap:7px;margin-top:14px}
+.dir .pal i{width:26px;height:26px;border-radius:7px;border:1px solid var(--line)}
+.dir .open{font-family:var(--mono);font-size:12px;color:var(--lime);margin-top:16px;display:inline-flex;gap:6px;align-items:center}
+.rec{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;background:var(--lime);color:#11140f;border-radius:999px;padding:4px 9px;font-weight:700}
+
+/* mini phone preview in each card top */
+.mini{position:absolute;right:16px;bottom:-1px;width:80px;height:140px;border-radius:16px 16px 0 0;border:2px solid rgba(255,255,255,.18);border-bottom:none;overflow:hidden}
+.mini .scr{position:absolute;inset:0;display:flex;flex-direction:column}
+
+.note{margin-top:54px;border-top:1px solid var(--line);padding-top:28px;color:var(--muted);font-size:14px;max-width:80ch}
+.note b{color:var(--text)}
+.howto{font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:22px;background:var(--glass);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.foot{margin-top:40px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="eyebrow">AIme · the new unified design</span>
+  <h1>Three ways to<br>trust the <span class="gold">read</span>.</h1>
+  <p class="lede">One amalgam of 24 reference golf apps fused with everything AIme already built, rendered as three full identities for the voice-first AI golf caddie. Same six core screens, same real round (Pebble Beach, the 7th), three brands. Pick one and we apply it to the app.</p>
+  <div class="links-top">
+    <a href="../DESIGN-STUDY.md">Read the study</a>
+    <a href="../inspiration/INDEX.md">The 24-shot board</a>
+    <a href="caddie.html">B · Caddie (recommended)</a>
+  </div>
+
+  <div class="grid">
+
+    <!-- FAIRWAY -->
+    <a class="dir" href="fairway.html">
+      <div class="top" style="background:radial-gradient(120% 100% at 20% 0%,#23201a,#181613)">
+        <div class="nm" style="color:#faf6ec"><span style="color:#e4c65a">A</span> · Fairway</div>
+        <div class="mini" style="background:#181613">
+          <div class="scr">
+            <div style="flex:1;background:radial-gradient(circle at 50% 38%,#16291d,#181613)"></div>
+            <div style="height:30px;background:#c9a227;margin:6px;border-radius:6px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="role">Heritage · evolved</div>
+        <div class="desc">Forest green and gold on near-black, the topographic read as the signature, clubhouse-serif numerics. The look AIme already owns, made premium. Lowest brand risk.</div>
+        <div class="pal"><i style="background:#181613"></i><i style="background:#c9a227"></i><i style="background:#e4c65a"></i><i style="background:#2d6a4f"></i></div>
+        <div class="open" style="color:#e4c65a">Open Fairway →</div>
+      </div>
+    </a>
+
+    <!-- CADDIE -->
+    <a class="dir" href="caddie.html" style="border-color:rgba(200,242,58,.35)">
+      <div class="top" style="background:radial-gradient(120% 100% at 20% 0%,#15201a,#0c0e0d)">
+        <span class="rec">RECOMMENDED</span>
+        <div class="nm"><span style="color:#c8f23a">B</span> · Caddie</div>
+        <div class="mini" style="background:#0c0e0d">
+          <div class="scr">
+            <div style="flex:1;background:radial-gradient(circle at 50% 40%,#1c5436,#0c130e);position:relative">
+              <div style="position:absolute;left:50%;top:46%;width:22px;height:22px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#c8f23a,#8fae1f);box-shadow:0 0 12px #c8f23a99"></div>
+            </div>
+            <div style="height:30px;background:#c8f23a;margin:6px;border-radius:6px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="role">The instrument</div>
+        <div class="desc">Near-black with an acid-lime live signal, gold reserved for the read. Glass chips over a satellite hole, the voice caddie as the star. The most differentiated and the most 2025.</div>
+        <div class="pal"><i style="background:#0c0e0d"></i><i style="background:#c8f23a"></i><i style="background:#c9a227"></i><i style="background:#2d6a4f"></i></div>
+        <div class="open">Open Caddie →</div>
+      </div>
+    </a>
+
+    <!-- DAYLIGHT -->
+    <a class="dir" href="daylight.html">
+      <div class="top" style="background:radial-gradient(120% 100% at 20% 0%,#ffffff,#dfe7df)">
+        <div class="nm" style="color:#15231b"><span style="color:#15a34a">C</span> · Daylight</div>
+        <div class="mini" style="background:#eef1ec;border-color:rgba(20,40,28,.18)">
+          <div class="scr">
+            <div style="flex:1;background:radial-gradient(circle at 50% 40%,#3f9a63,#cfe0cf)"></div>
+            <div style="height:30px;background:#15a34a;margin:6px;border-radius:6px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="role">Clean analytics · light</div>
+        <div class="desc">Light, white, data-forward, forest green with a gold read. The rigor of the best stats apps, built for the post-round and the web. The biggest departure, the strongest dashboard.</div>
+        <div class="pal"><i style="background:#eef1ec"></i><i style="background:#15a34a"></i><i style="background:#b9881a"></i><i style="background:#1f6b4a"></i></div>
+        <div class="open" style="color:#15a34a">Open Daylight →</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="note">
+    <p><b>Recommendation: B, Caddie.</b> It is the only direction that makes the two things no
+    reference app has, the cm putt read and a real voice caddie, the hero of the whole product.
+    The acid-lime live signal is the modern golf-tech identity (GreenZone, GolfX, Avid), gold stays
+    reserved for the read itself, and the instrument framing is the most ownable. Fairway is the safe
+    heritage play, Daylight is the analytics and web showcase. Each opens standalone above.</p>
+    <p style="margin-top:14px">All three cover the same six screens: Splash, Round setup, Shot guidance,
+    <b>Putt read</b> (the signature), Voice caddie (the differentiator), and Round summary, on the
+    same real round so they compare one to one.</p>
+    <div class="howto">cd ~/code/AIME-2.0/design-study &amp;&amp; python3 -m http.server 8912   # then open /directions/</div>
+  </div>
+
+  <p class="foot">AIme · Phase B of the design synthesis · built 2026-06-27 · self-contained, no build step</p>
+
+</div>
+</body>
+</html>

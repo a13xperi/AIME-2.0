@@ -1,0 +1,93 @@
+<!-- @dsCard group="Screens" title="S-24 Putt Read (LIVE solve_putt)" -->
+<!doctype html><html><head><meta charset="utf-8">
+<title>AIME · Putt Read (live)</title>
+<link rel="stylesheet" href="../../tokens.css">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:var(--bg,#1a1a1a);font-family:-apple-system,'SF Pro',Roboto,sans-serif;color:var(--text,#fff)}
+  .phone{width:390px;margin:24px auto;background:var(--bg,#1a1a1a);border:1px solid #333;border-radius:30px;overflow:hidden}
+  .top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px}
+  .top .hole{font-size:13px;color:var(--muted,#9a9a9a);letter-spacing:.06em}
+  .top .badge{font-size:11px;font-weight:700;color:var(--accent,#c9a227);border:1px solid var(--accent,#c9a227);
+    border-radius:20px;padding:3px 10px}
+  .dist{padding:0 20px 6px}
+  .dist .n{font-size:40px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+  .dist .n small{font-size:16px;color:var(--muted,#9a9a9a);font-weight:600}
+  .dist .slope{font-size:12px;color:var(--muted,#9a9a9a);margin-top:2px}
+  canvas{display:block;width:390px;height:300px;background:radial-gradient(120% 90% at 50% 100%, #2d6a4f33 0%, #1a1a1a 70%)}
+  .read{margin:0 20px 16px;background:var(--surface,#2a2a2a);border:1px solid #3a3a3a;border-radius:14px;padding:14px 16px}
+  .read .say{font-size:15px;line-height:1.45;font-weight:600}
+  .read .stats{display:flex;gap:24px;margin-top:12px;padding-top:12px;border-top:1px solid #3a3a3a}
+  .read .stat .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+  .read .stat .v.gold{color:var(--accent,#c9a227)}
+  .read .stat .l{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#9a9a9a);margin-top:2px}
+  .src{font-size:10.5px;color:#6f6f6f;text-align:center;padding:0 20px 16px}
+  .src b{color:#9a9a9a}
+</style></head>
+<body>
+<div class="phone">
+  <div class="top"><span class="hole">Riverside C.C. · Hole 7</span><span class="badge" id="mode">SOLVED READ</span></div>
+  <div class="dist"><div class="n" id="dist">12<small> ft</small></div><div class="slope" id="slope">uphill · stimp 10.5</div></div>
+  <canvas id="green" width="780" height="600"></canvas>
+  <div class="read">
+    <div class="say" id="say">Reading the line…</div>
+    <div class="stats">
+      <div class="stat"><div class="v gold" id="aim">—</div><div class="l">Aim</div></div>
+      <div class="stat"><div class="v" id="speed">—</div><div class="l">Speed</div></div>
+      <div class="stat"><div class="v" id="pts">—</div><div class="l">Path pts</div></div>
+    </div>
+  </div>
+  <div class="src" id="src">source: <b>POST /solve_putt</b> · waiting…</div>
+</div>
+<script>
+// Demo geometry for a canned Riverside hole (the app supplies these from GPS + tap-the-puck;
+// over a phone call there is no read, which is why the VOICE caddie defers to this screen).
+const REQ = {
+  dtm_id: "riverside_2023_20cm",
+  ball_local_m: {x:0, y:0},
+  cup_local_m:  {x:1.1, y:3.5},
+  stimp: 10.5,
+  request_id: "aime-s24-live"
+};
+const SOLVER = (location.hostname ? "http://127.0.0.1:8081" : "http://127.0.0.1:8081") + "/solve_putt";
+
+function draw(points){
+  const c = document.getElementById('green'), g = c.getContext('2d');
+  g.clearRect(0,0,c.width,c.height);
+  // fit the path (meters) into the canvas with padding, ball at bottom, cup toward top
+  const xs = points.map(p=>p.x), ys = points.map(p=>p.y);
+  const minX=Math.min(...xs), maxX=Math.max(...xs), maxY=Math.max(...ys);
+  const padX=80, padTop=70, padBot=70;
+  const spanX = Math.max(0.6, (maxX-minX)) , spanY = Math.max(0.6, maxY);
+  const W=c.width-2*padX, H=c.height-padTop-padBot;
+  const sx = x => padX + ((x-minX)/spanX)*W * 0.5 + W*0.25;   // keep it centered-ish
+  const sy = y => (c.height-padBot) - (y/spanY)*H;
+  // straight ball->cup reference (faint)
+  g.strokeStyle="#ffffff33"; g.lineWidth=2; g.setLineDash([6,7]);
+  g.beginPath(); g.moveTo(sx(points[0].x),sy(points[0].y)); g.lineTo(sx(points[points.length-1].x),sy(points[points.length-1].y)); g.stroke();
+  g.setLineDash([]);
+  // the solved break path (gold)
+  g.strokeStyle="#c9a227"; g.lineWidth=5; g.lineJoin="round";
+  g.beginPath(); points.forEach((p,i)=> i?g.lineTo(sx(p.x),sy(p.y)):g.moveTo(sx(p.x),sy(p.y))); g.stroke();
+  // ball
+  const b=points[0]; g.fillStyle="#fff"; g.beginPath(); g.arc(sx(b.x),sy(b.y),9,0,7); g.fill();
+  // cup
+  const k=points[points.length-1]; g.fillStyle="#2d6a4f"; g.strokeStyle="#3fae74"; g.lineWidth=3;
+  g.beginPath(); g.arc(sx(k.x),sy(k.y),12,0,7); g.fill(); g.stroke();
+}
+
+fetch(SOLVER,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(REQ)})
+  .then(r=>r.json())
+  .then(d=>{
+    if(!d.success){ document.getElementById('say').textContent="No read: "+(d.error||"solve failed"); return; }
+    document.getElementById('say').textContent = d.instruction_text;
+    document.getElementById('aim').textContent = (d.aim_line_deg>0?"+":"")+d.aim_line_deg.toFixed(1)+"°";
+    document.getElementById('speed').textContent = d.initial_speed_mph.toFixed(1)+" mph";
+    document.getElementById('pts').textContent = d.plot_points_local.length;
+    document.getElementById('src').innerHTML = "source: <b>POST /solve_putt</b> · riverside_2023_20cm · mock engine";
+    draw(d.plot_points_local);
+  })
+  .catch(e=>{ document.getElementById('say').textContent="Solver offline: start putt-solver-service on :8081";
+    document.getElementById('src').innerHTML="source: <b>POST /solve_putt</b> · "+e; });
+</script>
+</body></html>
