@@ -1,0 +1,37 @@
+# Render Blueprint for the AIme putt-solver stack (PER-630). One declarative
+# deploy of both Docker services from this repo. In Render: New > Blueprint >
+# connect a13xperi/AIME-2.0 > it provisions aime-puttsolver + aime-backend.
+#
+# Two env vars are intentionally left for you to fill after the first deploy
+# (marked sync:false), because they depend on the deployed URLs:
+#   - aime-backend PUTTSOLVER_SERVICE_URL -> the aime-puttsolver internal URL
+#       (Render Dashboard > aime-puttsolver > Connect > Internal, e.g.
+#        http://aime-puttsolver:8081)
+#   - aime-backend FRONTEND_URL -> the web app origin (the Vercel URL), for CORS
+# Then point the web app's REACT_APP_PUTT_API_URL at the aime-backend URL.
+services:
+  - type: web
+    name: aime-puttsolver
+    runtime: docker
+    dockerfilePath: ./putt-solver-service/Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: PUTTSOLVER_MODE
+        value: mock
+
+  - type: web
+    name: aime-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /
+    envVars:
+      - key: AIME_TRANSFORM_MODE
+        value: mock
+      - key: PUTTSOLVER_SERVICE_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false

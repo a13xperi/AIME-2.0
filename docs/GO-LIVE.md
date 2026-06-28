@@ -64,11 +64,29 @@ Operator, after cutover:
 6. **Rotate `OPENAI_API_KEY`** (it was exposed via the old `/api/token`). Hand
    over the new value if anything still needs OpenAI; otherwise drop it.
 
-## Later (out of scope for this pass)
+## Later (out of scope for the local-first pass, but now prepped)
 
-- Deploy to Vercel: set the same env vars in the Vercel dashboard, `vercel --prod`.
-  Frontend -> Supabase works on Vercel; the Python putt-solver still needs a
-  production host (Dockerfile + Railway/Render) before live reads work off-localhost.
+**Frontend to Vercel:** set the same env vars in the Vercel dashboard, `vercel
+--prod`. Frontend -> Supabase works on Vercel as-is.
+
+**Putt-solver host (PER-630).** Both services are Dockerized and verified
+(`backend/Dockerfile`, `putt-solver-service/Dockerfile`, `docker-compose.yml`).
+Two ways to deploy:
+
+- Render (one declarative file, `render.yaml`): New > Blueprint > connect
+  a13xperi/AIME-2.0. It provisions `aime-puttsolver` + `aime-backend`. After the
+  first deploy set the two `sync:false` vars: `aime-backend` `PUTTSOLVER_SERVICE_URL`
+  = the `aime-puttsolver` internal URL (e.g. http://aime-puttsolver:8081) and
+  `FRONTEND_URL` = the web app origin.
+- Railway (fleet default): two services off this repo, each with its Dockerfile
+  path (`backend/Dockerfile`, `putt-solver-service/Dockerfile`) and root context
+  `.`; set the same env (`PUTTSOLVER_MODE=mock`, `AIME_TRANSFORM_MODE=mock`,
+  `PUTTSOLVER_SERVICE_URL` -> the solver's private URL).
+
+After either: point the web app's `REACT_APP_PUTT_API_URL` at the deployed
+`aime-backend` URL, and promote the voice `solve_putt` from an app CLIENT tool to
+a deployed SERVER tool (agent calls the hosted `/api/solve_putt`) so the caddie
+reads putts on the phone too. The engine stays mock until the Windows DLL lands.
 
 ## Verification gates
 
