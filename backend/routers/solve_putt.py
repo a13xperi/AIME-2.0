@@ -3,7 +3,7 @@ Solve Putt Router - AIME Backend
 Handles WGS84 -> green_local_m transformation and calls PuttSolver service.
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Header, Depends
 from pydantic import BaseModel, Field
 from typing import Optional, List
 import os
@@ -23,6 +23,17 @@ router = APIRouter(prefix="/api", tags=["putt-solver"])
 # Load environment variables
 PUTTSOLVER_SERVICE_URL = os.getenv("PUTTSOLVER_SERVICE_URL", "http://localhost:8081")
 AIME_TRANSFORM_MODE = os.getenv("AIME_TRANSFORM_MODE", "mock")
+# Optional shared-secret gate. When SOLVE_PUTT_TOOL_SECRET is set (i.e. once the
+# endpoint is exposed publicly, e.g. as the ElevenLabs voice server tool),
+# callers must send a matching X-AIME-Tool-Secret header. Unset = open (local dev
+# / the same-origin app client), so this is backward compatible.
+SOLVE_PUTT_TOOL_SECRET = os.getenv("SOLVE_PUTT_TOOL_SECRET")
+
+
+def verify_tool_secret(x_aime_tool_secret: Optional[str] = Header(default=None)):
+    """Reject calls with a missing/wrong secret, but only when one is configured."""
+    if SOLVE_PUTT_TOOL_SECRET and x_aime_tool_secret != SOLVE_PUTT_TOOL_SECRET:
+        raise HTTPException(status_code=401, detail="Invalid or missing tool secret")
 # Resolve registry path relative to repo root
 _REPO_ROOT = Path(__file__).parent.parent.parent
 REGISTRY_PATH = _REPO_ROOT / "course_data" / "datasets.json"
@@ -152,7 +163,8 @@ def transform_wgs84_to_green_local_m(
         
         return {"x": x_local, "y": y_local}
 
-@router.post("/solve_putt", response_model=SolvePuttToolResponse)
+@router.post("/solve_putt", response_model=SolvePuttToolResponse,
+             dependencies=[Depends(verify_tool_secret)])
 async def solve_putt(request: SolvePuttToolRequest):
     """
     Solve a putt given ball and cup positions in WGS84 coordinates.

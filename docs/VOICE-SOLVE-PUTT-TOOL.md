@@ -30,7 +30,7 @@ Add to the aime-caddie agent (replace the URL with the deployed backend):
   "api_schema": {
     "url": "https://REPLACE-WITH-DEPLOYED-BACKEND/api/solve_putt",
     "method": "POST",
-    "request_headers": { "Content-Type": "application/json" },
+    "request_headers": { "Content-Type": "application/json", "X-AIME-Tool-Secret": "<your SOLVE_PUTT_TOOL_SECRET>" },
     "request_body_schema": {
       "type": "object",
       "required": ["course_id", "hole_id", "ball_wgs84", "cup_wgs84", "stimp"],
@@ -65,12 +65,16 @@ same read.
 - Or extend `scripts/aime-agent.sh` with a `tool <backend_url>` action that
   PATCHes the agent's `prompt.tools` (operator-run, mirrors the `apply` action).
 
-## Auth (recommended hardening)
+## Auth (implemented)
 
-`/api/solve_putt` is currently unauthenticated. Before exposing it publicly, add
-a shared-secret header that the backend validates and configure it as an
-ElevenLabs tool secret (secret header, not HMAC, per our EL convention). The
-solver returns no PII, but the endpoint should not be open to the internet.
+The backend supports a shared-secret gate (`backend/routers/solve_putt.py`): set
+`SOLVE_PUTT_TOOL_SECRET` on the deployed backend and callers must send a matching
+`X-AIME-Tool-Secret` header. Verified end-to-end: 401 without / with a wrong
+secret, 200 with the right one; unset = open (local dev / the same-origin app
+client, backward compatible). When wiring the EL tool, add `X-AIME-Tool-Secret`
+as a tool secret header (secret header, not HMAC, per our EL convention) with the
+same value. The solver returns no PII, but the endpoint should not be open to the
+internet once deployed.
 
 ## Prompt note
 
