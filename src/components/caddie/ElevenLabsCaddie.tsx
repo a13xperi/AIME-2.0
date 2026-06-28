@@ -7,12 +7,15 @@
  * and registers a `solve_putt` client tool that forwards to the SAME backend
  * the putt-read screen uses, so screen and voice converge on one read.
  *
+ * useConversation (v1.x) must run inside a <ConversationProvider>, so the screen
+ * is split: the provider wraps an inner component that drives the session.
+ *
  * Lives at /caddie alongside the OpenAI routes (/golf, /aime) until it passes a
  * Switchboard /scenario; then those routes point here and /api/token +
  * /api/realtime are retired (and the OpenAI key rotated).
  */
 import React, { useCallback, useState } from 'react';
-import { useConversation } from '@elevenlabs/react';
+import { ConversationProvider, useConversation } from '@elevenlabs/react';
 import { solvePutt, formatAim, SolvePuttRequest } from '../../lib/puttSolver';
 import './ElevenLabsCaddie.css';
 
@@ -23,7 +26,7 @@ type ToolParams = Record<string, unknown>;
 const num = (v: unknown, fallback = 0): number =>
   typeof v === 'number' ? v : typeof v === 'string' && v.trim() !== '' ? Number(v) : fallback;
 
-const ElevenLabsCaddie: React.FC = () => {
+const CaddieSession: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // The agent calls this during conversation; we resolve the read off the same
@@ -92,7 +95,7 @@ const ElevenLabsCaddie: React.FC = () => {
           <div className="caddie-status">
             {status === 'connecting' && 'Connecting...'}
             {connected && (isSpeaking ? 'Caddie is talking' : 'Listening...')}
-            {status === 'disconnected' && 'Tap to talk to your caddie'}
+            {(status === 'disconnected' || status === 'error') && 'Tap to talk to your caddie'}
           </div>
 
           {error && <div className="caddie-error">{error}</div>}
@@ -117,5 +120,11 @@ const ElevenLabsCaddie: React.FC = () => {
     </div>
   );
 };
+
+const ElevenLabsCaddie: React.FC = () => (
+  <ConversationProvider>
+    <CaddieSession />
+  </ConversationProvider>
+);
 
 export default ElevenLabsCaddie;
