@@ -1,6 +1,8 @@
 /**
- * AIME Splash Screen Styles
- * Matches Figma design: dark green background, white logo with golf icon
+ * AIme Splash Screen Styles (Caddie direction)
+ * Near-black app field, forest phone frame. Wordmark with the lime "AI" live
+ * signal, mono caddie subtitle, brand-seed tagline. Pulls all color/type from
+ * design tokens.
  */
 
 .splash-screen {
@@ -9,18 +11,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f5f5;
+  background: var(--bg);
   padding: 2rem;
+  animation: fadeIn 0.5s ease-in;
 }
 
 .phone-frame {
   position: relative;
   width: 375px;
   height: 812px;
-  background: #1a4d3a; /* Dark green background matching Figma */
+  background: var(--green-deep);
   border-radius: 40px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,92 +38,78 @@
   transform: translateX(-50%);
   width: 120px;
   height: 30px;
-  background: #000;
+  background: var(--bg);
   border-radius: 0 0 20px 20px;
   z-index: 10;
 }
 
-/* Logo Container */
-.logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Logo + brand stack */
+.splash-body {
   flex: 1;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   padding: 2rem;
 }
 
-.aime-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-text {
-  font-size: 4rem;
+.aime-wordmark {
+  font-family: var(--display);
+  font-size: 4.75rem;
   font-weight: 700;
-  color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  letter-spacing: -0.02em;
-  display: flex;
-  align-items: center;
+  letter-spacing: 0.01em;
   line-height: 1;
 }
 
-.logo-a {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.05em;
+.aime-wordmark .wm-ai {
+  color: var(--lime);
 }
 
-.logo-a-left-stroke,
-.logo-a-right-stroke {
+.aime-wordmark .wm-me {
+  color: var(--text);
+}
+
+.aime-subtitle {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--lime-dim);
+}
+
+.aime-tagline {
+  text-align: center;
+  margin-top: 18px;
+  line-height: 1.5;
+}
+
+.aime-tagline .tagline-strong {
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.aime-tagline .tagline-soft {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.splash-footer {
   position: absolute;
-  width: 0.15em;
-  height: 1em;
-  background: #ffffff;
-  border-radius: 2px;
-}
-
-.logo-a-left-stroke {
+  bottom: 28px;
   left: 0;
-  transform: rotate(-20deg);
-  transform-origin: bottom center;
-}
-
-.logo-a-right-stroke {
   right: 0;
-  transform: rotate(20deg);
-  transform-origin: bottom center;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--dim);
 }
 
-.logo-golf-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -35%);
-  width: 1.5em;
-  height: 0.4em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  z-index: 1;
-}
-
-.golf-club-ball {
-  width: 100%;
-  height: 100%;
-  color: #ffffff;
-}
-
-.logo-rest {
-  display: inline-block;
+.splash-footer .dot {
+  color: var(--lime);
 }
 
 /* Responsive adjustments */
@@ -134,21 +123,20 @@
   }
 
   .phone-notch {
-    display: none; /* Hide notch on smaller screens */
+    display: none;
   }
 
-  .logo-text {
-    font-size: 3rem;
+  .aime-wordmark {
+    font-size: 3.5rem;
   }
 }
 
 @media (max-width: 375px) {
-  .logo-text {
-    font-size: 2.5rem;
+  .aime-wordmark {
+    font-size: 3rem;
   }
 }
 
-/* Animation for splash screen (optional) */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -157,8 +145,3 @@
     opacity: 1;
   }
 }
-
-.splash-screen {
-  animation: fadeIn 0.5s ease-in;
-}
-

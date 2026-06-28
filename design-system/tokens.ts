@@ -5,13 +5,16 @@
  */
 export const tokens = {
   color: {
-    bg: "#1a1a1a",
-    surface: "#2a2a2a",
-    surface2: "#222222",
+    bg: "#0c0e0d",
+    surface: "#141719",
+    surface2: "#101316",
     greenDeep: "#16291d",
     line: "rgba(255,255,255,0.10)",
     lineStrong: "rgba(255,255,255,0.16)",
 
+    lime: "#c8f23a",
+    limeDim: "#8fae1f",
+    limeSoft: "#dcf08a",
     primary: "#2d6a4f",
     primaryPress: "#245a42",
     accent: "#c9a227",
@@ -33,8 +36,9 @@ export const tokens = {
     },
   },
   font: {
-    sans: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, system-ui, sans-serif',
-    mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace',
+    sans: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif',
+    display: '"Saira Condensed", "Inter", system-ui, sans-serif',
+    mono: '"Space Mono", "SF Mono", Monaco, "Roboto Mono", Consolas, monospace',
   },
   fontSize: { display: 48, h1: 28, h2: 20, body: 16, sm: 14, xs: 12 },
   fontWeight: { reg: 400, med: 500, semi: 600, bold: 700 },

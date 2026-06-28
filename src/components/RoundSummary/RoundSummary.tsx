@@ -52,9 +52,9 @@ const RoundSummary: React.FC = () => {
   };
 
   const getScoreColor = (overPar: number) => {
-    if (overPar <= 0) return '#4ade80';
-    if (overPar <= 5) return '#fbbf24';
-    return '#ef4444';
+    if (overPar <= 0) return 'var(--lime)';
+    if (overPar <= 5) return 'var(--accent)';
+    return 'var(--bad)';
   };
 
   return (

@@ -4,7 +4,7 @@
 
 .my-bag-screen {
   min-height: 100vh;
-  background: #0f2e1f;
+  background: var(--bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@
   width: 100%;
   max-width: 375px;
   height: 812px;
-  background: #1a1a1a;
+  background: var(--bg);
   border-radius: 40px;
   padding: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -29,7 +29,7 @@
   transform: translateX(-50%);
   width: 120px;
   height: 30px;
-  background: #1a1a1a;
+  background: var(--bg);
   border-radius: 0 0 20px 20px;
   z-index: 10;
 }
@@ -37,7 +37,7 @@
 .screen-content {
   width: 100%;
   height: 100%;
-  background: #1a4d3a;
+  background: var(--green-deep);
   border-radius: 32px;
   padding: 60px 20px 20px;
   overflow-y: auto;
@@ -52,13 +52,13 @@
 .screen-header h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text);
   margin-bottom: 8px;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #a7f3d0;
+  color: var(--lime-soft);
 }
 
 .bag-options {
@@ -70,10 +70,10 @@
 .option-btn {
   flex: 1;
   padding: 12px 16px;
-  background: rgba(74, 222, 128, 0.1);
-  border: 1px solid rgba(74, 222, 128, 0.3);
+  background: rgba(200, 242, 58, 0.1);
+  border: 1px solid rgba(200, 242, 58, 0.3);
   border-radius: 12px;
-  color: #4ade80;
+  color: var(--lime);
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -81,8 +81,8 @@
 }
 
 .option-btn:hover {
-  background: rgba(74, 222, 128, 0.2);
-  border-color: rgba(74, 222, 128, 0.5);
+  background: rgba(200, 242, 58, 0.2);
+  border-color: rgba(200, 242, 58, 0.5);
 }
 
 .option-btn.secondary {
@@ -102,7 +102,7 @@
 .club-category h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #4ade80;
+  color: var(--lime);
   margin-bottom: 16px;
 }
 
@@ -117,15 +117,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background: rgba(15, 46, 31, 0.5);
-  border: 1px solid rgba(74, 222, 128, 0.2);
+  background: rgba(12, 16, 13, 0.5);
+  border: 1px solid rgba(200, 242, 58, 0.2);
   border-radius: 12px;
 }
 
 .club-name {
   font-size: 1.1rem;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--text);
 }
 
 .distance-input {
@@ -137,23 +137,23 @@
 .distance-input input {
   width: 80px;
   padding: 8px 12px;
-  background: rgba(74, 222, 128, 0.1);
-  border: 1px solid rgba(74, 222, 128, 0.3);
+  background: rgba(200, 242, 58, 0.1);
+  border: 1px solid rgba(200, 242, 58, 0.3);
   border-radius: 8px;
-  color: #ffffff;
+  color: var(--text);
   font-size: 1rem;
   text-align: right;
 }
 
 .distance-input input:focus {
   outline: none;
-  border-color: #4ade80;
-  background: rgba(74, 222, 128, 0.15);
+  border-color: var(--lime);
+  background: rgba(200, 242, 58, 0.15);
 }
 
 .unit {
   font-size: 0.9rem;
-  color: #a7f3d0;
+  color: var(--lime-soft);
 }
 
 .putter-item {
@@ -168,8 +168,8 @@
 .btn-primary {
   width: 100%;
   padding: 16px;
-  background: #4ade80;
-  color: #0f2e1f;
+  background: var(--lime);
+  color: var(--bg);
   border: none;
   border-radius: 12px;
   font-size: 1.1rem;
@@ -179,8 +179,8 @@
 }
 
 .btn-primary:hover {
-  background: #22c55e;
+  background: var(--lime);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(74, 222, 128, 0.3);
+  box-shadow: 0 8px 20px rgba(200, 242, 58, 0.3);
 }
 

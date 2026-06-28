@@ -1,23 +1,26 @@
 /* ============================================================================
-   AIME Golf — Design Tokens (single source of truth)
-   Canonical brand (Figma/Notion spec): forest green + GOLD on near-black.
-   Reconciles the repo's drifted palette (Tailwind grays/greens #4ade80,
-   blues, amber, scattered across 80 CSS files) down to one system.
-   Every component + screen preview pulls color/type/space from HERE only.
+   AIme Golf, Design Tokens (single source of truth)
+   Direction B "Caddie" (Phase C): acid-lime live signal + GOLD read on
+   near-black, forest green as structure. Reconciles the repo's drifted palette
+   (Tailwind greens #4ade80 / #22c55e, grays, ambers across ~78 CSS files) down
+   to one system. Screens pull color / type / space from HERE only.
    ============================================================================ */
 :root {
   /* ---- Surfaces ---- */
-  --bg: #1a1a1a;            /* app background */
-  --surface: #2a2a2a;       /* cards, inputs, raised surfaces */
-  --surface-2: #222222;     /* subtle alt surface */
+  --bg: #0c0e0d;            /* app background (Caddie near-black) */
+  --surface: #141719;       /* cards, inputs, raised surfaces */
+  --surface-2: #101316;     /* subtle alt surface */
   --green-deep: #16291d;    /* on-course / green-reading screens */
   --line: rgba(255, 255, 255, 0.10);
   --line-strong: rgba(255, 255, 255, 0.16);
 
-  /* ---- Brand ---- */
-  --primary: #2d6a4f;       /* forest green — structural, secondary CTAs */
+  /* ---- Brand (Caddie: lime live-signal + gold read on near-black) ---- */
+  --lime: #c8f23a;          /* acid-lime: live / AI / primary action */
+  --lime-dim: #8fae1f;
+  --lime-soft: #dcf08a;
+  --primary: #2d6a4f;       /* forest green: structural, secondary */
   --primary-press: #245a42;
-  --accent: #c9a227;        /* GOLD — primary CTAs, hero numbers, highlights */
+  --accent: #c9a227;        /* GOLD: the read, hero numbers, highlights */
   --accent-soft: #e4c65a;
   --accent-press: #a9871d;
 
@@ -36,8 +39,9 @@
   --double: #4a0000;
 
   /* ---- Type ---- */
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, system-ui, sans-serif;
-  --mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  --display: "Saira Condensed", var(--font);   /* condensed display + numerics */
+  --mono: "Space Mono", "SF Mono", Monaco, "Roboto Mono", Consolas, monospace;
   --fs-display: 48px;
   --fs-h1: 28px;
   --fs-h2: 20px;
