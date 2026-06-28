@@ -956,6 +956,40 @@ app.post('/api/realtime', async (req: Request, res: Response) => {
   }
 });
 
+// ElevenLabs Conversational AI: mint a short-lived signed WebSocket URL
+// server-side so the API key never reaches the browser. This is the secure
+// replacement for the OpenAI /api/token path (which leaks the raw key); once
+// the ElevenLabs caddie passes a /scenario, the OpenAI token/realtime routes
+// above are retired and that key is rotated.
+app.get('/api/elevenlabs/signed-url', async (req: Request, res: Response) => {
+  try {
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    const agentId = (req.query.agent_id as string) || process.env.ELEVENLABS_AGENT_ID;
+
+    if (!apiKey || !agentId) {
+      return res.status(500).json({ error: 'ElevenLabs is not configured' });
+    }
+
+    // @ts-ignore - fetch is available in Node.js 18+
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/convai/conversation/get-signed-url?agent_id=${encodeURIComponent(agentId)}`,
+      { headers: { 'xi-api-key': apiKey } }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      logger.error(`ElevenLabs signed-url failed: ${response.status}`, { error: errorText });
+      return res.status(502).json({ error: `ElevenLabs signed-url failed: ${response.status}` });
+    }
+
+    const data = await response.json();
+    res.json({ signed_url: data.signed_url });
+  } catch (error) {
+    logger.error('Error minting ElevenLabs signed URL:', error);
+    res.status(500).json({ error: 'Failed to mint ElevenLabs signed URL' });
+  }
+});
+
 // OpenAI Chat API proxy
 app.post('/api/chat', async (req: Request, res: Response) => {
   try {

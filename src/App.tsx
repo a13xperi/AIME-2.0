@@ -14,6 +14,7 @@ import SessionDetail from './components/SessionDetail/SessionDetail';
 import AnalyticsDashboard from './components/AnalyticsDashboard/AnalyticsDashboard';
 import TeamCollaboration from './components/TeamCollaboration/TeamCollaboration';
 import AIRealtime from './components/airealtime/AIRealtime';
+import ElevenLabsCaddie from './components/caddie/ElevenLabsCaddie';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import LandingPage from './components/LandingPage/LandingPage';
 import MyBag from './components/MyBag/MyBag';
@@ -75,6 +76,9 @@ function App() {
             {/* AIME Golf AI Route */}
             <Route path="/golf" element={<AIRealtime />} />
             <Route path="/aime" element={<AIRealtime />} />
+            {/* ElevenLabs voice caddie (coexists with the OpenAI path until it
+                passes a /scenario; then /golf + /aime point here) */}
+            <Route path="/caddie" element={<ElevenLabsCaddie />} />
             {/* AIME App Flow */}
             <Route path="/splash" element={<SplashScreen />} />
             <Route path="/course-selection" element={<CourseSelection />} />
