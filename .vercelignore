@@ -8,4 +8,16 @@ coverage
 .vscode
 .idea
 
+# Not needed for the frontend build (keeps the upload lean):
+design-study
+docs
+backend
+putt-solver-service
+supabase
+out
+**/Dockerfile
+docker-compose.yml
+render.yaml
+.dockerignore
+
 
