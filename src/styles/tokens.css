@@ -1,0 +1,66 @@
+/* ============================================================================
+   AIme Golf, Design Tokens (APP source of truth)
+   Direction B "Caddie": acid-lime live signal + GOLD read on near-black, forest
+   green as structure. This file is imported by the React app (src/index.css);
+   CRA forbids importing CSS from outside src/, so the app token file lives here.
+   design-system/tokens.css mirrors this for the standalone HTML mockups, and
+   design-system/tokens.ts mirrors it for any TS consumer. Keep the three in sync.
+   ============================================================================ */
+:root {
+  /* ---- Surfaces ---- */
+  --bg: #0c0e0d;            /* app background (Caddie near-black) */
+  --surface: #141719;       /* cards, inputs, raised surfaces */
+  --surface-2: #101316;     /* subtle alt surface */
+  --green-deep: #16291d;    /* on-course / green-reading screens */
+  --line: rgba(255, 255, 255, 0.10);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  /* ---- Brand (Caddie: lime live-signal + gold read on near-black) ---- */
+  --lime: #c8f23a;          /* acid-lime: live / AI / primary action */
+  --lime-dim: #8fae1f;
+  --lime-soft: #dcf08a;
+  --primary: #2d6a4f;       /* forest green: structural, secondary */
+  --primary-press: #245a42;
+  --accent: #c9a227;        /* GOLD: the read, hero numbers, highlights */
+  --accent-soft: #e4c65a;
+  --accent-press: #a9871d;
+
+  /* ---- Text ---- */
+  --text: #ffffff;
+  --muted: #999999;
+  --dim: #666666;
+
+  /* ---- Semantic / scoring ---- */
+  --good: #3fae74;          /* under par / positive */
+  --bad: #c0392b;           /* over par / error */
+  --eagle: #c9a227;
+  --birdie: #2d6a4f;
+  --par: #2a2a2a;
+  --bogey: #8b0000;
+  --double: #4a0000;
+
+  /* ---- Type ---- */
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  --display: "Saira Condensed", var(--font);   /* condensed display + numerics */
+  --mono: "Space Mono", "SF Mono", Monaco, "Roboto Mono", Consolas, monospace;
+  --fs-display: 48px;
+  --fs-h1: 28px;
+  --fs-h2: 20px;
+  --fs-body: 16px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+  --fw-reg: 400;
+  --fw-med: 500;
+  --fw-semi: 600;
+  --fw-bold: 700;
+
+  /* ---- Space (8pt grid) ---- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px;
+
+  /* ---- Radius / elevation / controls ---- */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-pill: 999px;
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  --shadow-sm: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --tap: 44px;
+}

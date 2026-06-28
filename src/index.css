@@ -1,4 +1,4 @@
-@import '../design-system/tokens.css';
+@import './styles/tokens.css';
 
 body {
   margin: 0;
@@ -11,4 +11,29 @@ body {
 
 code {
   font-family: var(--mono);
+}
+
+/*
+ * Golf CTA guard. `.btn-primary` / `.btn-secondary` are redefined in ~48
+ * component CSS files (golf + legacy "Agent Alex" project-management screens),
+ * and CRA bundles all CSS into one global sheet, so a legacy blue
+ * `.btn-primary` (#3b82f6) clobbers the golf lime one by load order. Scoping to
+ * `.phone-frame` (golf screens only) raises specificity so the Caddie buttons
+ * win everywhere. The real fix is deleting the legacy screens; this holds the
+ * brand until then.
+ */
+.phone-frame .btn-primary {
+  background: var(--lime);
+  color: var(--bg);
+}
+.phone-frame .btn-primary:hover {
+  background: var(--lime);
+}
+.phone-frame .btn-secondary {
+  background: transparent;
+  color: var(--lime);
+  border: 2px solid var(--lime);
+}
+.phone-frame .btn-secondary:hover {
+  background: rgba(200, 242, 58, 0.1);
 }
