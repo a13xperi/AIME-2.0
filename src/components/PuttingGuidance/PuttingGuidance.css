@@ -294,3 +294,54 @@
   text-decoration: underline;
 }
 
+/* ---- Live solved read (putt-solver wiring) ---- */
+.green-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.green-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 2.5rem;
+  pointer-events: none;
+}
+
+.read-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(200, 242, 58, 0.1);
+}
+
+.read-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.read-stat-value.gold {
+  color: var(--accent);
+}
+
+.read-stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.read-source {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: var(--dim);
+}
+
