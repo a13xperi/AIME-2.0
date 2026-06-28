@@ -4,7 +4,7 @@
  * Provides global state management for golf round data
  */
 
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, useRef, ReactNode } from 'react';
 import {
   Round,
   Course,
@@ -15,6 +15,7 @@ import {
   RoundSettings,
   RoundFormat,
 } from '../types/round';
+import * as roundsRepo from '../lib/roundsRepo';
 
 interface RoundContextType {
   // State
@@ -57,6 +58,11 @@ export const RoundProvider: React.FC<RoundProviderProps> = ({ children }) => {
     ],
   });
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+
+  // DB round id (resolved async) for best-effort Supabase persistence. Stays
+  // null until a round starts and the write lands; every read is guarded, so
+  // the app is unchanged when Supabase / auth are not yet live.
+  const dbRoundIdRef = useRef<Promise<string | null> | null>(null);
 
   const startRound = useCallback((course: Course, settings: RoundSettings) => {
     const roundId = `round-${Date.now()}`;
@@ -101,10 +107,19 @@ export const RoundProvider: React.FC<RoundProviderProps> = ({ children }) => {
     setCurrentRound(newRound);
     setCurrentHole(1);
     setSelectedCourse(course);
+
+    // best-effort persistence (no-op until Supabase + auth are live)
+    dbRoundIdRef.current = roundsRepo.createRound(newRound);
   }, []);
 
   const completeHole = useCallback((holeNumber: number, score: number, stats: Hole['stats']) => {
     if (!currentRound) return;
+
+    const par = currentRound.holes.find((h) => h.number === holeNumber)?.par ?? 0;
+    void (async () => {
+      const id = await dbRoundIdRef.current;
+      if (id) roundsRepo.upsertRoundHole(id, { number: holeNumber, par, score, stats });
+    })();
 
     setCurrentRound((prevRound) => {
       if (!prevRound) return prevRound;
@@ -211,6 +226,11 @@ export const RoundProvider: React.FC<RoundProviderProps> = ({ children }) => {
         holes: updatedHoles,
       };
     });
+
+    void (async () => {
+      const id = await dbRoundIdRef.current;
+      if (id) roundsRepo.recordShot(id, shot);
+    })();
   }, [currentRound]);
 
   const updateClubBag = useCallback((bag: ClubBag) => {
@@ -220,13 +240,19 @@ export const RoundProvider: React.FC<RoundProviderProps> = ({ children }) => {
   const finishRound = useCallback(() => {
     if (!currentRound) return;
 
+    const endTime = new Date().toISOString();
     setCurrentRound((prevRound) => {
       if (!prevRound) return prevRound;
       return {
         ...prevRound,
-        endTime: new Date().toISOString(),
+        endTime,
       };
     });
+
+    void (async () => {
+      const id = await dbRoundIdRef.current;
+      if (id) roundsRepo.finishRound(id, endTime);
+    })();
   }, [currentRound]);
 
   const selectCourse = useCallback((course: Course | null) => {
